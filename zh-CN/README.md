@@ -1,18 +1,19 @@
 # SMOKE [![DOI](https://zenodo.org/badge/39790736.svg)](https://zenodo.org/badge/latestdoi/39790736)
 
-The Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System was originally developed at MCNC to integrate emissions data processing with high-performance computing (HPC) sparse-matrix algorithms. SMOKE is now under active development at the Institute for the Environment and is partially supported by the Community Modeling and Analysis System (CMAS).
+稀疏矩阵运算符内核排放（The Sparse Matrix Operator Kernel Emissions，SMOKE）模型系统最初是由MCNC开发的，旨在将排放数据处理与高性能计算（high-performance computing，HPC）稀疏矩阵算法（sparse-matrix algorithms）集成在一起。SMOKE现在由环境研究所开发，并得到了社区模型和分析系统（Community Modeling and Analysis System，CMAS）的支持。
 
-SMOKE is primarily an emissions processing system designed to create gridded, speciated, hourly emissions for input into a variety of air quality models such as CMAQ, REMSAD, CAMX and UAM. SMOKE supports area, biogenic, mobile (both onroad and nonroad), and point source emissions processing for criteria, particulate, and toxic pollutants. For biogenic emissions modeling, SMOKE uses the Biogenic Emission Inventory System, version 2.5 (BEIS2) and version 3.09 and 3.14 (BEIS3). SMOKE is also integrated with the on-road emissions model MOBILE6 and MOVES.
+SMOKE主要是一种排放处理系统，旨在创建网格化的、独立的逐小时排放量数据，以输入到各种空气质量模型中，例如CMAQ、REMSAD、CAMX和UAM。SMOKE支持面源、生物源、移动源（道路和非道路）以及点源排放的基本污染物、颗粒物和有毒污染物的处理。对于生物排放模型，SMOKE使用生物源排放清单系统（Biogenic Emission Inventory System）的2.5版本（BEIS2）、3.09版本和3.14版本（BEIS3）。SMOKE还与道路排放模型MOBILE6和MOVES集成在一起。
 
-The sparse matrix approach used throughout SMOKE permits rapid and flexible processing of emissions data. Rapid processing is possible because SMOKE uses a series of matrix calculations rather than a less-efficient sequential approach used by previous systems. Flexible processing comes from splitting the processing steps of inventory growth, controls, chemical speciation, temporal allocation, and spatial allocation into independent steps whenever possible. The results from these steps are merged together in the final stage of processing using vector-matrix multiplication. This means that individual steps (such as adding a new control strategy, or processing for a different grid) can be performed and merged without having to redo all of the other processing steps.
+SMOKE使用的稀疏矩阵方法可以快速、灵活地处理排放数据。由于SMOKE使用一系列矩阵计算，而不是先前系统使用的效率较低的顺序方法，因此可以进行快速处理。同时，SMOKE灵活的处理过程可以将清单增加、控制、化学物种、时间分配和空间分配的处理尽可能地分成独立的步骤。这些子步骤的处理结果在使用向量矩阵乘法的最后处理阶段合并在一起。这意味着可以单独执行和合并各个步骤（例如增加新的控制措施或处理用于不同的网格设置），而不必重做其他所有处理。
 
-The original SMOKE concept was envisioned in the early 1990's at MCNC by Dr. Carlie Coats. Marc Houyoux managed the development of SMOKE until his departure to the U.S. EPA Office of Air Quality Planning and Standards in 2002. With active-development continuing at the CEMPD, lead SMOKE development was passed from Catherine Seppanen to Dr. B.H. Baek in 2005. While some SMOKE development is occurring outside of CEMPD, the primary line of development is managed by Dr. Baek under funding from the U.S. EPA.
+最初的SMOKE概念在1990年代初期由Carlie Coats博士在MCNC提出。Marc Houyoux负责SMOKE的开发，直到2002年离开美国EPA空气质量计划和标准办公室。随着CEMPD的积极发展，SMOKE的主要开发工作在2005年从Catherine Seppanen移交给了B.H.Baek博士。尽管在CEMPD之外也进行了一些SMOKE的开发，但主要的开发线由B.H.Baek博士管理，并获得了美国EPA的资助。
 
-# SMOKE-ready Input Data Files
+# 支持SMOKE的输入数据文件
 
-SMOKE input data consist of emissions inventories, temporal and chemical speciation profiles, spatial surrogates, gridded meteorology and land use data, and other ancillary files for specifying the timing, location, and chemical nature of emissions. SMOKE is distributed with example data for getting started with the model. The example files distributed with SMOKE are for demonstration purposes only, they are not meant for real-world modeling applications.
+SMOKE输入数据包括排放清单、时间和化学形态概况、空间替代物、网格气象资料和土地利用数据，以及其他用于指定排放时间、位置和化学性质的辅助文件。部分示例数据随同SMOKE一起发布，可用于模型入门。但要注意示例文件仅用于演示目的，并不能用于实际的建模。
 
-The primary source for non-meteorology SMOKE input data is the U.S. EPA Clearinghouse for Inventories and Emissions Factors (CHIEF). The U.S. EPA Office of Air Quality Planning and Standards (OAQPS) Emissions Inventory and Analysis Group (EIAG) provides SMOKE inputs for different rule-making modeling platforms. These platforms include not only the NEI for both criteria air pollutants (CAPs) and hazardous air pollutants (HAPs), but also all of the SMOKE ancillary data files created by EPA for use in SMOKE. EPA uses CHIEF to provide these data.
+除气象之外的SMOKE输入数据的主要来源是美国EPA清单和排放因子交换所（Clearinghouse for Inventories and Emissions Factors，CHIEF）。美国EPA空气质量计划和标准办公室（Office of Air Quality Planning and Standards，OAQPS）排放清单和分析小组（Emissions Inventory and Analysis Group，EIAG）为不同模型平台提供SMOKE输入数据。这些平台不仅包括基本空气污染物（criteria air pollutants，CAPs）和有害空气污染物（hazardous air pollutants，HAPs）的NEI，还包括EPA创建的用于SMOKE的所有辅助数据文件。EPA通过CHIEF提供这些数据。
 
-Meteorology data must be generated for specific SMOKE applications using either MM5, WRF, or a similar model. The output data from meteorology models must be formatted for SMOKE using a program like MCIP.
+SMOKE必须使用MM5、WRF或类似模型生成的气象数据，同时必须使用MCIP之类的程序对以上气象模型的输出数据进行处理以满足SMOKE格式要求。
 
+[SMOKE用户手册](documentation/README.md)
