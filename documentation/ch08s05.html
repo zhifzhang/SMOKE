@@ -1,0 +1,154 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.5.&nbsp;Chemical speciation</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s04s06.html" title="8.4.6.&nbsp;GRIDDESC: Grids and projection information">
+      <link rel="next" href="ch08s05s02.html" title="8.5.2.&nbsp;GSPRO: Speciation profile file">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.5.&nbsp;Chemical speciation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s04s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s05s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_chemical"></a>8.5.&nbsp;Chemical speciation
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s05.html#sect_input_gscnv">8.5.1. <code class="envar">GSCNV</code>: Pollutant-to-pollutant conversion file</a></span></dt>
+               <dt><span class="section"><a href="ch08s05s02.html">8.5.2. <code class="envar">GSPRO</code>: Speciation profile file</a></span></dt>
+               <dt><span class="section"><a href="ch08s05s03.html">8.5.3. <code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file </a></span></dt>
+               <dt><span class="section"><a href="ch08s05s04.html">8.5.4. <code class="envar">GSREF</code>: Speciation cross-reference file</a></span></dt>
+               <dt><span class="section"><a href="ch08s05s05.html">8.5.5. <code class="envar">GSTAG</code>: Speciation tagging cross-reference file </a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the chemical speciation files should be stored are listed in <a href="ch08.html#tbl_input_chemical_files" title="Table&nbsp;8.4.&nbsp;Chemical Speciation Input File Locations">Table&nbsp;8.4, &#8220;Chemical Speciation Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_gscnv"></a>8.5.1.&nbsp;<code class="envar">GSCNV</code>: Pollutant-to-pollutant conversion file
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The pollutant-to-pollutant conversion factors file is required when there is a mismatch between the pollutant in the inventory
+               and the pollutant for which the speciation profiles have been developed. The typical example is when the inventory has VOC
+               (or ROG), but the speciation profiles are developed for TOG. SMOKE permits such a factor to be applied to any pollutant. The
+               same format is used by all source categories.
+            </p>
+            <p>These factors can be applied to the inventory using one of two assignment approaches: either by FIPS/SCC or by Speciation
+               Profile ID. The same approach must be used for all sources in a single run of Spcmat. Historically in SMOKE, the FIPS/SCC
+               approach has been used; however, starting with SMOKE version 2.3, users may instead apply these factors by Speciation Profile
+               ID. For assignment of factors using the state/county FIPS and SCC codes, the available combinations and hierarchies for applying
+               the factors are the same as for the speciation cross-reference (see <a href="ch06s15.html" title="6.15.&nbsp;Spcmat">Section&nbsp;6.15, &#8220;<span><strong class="command">Spcmat</strong></span>&#8221;</a>), with the exception of the plant ID and other more specific source characteristics for point sources. For assignment of
+               the factors using Speciation Profile ID, there is no assignment hierarchy - whatever profile was assigned to a source by the
+               GSREF file will be used to choose the factor to apply from the GSCNV file, for the appropriate pollutants. To assign these
+               factors by Speciation Profile ID, a special header line is needed, as described below. SMOKE version 2.3 is backward compatible
+               with previous GSCNV files used with earlier versions.
+            </p>
+            <p>The <code class="envar">GSCNV</code> file is not needed if there is no mismatch between the inventory and the pollutants in the speciation profiles file. The
+               <span><strong class="command">Spcmat</strong></span> program will input and use this file only when the <code class="envar">POLLUTANT_CONVERSION</code> environment variable is set to Y. 
+            </p>
+            <p>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <span><strong class="command">Movesmrg</strong></span> program (see <a href="ch02s08s04.html#sect_concepts_moves_emission_processes" title="2.8.4.9.&nbsp; MOVES Emission Processes by Emission Rate Tables">Section&nbsp;2.8.4.9, &#8220; MOVES Emission Processes by Emission Rate Tables&#8221;</a>), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted
+               to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in
+               the "old" format below or in the first and second columns in the "new" format). It would not be correct to put only VOC and
+               TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion
+               factors that are specific to each emission process (e.g., different conversions for EXR and EXS).
+            </p>
+            <p>The format of the <code class="envar">GSCNV</code> file for Speciation Profile ID assignments is shown in <a href="ch08s05.html#tbl_input_gscnv_new" title="Table&nbsp;8.40.&nbsp;Format for GSCNV (using Speciation Profile ID assignments)">Table&nbsp;8.40, &#8220;Format for <code class="envar">GSCNV</code> (using Speciation Profile ID assignments)&#8221;</a>. The format is consistent with the format created by the Emission Modeling Framework Speciation Tool.
+            </p>
+            <div class="table"><a name="tbl_input_gscnv_new"></a><p class="title"><b>Table&nbsp;8.40.&nbsp;Format for <code class="envar">GSCNV</code> (using Speciation Profile ID assignments)</b></p>
+               <p>This format can support comment lines before the first required header
+                  line shown as "line 1" in the table below, or anywhere in the files. The file is list-formatted and therefore needs space,
+                  comma, or semi-colon delimeters between the fields.
+               </p>
+               <table summary="Format for GSCNV (using Speciation Profile ID assignments)" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>1-11</td>
+                        <td>#BY PROFILE (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>A</td>
+                        <td>Name of pollutant or emission type converting from (16-character) (required)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Name of pollutant or emission type converting to (16-character) (required)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>Speciation profile code (5-character) (required)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>D</td>
+                        <td>Volatile conversion factor (Real) (required)</td>
+                     </tr>
+                     <tr>
+                        <td colspan="3">Repeat line 2 as needed for multiple pollutants and/or emission types</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s04s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s05s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.4.6.&nbsp;<code class="envar">GRIDDESC</code>: Grids and projection information&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.5.2.&nbsp;<code class="envar">GSPRO</code>: Speciation profile file
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

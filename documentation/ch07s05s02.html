@@ -1,0 +1,92 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.5.2.&nbsp;Reviewing log files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s05.html" title="7.5.&nbsp;Quality Assurance Methods">
+      <link rel="prev" href="ch07s05.html" title="7.5.&nbsp;Quality Assurance Methods">
+      <link rel="next" href="ch07s05s03.html" title="7.5.3.&nbsp;Reviewing reports created by SMOKE core programs">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.5.2.&nbsp;Reviewing log files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.5.&nbsp;Quality Assurance Methods</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s05s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_methods_logs"></a>7.5.2.&nbsp;Reviewing log files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The SMOKE log files are the first source of information about whether your SMOKE run has completed properly. The simplest
+            thing to check in the log file is that the program ran to completion. If it did, the last line of the log file will be &#8220;<span class="quote">Normal Completion of program...</span>&#8221; followed by the program name. This line is simply a first step to understanding whether your program actually completed
+            successfully because this &#8220;<span class="quote">successful completion</span>&#8221; statement will be printed even if your program ran with warnings. If errors occurred in your program run, this line will
+            not be printed.
+         </p>
+         <p>To fully evaluate whether your program run was indeed successful, you must review the entire log file and also perform additional
+            QA as described in <a href="ch07s05s03.html" title="7.5.3.&nbsp;Reviewing reports created by SMOKE core programs">Section&nbsp;7.5.3, &#8220;Reviewing reports created by SMOKE core programs&#8221;</a> and <a href="ch07s05s04.html" title="7.5.4.&nbsp;Reviewing and customizing reports created by Smkreport">Section&nbsp;7.5.4, &#8220;Reviewing and customizing reports created by <span><strong class="command">Smkreport</strong></span>&#8221;</a>. In this section, we describe how to further review the log files. <a href="ch07s05s02.html#fig_qa_examine_logs" title="Figure&nbsp;7.1.&nbsp;Flow diagram for examining log files">Figure&nbsp;7.1, &#8220;Flow diagram for examining log files&#8221;</a> is a flow diagram that gives step-by-step instructions on how to evaluate the errors and warnings in the log files. 
+         </p>
+         <p>In the diagram, &#8220;<span class="quote">SMOKE support</span>&#8221; refers to several resources that you can use for support on SMOKE. The primary support mechanism is the Community Modeling
+            and Analysis System (CMAS) Center <a href="http://www.cmascenter.org/html/help.html" target="_top">Help Desk</a>. This web site can be used to look up questions and answers as well as submit new questions about SMOKE usage and behavior.
+            Another resource available to all emissions modelers is the <a href="http://webmail0.isis.unc.edu:82/lists/index.php?reason=results&list=emregional" target="_top">emregional listserv</a>. This listserv is hosted by the University of North Carolina at Chapel Hill&#8217;s Carolina Environmental Program (CEP) and is
+            open to all questions, concerns, and issues related to emissions modeling.
+         </p>
+         <div class="figure"><a name="fig_qa_examine_logs"></a><p class="title"><b>Figure&nbsp;7.1.&nbsp;Flow diagram for examining log files</b></p>
+            <div class="mediaobject"><img src="images\qa\examine_logs_html.jpg" alt="Flow diagram for examining log files"></div>
+         </div>
+         <p>One technique you can use to quickly create a list of the major types of errors or warnings that occurred, without listing
+            all of the many specific instances, is to use the UNIX <span><strong class="command">grep</strong></span> command. This approach will find the types of errors and warnings, but when multiple instances of an error or warning are
+            present (e.g., for multiple sources) only one instance of the error or warning will be listed. The UNIX command to perform
+            this function is:
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">grep</strong></span> ERROR <em class="replaceable"><code>&lt;logfile&gt;</code></em> | <span><strong class="command">cut -c1-50</strong></span> | <span><strong class="command">sort -u</strong></span></code></strong></p>
+         <p>The &#8220;<span class="quote">ERROR</span>&#8221; in this command can be replaced by &#8220;<span class="quote">WARNING</span>&#8221;, and the number &#8220;<span class="quote">50</span>&#8221; can be increased or reduced depending on whether you need more or fewer of the warnings in order to obtain the information
+            you want. The &#8220;<span class="quote">50</span>&#8221; controls how many columns of text are included. The <span><strong class="command">sort -u</strong></span> performs a unique (-u) sort that will eliminate duplicate records created by the <span><strong class="command">cut</strong></span> part of the command. So, since more lines will be similar when the <span><strong class="command">cut</strong></span> command includes fewer columns, the unique sort will produce fewer unique entries as the <span><strong class="command">cut</strong></span> limit is decreased.  The number 50 is usually a good starting point, since it captures the majority of the critical part
+            of the warning, without capturing less significant details such as a line number from an input file on which the error or
+            warning occurred.
+         </p>
+         <p>In addition to reviewing the log files for errors and warnings, we recommend that you compare the environment variable settings
+            listed in the log files with those you intended to use. Previously, we recommended that you create a table that includes all
+            of the correct SMOKE scripts settings to be used in the modeling effort. The settings shown in the log files should be compared
+            back to that master table to ensure that everything worked properly. This can help you prevent the SMOKE programs from obtaining
+            and using incorrect settings due to typographical errors in the scripts.
+         </p>
+         <p>Finally, the log files include all of the names of the input and output files. These should be reviewed to confirm that the
+            correct input files and output files were actually used by the program. It is possible that an error in the Assigns file or
+            script could cause the wrong input files to be used, or the output files to be written to the wrong locations.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s05s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.5.&nbsp;Quality Assurance Methods&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.5.3.&nbsp;Reviewing reports created by SMOKE core programs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

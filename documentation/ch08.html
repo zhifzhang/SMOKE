@@ -1,0 +1,823 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Chapter&nbsp;8.&nbsp;SMOKE Input Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="ch07s05s04.html" title="7.5.4.&nbsp;Reviewing and customizing reports created by Smkreport">
+      <link rel="next" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s05s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="ch_input_files"></a>Chapter&nbsp;8.&nbsp;SMOKE Input Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08.html#d0e35878">8.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch08s02.html">8.2. Inventory Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s03.html">8.3. Temporal Allocation Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s04.html">8.4. Spatial Allocation Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s05.html">8.5. Chemical speciation</a></span></dt>
+               <dt><span class="section"><a href="ch08s06.html">8.6. Growth and Controls Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s07.html">8.7. Special Merging Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s08.html">8.8. Meteorology Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s09.html">8.9. Source-Specific files</a></span></dt>
+               <dt><span class="section"><a href="ch08s10.html">8.10. Other Support Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both"><a name="d0e35878"></a>8.1.&nbsp;Overview
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08.html#sect_input_file_formats">8.1.1. General notes about file formats</a></span></dt>
+                  <dt><span class="section"><a href="ch08.html#sect_input_file_locations">8.1.2. Where to put SMOKE input files</a></span></dt>
+                  <dt><span class="section"><a href="ch08.html#sect_input_file_list">8.1.3. SMOKE input file list</a></span></dt>
+               </dl>
+            </div>
+            <p>This chapter contains format information for all input files used by SMOKE. <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a> and <a href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">Chapter&nbsp;10, <i>SMOKE Output Files</i></a> provide documentation on SMOKE&#8217;s intermediate and output file formats.
+            </p>
+            
+            In this overview section, we first provide a few important notes about file formats (<a href="ch08.html#sect_input_file_formats" title="8.1.1.&nbsp;General notes about file formats">Section&nbsp;8.1.1, &#8220;General notes about file formats&#8221;</a>, and then discuss where to put SMOKE input files (<a href="ch08.html#sect_input_file_locations" title="8.1.2.&nbsp;Where to put SMOKE input files">Section&nbsp;8.1.2, &#8220;Where to put SMOKE input files&#8221;</a>). <a href="ch08.html#sect_input_file_list" title="8.1.3.&nbsp;SMOKE input file list">Section&nbsp;8.1.3, &#8220;SMOKE input file list&#8221;</a> summarizes all the input files needed by SMOKE, organized by function.
+            
+            
+            <p>The remaining sections in this chapter are broken down as follows:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Inventory files used by <span><strong class="command">Smkinven</strong></span> (<a href="ch08s02.html" title="8.2.&nbsp;Inventory Files">Section&nbsp;8.2, &#8220;Inventory Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Temporal allocation files used by <span><strong class="command">Temporal</strong></span> (<a href="ch08s03.html" title="8.3.&nbsp;Temporal Allocation Files">Section&nbsp;8.3, &#8220;Temporal Allocation Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Spatial allocation files used by <span><strong class="command">Grdmat</strong></span>, <span><strong class="command">Normbeis3</strong></span>, and <span><strong class="command">Smkmerge</strong></span> (<a href="ch08s04.html" title="8.4.&nbsp;Spatial Allocation Files">Section&nbsp;8.4, &#8220;Spatial Allocation Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Chemical speciation files used by <span><strong class="command">Spcmat</strong></span> (<a href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">Section&nbsp;8.5, &#8220;Chemical speciation&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Growth and controls files used by <span><strong class="command">Cntlmat</strong></span> (<a href="ch08s06.html" title="8.6.&nbsp;Growth and Controls Files">Section&nbsp;8.6, &#8220;Growth and Controls Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Special merging files used by <span><strong class="command">Mrggrid</strong></span> (<a href="ch08s07.html" title="8.7.&nbsp;Special Merging Files">Section&nbsp;8.7, &#8220;Special Merging Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Meteorology files used by <span><strong class="command">Tmpbeis3</strong></span>, <span><strong class="command">Met4moves</strong></span>, and <span><strong class="command">Laypoint</strong></span> (<a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files">Section&nbsp;8.8, &#8220;Meteorology Files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Source-specific files for biogenics, mobile, and point source processing (<a href="ch08s09.html" title="8.9.&nbsp;Source-Specific files">Section&nbsp;8.9, &#8220;Source-Specific files&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Support files used by various programs (<a href="ch08s10.html" title="8.10.&nbsp;Other Support Files">Section&nbsp;8.10, &#8220;Other Support Files&#8221;</a>)
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="sect_input_file_formats"></a>8.1.1.&nbsp;General notes about file formats
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p>In the tables used to describe the file format for each file, the &#8220;<span class="quote">Position</span>&#8221; column lists a single number or a range of numbers.
+                        </p>
+                        <p>When there is a letter or a single number in the &#8220;<span class="quote">Position</span>&#8221; column, this indicates that the file must be <a href="ch02s05.html#sect_concepts_list_directed" title="2.5.1.2.&nbsp;List-directed ASCII files">list-directed</a>, and therefore the fields on each line need to be delimited by a space, comma, or semicolon. If there are fields that have
+                           embedded spaces, commas, or semicolons in a list-directed file, these entries must be surrounded by single or double quotation
+                           marks to prevent SMOKE from treating those characters as delimiters.
+                        </p>
+                        <p>When a range of numbers is listed in the &#8220;<span class="quote">Position</span>&#8221; column, ie. (1-3), this indicates that the file is <a href="ch02s05.html#sect_concepts_column_specific" title="2.5.1.1.&nbsp;Column-specific ASCII files">column-specific</a>, which means that the entry must be placed exactly within the columns listed.
+                        </p>
+                     </li>
+                     <li>
+                        <p>For all cross-reference files (e.g. <code class="envar">AGREF</code>, <code class="envar">MGREF</code>, <code class="envar">GSREF</code>), all of the source-characteristic fields are optional. For example, it is permissible to provide only the SCC for use in
+                           matching a profile to a source.
+                        </p>
+                        <p>For list-directed files, if there are source characteristic fields that will not be used (such as country/state/county code)
+                           that come <span class="emphasis"><em>before</em></span> the required fields in the file, these must be filled in with a zero or -9. If there are unused fields that come <span class="emphasis"><em>after</em></span> the required fields in the file, they can be left blank.
+                        </p>
+                        <p>For column-specific formats, the optional entries can be left blank or set to -9 when they are not used.</p>
+                     </li>
+                     <li>
+                        <p>Nearly all input files support full-line and trailing comments. If the first character on a line is a pound sign (#) then
+                           the line is treated as a comment. Any characters after an exclamation point (!) are treated as a comment.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="sect_input_file_locations"></a>8.1.2.&nbsp;Where to put SMOKE input files
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A common difficulty for new users is determining where to put the input files for their case. In SMOKE v2.0 and later, we
+                  have reduced the number of places in which you need to keep your raw input files. In <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses.
+                  Additionally, <a href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">Section&nbsp;4.4, &#8220;How to use SMOKE&#8221;</a> contains instructions for getting set up for new runs, including the files that need to be created and where they should
+                  go.
+               </p>
+               <p>In summary, SMOKE input files must go into a handful of directories. Multiple directories are needed because in some cases
+                  (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as
+                  inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs.
+                  To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <a href="ch03s03.html" title="3.3.&nbsp;How to change the default directory structure">Section&nbsp;3.3, &#8220;How to change the default directory structure&#8221;</a>.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="sect_input_file_list"></a>8.1.3.&nbsp;SMOKE input file list
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>In this section, we list all of the raw input files to SMOKE. The files are grouped into tables by functional type:</p>
+               <div class="itemizedlist">
+                  <ul type="disc" compact>
+                     <li><a href="ch08.html#tbl_input_inventory_files" title="Table&nbsp;8.1.&nbsp;Inventory File Locations">Table&nbsp;8.1, &#8220;Inventory File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_temporal_files" title="Table&nbsp;8.2.&nbsp;Temporal Allocation Input File Locations">Table&nbsp;8.2, &#8220;Temporal Allocation Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_spatial_files" title="Table&nbsp;8.3.&nbsp;Spatial Allocation Input File Locations">Table&nbsp;8.3, &#8220;Spatial Allocation Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_chemical_files" title="Table&nbsp;8.4.&nbsp;Chemical Speciation Input File Locations">Table&nbsp;8.4, &#8220;Chemical Speciation Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_projection_files" title="Table&nbsp;8.5.&nbsp;Growth and Controls Input File Locations">Table&nbsp;8.5, &#8220;Growth and Controls Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_merging_files" title="Table&nbsp;8.6.&nbsp;Special Merging Input File Locations">Table&nbsp;8.6, &#8220;Special Merging Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_meteorology_files" title="Table&nbsp;8.7.&nbsp;Meteorology Input File Locations">Table&nbsp;8.7, &#8220;Meteorology Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_biogenic_files" title="Table&nbsp;8.8.&nbsp;Biogenic-Specific Input File Locations">Table&nbsp;8.8, &#8220;Biogenic-Specific Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_moves_files" title="Table&nbsp;8.9.&nbsp;MOVES-Specific Input File Locations">Table&nbsp;8.9, &#8220;MOVES-Specific Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_point_files" title="Table&nbsp;8.10.&nbsp;Point-Specific Input File Locations">Table&nbsp;8.10, &#8220;Point-Specific Input File Locations&#8221;</a></li>
+                     <li><a href="ch08.html#tbl_input_other_files" title="Table&nbsp;8.11.&nbsp;Other Support Input File Locations">Table&nbsp;8.11, &#8220;Other Support Input File Locations&#8221;</a></li>
+                  </ul>
+               </div>
+               <p>Within each table, the files are listed in alphabetical order. When a file is optional, this is noted in the description column
+                  of the table.
+               </p>
+               <div class="table"><a name="tbl_input_inventory_files"></a><p class="title"><b>Table&nbsp;8.1.&nbsp;Inventory File Locations</b></p>
+                  <table summary="Inventory File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s02s04.html" title="8.2.4.&nbsp;ARINV: Area-source annual or average-day emissions"><code class="envar">ARINV</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>A</td>
+                           <td>Stationary area/nonpoint or nonroad raw inventory data</td>
+                           <td><code class="envar">$ARDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s02.html" title="8.2.2.&nbsp;ARDAY: Area source day-specific emissions"><code class="envar">ARDAY</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>A</td>
+                           <td>Area source raw day-specific inventory data</td>
+                           <td><code class="envar">$ARDAY</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s03.html" title="8.2.3.&nbsp;ARHOUR: Area source hour-specific emissions"><code class="envar">ARHOUR</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>A</td>
+                           <td>Area source raw hour-specific inventory data</td>
+                           <td><code class="envar">$ARHOUR</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s05.html" title="8.2.5.&nbsp;MBINV: Mobile-source activity and emissions"><code class="envar">MBINV</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>M</td>
+                           <td>Mobile source raw inventory data </td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions"><code class="envar">PTDAY</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>P</td>
+                           <td>Point source raw day-specific inventory data</td>
+                           <td><code class="envar">$PTDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions"><code class="envar">PTHOUR</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>P</td>
+                           <td>Point source raw hour-specific inventory data</td>
+                           <td><code class="envar">$PTDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s02s08.html" title="8.2.8.&nbsp;PTINV: Point source annual or average day emissions"><code class="envar">PTINV</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>P</td>
+                           <td>Point source raw inventory data</td>
+                           <td><code class="envar">$PTDAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_temporal_files"></a><p class="title"><b>Table&nbsp;8.2.&nbsp;Temporal Allocation Input File Locations</b></p>
+                  <table summary="Temporal Allocation Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s03.html#sect_input_amptpro" title="8.3.1.&nbsp;[A|M|P]TPRO: Temporal profiles files"><code class="envar">[A|M|P]TPRO</code></a></td>
+                           <td><span><strong class="command">Temporal</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Temporal profile file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s03s02.html" title="8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file"><code class="envar">[A|M|P]TREF</code></a></td>
+                           <td><span><strong class="command">Temporal</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Temporal cross-reference file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s03s03.html" title="8.3.3.&nbsp;HOLIDAYS: Holidays date list"><code class="envar">HOLIDAYS</code></a></td>
+                           <td><span><strong class="command">Temporal</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Holidays file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s03s04.html" title="8.3.4.&nbsp;PROCDATES: Procdates date list"><code class="envar">PROCDATES</code></a></td>
+                           <td><span><strong class="command">Temporal</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Procdates file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_spatial_files"></a><p class="title"><b>Table&nbsp;8.3.&nbsp;Spatial Allocation Input File Locations</b></p>
+                  <table summary="Spatial Allocation Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s04.html#sect_input_srgdesc" title="8.4.1.&nbsp;SRGDESC: Surrogate Designation, Description and Surrogate profile filename."><code class="envar">SRGDESC</code></a></td>
+                           <td><span><strong class="command">Grdmat</strong></span></td>
+                           <td>A, M</td>
+                           <td>Surrogate definitions and descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s04s02.html" title="8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files"><code class="envar">Area/Mobile surrogate profiles</code></a></td>
+                           <td><span><strong class="command">Grdmat</strong></span>, <span><strong class="command">Surgtool</strong></span></td>
+                           <td>A, M</td>
+                           <td>Area and/or mobile source spatial surrogates</td>
+                           <td><code class="envar">$SRGPRO_PATH</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s04s03.html" title="8.4.3.&nbsp;AGREF and MGREF: Gridding cross-reference files for area and mobile sources"><code class="envar">[A|M]GREF</code></a></td>
+                           <td><span><strong class="command">Grdmat</strong></span></td>
+                           <td>A, M</td>
+                           <td>Area source or mobile gridding cross-reference</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s04s04.html" title="8.4.4.&nbsp;BELD3_A, BELD3_B, BELD3_TOT: BELD3 land use data files"><code class="envar">BELD3_A</code></a>, <a href="ch08s04s04.html" title="8.4.4.&nbsp;BELD3_A, BELD3_B, BELD3_TOT: BELD3 land use data files"><code class="envar">BELD3_B</code></a>, <a href="ch08s04s04.html" title="8.4.4.&nbsp;BELD3_A, BELD3_B, BELD3_TOT: BELD3 land use data files"><code class="envar">BELD3_TOT</code></a></td>
+                           <td><span><strong class="command">Beld3to2</strong></span>, <span><strong class="command">Normbeis3</strong></span></td>
+                           <td>B</td>
+                           <td>Biogenic gridded landuse for use in SMOKE-BEIS3</td>
+                           <td><code class="envar">$BGDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s04s05.html" title="8.4.5.&nbsp;BGPRO: Biogenic spatial surrogate file"><code class="envar">BGPRO</code></a></td>
+                           <td><span><strong class="command">Smkmerge</strong></span></td>
+                           <td>B</td>
+                           <td>Biogenic spatial surrogates for county land use</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s04s06.html" title="8.4.6.&nbsp;GRIDDESC: Grids and projection information"><code class="envar">GRIDDESC</code></a></td>
+                           <td></td>
+                           <td>A, B, M, P</td>
+                           <td>Grid descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td>&gt;<code class="envar">GRIDMASK</code></td>
+                           <td>Grdmat</td>
+                           <td>A, B, M, P</td>
+                           <td>Gridmask</td>
+                           <td><code class="envar">$ARDAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_chemical_files"></a><p class="title"><b>Table&nbsp;8.4.&nbsp;Chemical Speciation Input File Locations</b></p>
+                  <table summary="Chemical Speciation Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s05.html#sect_input_gscnv" title="8.5.1.&nbsp;GSCNV: Pollutant-to-pollutant conversion file"><code class="envar">GSCNV</code></a></td>
+                           <td><span><strong class="command">Spcmat</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Pollutant-to-pollutant conversion file (e.g., ROG to TOG) (optional)</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s05s02.html" title="8.5.2.&nbsp;GSPRO: Speciation profile file"><code class="envar">GSPRO</code></a></td>
+                           <td><span><strong class="command">Cntlmat</strong></span>, <span><strong class="command">Spcmat</strong></span>, <span><strong class="command">Tmpbeis3</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>Speciation profiles file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s05s04.html" title="8.5.4.&nbsp;GSREF: Speciation cross-reference file"><code class="envar">GSREF</code></a></td>
+                           <td><span><strong class="command">Spcmat</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Speciation cross-reference file (a.k.a., mapping table)</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_projection_files"></a><p class="title"><b>Table&nbsp;8.5.&nbsp;Growth and Controls Input File Locations</b></p>
+                  <table summary="Growth and Controls Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s06.html#sect_input_gcntl" title="8.6.1.&nbsp;GCNTL: Files for controls and/or past- and future-year growth"><code class="envar">GCNTL</code></a></td>
+                           <td><span><strong class="command">Cntlmat</strong></span>, <span><strong class="command">Pktreduc</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Control packets or growth packets file</td>
+                           <td><code class="envar">$STATIC</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_merging_files"></a><p class="title"><b>Table&nbsp;8.6.&nbsp;Special Merging Input File Locations</b></p>
+                  <table summary="Special Merging Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s07.html#sect_input_filelist" title="8.7.1.&nbsp;FILELIST: Gridded merge 2-D file list"><code class="envar">FILELIST</code></a></td>
+                           <td><span><strong class="command">Mrggrid</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>List of gridded 2-D and/or 3-D files to be merged</td>
+                           <td><code class="filename"><code class="envar">$SCRIPTS</code>/run/</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_meteorology_files"></a><p class="title"><b>Table&nbsp;8.7.&nbsp;Meteorology Input File Locations</b></p>
+                  <table summary="Meteorology Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files"><code class="envar">GRID_CRO_2D</code></a></td>
+                           <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                           <td>B</td>
+                           <td>Grid 2-D cross-point file (optional)</td>
+                           <td><code class="envar">$METDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files"><code class="envar">GRID_CRO_3D</code></a></td>
+                           <td><span><strong class="command">Laypoint</strong></span></td>
+                           <td>P</td>
+                           <td>Grid 3-D cross-point file</td>
+                           <td><code class="envar">$METDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files"><code class="envar">MET_CRO_2D</code></a></td>
+                           <td><span><strong class="command">Tmpbeis3</strong></span>, <span><strong class="command">Met4moves</strong></span>, <span><strong class="command">Laypoint</strong></span>, <span><strong class="command">Metscan</strong></span></td>
+                           <td>B, M, P</td>
+                           <td>Meteorology 2-D cross-point file</td>
+                           <td><code class="envar">$METDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files"><code class="envar">MET_CRO_3D</code></a></td>
+                           <td><span><strong class="command">Tmpbeis3</strong></span>, <span><strong class="command">Met4moves</strong></span>, <span><strong class="command">Laypoint</strong></span>, <span><strong class="command">Metscan</strong></span></td>
+                           <td>B, M, P</td>
+                           <td>Meteorology 3-D cross-point file (optional for biogenics)</td>
+                           <td><code class="envar">$METDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files"><code class="envar">MET_DOT_3D</code></a></td>
+                           <td><span><strong class="command">Laypoint</strong></span></td>
+                           <td>P</td>
+                           <td>Meteorology 3-D dot-point file</td>
+                           <td><code class="envar">$METDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s08.html#sect_input_metlist" title="8.8.1.&nbsp;METLIST: List of meteorology files"><code class="envar">METLIST</code></a></td>
+                           <td><span><strong class="command">Met4moves</strong></span></td>
+                           <td>B, M</td>
+                           <td>Listing of meteorology files</td>
+                           <td><code class="envar">$STATIC</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_biogenic_files"></a><p class="title"><b>Table&nbsp;8.8.&nbsp;Biogenic-Specific Input File Locations</b></p>
+                  <table summary="Biogenic-Specific Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s09.html#sect_input_b3fac" title="8.9.1.3.&nbsp;B3FAC: Biogenic emissions factors file for BEIS v3.14 or earlier"><code class="envar">B3FAC</code></a></td>
+                           <td><span><strong class="command">Normbeis3</strong></span></td>
+                           <td>B</td>
+                           <td>BEIS3 emissions factors</td>
+                           <td><code class="envar">$BGDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09.html#sect_input_bioseason" title="8.9.1.1.&nbsp;BIOSEASON: Bioseason switch file"><code class="envar">BIOSEASON</code></a></td>
+                           <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                           <td>B</td>
+                           <td>Bioseason switch file</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_moves_files"></a><p class="title"><b>Table&nbsp;8.9.&nbsp;MOVES-Specific Input File Locations</b></p>
+                  <table summary="MOVES-Specific Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_mcxref" title="8.9.2.1.3.&nbsp;MCXREF: Mobile representative county cross-reference file"><code class="envar">MCXREF</code></a></td>
+                           <td><span><strong class="command">Movesmrg</strong></span>, <span><strong class="command">Met4moves</strong></span></td>
+                           <td>M</td>
+                           <td>MOVES source county cross-reference</td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_meproc_moves" title="8.9.2.1.4.&nbsp;MEPROC: List of mobile emission processes and associated activities and pollutants"><code class="envar">MEPROC</code></a></td>
+                           <td><span><strong class="command">Movesmrg</strong></span>, <span><strong class="command">Spcmat</strong></span></td>
+                           <td>M</td>
+                           <td>Mobile emission processes (e.g., exhaust, evaporative, tire/break wear) with associated activities and pollutants</td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_mfmref" title="8.9.2.1.5.&nbsp;MFMREF: Mobile fuel month file for MOVES"><code class="envar">MFMREF</code></a></td>
+                           <td><span><strong class="command">Movesmrg</strong></span>, <span><strong class="command">Met4moves</strong></span></td>
+                           <td>M</td>
+                           <td>MOVES source fuel month cross-reference</td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_mrclist" title="8.9.2.1.6.&nbsp;MRCLIST: List of MOVES Lookup Tables"><code class="envar">MRCLIST</code></a></td>
+                           <td><span><strong class="command">Movesmrg</strong></span></td>
+                           <td>M</td>
+                           <td>List of MOVES lookup tables</td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_spdpro" title="8.9.2.1.8.&nbsp;SPDPRO: Mobile hourly speed profile input file"><code class="envar">SPDPRO</code></a></td>
+                           <td><span><strong class="command">Movesmrg</strong></span></td>
+                           <td>M</td>
+                           <td>Weekday/Weekend hourly speed profiles</td>
+                           <td><code class="envar">$MBDAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_point_files"></a><p class="title"><b>Table&nbsp;8.10.&nbsp;Point-Specific Input File Locations</b></p>
+                  <table summary="Point-Specific Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s09s03.html#sect_input_pelvconfig" title="8.9.3.1.&nbsp;PELVCONFIG: Elevated source selection file"><code class="envar">PELVCONFIG</code></a></td>
+                           <td><span><strong class="command">Elevpoint</strong></span></td>
+                           <td>P</td>
+                           <td>Elevated source and PinG selection configuration file</td>
+                           <td><code class="envar">$PTDAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s03.html#sect_input_pstk" title="8.9.3.2.&nbsp;PSTK: Point source stack replacement parameters file"><code class="envar">PSTK</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>P</td>
+                           <td>Replacement stack parameters for invalid stacks</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s03.html#sect_input_ptmplist" title="8.9.3.3.&nbsp;PTMPLIST: List of hourly point source emissions files"><code class="envar">PTMPLIST</code></a></td>
+                           <td><span><strong class="command">Elevpoint</strong></span></td>
+                           <td>P</td>
+                           <td>List of <code class="envar">PTMP</code> files for <span><strong class="command">Elevpoint</strong></span> to use to compute maximum daily emissions
+                           </td>
+                           <td><code class="envar">$PTDAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="table"><a name="tbl_input_other_files"></a><p class="title"><b>Table&nbsp;8.11.&nbsp;Other Support Input File Locations</b></p>
+                  <table summary="Other Support Input File Locations" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Logical File Name</th>
+                           <th>Program</th>
+                           <th>Source Category</th>
+                           <th>File Description</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s10.html#sect_input_artopnt" title="8.10.1.&nbsp;ARTOPNT: Area-to-point conversions file"><code class="envar">ARTOPNT</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>A</td>
+                           <td>Area-to-point conversion file</td>
+                           <td><code class="filename"><code class="envar">$INVDIR</code>/other/</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s02.html" title="8.10.2.&nbsp;COSTCY: Country, state, and county names and data"><code class="envar">COSTCY</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Grwinven</strong></span>, <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Smkmerge</strong></span>, <span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>Country, state, and county names and time zones</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Grwinven</strong></span>, <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Smkmerge</strong></span>, <span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                              when GEOCODE_LEVEL[1-4] files are used)
+                           </td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table"><code class="envar">INVTABLE</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Movesmrg</strong></span>, <span><strong class="command">Spcmat</strong></span>, <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Smkmerge</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>Pollutant and activity names and codes in order of output</td>
+                           <td><code class="filename"><code class="envar">$INVDIR</code>/other/</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s05.html" title="8.10.5.&nbsp;MACTDESC: MACT code descriptions"><code class="envar">MACTDESC</code></a></td>
+                           <td><span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, P</td>
+                           <td>MACT descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s06.html" title="8.10.6.&nbsp;NAICSDESC: NAICS code descriptions"><code class="envar">NAICSDESC</code></a></td>
+                           <td><span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, P</td>
+                           <td>NAICS descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s07.html" title="8.10.7.&nbsp;NHAPEXCLUDE: NonHAP VOC calculation inclusions/exclusions file"><code class="envar">NHAPEXCLUDE</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>NONHAP exclusions file</td>
+                           <td><code class="filename"><code class="envar">$INVDIR</code>/other/</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s08.html" title="8.10.8.&nbsp;ORISDESC: ORIS description"><code class="envar">ORISDESC</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span></td>
+                           <td>P</td>
+                           <td>ORIS facility descriptions, needed for getting ORIS facility names for reporting purposes</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s10.html" title="8.10.10.&nbsp;SCCDESC: Source category code descriptions"><code class="envar">SCCDESC</code></a></td>
+                           <td><span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, M, P</td>
+                           <td>SCC descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s12.html" title="8.10.12.&nbsp;SICDESC: SIC code descriptions"><code class="envar">SICDESC</code></a></td>
+                           <td><span><strong class="command">Smkreport</strong></span></td>
+                           <td>A, P</td>
+                           <td>SIC descriptions</td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s13.html" title="8.10.13.&nbsp;SOURCE_GROUPS: Source apportionment groups"><code class="envar">SOURCE_GROUPS</code></a></td>
+                           <td><span><strong class="command">Movesmrg, Smkreport</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>Source apportionment groups</td>
+                           <td><code class="filename"><code class="envar">$INVDIR</code>/other/</code></td>
+                        </tr>
+                        <tr>
+                           <td><a href=""><code class="envar">VNAMMAP</code></a></td>
+                           <td><span><strong class="command">Smk2emis</strong></span></td>
+                           <td>A, B, M, P</td>
+                           <td>Species name mapping file for <span><strong class="command">Smk2emis</strong></span></td>
+                           <td><code class="envar">$GE_DAT</code></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s05s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.5.4.&nbsp;Reviewing and customizing reports created by <span><strong class="command">Smkreport</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.&nbsp;Inventory Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

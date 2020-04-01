@@ -1,0 +1,472 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.4.&nbsp;Reports Created by Smkreport</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">
+      <link rel="prev" href="ch07s03s08.html" title="7.3.8.&nbsp;The /NEWFILE/ packet">
+      <link rel="next" href="ch07s04s02.html" title="7.4.2.&nbsp;Example reports">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.4.&nbsp;Reports Created by <span><strong class="command">Smkreport</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s04s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_qa_output"></a>7.4.&nbsp;Reports Created by <span><strong class="command">Smkreport</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s04.html#d0e34920">7.4.1. File format(s)</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html">7.4.2. Example reports</a></span></dt>
+            </dl>
+         </div>
+         <p>As described in <a href="ch07s02.html" title="7.2.&nbsp;Smkreport Program">Section&nbsp;7.2, &#8220;<span><strong class="command">Smkreport</strong></span> Program&#8221;</a>, the <span><strong class="command">Smkreport</strong></span> program creates user-defined reports and summaries for QA purposes based on the SMOKE intermediate files (e.g., SMOKE inventory
+            files, hourly emissions, speciation matrix, gridding matrix). The reports that are created by <span><strong class="command">Smkreport</strong></span> can easily be imported into a spreadsheet program or into a database because the ASCII output format is delimited. Note that
+            report files larger than about 60,000 lines will not import into Excel because of limitations of that software.
+         </p>
+         <p>Because <span><strong class="command">Smkreport</strong></span> is very flexible, there are a large number of reports that you can generate. The &#8220;<span class="quote">File Format(s)</span>&#8221; section below describes the guidelines that <span><strong class="command">Smkreport</strong></span> uses in building the output reports, based on the instructions the user provides to <span><strong class="command">Smkreport</strong></span>. This section is followed by a large number of example reports, to help you understand the possible format options.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e34920"></a>7.4.1.&nbsp;File format(s)
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch07s04.html#d0e34923">7.4.1.1. Multiple reports in one file</a></span></dt>
+                  <dt><span class="section"><a href="ch07s04.html#d0e34937">7.4.1.2. Basic report structure</a></span></dt>
+                  <dt><span class="section"><a href="ch07s04.html#d0e34942">7.4.1.3. Advanced report structures</a></span></dt>
+                  <dt><span class="section"><a href="ch07s04.html#d0e34961">7.4.1.4. Structure template</a></span></dt>
+                  <dt><span class="section"><a href="ch07s04.html#d0e34971">7.4.1.5. Elements of the REPORTS section</a></span></dt>
+                  <dt><span class="section"><a href="ch07s04.html#d0e35191">7.4.1.6. Elements of the METADATA section</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e34923"></a>7.4.1.1.&nbsp;Multiple reports in one file
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Each file output by <span><strong class="command">Smkreport</strong></span> can contain multiple reports. The user has control over how many reports are included in each file (please see the <code class="envar">REPCONFIG</code> file documentation above for more information on using the /CREATE REPORT/ and /NEWFILE/ packets). The reports in a file
+                  are separated by a row of pound signs (#). If having multiple reports in a single file causes problems for importing the data
+                  into other software, then you should create a <code class="envar">REPCONFIG</code> file that specifies a new file for each report.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e34937"></a>7.4.1.2.&nbsp;Basic report structure
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The reports in an output file use columns and rows to structure the information. The reports are structured to permit the
+                  user to import a report into spreadsheet or database software, or some other data-processing tool for further analysis. The
+                  columns in the reports are semicolon delimited (though the delimiter can be set by the user), have labels, and have units.
+                  Where possible, we have also tried to make sure that the text versions of the reports can be viewed easily. The width of the
+                  widest entry in a column is used to set the width for the column, thereby making fixed-file format transfer to other software
+                  possible.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e34942"></a>7.4.1.3.&nbsp;Advanced report structures
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Using the ARRANGE instruction in the <span><strong class="command">Smkreport</strong></span> <code class="envar">REPCONFIG</code> input file, you can also create reports with more advanced structures: a single report that is composed of multiple physical
+                  files; a report that is single physical file but has multiple sections; or a report that uses a &#8220;<span class="quote">database</span>&#8221; format of one data value (e.g., emissions value) per line. Use of these formats is described in the <code class="envar">REPCONFIG</code> file documentation in <a href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">Section&nbsp;7.3, &#8220;<code class="envar">REPCONFIG</code> Input File&#8221;</a>.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e34961"></a>7.4.1.4.&nbsp;Structure template
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The following is a general template for the <span><strong class="command">Smkreport</strong></span> output files. It consists of a REPORTS section and a METADATA section. These two sections are discussed in detail below the
+                  template.
+               </p><pre class="programlisting">&lt;REPORT1&gt;
+     &lt;User Title(s), one per line&gt;
+     &lt;Automatic Titles, one per line&gt;
+     &lt;Column headers&gt;
+     &lt;Units, for columns that need them&gt;
+     &lt;Line of minus signs&gt;
+     &lt;Data values for all rows&gt;
+##########################################################################
+&lt;REPORT2, if any&gt;
+     &lt;User Title(s), one per line&gt;
+     &lt;Automatic Titles, one per line&gt;
+     &lt;Column headers&gt;
+     &lt;Units, for columns that need them&gt;
+     &lt;Line of minus signs&gt;
+     &lt;Data values for all rows&gt;
+##########################################################################
+METADATA
+     &lt;Input files&gt;
+     &lt;Echoed group definitions from REPCONFIG file&gt;
+     &lt;Echoed report instructions from REPCONFIG file&gt;
+&lt;End of file&gt;</pre></div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e34971"></a>7.4.1.5.&nbsp;Elements of the REPORTS section
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="toc">
+                  <dl>
+                     <dt><span class="section"><a href="ch07s04.html#d0e34974">7.4.1.5.1. User titles</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e34982">7.4.1.5.2. Automatic titles</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35039">7.4.1.5.3. Data columns written</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35067">7.4.1.5.4. Column delimiters</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35078">7.4.1.5.5. Column headers</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35160">7.4.1.5.6. Header units</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35176">7.4.1.5.7. Data rows</a></span></dt>
+                  </dl>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e34974"></a>7.4.1.5.1.&nbsp;User titles
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The first section of each report is a title section. The first title entries in the report are any titles specified in the
+                     /CREATE REPORT/ packets in the <code class="envar">REPCONFIG</code> file, created by the user. They are listed in the same order as those provided in the input packets for the report. It is
+                     recommended that user titles be no more than 80 characters wide (to more easily fit on printed documents), although they can
+                     have up to 300 characters.
+                  </p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e34982"></a>7.4.1.5.2.&nbsp;Automatic titles
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Automatic titles are inserted by <span><strong class="command">Smkreport</strong></span> to indicate the operations that were done by <span><strong class="command">Smkreport</strong></span> to generate the requested report. This helps the report be self-describing. The automatic titles are formatted to be no larger
+                     than 80 characters wide, in order to permit easier viewing as text files. The following automatic titles are applied, where
+                     applicable:
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>The source category processed</p>
+                        </li>
+                        <li>
+                           <p>The year of the base inventory</p>
+                        </li>
+                        <li>
+                           <p>The year of the grown inventory (only if a grown inventory file is input to <span><strong class="command">Smkreport</strong></span>)
+                           </p>
+                        </li>
+                        <li>
+                           <p>Whether growth factors were applied, and if so, for what year</p>
+                        </li>
+                        <li>
+                           <p>Whether multiplicative control factors were applied, and if so, for what year</p>
+                        </li>
+                        <li>
+                           <p>Whether a gridding matrix was applied, and if so, the grid name</p>
+                        </li>
+                        <li>
+                           <p>Whether a speciation matrix was applied, and if so, whether it was mole-based or mass-based</p>
+                        </li>
+                        <li>
+                           <p>Whether annual, average-day, or hourly data from SMOKE intermediate files are the basis of the emissions in the report</p>
+                        </li>
+                        <li>
+                           <p>If hourly data were input, the time period processed with dates, hours, and time zones</p>
+                        </li>
+                        <li>
+                           <p>Whether annual or average-day data were the basis for the report</p>
+                        </li>
+                        <li>
+                           <p>Whether the emissions are divided by grid cell area (NORMALIZE CELLAREA instruction)</p>
+                        </li>
+                        <li>
+                           <p>Whether the emissions are divided by population (NORMALIZE POPULATION instruction)</p>
+                        </li>
+                        <li>
+                           <p>The name of the group used to select the data, if any (the group definition will be listed in the METADATA section)</p>
+                        </li>
+                        <li>
+                           <p>The name of the subgrid used to select the data, if any (the subgrid definition will be listed in the METADATA section)</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35039"></a>7.4.1.5.3.&nbsp;Data columns written
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The particular columns of data that are written to a report are determined by the BY instructions in the /CREATE REPORT/ packet.
+                     Typically, one column is created for each BY instruction, which corresponds to the name of the BY instruction. The exceptions
+                     to this rule are the following:
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>The BY COUNTRY, BY STATE, and BY COUNTY instructions, which output the country, state, and county codes, and optionally the
+                              country, state, and county names, respectively (if NAME is included at the end of the instruction).
+                           </p>
+                        </li>
+                        <li>
+                           <p>The BY SOURCE instruction, which outputs columns for all source characteristics (point sources: country/state/county, plant,
+                              char1, char2, char3, char4, char5, SIC; area sources: country/state/county, SCC; mobile sources: country/state/county, road
+                              class, vehicle type, SCC). For point sources, the BY SOURCE instruction can also output four additional columns for stack
+                              parameters, and another additional column for facility name.
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>In addition to the columns specified by the BY instructions, the emissions and/or activity data are written out to the report.
+                     If no speciation option is used (i.e., the SPECIATION instruction is not given), then the other data columns are the emissions
+                     and activities from the SMOKE inventory file (e.g., NOX, VOC, PM10, VMT). If the speciation option <span class="emphasis"><em>is</em></span> used, then the other data columns are the speciated emissions data (e.g., NO, NO2, ALD, PAR, ISOP). The SELECT DATA instruction
+                     determines which inventory data and speciated emissions data are written to the reports. When speciated data are output, the
+                     columns for the corresponding inventory pollutants are written as well (as explained more fully in the input file description
+                     of the SELECT DATA instruction, earlier).
+                  </p>
+                  <p>The order of the columns of data values is taken from the order of the data in the SMOKE intermediate files. The orders of
+                     pollutants and activities are controlled by the <code class="envar">INVTABLE</code> file when <span><strong class="command">Smkinven</strong></span> is run to create the SMOKE inventory files. Species are arranged by <span><strong class="command">Spcmat</strong></span> based on the order of the pollutants, and then alphabetically for species coming for the same pollutant, and this order is
+                     used to create the speciation matrix.
+                  </p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35067"></a>7.4.1.5.4.&nbsp;Column delimiters
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The default column delimiter in most cases is a semicolon (;). However, if you select the &#8220;<span class="quote">BY SCC10 NAME</span>&#8221; or &#8220;<span class="quote">BY SIC NAME</span>&#8221; instruction, the SCC or SIC description will be included in the report and the default delimiter will be a pipe symbol (|).
+                     This is because the SCC and SIC descriptions can include semicolons. In either case, you can use the /DELIMITER/ packet to
+                     manually set your choice of delimiter, if desired.
+                  </p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35078"></a>7.4.1.5.5.&nbsp;Column headers
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Each column of data is labeled with a header name. Where applicable, the columns also are labeled with units (discussed below),
+                     as set by the UNITS instruction or by the default units for the data used by the program. For the emissions and activity data,
+                     the header names are simply the names of the pollutants or activity variables input to SMOKE. For columns generated by the
+                     BY instructions, the following possible column headers are used by SMOKE. These are listed in the order in which they would
+                     appear.
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>Date (values of MM/DD/YYYY)</li>
+                        <li>Hour (integer values from 1 through 24)</li>
+                        <li>Layer number (integer values &gt;0)</li>
+                        <li>X cell (integer values &gt;0)</li>
+                        <li>Y cell (integer values &gt;0)</li>
+                        <li>Source ID (SMOKE record number, integer values &gt;0)</li>
+                        <li>Co/St/Cy (Country, state, and county code; values of NSSCCC, with SS and/or CCC replaced by zeros as necessary, depending
+                           on the BY option used)
+                        </li>
+                        <li>Country (value is name; optional when country, state, and county code is output)</li>
+                        <li>State (value is name; optional when country, state, and county code is output)</li>
+                        <li>County (value is name; optional when country, state, and county code is output)</li>
+                        <li>SCC (10-character values, with 2 leading zeros for 8-character SCCs)</li>
+                        <li>SIC (4-character values)</li>
+                        <li>NAICS (6-character values)</li>
+                        <li>MACT (6-character values)</li>
+                        <li>ORIS ID (6-character values)</li>
+                        <li>Primary Srg (primary surrogate ID code; for area or mobile sources only)</li>
+                        <li>Fallbk Srg (fallback surrogate ID code; for area or mobile sources only)</li>
+                        <li>Monthly Prf (monthly temporal profile code)</li>
+                        <li>Weekly Prf (weekly temporal profile code)</li>
+                        <li>Diurnal Prf (diurnal temporal profile code)</li>
+                        <li>Spec Prf (speciation profile code)</li>
+                        <li>Plant ID (for ORL) or Facility ID (for FF10)</li>
+                        <li>Char 1 point-source stack ID (for ORL) or ?? (for FF10) </li>
+                        <li>Char 2 Stack ID (for ORL) or Release Point ID (for FF10)</li>
+                        <li>Char 3 Segment ID (for ORL) or Process ID (for FF10)</li>
+                        <li>Char 4 (for point sources only; may or may not be defined)</li>
+                        <li>Char 5 (for point sources only; may or may not be defined)</li>
+                        <li>Stk Ht (stack height; for point sources only)</li>
+                        <li>Stk Dm (stack diameter; for point sources only)</li>
+                        <li>Stk Tmp (stack exit temperature; for point sources only)</li>
+                        <li>Stk Vel (stack exit velocity; for point sources only)</li>
+                        <li>Elevstat (E= elevated, P= Plume-in-grid, L= low-level; for point sources only)</li>
+                        <li>Plt Name (facility name with quotes around it; for point sources only)</li>
+                        <li>SCC Description (in quotes)</li>
+                        <li>SIC Description (in quotes)</li>
+                        <li>NAICS Description (in quotes)</li>
+                        <li>MACT Description (in quotes)</li>
+                        <li>ORIS Description (in quotes)</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35160"></a>7.4.1.5.6.&nbsp;Header units
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The units used in the header for each column depend on (1) the units in the input files, (2) the units set as output units
+                     in the report instructions, and (3) any normalization used. <span><strong class="command">Smkreport</strong></span> starts with the units obtained from the input files and application of any matrices of interest. Then all unit conversions
+                     that can be made, are made. The conversions are done separately on the numerator and the denominator, but one or both of the
+                     conversions will not be done if <span><strong class="command">Smkreport</strong></span> has not been configured for the conversions. If this is the case, a note will appear to this effect in the log file. Last,
+                     the units are converted to 1/m<sup>2</sup> if the NORMALIZE CELLAREA instruction has been given.
+                  </p>
+                  <p>Below the header units, a line of minus signs will appear in the reports.</p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35176"></a>7.4.1.5.7.&nbsp;Data rows
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The rows of data (i.e., emissions totals or activity totals) are listed sequentially, without spaces between the rows, in
+                     sorted order according to the BY instructions, and based on the order listed in the file (just explained above). Data-value-based
+                     sorting is not done by <span><strong class="command">Smkreport</strong></span>, but rather left for a postprocessing step of other data manipulation software. Unlike the title rows, the length of the
+                     data rows constrained only by the maximum number of characters up to 3500 per ASCII line, which varies based on the platform
+                     you are using. The ARRANGE instruction can be used to improve the arrangement of data rows when the lines are too large or
+                     the program is not working properly because of the large number of data values requested in a report.
+                  </p>
+                  <p>The data values in the rows are formatted based on the NUMBER instruction for the report.</p>
+                  <p>The resolution of the data values (e.g., summed by SCC) depends on the BY instructions for the report. The inventory records
+                     included in the totals (i.e., which sources are included in the reported emissions) depend on the SELECT instructions for
+                     the report. More description of these instructions and how they affect the output is provided with the <code class="envar">REPCONFIG</code> file format information given earlier.
+                  </p>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e35191"></a>7.4.1.6.&nbsp;Elements of the METADATA section
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="toc">
+                  <dl>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35196">7.4.1.6.1. Input files</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35201">7.4.1.6.2. Echoed group definitions</a></span></dt>
+                     <dt><span class="section"><a href="ch07s04.html#d0e35209">7.4.1.6.3. Echoed report instructions</a></span></dt>
+                  </dl>
+               </div>
+               <p>Note: this section is not yet implemented in SMOKE. Once implemented, this section of the reports will begin by a line with
+                  the word METADATA on it.
+               </p>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35196"></a>7.4.1.6.1.&nbsp;Input files
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In this part of the METADATA section, all of the input files used in running the program are provided, one on each line. The
+                     full path and file name will be provided.
+                  </p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35201"></a>7.4.1.6.2.&nbsp;Echoed group definitions
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The group definitions from the <code class="envar">REPCONFIG</code> file used to generate the file will be listed in this section. The definitions will be merely copied directly from the input
+                     file to this section of the output report.
+                  </p>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title"><a name="d0e35209"></a>7.4.1.6.3.&nbsp;Echoed report instructions
+                           </h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The report instructions from the <code class="envar">REPCONFIG</code> file used for creating each report in the file will be listed in this section. The instructions will be merely copied directly
+                     from the input file.
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s04s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.8.&nbsp;The /NEWFILE/ packet&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.4.2.&nbsp;Example reports</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

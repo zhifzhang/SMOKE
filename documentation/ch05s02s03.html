@@ -1,0 +1,556 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.2.3.&nbsp;Run MOVES Model</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s02.html" title="5.2.&nbsp;MOVES Utility Scripts">
+      <link rel="prev" href="ch05s02s02.html" title="5.2.2.&nbsp;MOVES Driver Scripts">
+      <link rel="next" href="ch05s02s04.html" title="5.2.4.&nbsp;MOVES Post-processing scripts">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.2.3.&nbsp;Run MOVES Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.2.&nbsp;MOVES Utility Scripts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s02s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="section_moves_runs"></a>5.2.3.&nbsp;Run MOVES Model
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s02s03.html#d0e17782">5.2.3.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s03.html#section_moves_importer">5.2.3.2. MOVES importer script</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s03.html#section_moves_runspec_batch">5.2.3.3. MOVES Runspec batch script</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e17782"></a>5.2.3.1.&nbsp;Overview
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Automatically execute multiple MOVES runs based on automatically generated county-specific data importer script and the MOVES
+               run script file by <span><strong class="command">Runspec_generator.pl</strong></span>, which specifies the characteristic of the particular scenario to be modeled.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="section_moves_importer"></a>5.2.3.2.&nbsp;MOVES importer script
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17793">5.2.3.2.1. Description</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17810">5.2.3.2.2. Processing Order</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17827">5.2.3.2.3. Files, Environment Variables, and Run Syntax</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17793"></a>5.2.3.2.1.&nbsp;Description
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The MOVES importer script &#8220;<span class="quote">importer.[bat|csh]</span>&#8221; can be written in Linux C-shell or Windows Batch script format depending on which option is chosen by the user in the <span><strong class="command">Runspec_generator.pl</strong></span>. The importer script loads the county-specific data in the file and creates the MySQL input database containing local data
+                  for the representative county. 
+               </p>
+               <p>The output of the MOVES batch importer script includes:</p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p>MySQL databases (*_in).</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17810"></a>5.2.3.2.2.&nbsp;Processing Order
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>importer.csh should be run before runspec.csh.  The importer.csh is written in Linux c-shell script format.</p>
+               <p>The importer.csh uses following steps:</p>
+               <div class="orderedlist">
+                  <ol type="1">
+                     <li>
+                        <p>The importer.csh contains all of the user selections needed to import data from the files into a MySQL MOVES database</p>
+                     </li>
+                     <li>
+                        <p>Imports the data for each of the three different emissions processes: RPD, RPV, RPP.</p>
+                     </li>
+                     <li>
+                        <p>Review log file of the MOVES, called importlog_*.txt.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17827"></a>5.2.3.2.3.&nbsp;Files, Environment Variables, and Run Syntax
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="toc">
+                  <dl>
+                     <dt><span class="section"><a href="ch05s02s03.html#d0e17830">5.2.3.2.3.1. Input Files</a></span></dt>
+                     <dt><span class="section"><a href="ch05s02s03.html#d0e17868">5.2.3.2.3.2. Output Files</a></span></dt>
+                  </dl>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e17830"></a>5.2.3.2.3.1.&nbsp;Input Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="informaltable">
+                     <table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>RV_[CountyRep]_[yearID]_[monthID]_[TempBin]_imp.xml </td>
+                              <td>XML</td>
+                              <td>file specifies the zonemonthhour (*zmh.csv) files and other files that will be imported to MOVES for the Rate Per Vehicle
+                                 Mode, note: TempBin varies, in 5 degree increments to cover the Temperature Range ie. [TempBin] = T10, T15,.. T105 for the
+                                 temperature range [TempRange]= T10_105
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>RP_[CountyRep]_[yearID]_[monthID]_[MetProfID]_imp.xml </td>
+                              <td>XML</td>
+                              <td>file specifies the zonemonthhour (*zmh.csv) files that will be imported to MOVES for the Rate Per Process Mode</td>
+                           </tr>
+                           <tr>
+                              <td>RD_[CountyRep]_[yearID]_[monthID]_[TempRange]_imp.xml </td>
+                              <td>XML</td>
+                              <td>importer file specifies the zonemonthhour (*zmh.csv) files that will be imported to MOVES for Rate Per Distance Mode</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e17868"></a>5.2.3.2.3.2.&nbsp;Output Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="informaltable">
+                     <table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>RD_[CountyRep]_[yearID]_[monthID]_[TempRange]_in</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database RPD Table (*_in)</td>
+                           </tr>
+                           <tr>
+                              <td>RP_[CountyRep]_[yearID]_[monthID]_[MetProfID]_in</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database RPP SMOKE format Table (*_in)</td>
+                           </tr>
+                           <tr>
+                              <td>RV_[CountyRep]_[yearID]_[monthID]_[TempBin]_in</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPV Table(*_in)</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="section_moves_runspec_batch"></a>5.2.3.3.&nbsp;MOVES Runspec batch script
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17909">5.2.3.3.1. Description</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17931">5.2.3.3.2. Processing Order</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s03.html#d0e17954">5.2.3.3.3. Files, Environment Variables, and Run Syntax</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17909"></a>5.2.3.3.1.&nbsp;Description
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The MOVES Runspec batch script file &#8220;<span class="quote">runspec.csh</span>&#8221; is used to execute the MOVES runs for the representative county and reference fuel month. 
+               </p>
+               <p>The output directories are named according to the following naming convention: [CountyRep]_[monthID]_[YearID]_[PollutantID],
+                  ie. 13121_Apr_2009_ozone
+               </p>
+               <p>The output files include:</p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p>rateperdistance.[frm|MYD|MYI]</p>
+                     </li>
+                     <li>
+                        <p>ratepervehicle.[frm|MYD|MYI]</p>
+                     </li>
+                     <li>
+                        <p>rateperprofile.[frm|MYD|MYI]</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17931"></a>5.2.3.3.2.&nbsp;Processing Order
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>runspec.csh is created by <span><strong class="command">Runspec_generator.pl</strong></span> and should be run after importer.csh and before <span><strong class="command">moves2smkEF.pl</strong></span>.  The runspec.csh is written in Linux c-shell script format depending on which platform is being used (this option is specified
+                  by the user in the Runspec_generator.pl) the script is used to run MOVES for the appropriate temperature bins, source types,
+                  and poluutants.  
+               </p>
+               <p>The runspec.csh uses following steps:</p>
+               <div class="orderedlist">
+                  <ol type="1">
+                     <li>
+                        <p>The runspec.csh contains all of the user selections needed to run MOVES using the imported MySQL MOVES databases that were
+                           created by importer.csh
+                        </p>
+                     </li>
+                     <li>
+                        <p>Creates the MOVES output in ASCII format and also provides the associated XML files for the three different emissions processes:
+                           RPD, RPV, RPP.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Review log file of the MOVES, called runlog_*.txt.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17954"></a>5.2.3.3.3.&nbsp;Files, Environment Variables, and Run Syntax
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="toc">
+                  <dl>
+                     <dt><span class="section"><a href="ch05s02s03.html#d0e17957">5.2.3.3.3.1. Input Files</a></span></dt>
+                     <dt><span class="section"><a href="ch05s02s03.html#d0e18003">5.2.3.3.3.2. Output Files</a></span></dt>
+                  </dl>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e17957"></a>5.2.3.3.3.1.&nbsp;Input Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="informaltable">
+                     <table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td><a href="ch05s02s03.html#section_moves_runspec_batch" title="5.2.3.3.&nbsp;MOVES Runspec batch script">runspec.csh</a></td>
+                              <td>ASCII</td>
+                              <td>runspec script to use the MySQL MOVES databases created by importer.csh and run MOVES</td>
+                           </tr>
+                           <tr>
+                              <td>RV_[SCC]_[YR]_[M]_[TempBin]_mrs.xml </td>
+                              <td>XML</td>
+                              <td>importer file specifies the zonemonthhour (*zmh.csv files that will be imported to MOVES for the Rate Per Vehicle Mode</td>
+                           </tr>
+                           <tr>
+                              <td>RP_[SCC]_[YR]_[M]_[ProfMYEAR???]_mrs.xml </td>
+                              <td>XML</td>
+                              <td>importer file specifies the *.csv files that will be imported to MOVES for the Rate Per Process Mode</td>
+                           </tr>
+                           <tr>
+                              <td>RD_[SCC]_[YR]_[M]_[TempBin]_[85 or 90?]_mrs.xml </td>
+                              <td>XML</td>
+                              <td>importer file specifies the *.csv files that will be imported to MOVES for Rate Per Distance Mode</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e18003"></a>5.2.3.3.3.2.&nbsp;Output Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Note: these output files are placed in separate directories for each representative county, fuel month and pollutant. Example:
+                     .../outputs/mysql/13121_Jan_2009_ozone
+                  </p>
+                  <div class="informaltable">
+                     <table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>rateperdistance.[frm|MYD|MYI]</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database RPD Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>ratepervehicle.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPV Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>ratepervehicle_smoke.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPV SMOKE format Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>rateperprofile.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPP Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>rateperprofile_smoke.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPP SMOKE format Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>activitytype.[frm|MYD|MYI]</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database activity type Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>agefractotals.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES age fraction totals Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>movesactivityoutput.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database activity output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>moveserror.[frm|MYD|MYI]</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database error Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>moveseventlog.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database event log Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>movesoutput.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>movesrun.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database run Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>movestablesused.[frm|MYD|MYI]</td>
+                              <td>MySQL </td>
+                              <td>MOVES MySQL Database tables used Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>movesworkersused.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database workers used Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>moves.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>rdprex.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RDPREX Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>rpprex.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RPPREX output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>rvprex.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database RVPREX Table(*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>sccvtypeagedistribution.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database SCCV Type Age Distribution output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>sccvtypeagedistribution_final.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database SCCV Type Age Distribution Final output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>tmprdscc.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database temporary RD SCC output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>tmprpscc.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database temporary RP SCC output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>tmprvscc.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database temporary RV SCC output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>tmp_sccroadtypedistribution.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database temporary scc road type distribution output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>tmp_srcfuelagedistribution.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database temporary source fuel age distribution output Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>travelfrac_denominator.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database travel fraction denominator Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>travelfrac_numerator.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database travel fraction numerator Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                           <tr>
+                              <td>travelfractions.[frm|MYD|MYI]</td>
+                              <td>MySQL</td>
+                              <td>MOVES MySQL Database travel fractions Table (*.frm,*.MYD,*.MYI)</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s02s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.2.2.&nbsp;MOVES Driver Scripts&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.2.4.&nbsp;MOVES Post-processing scripts</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

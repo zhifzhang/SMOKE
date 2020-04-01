@@ -1,0 +1,274 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.10.4.&nbsp;INVTABLE: Inventory table</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="prev" href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files">
+      <link rel="next" href="ch08s10s05.html" title="8.10.5.&nbsp;MACTDESC: MACT code descriptions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.10.4.&nbsp;<code class="envar">INVTABLE</code>: Inventory table
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s10s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.10.&nbsp;Other Support Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s10s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_invtable"></a>8.10.4.&nbsp;<code class="envar">INVTABLE</code>: Inventory table
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <code class="envar">INVTABLE</code> file replaces the <code class="envar">SIPOLS</code> and <code class="envar">ACTVNAMS</code> files previously used by SMOKE. <span><strong class="command">Smkinven</strong></span> uses the inventory table to select the inventory pollutants that will be output by <span><strong class="command">Smkinven</strong></span>. The valid pollutants are again checked at the end of SMOKE processing by <span><strong class="command">Smkmerge</strong></span>, to ensure that the program knows about all of the pollutants and also to set the order of the output variables (output species
+            are sorted by the order of the pollutants in the inventory table and for multiple species per pollutant, by alphabetical order).
+            You can use the <code class="envar">INVTABLE</code> to drop inventory pollutants in <span><strong class="command">Smkinven</strong></span> without having to modify the inventory files, simply by modifying <code class="envar">INVTABLE</code>. The units used in the SMOKE intermediate files are listed in this file. The SMOKE programs <span><strong class="command">Spcmat</strong></span>, and <span><strong class="command">Movesmrg</strong></span> use this file to determine which pollutants should be included in the NONHAPVOC or NONHAPTOG calculation.
+         </p>
+         <p>The inventory table also provides a way to assign the SPECIATE4 species ID to any pollutant that is a Hazardous Air Pollutant
+            (HAP) VOC. This assignment is not used directly by SMOKE, but rather is used by the Speciation Tool when creating VOC speciation
+            profiles.  This is used only when creating speciation profiles to support SMOKE runs that will combine criteria VOC and HAP
+            VOC emissions, using the <code class="envar">NHAPEXCLUDE</code> file in the <span><strong class="command">Smkinven</strong></span> program. More specifically, this can be done for the purpose of using VOC HAP emissions to augment VOC speciation profiles.
+            Since the Inventory Table provides information to the Speciation Tool, this field is not used by SMOKE, but is included for
+            continued integration of SMOKE inputs with the Speciation Tool.
+         </p>
+         <p> As described in the <span><strong class="command">Smkinven</strong></span> documentation in Chapter 6, <span><strong class="command">Smkinven</strong></span> in some cases will create "no-integrate" (NOI) HAP pollutant emissions from the inventory data by renaming the pollutant
+            with a "_NOI" suffix applied to the end of the Inventory Data Name from the Inventory Table for such pollutants. Similarly,
+            <span><strong class="command">Smkinven</strong></span> will automatically add all possibly needed "_NOI" pollutant names to the internal master list of valid pollutant names. This
+            list would otherwise be limited to the contents of the <code class="envar">INVTABLE</code> file entries where the Keep column contains an "Y".  <span><strong class="command">Smkinven</strong></span> inserts these names in the master list such that the "_NOI" version of the pollutant name appears in the list just after
+            the polutant on which the name is based.  The inserted entries that include "_NOI" are made when the following values are
+            included for the pollutant in the <code class="envar">INVTABLE</code> file.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>A "Y" appears in the "Keep" field</p>
+               </li>
+               <li>
+                  <p>A "V" or "T" appears in the "VOC or TOG component" field</p>
+               </li>
+               <li>
+                  <p>A "Y" appears in the "Model species" field</p>
+               </li>
+               <li>
+                  <p>Something other than "Y" appears in the "Explicit in mechanism" field (e.g., "N" or blank)</p>
+               </li>
+            </ul>
+         </div>
+         <p>It is possible for a user to choose two pollutants that result in double counting the emissions from the inventory. For example,
+            you may want to model both benzo(a)pyrene and 7-PAH which, would result in the emissions associated with CAS number 205992
+            (for benzo(a)pyrene) to be duplicated. The user is responsible for the choices made and the resulting changes in inventory
+            mass.
+         </p>
+         <p>The format of the <code class="envar">INVTABLE</code> is shown in <a href="ch08s10s04.html#tbl_input_invtable" title="Table&nbsp;8.89.&nbsp;Format for INVTABLE">Table&nbsp;8.89, &#8220;Format for <code class="envar">INVTABLE</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_invtable"></a><p class="title"><b>Table&nbsp;8.89.&nbsp;Format for <code class="envar">INVTABLE</code></b></p>
+            <table summary="Format for INVTABLE" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Description</th>
+                     <th>Type</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1-11</td>
+                     <td>Inventory data name</td>
+                     <td>11-character string</td>
+                  </tr>
+                  <tr>
+                     <td>13-15</td>
+                     <td>Mode (optional) e.g., EXR, EXS, EXH, EVP, BIO</td>
+                     <td>3-character string</td>
+                  </tr>
+                  <tr>
+                     <td>17-32</td>
+                     <td>Inventory Pollutant Code</td>
+                     <td>16-character string</td>
+                  </tr>
+                  <tr>
+                     <td>34-38</td>
+                     <td>SPECIATE4 ID(optional)</td>
+                     <td>Integer</td>
+                  </tr>
+                  <tr>
+                     <td>40</td>
+                     <td>Reactivity group (not used by SMOKE)</td>
+                     <td>Integer</td>
+                  </tr>
+                  <tr>
+                     <td>42</td>
+                     <td>Keep (Y or N)</td>
+                     <td>1-character string</td>
+                  </tr>
+                  <tr>
+                     <td>44-49</td>
+                     <td>Factor</td>
+                     <td>Float</td>
+                  </tr>
+                  <tr>
+                     <td>50</td>
+                     <td>VOC or TOG component (V/T/N)</td>
+                     <td>1-character string</td>
+                  </tr>
+                  <tr>
+                     <td>52</td>
+                     <td>Model species (Y/N)</td>
+                     <td>1-character string</td>
+                  </tr>
+                  <tr>
+                     <td>54</td>
+                     <td>Explicit in mechanism (Y/N)</td>
+                     <td>1-character string</td>
+                  </tr>
+                  <tr>
+                     <td>56</td>
+                     <td>Activity</td>
+                     <td>1-character string</td>
+                  </tr>
+                  <tr>
+                     <td>58-60</td>
+                     <td>NTI</td>
+                     <td>Integer</td>
+                  </tr>
+                  <tr>
+                     <td>62-77</td>
+                     <td>Units to be used in SMOKE intermediate files (<span class="emphasis"><em>changing not recommended</em></span>)
+                     </td>
+                     <td>16-character string</td>
+                  </tr>
+                  <tr>
+                     <td>79-118</td>
+                     <td>Inventory data description - a description of the name provided in columns 1-11.</td>
+                     <td>40-character string</td>
+                  </tr>
+                  <tr>
+                     <td>119-158</td>
+                     <td>CAS pollutant description - a description of the CAS or pollutant code contained in the inventory</td>
+                     <td>40-character string</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p>The columns in the <code class="envar">INVTABLE</code> are used as follows:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Inventory data name: Unique name for pollutant or activity that will be stored and processed by SMOKE. Because of I/O API
+                     restrictions, these names can only include alphanumeric characters and underscores, and the first character must be a letter.
+                     In addition, because SMOKE uses double-underscore as a separator when appending to variable names, no double-underscores are
+                     permitted in these names.
+                  </p>
+               </li>
+               <li>
+                  <p>Mode: This three-letter code represents the emissions mode that SMOKE uses to augment the pollutant names. Emissions mode
+                     usually refers to the on-road or nonroad mobile exhaust or evaporative emissions. If present in a record of the Inventory
+                     Table, SMOKE will combine the Mode field with the Inventory Data Name field using a double underscore. So, if the Inventory
+                     Data Name is "VOC" and the Mode is "EXH", then the pollutant name in SMOKE intermediate files will be stored as "EXH__VOC".
+                  </p>
+               </li>
+               <li>
+                  <p>Inventory Pollutant Code: This code represents the pollutant that is provided in the inventory file input into SMOKE, and
+                     is sometimes the Chemical Abstracts Service (CAS) number when the inventory uses CAS numbers to identify pollutants. <span><strong class="command">Smkinven</strong></span> matches this code to a ORL-formatted inventory file to assign the combination of Mode and Inventory Data Name (columns 2
+                     and 1 as described in the previous bullet), which is used in all subsequent SMOKE intermediate files and reports. This code
+                     is not used by SMOKE in any other way.
+                  </p>
+               </li>
+               <li>
+                  <p>SPECIATE4 ID: The SPECIATE4 ID is the unique species identifier in SPECIATE4 (the "ID" field in the SPECIES_PROPERTIES table).
+                     This code is not used by SMOKE, but rather is used during import of the Inventory Table to the Speciation Tool.
+                  </p>
+               </li>
+               <li>
+                  <p>Reactivity group: The reactivity group for the ASPEN model. It is not used in SMOKE.</p>
+               </li>
+               <li>
+                  <p>Keep: Indicates whether SMOKE should keep the CAS number associated with this inventory data name. SMOKE will keep any inventory
+                     data with at least one CAS number with a Y.
+                  </p>
+               </li>
+               <li>
+                  <p>Factor: The adjustment factor to use in splitting the emissions associated with a CAS number into different inventory data
+                     names, or reducing the mass of a metal compound associated with a CAS number to account for the metal mass only.
+                  </p>
+               </li>
+               <li>
+                  <p>VOC or TOG component: A &#8220;<span class="quote">V</span>&#8221; should be entered if the CAS number is part of VOC emissions or TOG emissions. A &#8220;<span class="quote">T</span>&#8221; should be entered if the CAS number is part of TOG emissions only. An &#8220;<span class="quote">N</span>&#8221; should be entered if the CAS number is part of neither VOC or TOG. Any other value other than &#8220;<span class="quote">V</span>&#8221; or &#8220;<span class="quote">T</span>&#8221; will be treated as an &#8220;<span class="quote">N</span>&#8221;.
+                  </p>
+               </li>
+               <li>
+                  <p>Model species: A &#8220;<span class="quote">Y</span>&#8221; should be entered if the pollutant is also a VOC model species for the AQM being targeted for the run. Any other values
+                     will be treated as an &#8220;<span class="quote">N</span>&#8221;.
+                  </p>
+               </li>
+               <li>
+                  <p>Explicit in mechanism: A &#8220;<span class="quote">Y</span>&#8221; should be entered if (1) the pollutant is a VOC species (the model-species column must be &#8220;<span class="quote">Y</span>&#8221; as well), and (2) that model-species is explicitly treated in the AQM&#8217;s chemical mechanism. The pollutant can be an explicit
+                     species in the chemical mechanism only when the <code class="envar">GSPRO</code> file definitions of the lumped VOC species have been adjusted to account for the pollutants/species that are explicit in
+                     the mechanism. The current explicit-in-mechanism species being used in the toxics CB6 mechanism for CMAQ are formaldehyde,
+                     acetaldheyde, acrolein and 1,3 butadiene.
+                  </p>
+               </li>
+               <li>
+                  <p>Activity: A &#8220;<span class="quote">Y</span>&#8221; should be entered if the inventory data name is a type of activity instead of emissions. Any other values will be treated
+                     as an &#8220;<span class="quote">N</span>&#8221;.
+                  </p>
+               </li>
+               <li>
+                  <p>NTI: Code identifying a HAP on the Clean Air Act HAP list (list of 188 HAPs). Not currently used by SMOKE; will be used in
+                     the future for growing HAP emissions to future years.
+                  </p>
+               </li>
+               <li>
+                  <p>Units: The units to store the data in the SMOKE intermediate files. This should be &#8220;<span class="quote">short tons/year</span>&#8221; for emissions values, &#8220;<span class="quote">miles/year</span>&#8221; for VMT, and &#8220;<span class="quote">miles/hr</span>&#8221; for speed. Although this is provided as an input field to allow possible future changes, these values should <span class="emphasis"><em>not</em></span> be changed by the user and are unrelated to the units of the emissions in the input files.
+                  </p>
+               </li>
+               <li>
+                  <p>Inventory data descriptions: This is the description of the inventory data name listed in columns 1-11.</p>
+               </li>
+               <li>
+                  <p>CAS pollutant description: Describes the pollutant that is coming from the inventory that is being input into SMOKE.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s10s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s10s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.10.3.&nbsp;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.10.5.&nbsp;<code class="envar">MACTDESC</code>: MACT code descriptions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

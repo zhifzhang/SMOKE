@@ -1,0 +1,202 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.15.&nbsp;Elevated-source processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s14s07.html" title="2.14.7.&nbsp;Using Smkmerge to apply the multiplicative and/or reactivity control matrices">
+      <link rel="next" href="ch02s15s02.html" title="2.15.2.&nbsp;Creating an elevated-source file for UAM and CAMX">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.15.&nbsp;Elevated-source processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s15s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_elevated_processing"></a>2.15.&nbsp;Elevated-source processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s15.html#sect_concepts_compute_layer_cmaq">2.15.1. Computing layer fractions for CMAQ</a></span></dt>
+               <dt><span class="section"><a href="ch02s15s02.html">2.15.2. Creating an elevated-source file for UAM and CAM<sub>X</sub></a></span></dt>
+            </dl>
+         </div>
+         <p>As introduced in <a href="ch02s05s03.html" title="2.5.3.&nbsp;Model-ready files">Section&nbsp;2.5.3, &#8220;Model-ready files&#8221;</a> and further explained in <a href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">Section&nbsp;2.8.5, &#8220;Point-source processing&#8221;</a>, there are two major approaches to processing elevated point sources for air quality modeling. The first approach is to have
+            SMOKE compute the layer assignments for the point sources; this method is used for the CMAQ model. The second approach, which
+            is used for the UAM models and CAM<sub>X</sub>, is to select specific sources as elevated and then create a special elevated-point-source file that contains the information
+            needed so that the AQM can compute the plume rise. In both cases, users can select elevated sources specifically (in the second
+            approach, that selection is mandatory). Also, PinG sources can be selected in both cases.
+         </p>
+         <p>The two approaches have some steps that are the same and some that are different. The rest of this section is split into the
+            following two subsections, one for each elevated-point-source processing approach:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Computing layer fractions for CMAQ</p>
+               </li>
+               <li>
+                  <p>Creating an elevated-source file for UAM and CAM<sub>X</sub></p>
+               </li>
+            </ol>
+         </div>
+         <p>Each subsection first overviews the steps in the approach, then gives more details on some of them.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_concepts_compute_layer_cmaq"></a>2.15.1.&nbsp;Computing layer fractions for CMAQ
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch02s15.html#d0e6672">2.15.1.1. Using <span><strong class="command">Elevpoint</strong></span></a></span></dt>
+                  <dt><span class="section"><a href="ch02s15.html#d0e6719">2.15.1.2. Using <span><strong class="command">Laypoint</strong></span></a></span></dt>
+                  <dt><span class="section"><a href="ch02s15.html#d0e6751">2.15.1.3. Using <span><strong class="command">Smkmerge</strong></span></a></span></dt>
+                  <dt><span class="section"><a href="ch02s15.html#d0e6772">2.15.1.4. Optional use of <span><strong class="command">Smkreport</strong></span></a></span></dt>
+               </dl>
+            </div>
+            <p>The CMAQ model requires the layer fractions for elevated point sources to be computed by SMOKE. To do this, SMOKE performs
+               the following steps:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Uses the <span><strong class="command">Smkinven</strong></span> program to import the annual, average-day, day-specific, and/or hour-specific emissions.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Optionally uses the <span><strong class="command">Temporal</strong></span> program to calculate hourly emissions if emissions will be used as a criterion for selecting elevated sources or PinG sources.
+                        For example, you may wish to select facilities with NO<sub>x</sub> emissions greater than 100 tons/day.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Uses the <span><strong class="command">Elevpoint</strong></span> program to select elevated and/or PinG sources. This step is required if modeling with PinG sources, but optional otherwise.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Uses the <span><strong class="command">Elevpoint</strong></span> program to create the <code class="envar">STACK_GROUPS</code> file, which is needed for processing PinG sources with CMAQ.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Uses the <span><strong class="command">Laypoint</strong></span> program to compute elevated plume rise for all elevated sources, and store the layer fractions for each source. This step
+                        can optionally read the output file from <span><strong class="command">Elevpoint</strong></span> to identify the elevated sources, but otherwise will compute plume rise for <span class="emphasis"><em>all</em></span> sources.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Uses the <span><strong class="command">Smkmerge</strong></span> program to combine the layer fractions with the hourly emissions to generate the model-ready output files and optionally
+                        generate the PinG hourly emissions file for CMAQ.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Optionally uses the <span><strong class="command">Smkreport</strong></span> program to report on elevated or PinG sources
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e6672"></a>2.15.1.1.&nbsp;Using <span><strong class="command">Elevpoint</strong></span></h4>
+                     </div>
+                  </div>
+               </div>
+               <p><span><strong class="command">Elevpoint</strong></span> can select elevated and PinG sources using multiple criteria based on emissions values, emissions rank, stack parameters,
+                  plant numbers, and an analytical plume rise calculation. The elevated criteria and PinG criteria are provided to <span><strong class="command">Elevpoint</strong></span> using a file called <code class="envar">PELVCONFIG</code>. You must configure this file to contain the criteria needed to select elevated and PinG source (if these selection are needed
+                  at all). If emissions values is one of the criteria, the <span><strong class="command">Elevpoint</strong></span> program reads all of the hourly point-source files using the <code class="envar">PTMPLIST</code> file. This file is a list of all <code class="envar">PTMP</code> files that will be evaluated to determine which sources have maximum daily emissions that exceed the specified selection
+                  criteria or to determine the emissions rank. Only the maximum daily facility-total emissions can be used by <span><strong class="command">Elevpoint</strong></span> to select sources based on emissions.
+               </p>
+               <p>The elevated sources and PinG sources can each be selected using different criteria. In general, there are many more elevated
+                  sources than PinG sources for typical applications of SMOKE and AQMs. <span><strong class="command">Elevpoint</strong></span> also permits you to group PinG sources and creates the <code class="envar">STACK_GROUPS</code> file so that the sources are treated as a single source in the PinG rise calculation by CMAQ. Grouping is useful to reduce
+                  the total number of PinG stacks processed by CMAQ (PinG processing is a computationally expensive calculation). Using grouping
+                  makes sense when several stacks at the same plant have the same, or nearly the same, stack parameters. When that is true,
+                  the emissions from the multiple stacks can be grouped and treated as a single PinG stack. Finally, there are two SMOKE settings
+                  (<code class="envar">SMK_ELEV_METHOD</code> and <code class="envar">SMK_PING_METHOD</code>) that instruct <span><strong class="command">Elevpoint</strong></span> and other SMOKE programs to actually use these criteria to select the elevated and PinG sources. If these settings are not
+                  set to &#8220;<span class="quote">1</span>&#8221; the elevated and PinG selections will not be made, and so will not affect any further processing steps.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e6719"></a>2.15.1.2.&nbsp;Using <span><strong class="command">Laypoint</strong></span></h4>
+                     </div>
+                  </div>
+               </div>
+               <p>In this CMAQ approach, <span><strong class="command">Laypoint</strong></span> uses gridded, hourly meteorological data and stack parameters to calculate the plume rise for all point-source emissions.
+                  The program&#8217;s approach is based on the Briggs algorithm, as explained in detail in <a href="ch06s03.html#sect_programs_elevpoint_briggs" title="6.3.1.1.&nbsp;Plume rise calculation">Section&nbsp;6.3.1.1, &#8220;Plume rise calculation&#8221;</a>, and provides the top and bottom heights of the plume. <span><strong class="command">Laypoint</strong></span> uses these heights to compute the plumes&#8217; distributions into the vertical layers that the plumes intersect, using the pressure
+                  difference across each layer over the pressure difference across the entire plume as a weighting factor to make this calculation.
+                  This approach gives plume fractions by layer and source. Only these fractions are stored in the output file (<code class="envar">PLAY</code>) from the <span><strong class="command">Laypoint</strong></span> program (not the emissions in each layer).
+               </p>
+               <p>If explicit plume rise sources (e.g., wildfires with precomputed hourly plume rise) are included in the inventory, <span><strong class="command">Laypoint</strong></span> will skip the plume rise calculation for these sources. Instead, it will use the hourly data from the SMOKE <code class="envar">PHOUR</code> intermediate file, which describe the fraction of emissions in layer 1 and the top and bottom of the plume. <span><strong class="command">Laypoint</strong></span> will combine these data with the pressure weights used for all elevated point sources to compute the fraction of emissions
+                  to go into each layer.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e6751"></a>2.15.1.3.&nbsp;Using <span><strong class="command">Smkmerge</strong></span></h4>
+                     </div>
+                  </div>
+               </div>
+               <p><span><strong class="command">Smkmerge</strong></span> applies the layer fractions from <span><strong class="command">Laypoint</strong></span> to the elevated sources to compute the emissions in each layer. This approach has the advantage of allowing you to avoid
+                  repeating the plume rise calculations for each control strategy or grid. If the <code class="envar">SMK_PING_METHOD</code> setting (discussed above) indicates that the special CMAQ PinG file should be created, the <span><strong class="command">Smkmerge</strong></span> program will also output this special file, called the <code class="envar">PINGTS_L</code> file. It contains the hourly, speciated emissions for each PinG source (which could be a stack group, as explained above).
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e6772"></a>2.15.1.4.&nbsp;Optional use of <span><strong class="command">Smkreport</strong></span></h4>
+                     </div>
+                  </div>
+               </div>
+               <p>If desired, <span><strong class="command">Smkreport</strong></span> can apply the layer fractions and elevated or PinG statuses to the inventory to generate reports that include layer information
+                  and/or the elevated or PinG status. This reporting could be used, for example, to create a list of all PinG sources in the
+                  inventory, or to determine the elevated versus layer-1 emissions by state or SCC.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s15s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.7.&nbsp;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.15.2.&nbsp;Creating an elevated-source file for UAM and CAM<sub>X</sub></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

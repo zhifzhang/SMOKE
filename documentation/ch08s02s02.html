@@ -1,0 +1,219 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.2.&nbsp;ARDAY: Area source day-specific emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="prev" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="next" href="ch08s02s03.html" title="8.2.3.&nbsp;ARHOUR: Area source hour-specific emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.2.&nbsp;<code class="envar">ARDAY</code>: Area source day-specific emissions
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.2.&nbsp;Inventory Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_arday"></a>8.2.2.&nbsp;<code class="envar">ARDAY</code>: Area source day-specific emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02s02.html#d0e37409">8.2.2.1. FF10 Format</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e37409"></a>8.2.2.1.&nbsp;FF10 Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The user specifies the data provided using this command in the header: FF10_DAILY_[NONPOINT|POINT|NONROAD|ONROAD].</p>
+            <p>This FF10 format uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. Sample header records for daily nonpoint sources are shown below:
+            </p><pre class="programlisting">
+#FORMAT   FF10_DAILY_NONPOINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonpoint Daily Source Inventory
+#DESC     FF10 Nonpoint Daily format</pre><div class="table"><a name="tbl_input_arday_FF10"></a><p class="title"><b>Table&nbsp;8.13.&nbsp;FF10 Format for individual area day-specific data files</b></p>
+               <table summary="FF10 Format for individual area day-specific data files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>COUNTRY</td>
+                        <td>Char(3)</td>
+                        <td>Country Code: e.g., US  (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>FIPS code for state and county (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>TRIBAL_CODE</td>
+                        <td>Char(3)</td>
+                        <td>Tribal code (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>CENSUS_TRACT</td>
+                        <td>Char</td>
+                        <td>Census tract ID (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>SHAPE_ID</td>
+                        <td>Char</td>
+                        <td>Shape Identification (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>N/A (unused)</td>
+                        <td>N/A</td>
+                        <td>Leave blank (not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>EMIS_TYPE</td>
+                        <td>Char(3)</td>
+                        <td>Emissions type [ex: EXH, EVP, and so on] (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>SCC (required)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>Pollutant Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>OP_TYPE_CD</td>
+                        <td>Char(20)</td>
+                        <td>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>CALC_METHOD</td>
+                        <td>Int</td>
+                        <td>Calculation Method (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>DATE_UPDATED</td>
+                        <td>Int</td>
+                        <td>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>MONTH</td>
+                        <td>Int</td>
+                        <td>Month of inventory (required)</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>MONTHTOT</td>
+                        <td>Real</td>
+                        <td>Monthly Total (short tons/month) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>DAYVAL1</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 1 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>DAYVAL2</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 2 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>17</td>
+                        <td>DAYVAL3</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 3 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                     </tr>
+                     <tr>
+                        <td>45</td>
+                        <td>DAYVAL31</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 31 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>46</td>
+                        <td>COMMENT</td>
+                        <td>Char</td>
+                        <td>(optional)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.&nbsp;Inventory Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.3.&nbsp;<code class="envar">ARHOUR</code>: Area source hour-specific emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,61 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.2.&nbsp;Creating the multiplicative control matrix</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="prev" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="next" href="ch02s14s03.html" title="2.14.3.&nbsp;Creating the reactivity control matrix">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.2.&nbsp;Creating the multiplicative control matrix</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.14.&nbsp;Control processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s14s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e6400"></a>2.14.2.&nbsp;Creating the multiplicative control matrix
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p><span><strong class="command">Cntlmat</strong></span> creates the multiplicative control matrix based on the information contained in the /MACT/, /CONTROL/, /EMS_CONTROL/, /CTG/,
+            and /ALLOWABLE/ packets. The specific details of how these packets interact and how the control factors are calculated is
+            described in the <span><strong class="command">Cntlmat</strong></span> section of <a href="ch06s02.html" title="6.2.&nbsp;Cntlmat">Section&nbsp;6.2, &#8220;<span><strong class="command">Cntlmat</strong></span>&#8221;</a>. Once the control factors have been calculated, <span><strong class="command">Cntlmat</strong></span> writes a multiplicative control matrix file that contains one column of control factors for each pollutant; each row in the
+            matrix represents a source. The names of the columns are the same as the names of the pollutants from the SMOKE inventory
+            file, so that either the <span><strong class="command">Grwinven</strong></span> or the <span><strong class="command">Smkmerge</strong></span> program knows which control column to apply to which inventory pollutant.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s14s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.&nbsp;Control processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.14.3.&nbsp;Creating the reactivity control matrix</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

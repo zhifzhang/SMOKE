@@ -1,0 +1,251 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.&nbsp;Inventory Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="next" href="ch08s02s02.html" title="8.2.2.&nbsp;ARDAY: Area source day-specific emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.&nbsp;Inventory Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_inventory"></a>8.2.&nbsp;Inventory Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02.html#d0e37191">8.2.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s02.html">8.2.2. <code class="envar">ARDAY</code>: Area source day-specific emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s03.html">8.2.3. <code class="envar">ARHOUR</code>: Area source hour-specific emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s04.html">8.2.4. <code class="envar">ARINV</code>: Area-source annual or average-day emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s05.html">8.2.5. <code class="envar">MBINV</code>: Mobile-source activity and emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s06.html">8.2.6. <code class="envar">PTDAY</code>: Point source day-specific emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s07.html">8.2.7. <code class="envar">PTHOUR</code>: Point source hour-specific emissions</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s08.html">8.2.8. <code class="envar">PTINV</code>: Point source annual or average day emissions</a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the inventory files should be stored are listed in <a href="ch08.html#tbl_input_inventory_files" title="Table&nbsp;8.1.&nbsp;Inventory File Locations">Table&nbsp;8.1, &#8220;Inventory File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e37191"></a>8.2.1.&nbsp;Overview
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08s02.html#sect_input_inventory_list">8.2.1.1. Inventory list files</a></span></dt>
+                  <dt><span class="section"><a href="ch08s02.html#sect_input_inventory_format">8.2.1.2. File format header</a></span></dt>
+                  <dt><span class="section"><a href="ch08s02.html#d0e37267">8.2.1.3. Required and optional fields</a></span></dt>
+                  <dt><span class="section"><a href="ch08s02.html#sect_input_inventory_header">8.2.1.4. Header records</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_inventory_list"></a>8.2.1.1.&nbsp;Inventory list files
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <code class="envar">ARINV</code>, <code class="envar">MBINV</code>, and <code class="envar">PTINV</code>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and
+                  other information) or they can contain a list of file names with full paths (i.e. <code class="filename">/apps/smoke/data/inventory/nei02/area/arinv.txt</code>); in the latter case, we call the file a &#8220;<span class="quote">list file</span>&#8221;. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into
+                  one inventory.  You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus
+                  nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this
+                  will be noted in the format descriptions.
+               </p>
+               <p>An inventory list file can be created using the UNIX <span><strong class="command">ls</strong></span>. The following command will create the <code class="envar">ARINV</code> file containing a list of all files starting with <code class="filename">arinv</code> in the <code class="filename"><code class="envar">$ARDAT</code></code> directory, complete with full paths.
+               </p>
+               <p><strong class="userinput"><code><span><strong class="command">ls</strong></span> <code class="filename"><code class="envar">$ARDAT</code>/arinv*</code> &gt; <code class="envar">$ARINV</code></code></strong></p>
+               <p>You will still need to edit this file to add format information (see <a href="ch08s02.html#sect_input_inventory_format" title="8.2.1.2.&nbsp;File format header">Section&nbsp;8.2.1.2, &#8220;File format header&#8221;</a>).
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_inventory_format"></a>8.2.1.2.&nbsp;File format header
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>All area-, mobile-, and point-source inventory files must include information specifying the file format being used. This
+                  is accomplished using a header entry, either in each individual inventory file or in the list file, if one is being used.
+                  Valid format options are:
+               </p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>#CEM indicates that the file is in CEM format</li>
+                     <li>#LIST indicates that the file is a list file</li>
+                     <li>#LIST GRID indicates that the file is a list of global gridded emission inventory files</li>
+                     <li>#FF10 indicates that the file is in FF10 (Flat File 10) format is shared between different source categories for annual/monthly
+                        or daily/hourly and point/nonpoint/nonroad/onroad data.  The user specifies the data provided using this command in the header:
+                        FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].
+                     </li>
+                     <li>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</li>
+                     <li>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</li>
+                     <li>#ORL FIRE indicates that the file is in ORL format for fires sources</li>
+                     <li>#ORL FIREEMIS indicates that the file is in ORL format for day-specific fires sources</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e37267"></a>8.2.1.3.&nbsp;Required and optional fields
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Inventory files can include both required and optional fields. In the format tables for each file, required fields are labeled
+                  &#8220;<span class="quote">required</span>&#8221;; optional fields are labeled either &#8220;<span class="quote">recommended</span>&#8221;, &#8220;<span class="quote">optional</span>&#8221;, or &#8220;<span class="quote">not used by SMOKE</span>&#8221;. For column-specific file formats, you may leave blank the fields that are optional. List-directed files, on the other hand,
+                  must have a default value (usually -9) for these fields.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_inventory_header"></a>8.2.1.4.&nbsp;Header records
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the
+                  beginning of each file. The general format of the header records is:
+               </p>
+               <p>command parm1 parm2 ... parm <span class="emphasis"><em>n</em></span></p>
+               <p>The <span class="emphasis"><em>command</em></span> field starts in the first column of the row. The remainder of the line is list-directed, with each field separated by blanks.
+                  The specific header commands vary by source category and format and are listed in <a href="ch08s02.html#tbl_input_inventory_header" title="Table&nbsp;8.12.&nbsp;Inventory header commands for ORL, and FF10 formats">Table&nbsp;8.12, &#8220;Inventory header commands for ORL, and FF10 formats&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_inventory_header"></a><p class="title"><b>Table&nbsp;8.12.&nbsp;Inventory header commands for ORL, and FF10 formats</b></p>
+                  <table summary="Inventory header commands for ORL, and FF10 formats" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Command</th>
+                           <th>Parameter</th>
+                           <th>Description and Values</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                              
+                              <table class="simplelist" border="0" summary="Simple list">
+                                 <tr>
+                                    <td>#FF10_ACTIVITY</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#FF10_[NONPOINT|POINT|NONROAD|ONROAD]</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD]</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#ORL</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#ORL NONPOINT</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#ORL FIRE</td>
+                                 </tr>
+                                 <tr>
+                                    <td>#ORL FIREEMIS</td>
+                                 </tr>
+                              </table>
+                              
+                           </td>
+                           <td>N/A</td>
+                           <td>N/A</td>
+                        </tr>
+                        <tr>
+                           <td>#TYPE</td>
+                           <td>File type</td>
+                           <td>First nonblank character after #TYPE to the last character of the line. For on-road mobile activity data, the word &#8220;<span class="quote">activity</span>&#8221; must appear in this header entry; otherwise, SMOKE assumes that the file contains emissions data.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>#COUNTRY</td>
+                           <td>Country name</td>
+                           <td>Valid names are those in the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code>(FF10 Format only) file(s) (US, CANADA, MEXICO, etc.)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>#YEAR</td>
+                           <td>Data year</td>
+                           <td>Number from 1900 to 2200</td>
+                        </tr>
+                        <tr>
+                           <td>#DESC</td>
+                           <td>Description</td>
+                           <td>Description of the data (not used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>#DATA or #POLID</td>
+                           <td>data1 data2 ... data <span class="emphasis"><em>n</em></span></td>
+                           <td>
+                              
+                              <p>In wild/Rx fires ORL format files (#ORL FIRE (&#8220;<span class="quote"><a href="ch08s02s08.html#sect_input_ptinv_fire" title="8.2.8.3.&nbsp;ORL FIRE Format">Section&nbsp;8.2.8.3, &#8220;ORL FIRE Format&#8221;</a></span>&#8221;) and day-specific #ORL FIREEMIS file (&#8220;<span class="quote"><a href="ch08s02s06.html#sect_input_ptday_fireemis" title="8.2.6.2.&nbsp;ORL FIREEMIS Emission Format">Section&nbsp;8.2.6.2, &#8220;ORL FIREEMIS Emission Format&#8221;</a></span>&#8221;), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; &#8220;<span class="quote">data1</span>&#8221; is the first pollutant name or CAS number, &#8220;<span class="quote">data2</span>&#8221; is the second pollutant name( or CAS number ), and so on.
+                              </p> 
+                              
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p>Sample header records are given for each file in their respective sections.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">Chapter&nbsp;8.&nbsp;SMOKE Input Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.2.&nbsp;<code class="envar">ARDAY</code>: Area source day-specific emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

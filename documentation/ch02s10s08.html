@@ -1,0 +1,64 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.8.&nbsp;Creating the intermediate files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s07.html" title="2.10.7.&nbsp;Processing Non-sequential Dates">
+      <link rel="next" href="ch02s11.html" title="2.11.&nbsp;Chemical speciation processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.8.&nbsp;Creating the intermediate files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s11.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e5496"></a>2.10.8.&nbsp;Creating the intermediate files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Finally, the <span><strong class="command">Temporal</strong></span> program must output intermediate files. The hourly emissions are written to the <code class="envar">ATMP</code>, <code class="envar">MTMP</code>, and <code class="envar">PTMP</code> I/O API files. Unlike the other major SMOKE intermediate files (e.g., the matrices), the actual emissions (not just factors)
+            are written to this file. This is because day-specific and hour-specific emissions can be impossible to convert into factors
+            since the annual inventory emissions for the day- or hour-specific sources could be zero and factors would not be able to
+            change that.
+         </p>
+         <p>If <span><strong class="command">Temporal</strong></span> has more than 120 variables to output (the limit for the number of variables in an I/O API file), <span><strong class="command">Temporal</strong></span> opens as many files (using the FileSetAPI wrapper) as are needed to store the data. SMOKE also estimates how large the output
+            files will be using 120 variables per file and automatically lowers the number of variables that will be put in each I/O API
+            output file to ensure that the files use less than 2 GB of disk space. In addition, <span><strong class="command">Temporal</strong></span> writes the supplementary files <code class="envar">ATSUP</code>, <code class="envar">MTSUP</code>, or <code class="envar">PTSUP</code>, which contain the temporal profiles assigned to each source. The structures of the SMOKE intermediate files output by <span><strong class="command">Temporal</strong></span> are provided in <a href="ch09s14.html" title="9.14.&nbsp;Temporal">Section&nbsp;9.14, &#8220;<span><strong class="command">Temporal</strong></span>&#8221;</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s11.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.7.&nbsp;Processing Non-sequential Dates&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.11.&nbsp;Chemical speciation processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

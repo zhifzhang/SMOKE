@@ -1,0 +1,324 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.6.&nbsp;PTDAY: Point source day-specific emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="prev" href="ch08s02s05.html" title="8.2.5.&nbsp;MBINV: Mobile-source activity and emissions">
+      <link rel="next" href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.6.&nbsp;<code class="envar">PTDAY</code>: Point source day-specific emissions
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.2.&nbsp;Inventory Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_ptday"></a>8.2.6.&nbsp;<code class="envar">PTDAY</code>: Point source day-specific emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02s06.html#sect_input_ptday_ff10">8.2.6.1.  FF10 Format</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s06.html#sect_input_ptday_fireemis">8.2.6.2. ORL FIREEMIS Emission Format</a></span></dt>
+            </dl>
+         </div>
+         <p>The <code class="envar">PTDAY</code> file is the input point-source inventory file for day-specific data. The file must be a list file (see <a href="ch08s02.html#sect_input_inventory_list" title="8.2.1.1.&nbsp;Inventory list files">Section&nbsp;8.2.1.1, &#8220;Inventory list files&#8221;</a>) and the files listed in the <code class="envar">PTDAY</code> file must be in the format shown in <a href="ch08s02s06.html#tbl_input_ptday_FF10" title="Table&nbsp;8.20.&nbsp;FF10 Format for individual point day-specific data files">Table&nbsp;8.20, &#8220;FF10 Format for individual point day-specific data files&#8221;</a> and <a href="ch08s02s06.html#tbl_input_ptday_fireemis" title="Table&nbsp;8.21.&nbsp;Format for individual day-specific data files for fires : ORL FIREEMIS">Table&nbsp;8.21, &#8220;Format for individual day-specific data files for fires : ORL FIREEMIS&#8221;</a>. The contents of the day-specific data files vary depending on whether the <code class="envar">PTINV</code> file is in FF10 or ORL FIRE format. The day-specific files can have a #COUNTRY header entry to set the country code (see
+            <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States
+            in the default <code class="envar">COSTCY</code> file).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_ptday_ff10"></a>8.2.6.1.&nbsp; FF10 Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This FF10 format uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_DAILY_POINT.
+            </p>
+            <p>Sample header records for daily point source data are shown below:</p><pre class="programlisting">
+#FORMAT   FF10_DAILY_POINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Point Daily Source Inventory 
+#DESC     FF10 Point Daily format</pre><div class="table"><a name="tbl_input_ptday_FF10"></a><p class="title"><b>Table&nbsp;8.20.&nbsp;FF10 Format for individual point day-specific data files</b></p>
+               <table summary="FF10 Format for individual point day-specific data files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>COUNTRY</td>
+                        <td>Char(3)</td>
+                        <td>Country code: e.g., US  (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>FIPS code for state and county (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>TRIBAL_CODE</td>
+                        <td>Char(3)</td>
+                        <td>Tribal code (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>FACILITY_ID</td>
+                        <td>Char(20)</td>
+                        <td>Facility Identification Code (required; same as the Plant ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>UNIT_ID</td>
+                        <td>Char(20)</td>
+                        <td>Unit Identification Code (required; same as the Point ID in the ORL format) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>REL_POINT_ID</td>
+                        <td>Char(20)</td>
+                        <td>Release Point Identification Code (recommended; same as the Stack ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>PROCESS_ID</td>
+                        <td>Char(20)</td>
+                        <td>Process Identification Code characters (recommended; same as the Segment ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>SCC (required)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>Pollutant Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>OP_TYPE_CD</td>
+                        <td>Char(20)</td>
+                        <td>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>CALC_METHOD</td>
+                        <td>Int</td>
+                        <td>CALC_METHOD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>DATE_UPDATED</td>
+                        <td>Int</td>
+                        <td>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>MONTH</td>
+                        <td>Int</td>
+                        <td>Month of inventory (required)</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>MONTHTOT</td>
+                        <td>Real</td>
+                        <td>Monthly Total (short tons/month) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>DAYVAL1</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 1 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>DAYVAL2</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 2 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>17</td>
+                        <td>DAYVAL3</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 3 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                     </tr>
+                     <tr>
+                        <td>45</td>
+                        <td>DAYVAL31</td>
+                        <td>Real</td>
+                        <td>Daily emissions for day 31 (short tons/day) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>46</td>
+                        <td>COMMENT</td>
+                        <td>Char</td>
+                        <td>(optional)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_ptday_fireemis"></a>8.2.6.2.&nbsp;ORL FIREEMIS Emission Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The SMOKE requires that the sources in the day-specific fires inventory format (<code class="envar">#ORL FIREEMIS</code>) <code class="envar">PTDAY</code> file also be in the <code class="envar">PTINV</code> file described in <a href="ch08s02s08.html#sect_input_ptinv_fire" title="8.2.8.3.&nbsp;ORL FIRE Format">Section&nbsp;8.2.8.3, &#8220;ORL FIRE Format&#8221;</a>. The values of the fields that are common to the day-specific data and the master (annual) data from <code class="envar">PTINV</code> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily
+               <code class="envar">ACRESBURNED</code> and <code class="envar">FUEL_LOAD</code> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information,
+               such as <code class="envar">BEGHOUR</code> and <code class="envar">ENDHOUR</code> are used to adjust the hourly temporal profile.
+            </p>
+            <p>Detail script setting information for fires emission modeling is described in <a href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">Section&nbsp;4.4.17, &#8220;Plume Rise Calculation for Fires&#8221;</a>.
+            </p>
+            <p>NOTE: All inventory pollutant names need to be listed in the master (annual) <code class="envar">PTINV</code> and the day-specific <code class="envar">PTDAY</code> files using a header record <code class="envar">#DATA</code>. Sample header records are shown below:
+            </p><pre class="programlisting">#ORL     FIREEMIS
+#TYPE    Day-specific Point Source Inventory for FIRES
+#COUNTRY US
+#YEAR    2002
+#DESC    FIPS,FIREID,LOCID,SCC,DATA,DATE,DATA_VALUE,BEGHOUR,ENDHOUR</pre><p>The format for the data records is shown in <a href="ch08s02s06.html#tbl_input_ptday_fireemis" title="Table&nbsp;8.21.&nbsp;Format for individual day-specific data files for fires : ORL FIREEMIS">Table&nbsp;8.21, &#8220;Format for individual day-specific data files for fires : ORL FIREEMIS&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_ptday_fireemis"></a><p class="title"><b>Table&nbsp;8.21.&nbsp;Format for individual day-specific data files for fires : ORL FIREEMIS</b></p>
+               <table summary="Format for individual day-specific data files for fires : ORL FIREEMIS" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>State and County code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIREID</td>
+                        <td>Char(20)</td>
+                        <td>Fire idenfication code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>LOCID</td>
+                        <td>Char(15)</td>
+                        <td>Location identification code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>SCC Flaming or Smoldering (required)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>The pollutant codes, "ACRESCBURNED", or "FUEL_LOAD" (16 characters) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>DATE</td>
+                        <td>Char(8)</td>
+                        <td>MM/DD/YY format. Years less than 70 are treated as century 2000 (8 characters) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>DATA_VALUE</td>
+                        <td>Real</td>
+                        <td>If "POLID" is a pollutant, it represents the daily total emissions (short tons/day). If not, ACRESBURNED in the unit of acres/day,
+                           FUEL_LOAD in the unit of tons/acres, and HEATFLUX in the unit of BTU/day. (required)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>BEGHOUR</td>
+                        <td>Int</td>
+                        <td>Hour of the day that the fire began (0 to 23) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>ENDHOUR</td>
+                        <td>Int</td>
+                        <td>Hour of the day that the fire ended (0 to 23) (required)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.5.&nbsp;<code class="envar">MBINV</code>: Mobile-source activity and emissions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.7.&nbsp;<code class="envar">PTHOUR</code>: Point source hour-specific emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

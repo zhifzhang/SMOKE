@@ -1,0 +1,124 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.6.2.&nbsp;Base year and past/future years</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s06.html" title="2.6.&nbsp;Modeling parameters">
+      <link rel="prev" href="ch02s06.html" title="2.6.&nbsp;Modeling parameters">
+      <link rel="next" href="ch02s06s03.html" title="2.6.3.&nbsp;Modeling episodes">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.6.2.&nbsp;Base year and past/future years</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.6.&nbsp;Modeling parameters</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s06s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e1793"></a>2.6.2.&nbsp;Base year and past/future years
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>For any modeling effort, the emissions base year and future year are key modeling parameters needed for performing emissions
+            processing. The base year is usually the year for which the air quality model is being run in order to compare modeling results
+            with observed air quality data. Such comparisons allow modelers to tune the emissions data and air quality model, to ensure
+            that the AQM is performing adequately during the modeling episode.
+         </p>
+         <p>The base year is most often a year for which an emission inventory is available. This is usually the same year for which the
+            meteorology model has been run to prepare input to SMOKE and an AQM and for which air quality observations are available.
+            Of course there are exceptions to this principle, but generally that is how one establishes a base year. 
+         </p>
+         <p>Several different files and settings are used to set the base year in SMOKE, each of which should be consistent with each
+            other for ideal results.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The <code class="envar">YEAR</code> setting in the SMOKE Assigns file is the reference point used by the scripts to determine the base year and set the names
+                     of various year-specific input files.
+                  </p>
+               </li>
+               <li>
+                  <p>The episode and run settings (see <a href="ch02s06s03.html" title="2.6.3.&nbsp;Modeling episodes">Section&nbsp;2.6.3, &#8220;Modeling episodes&#8221;</a>) determine the base year that will be used in the model-ready output files. This base year must match the <code class="envar">YEAR</code> setting so that the correct input files are used.
+                  </p>
+               </li>
+               <li>
+                  <p>The input emissions files should ideally contain data for the same base year, and the #YEAR header setting in those files
+                     should be consistent with the <code class="envar">YEAR</code> environment variable in the Assigns file. If the years in the annual inventory files are not consistent with each other,
+                     SMOKE will determine the year used by the most sources and set that as the base year. If day-specific or hour-specific data
+                     are used, all years in those files must be consistent with the base year of the annual emissions.
+                  </p>
+               </li>
+               <li>
+                  <p>The MOVES input data, if they are being used, should also be consistent with the base year. SMOKE is capable of running MOVES
+                     with inputs from a different year, but certain inputs may not be correct.
+                  </p>
+               </li>
+               <li>
+                  <p>Finally, the dates in the I/O API meteorology data from the Meteorology-Chemistry Interface Processor (MCIP) must be consistent
+                     with both the base year and the episode and run settings.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>The future (or past) year is a chosen year in the future (or past) for which a modeler needs to run an air quality model;
+            for example, to model the future effects of particular emission control strategies. To model a future year with SMOKE, you
+            must have either an inventory that has been computed for a future year, or growth and control factors to project the base-year
+            inventory to the future year. The settings and files that must be considered are as follows:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The setting <code class="envar">FYEAR</code> is set in the run script and is used by the script to automatically assign the name of the <span><strong class="command">Cntlmat</strong></span> input file <code class="envar">GCNTL</code>, which contains the growth factors. <code class="envar">FYEAR</code> must be set to the future year even if a future-year inventory is not being created because it has already been provided
+                     to you.
+                  </p>
+               </li>
+               <li>
+                  <p>If you already have a future-year inventory and so do not need to use SMOKE to project one from the base year inventory, then
+                     the emissions data year must match the future year, and the #YEAR header in the inventory file must match that year as well.
+                     In this case, the <code class="envar">SMK_BASEYR_OVERRIDE</code> setting must also be used to indicate what the base year is (which will be the same as the year of the meteorology data).
+                  </p>
+               </li>
+               <li>
+                  <p>The MOVES input data, if they are being used, must also include the correct settings for the future year of interest.</p>
+               </li>
+               <li>
+                  <p>The episode and run settings, meteorology files, and day- or hour-specific inventories should <span class="emphasis"><em>not</em></span> match the future year, but rather should use the base-year episode dates.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s06s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.6.&nbsp;Modeling parameters&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.6.3.&nbsp;Modeling episodes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

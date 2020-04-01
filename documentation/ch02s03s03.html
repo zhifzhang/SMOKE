@@ -1,0 +1,109 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.3.3.&nbsp;Inventory file formats</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s03.html" title="2.3.&nbsp;Emission inventories">
+      <link rel="prev" href="ch02s03s02.html" title="2.3.2.&nbsp;Inventory source categories">
+      <link rel="next" href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.3.3.&nbsp;Inventory file formats</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.3.&nbsp;Emission inventories</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_inv_file_formats"></a>2.3.3.&nbsp;Inventory file formats
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE supports a variety of inventory formats for criteria, particulate, toxics, and activity data inventories, which are
+            described in detail in <a href="ch08s02.html" title="8.2.&nbsp;Inventory Files">Section&nbsp;8.2, &#8220;Inventory Files&#8221;</a>. Here, we provide a brief introduction to these formats, which will be helpful as you read more about SMOKE in the remainder
+            of this chapter and the chapters before <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>. All formats described here are text files. To convert your data to these formats, the best approach is to use a database
+            or spreadsheet program to reformat and output the data in the requested format. There is not a standard format-conversion
+            method that comes with SMOKE.
+         </p>
+         <p> In the following paragraphs, we describe the formats available for nonpoint/stationary area, nonroad mobile, on-road mobile,
+            point, and point-wildfire sources.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><span class="bold"><strong>Nonpoint/stationary area sources:</strong></span> SMOKE supports two formats for nonpoint/stationary area sources.  The ORL and FF10 (Flat File 10) format are list directed
+                     (comma or semicolon delimited) and these file formats may be used to represent many different sources. The header of the file
+                     indicates what source data are in the file.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Nonroad mobile sources:</strong></span> There are three available inventory formats for nonroad mobile sources.  The FF10 (Flat File 10) format is list directed
+                     (comma or semicolon delimeted) and the header of the file is used to indicate the nonroad mobile source data is within the
+                     file.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>On-road mobile sources:</strong></span> The Flat File 10 (FF10) format is list directed (comma or semicolon delimited) and contains activity inventory such as VMT,
+                     speed, and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Point sources:</strong></span> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories.
+                     For annual or average-day inventories, the ORL and FF10 formats can be used for criteria, particulate, and toxics inventories.
+                     Finally, the CEM data format can be used for day-specific or hour-specific data : SMOKE uses the ORIS codes and boiler codes
+                     in the annual inventory files to match sources from the CEM data files.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Wildfire sources:</strong></span> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using
+                     the ORL and FF10 point-source formats.
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle" compact>
+                        <li><span class="bold"><strong>Precomputed plume rise approach:</strong></span> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire
+                           data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed
+                           plume rise using the FF10 day-specific and hour-specific formats.
+                        </li>
+                        <li><span class="bold"><strong>Internal plume rise calculation approach:</strong></span> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific
+                           characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described
+                           in <a href="ch08s02s08.html#sect_input_ptinv_fire" title="8.2.8.3.&nbsp;ORL FIRE Format">Section&nbsp;8.2.8.3, &#8220;ORL FIRE Format&#8221;</a>, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<a href="ch08s02s06.html#sect_input_ptday_fireemis" title="8.2.6.2.&nbsp;ORL FIREEMIS Emission Format">Section&nbsp;8.2.6.2, &#8220;ORL FIREEMIS Emission Format&#8221;</a>). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and
+                           fuel loading, and it adjusts temporal profiles using the start and end hours of the fire. See detail at <a href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">Section&nbsp;4.4.17, &#8220;Plume Rise Calculation for Fires&#8221;</a></li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.3.2.&nbsp;Inventory source categories&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.3.4.&nbsp;Country, state, and county codes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

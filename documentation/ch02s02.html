@@ -1,0 +1,75 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.2.&nbsp;Assigns file and environment variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="next" href="ch02s03.html" title="2.3.&nbsp;Emission inventories">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.2.&nbsp;Assigns file and environment variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_assigns"></a>2.2.&nbsp;Assigns file and environment variables
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>The Assigns file is a script used to set up the parameters of a SMOKE run. The file configures the UNIX environment so that
+            all of the correct input, intermediate, and output directories and files can be identified and used by the SMOKE programs.
+            It also sets things like the name of the grid and the time period that you will run SMOKE for a given case. It does this by
+            setting many UNIX environment variables, explained in the next paragraph. The Assigns file also uses environment variables
+            to configure compiler options, so that SMOKE can be compiled on operating system other than the ones provided with the SMOKE
+            distribution. More information on the Assigns file is provided in <a href="ch04s02s02.html#sect_scripts_assigns_files" title="4.2.2.2.&nbsp;Assigns files">Section&nbsp;4.2.2.2, &#8220;Assigns files&#8221;</a>.
+         </p>
+         <p>Environment variables are aliases that can be set by a UNIX operating system. These variables are defined during a user&#8217;s
+            UNIX session, usually defined by an <span><strong class="command">xterm</strong></span> or other UNIX terminal window. The environment variables that SMOKE uses store the input, intermediate, and output files
+            and directories. For example, the environment variable for the directory that is the SMOKE root directory is <code class="envar">SMKROOT</code>. At the UNIX prompt, this environment variable could be defined to an actual path such as <code class="filename">/home/mylogin/smoke</code>. To set an environment variable, the UNIX <span><strong class="command">setenv</strong></span> command is needed. In this example, the command to define <code class="envar">SMKROOT</code> as the given path is:
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">setenv</strong></span> <code class="envar">SMKROOT</code> <code class="filename">/home/mylogin/smoke</code></code></strong></p>
+         <p>After this command is issued, the <code class="envar">SMKROOT</code> environment variable stores the characters <code class="filename">/home/mylogin/smoke</code> as its value. To use the value of an environment variable, the dollar sign must proceed the variable name at the UNIX prompt.
+            In the follow example, we give the UNIX command <span><strong class="command">echo</strong></span> to print the contents of the <code class="envar">SMKROOT</code> environment variable at the UNIX prompt. Note the use of the dollar sign before the <code class="envar">SMKROOT</code> variable name.
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">echo</strong></span> <code class="envar">$SMKROOT</code></code></strong></p>
+         <p>When the UNIX system executes this command, the following is displayed at the UNIX prompt:</p>
+         <p><code class="computeroutput">/home/mylogin/smoke</code></p>
+         <p>The environment variables set by the Assigns file for directories are described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>. The variables used by the SMOKE scripts for controlling SMOKE execution are described in <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>. Finally, the environment variables that control program behavior are described in <a href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">Chapter&nbsp;5, <i>SMOKE Utility Tools</i></a>, <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>, and <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">Chapter&nbsp;2.&nbsp;SMOKE Concepts&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.3.&nbsp;Emission inventories</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

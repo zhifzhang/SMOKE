@@ -1,0 +1,82 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.11.&nbsp;Mrgpt</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s10s03.html" title="6.10.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s11s02.html" title="6.11.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.11.&nbsp;<span><strong class="command">Mrgpt</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s10s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s11s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_mrgpt"></a>6.11.&nbsp;<span><strong class="command">Mrgpt</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s11.html#d0e27030">6.11.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s11s02.html">6.11.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s11s03.html">6.11.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27030"></a>6.11.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> Point
+            </p>
+            <p>The purpose of the <span><strong class="command">Mrgpt</strong></span> program is to combine inline-mode model-ready multiple point speciated hourly emission data files (not gridded) created by
+               <span><strong class="command">Smkmerge</strong></span> and ASCII elevated files created by <span><strong class="command">Elevpoint</strong></span>. The program merges whatever data variables are in the input files. These files can each have different sets of data variables;
+               <span><strong class="command">Mrgpt</strong></span> will sum values only for each variable that is common to two or more files.
+            </p>
+            <p><span><strong class="command">Mrgpt</strong></span> checks several features of the input files to ensure that the data in these files are appropriate to be merged together.
+               All input files must have use the same time step. <span><strong class="command">Mrgpt</strong></span> compares the units of the variables with the same name and it creates an error message when the units are not identical.
+               It is not sufficient to have units that are the same in meaning but different in syntax. For example, although tons/hour and
+               tons/hr represent the same units, <span><strong class="command">Mrggrid</strong></span> will not recognize this because of the different syntax. The user must resolve unit discrepancies before running the program.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s10s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s11s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.10.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.11.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,336 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.3.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s03.html" title="6.3.&nbsp;Elevpoint">
+      <link rel="prev" href="ch06s03s02.html" title="6.3.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s04.html" title="6.4.&nbsp;Grdmat">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.3.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e23412"></a>6.3.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s03s03.html#d0e23474">6.3.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s03s03.html#sect_programs_elevpoint_envar">6.3.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s03s03.html#d0e23789">6.3.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_elevpoint"></a><p class="title"><b>Figure&nbsp;6.3.&nbsp;<span>Elevpoint</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\elevpoint_html.jpg" alt="Elevpoint input and output files"></div>
+         </div>
+         <p><a href="ch06s03s03.html#fig_programs_elevpoint" title="Figure&nbsp;6.3.&nbsp;Elevpoint input and output files">Figure&nbsp;6.3, &#8220;<span>Elevpoint</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Elevpoint</strong></span> program. The input files are the grid description file (<code class="envar">GRIDDESC</code>), an elevated source configuration file (<code class="envar">PELVCONFIG</code>), the point-source inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">PNTS</code>), and, if the <code class="envar">PELVCONFIG</code> file selects sources by emissions value or rank, either a list of hourly emissions files output by <span><strong class="command">Temporal</strong></span> (<code class="envar">PTMPLIST</code>) or an individual hourly emissions file (<code class="envar">PTMP</code>).
+         </p>
+         <p><span><strong class="command">Elevpoint</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), an elevated point source identification file (<code class="envar">PELV</code>), an elevated and PinG source report (<code class="envar">REPPELV</code>), and a stack parameters file (<code class="envar">STACK_GROUPS</code>) if the <code class="envar">PELVCONFIG</code> file is configured to select stack groups.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e23474"></a>6.3.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">GRIDDESC</code></td>
+                        <td>ASCII</td>
+                        <td>Description of the modeling grid</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PELVCONFIG</code></td>
+                        <td>ASCII</td>
+                        <td>Elevated source configuration file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PNTS</code></td>
+                        <td>SMOKE map</td>
+                        <td>Intermediate inventory file produced by <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PTMP</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Hourly emissions file produced by <span><strong class="command">Temporal</strong></span>; needed only when <code class="envar">PELVCONFIG</code> specifies emissions as one of the selection or grouping criteria and not using the <code class="envar">PTMPLIST</code> file
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PTMPLIST</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>List of hourly emissions files produced by <span><strong class="command">Temporal</strong></span>; needed only when <code class="envar">PELVCONFIG</code> specifies emissions as one of the selection or grouping criteria
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_programs_elevpoint_envar"></a>6.3.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">ELEV_WRITE_FAKE_SRC</code>: [default: Y]
+                     </p>
+                     <p>Defines whether the program needs to add a fake source group or not when there is no an elevated source group to output.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Add a fake source group when there is no an elevated source group to output</p>
+                           </li>
+                           <li>
+                              <p>N: Do not add a fake source group.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">ELEV_WRITE_LATLON</code>: [default: Y]
+                     </p>
+                     <p>Defines whether write the latitude and longitude information of special elevated or PinG sources to the stack groups file
+                        <a href="ch09s03s02.html" title="9.3.2.&nbsp;STACK_GROUPS">Section&nbsp;9.3.2, &#8220;<code class="envar">STACK_GROUPS</code>&#8221;</a> for air quality models CMAQ, and UAM-style.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Write the latitude and longitude information of elevated or PinG sources to the the stack group file.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not write the latitude and longitude information of elevated or PinG sources to the the stack group file.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The ELEV_WRITE_LATLON can not be N, when processing for PinG sources, since CMAQ does need the latitude and longitude to be
+                        included.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">G_RUNLEN</code>: [default: 240000]
+                     </p>
+                     <p>Simulation length (HHMMSS)</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">G_STDATE</code>: [default: 0]
+                     </p>
+                     <p>Starting date of simulation (YYYYDDD)</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">G_STTIME</code>: [default: 0]
+                     </p>
+                     <p>Starting time of simulation (HHMMSS)</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">G_TSTEP</code>: [default: 10000]
+                     </p>
+                     <p>Time step (HHMMSS), only 10000 is allowed</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">IOAPI_ISPH</code>: [default: 19]
+                     </p>
+                     <p>Determines which USGS spheroid to use for grid-based calculations</p>
+                     <div class="itemizedlist">
+                        <ul type="circle" compact="">
+                           <li>0: Clarke 1866</li>
+                           <li>1: Clarke 1880</li>
+                           <li>2: Bessel</li>
+                           <li>3: New International 1967</li>
+                           <li>4: International 1909</li>
+                           <li>5: WGS 72</li>
+                           <li>6: Everest</li>
+                           <li>7: WGS 66</li>
+                           <li>8: GRS 1980</li>
+                           <li>9: Airy</li>
+                           <li>10: Modified Everest</li>
+                           <li>11: Modified Airy</li>
+                           <li>12: WGS 84</li>
+                           <li>13: Southeast Asia</li>
+                           <li>14: Australian National</li>
+                           <li>15: Krassovsky</li>
+                           <li>16: Hough</li>
+                           <li>17: Mercury 1960</li>
+                           <li>18: Modified Mercury 1968</li>
+                           <li>19: Normal Sphere</li>
+                        </ul>
+                     </div>
+                     <p>This environment variable can also be used to set custom spheroid representations. See the <a href="http://www.baronams.com/products/ioapi/SETSPHERE.html" target="_top">I/O API documentation</a> for more information.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_ELEV_METHOD</code>: [default: 0]
+                     </p>
+                     <p>Defines the method to use in SMOKE for determining and processing elevated point sources. The setting chosen depends on the
+                        model output format needed from SMOKE. All PinG sources determined based on <code class="envar">SMK_PING_METHOD</code> will automatically be considered elevated sources (as defined specifically for the model for which you are creating emissions).
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>0: Treat all sources as potentially elevated, and let the <span><strong class="command">Laypoint</strong></span> program determine which sources are elevated and which are not. This approach is appropriate only for SMOKE output for the
+                                 CMAQ model.
+                              </p>
+                           </li>
+                           <li>
+                              <p>1: Use the &#8220;<span class="quote">Elevated</span>&#8221; section of the <code class="envar">PELVCONFIG</code> configuration file to select specific sources. This approach can be used for any of the model output formats - CMAQ and UAM-style.
+                              </p>
+                              <p>For UAM-style emissions processing, this environment variable must be set to 1 and the <code class="envar">PELVCONFIG</code> file will be used to select specific sources. This method of processing is needed for UAM and CAM<sub>X</sub> because they require use of the cutoff method discussed earlier. In rare cases of a very small inventory, it might be acceptable
+                                 to specify 0 for this setting in UAM-style emissions processing, provided that you are sure that treating all sources as elevated
+                                 sources in UAM-style models is acceptable. We do not recommend such an approach for typical SMOKE applications for UAM-style
+                                 models.
+                              </p>
+                           </li>
+                           <li>
+                              <p>2: Use the &#8220;<span class="quote">Elevated</span>&#8221; section of the <code class="envar">PELVCONFIG</code> configuration file to select specific sources. This approach can be used for in-line plume rise in CMAQ. Must set <code class="envar">SMK_PING_METHOD</code> = 0.
+                              </p>
+                              <p>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <code class="envar">PELVCONFIG</code> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in
+                                 the CMAQ in-line plume rise module, <span><strong class="command">Elevpoint</strong></span> needs to group sources with nearly identical stack parameters. <span><strong class="command">Elevpoint</strong></span> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation
+                                 in CMAQ. See <a href="ch04s04s18.html" title="4.4.18.&nbsp;In-line Plume Rise Calculation in CMAQ model (as of version 4.7)">Section&nbsp;4.4.18, &#8220;In-line Plume Rise Calculation in CMAQ model (as of version 4.7)&#8221;</a> for more detail.
+                              </p>
+                              <p>When using <span><strong class="command">Smkmerge</strong></span> for in-line plume rise processing, <code class="envar">MRG_LAYERS_YN</code> must set to N to create hourly speciated 2-D surface layer emissions file. If <code class="envar">SMKMERGE_CUSTOM_OUTPUT</code> is set to Y, the output file for the in-line emissions is called <code class="envar">INLNST_L</code>.
+                              </p>
+                              <p>To process point fire emission (ptfire sector) without precomputed plume rise described in described in <a href="ch04s04s02.html#sect_scripts_hour_day_invs" title="4.4.2.5.&nbsp;Day-specific and hour-specific point and fire inventories">Section&nbsp;4.4.2.5, &#8220;Day-specific and hour-specific point and fire inventories&#8221;</a>.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_PING_METHOD</code>: [default: 0]
+                     </p>
+                     <p>Defines the method to use in determining PinG point sources.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>0: No PinG sources</p>
+                           </li>
+                           <li>
+                              <p>1: Use PinG section of <code class="envar">PELVCONFIG</code> configuration file
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>For all models that SMOKE supports use of PinG sources is optional. Some models may have limitations on the number of PinG
+                        sources supported, and you must make sure that these limitations are met; SMOKE does not automatically compare with these
+                        limitations, if any.
+                     </p>
+                     <p>For CMAQ, SMOKE will output a <code class="envar">STACK_GROUPS</code> file from the <span><strong class="command">Elevpoint</strong></span> program and a <code class="envar">PINGTS_[S|L]</code> file from the <span><strong class="command">Smkmerge</strong></span> program to support PinG. For UAM-style processing, SMOKE will flag PinG sources in the ASCII elevated file created by <span><strong class="command">Smkmerge</strong></span>, and should be used with the <code class="envar">SMK_ASCIIELEV_YN</code> option set to Y to create this ASCII elevated file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e23789"></a>6.3.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Elevpoint</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PELV</code></td>
+                        <td>ASCII</td>
+                        <td>Elevated point source identification file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPPELV</code></td>
+                        <td>ASCII</td>
+                        <td>Reports the sources selected as elevated and PinG, plus other information about the sources, including why they were selected</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">STACK_GROUPS</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>PinG and/or elevated sources stack parameters file</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.3.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.4.&nbsp;<span><strong class="command">Grdmat</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

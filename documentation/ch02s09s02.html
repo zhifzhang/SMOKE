@@ -1,0 +1,71 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.2.&nbsp;Assign pollutant names to data input by code numbers</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="next" href="ch02s09s03.html" title="2.9.3.&nbsp;Select pollutants from the input files for further SMOKE processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.2.&nbsp;Assign pollutant names to data input by code numbers</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_assign_pollutant_names"></a>2.9.2.&nbsp;Assign pollutant names to data input by code numbers
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The ORL format use code numbers (usually Chemical Abstracts Service [CAS] numbers) to distinguish which chemical compound
+            or inventory pollutant is provided on each line of the file. <span><strong class="command">Smkinven</strong></span> matches these numbers with the CAS numbers from an inventory table (<code class="envar">INVTABLE</code>) file, described in <a href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table">Section&nbsp;8.10.4, &#8220;<code class="envar">INVTABLE</code>: Inventory table&#8221;</a>. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between
+            the numbers in the ORL file and the inventory table. The inventory table provides the inventory data names, such as the pollutant
+            names that SMOKE uses in the remaining processing steps.  Note that the SMOKE inventory pollutants may not be identical to
+            the pollutants in the inventory fed to SMOKE because of the aggregation/disaggregation that is performed by <span><strong class="command">Smkinven</strong></span> (see <a href="ch02s09s07.html" title="2.9.7.&nbsp;Aggregate or disaggregate toxics emissions">Section&nbsp;2.9.7, &#8220;Aggregate or disaggregate toxics emissions&#8221;</a> for more information).
+         </p>
+         <p>For toxics processing, if multiple inventory data names apply for the same CAS number, the Factor column of <code class="envar">INVTABLE</code> will contain the split factor used by <span><strong class="command">Smkinven</strong></span> to disaggregate the emissions from that CAS number to multiple inventory data values. If multiple CAS numbers apply for the
+            same pollutant name, then <span><strong class="command">Smkinven</strong></span> will sum these emissions, but will not report duplicate records unless there are indeed duplicates in the inventory file.
+            This is described more fully in <a href="ch02s09s07.html" title="2.9.7.&nbsp;Aggregate or disaggregate toxics emissions">Section&nbsp;2.9.7, &#8220;Aggregate or disaggregate toxics emissions&#8221;</a>. Duplicate reporting is described more in <a href="ch02s09s04.html" title="2.9.4.&nbsp;Check for duplicate records">Section&nbsp;2.9.4, &#8220;Check for duplicate records&#8221;</a>.
+         </p>
+         <p>The use of the inventory data name as the unique pollutant identifier in SMOKE differs from the approach of EMS-HAP, in which
+            the SAROAD code is the unique identifier for the pollutants to be modeled. Because we anticipated that some toxics pollutants
+            that do not have unique SAROAD codes (e.g., divalent particulate mercury) would need to be modeled explicitly, we did not
+            want to take this approach. If we had, the user would have been required to create fake and unique SAROAD codes to be able
+            to model these emissions explicitly.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.&nbsp;Inventory import&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.3.&nbsp;Select pollutants from the input files for further SMOKE processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

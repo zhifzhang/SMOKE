@@ -1,0 +1,110 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.5.&nbsp;Changing output and intermediate directory names</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s04.html" title="4.4.4.&nbsp;Set fallback stack paramaters">
+      <link rel="next" href="ch04s04s06.html" title="4.4.6.&nbsp;Change which programs are run">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.5.&nbsp;Changing output and intermediate directory names</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e13378"></a>4.4.5.&nbsp;Changing output and intermediate directory names
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>As described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a> and also <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>, the output and intermediate directory names are based on user-defined environment variables. The following list provides
+            a checklist for all of the possible changes that you might make and where to find more information on how changes would affect
+            your output and intermediate directories. Make sure that the scripts that you are using to run SMOKE use the same Assigns
+            file in which you are making the changes described in this list.
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Set the <code class="envar">INVEN</code> setting in the Assigns file to the label to use in the output inventory path (<code class="filename"><code class="envar">$SMKDAT</code>/inventory/<code class="envar">$INVEN</code></code>).
+                  </p>
+               </li>
+               <li>
+                  <p>Decide whether you want to use the same setting or different settings for <code class="envar">ABASE</code>, <code class="envar">MBASE</code>, <code class="envar">PBASE</code>, and <code class="envar">EBASE</code> in the Assigns file.
+                  </p>
+                  <p>If these are the same, the directory structure will be the &#8220;<span class="quote">basic</span>&#8221; configuration, and if these are different, the structure will be the &#8220;<span class="quote">advanced</span>&#8221; configuration; both configurations are described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>.
+                  </p>
+                  <div class="orderedlist">
+                     <ol type="a">
+                        <li>
+                           <p>Set the <code class="envar">ABASE</code> setting to change the paths for stationary area and nonroad mobile source intermediate and output files.
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set the <code class="envar">MBASE</code> setting to change the paths for on-road mobile source intermediate and output files.
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set the <code class="envar">PBASE</code> setting to change the paths for point source intermediate and output files.
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set the <code class="envar">EBASE</code> setting to change the path for the final merged model-ready emissions from all source categories. This will also set the
+                              output path for QA reports of anthropogenic sources. See <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a> for specifics.
+                           </p>
+                        </li>
+                     </ol>
+                  </div>
+               </li>
+               <li>
+                  <p>Set the <code class="envar">BBASE</code> setting in the Assigns file to select using BELD3 or BELD4 data. See <a href="ch04s04s15.html" title="4.4.15.&nbsp;Use BEIS3">Section&nbsp;4.4.15, &#8220;Use BEIS3&#8221;</a>.
+                  </p>
+               </li>
+               <li>
+                  <p>Set the <code class="envar">SPC</code> setting in the Assigns file to change the output paths for all source categories.
+                  </p>
+                  <p>As described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>, the <code class="envar">OUTPUT</code> directory is based in part on this <code class="envar">SPC</code> setting. This setting must be coordinated with the selection of the chemical speciation mechanism (see <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a>).
+                  </p>
+               </li>
+               <li>
+                  <p>For future year modeling, the output paths will be changed automatically.</p>
+                  <p>As described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>, the <code class="envar">FYEAR</code>, <code class="envar">CNTLCASE</code>, <code class="envar">SMK_FUTURE_YN</code>, and <code class="envar">SMK_CONTROL_YN</code> script settings can have an impact on the output directory paths. When either <code class="envar">SMK_FUTURE_YN</code> or <code class="envar">SMK_CONTROL_YN</code> are set to Y, the output path will be changed as described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a> for the growth and control case configuration.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.4.&nbsp;Set fallback stack paramaters&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.6.&nbsp;Change which programs are run</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

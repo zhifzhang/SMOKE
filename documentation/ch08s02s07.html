@@ -1,0 +1,770 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="prev" href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions">
+      <link rel="next" href="ch08s02s08.html" title="8.2.8.&nbsp;PTINV: Point source annual or average day emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.7.&nbsp;<code class="envar">PTHOUR</code>: Point source hour-specific emissions
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.2.&nbsp;Inventory Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_pthour"></a>8.2.7.&nbsp;<code class="envar">PTHOUR</code>: Point source hour-specific emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02s07.html#d0e39678">8.2.7.1. Date range setting</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s07.html#d0e39708">8.2.7.2. CEM hour-specific format</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s07.html#d0e39895">8.2.7.3. FF10 hour-specific format</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s07.html#d0e40107">8.2.7.4. EMS-95 Format and EMS-95 Wider Format</a></span></dt>
+            </dl>
+         </div>
+         <p>The <code class="envar">PTHOUR</code> file is the input point-source inventory file for hour-specific data and profiles. The file must be a list file (see <a href="ch08s02.html#sect_input_inventory_list" title="8.2.1.1.&nbsp;Inventory list files">Section&nbsp;8.2.1.1, &#8220;Inventory list files&#8221;</a> and the files listed in the <code class="envar">PTHOUR</code> file must be in Continuous Emissions Monitoring (CEM) format when processing hourly CEM inventory data files with an format
+            identifier (#CEM) or the format can be specified in the <code class="envar">PTHOUR</code> list file (#LIST CEM). In addition, these files can have a #COUNTRY entry to set the country code (see <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. The default country code is 0, which corresponds to the United States in the default <code class="envar">COSTCY</code> file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e39678"></a>8.2.7.1.&nbsp;Date range setting
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <code class="envar">PTHOUR</code> file may optionally contain a packet to control the range of dates for which <span><strong class="command">Smkinven</strong></span> will read data. When this feature is needed, the following entry should appear on the first line of the <code class="envar">PTHOUR</code> file.
+            </p>
+            <p>DATERANGE  MMDD(start) MMDD(end)</p>
+            <p>where MMDD is the two-digit month and day of the month at the start and end of the period of interest. For example, to request
+               July 10th through 12th, the first line of the file should read:
+            </p>
+            <p>DATERANGE  0710  0712</p>
+            <p>The year is implied by the data themselves; note that the files can only contain data for a single year. As an alternative
+               to using the DATERANGE packet, you can manually break the year up into smaller periods in separate files, and only list the
+               files of interest in the <code class="envar">PTHOUR</code> file. Note that reading in the whole year of data and extracting just a few days will take much more time than manually editing
+               the file to contain just the days of interest. Also note that if you choose the manual editing option, you must select days
+               that fully cover the modeling episode after accounting for time zone differences between the facility&#8217;s time zone and the
+               modeling time zone (set by the <code class="envar">OUTZONE</code> option).
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e39708"></a>8.2.7.2.&nbsp;CEM hour-specific format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the annual
+               inventory. Note that the CEM data hours are in standard local time (no daylight saving time adjustment). The format of the
+               CEM hour-specific data is shown in <a href="ch08s02s07.html#tbl_input_pthour_cem" title="Table&nbsp;8.22.&nbsp;CEM Format for individual hour-specific data files">Table&nbsp;8.22, &#8220;CEM Format for individual hour-specific data files&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_pthour_cem"></a><p class="title"><b>Table&nbsp;8.22.&nbsp;CEM Format for individual hour-specific data files</b></p>
+               <table summary="CEM Format for individual hour-specific data files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>ORISID</td>
+                        <td>Char (6)</td>
+                        <td>DOE Plant Identification Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>BLRID</td>
+                        <td>Char (6)</td>
+                        <td>Boiler Identification Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>YYMMDD</td>
+                        <td>Int</td>
+                        <td>Date of data in YYMMDD format (required)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>HOUR</td>
+                        <td>Integer</td>
+                        <td>Hour value from 0 to 23</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>NOXMASS</td>
+                        <td>Real</td>
+                        <td>Nitrogen oxide emissions (lb/hr) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>SO2MASS</td>
+                        <td>Real</td>
+                        <td>Sulfur dioxide emissions (lb/hr) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>NOXRATE</td>
+                        <td>Real</td>
+                        <td>Nitrogen oxide emissions rate (lb/MMBtu) (not used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>OPTIME</td>
+                        <td>Real</td>
+                        <td>Fraction of hour unit was operating (optional)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>GLOAD</td>
+                        <td>Real</td>
+                        <td>Gross load (MW) (optional)</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>SLOAD</td>
+                        <td>Real</td>
+                        <td>Steam load (1000 lbs/hr) (optional)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>HTINPUT</td>
+                        <td>Real</td>
+                        <td>Heat input (mmBtu) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>HTINPUTMEASURE</td>
+                        <td>Character(2)</td>
+                        <td>Code number indicating measured or substituted, not used by SMOKE.</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>SO2MEASURE</td>
+                        <td>Character(2)</td>
+                        <td>Code number indicating measured or substituted, not used by SMOKE.</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>NOXMMEASURE</td>
+                        <td>Character(2)</td>
+                        <td>Code number indicating measured or substituted, not used by SMOKE.</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>NOXRMEASURE</td>
+                        <td>Character(2)</td>
+                        <td>Code number indicating measured or substituted, not used by SMOKE.</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>UNITFLOW</td>
+                        <td>Real</td>
+                        <td>Flow rate (ft3/sec) for the Boiler Unit (optional; must be present for all records or not any records &#150; not yet used by SMOKE)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p> The code numbers used in columns 12 through 15 have the following meanings:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     01 = 'Measured'
+                     
+                  </li>
+                  <li>
+                     02 = 'Calculated'
+                     
+                  </li>
+                  <li>
+                     03 = 'Substitute'
+                     
+                  </li>
+                  <li>
+                     04 = 'Measured and Substitute'
+                     
+                  </li>
+                  <li>
+                     97 = 'Not Applicable'
+                     
+                  </li>
+                  <li>
+                     98 = 'Undetermined'
+                     
+                  </li>
+                  <li>
+                     99 = 'Unknown Code'
+                     
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e39895"></a>8.2.7.3.&nbsp;FF10 hour-specific format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This FF10 format uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>.
+            </p>
+            <p>The user specifies the data provided using this command in the header: FF10_HOURLY_POINT.</p>
+            
+            Sample header records for hourly point sources are shown below:
+            <pre class="programlisting">
+#FORMAT=FF10_HOURLY_POINT
+#COUNTRY  US
+#YEAR     year of inventory, e.g. 2008 
+#DESC     Point Hourly Source Inventory
+#DESC     FF10 Point Hourly format</pre><div class="table"><a name="tbl_input_pthour_FF10"></a><p class="title"><b>Table&nbsp;8.23.&nbsp;FF10 Format for individual point hour-specific data files</b></p>
+               <table summary="FF10 Format for individual point hour-specific data files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>COUNTRY</td>
+                        <td>Char(3)</td>
+                        <td>Country code: e.g., US  (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>FIPS code for state and county (required; example 037001)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>TRIBAL_CODE</td>
+                        <td>Char(3)</td>
+                        <td>Tribal code (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>FACILITY_ID</td>
+                        <td>Char(15)</td>
+                        <td>Facility Identification Code (required; same as the Plant ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>UNIT_ID</td>
+                        <td>Char(15)</td>
+                        <td>Unit Identification Code (required; same as the Point ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>REL_POINT_ID</td>
+                        <td>Char(15)</td>
+                        <td>Release Point Identification Code (required; same as the Stack ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>PROCESS_ID</td>
+                        <td>Char(15)</td>
+                        <td>Process Identification Code (recommended; same as the Segment ID in the ORL format)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>SCC (required)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>Pollutant Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>OP_TYPE_CD</td>
+                        <td>Char(20)</td>
+                        <td>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>CALC_METHOD</td>
+                        <td>Int</td>
+                        <td>CALC_METHOD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>DATE_UPDATED</td>
+                        <td>Int</td>
+                        <td>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>DATE</td>
+                        <td>Int</td>
+                        <td>Date of inventory in format of YYYYMMDD (required)</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>DAYTOT</td>
+                        <td>Real</td>
+                        <td>Daily Total (short tons/day) (required if <code class="envar">SMKINVEN_MONTH</code> is set to 0)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>HRVAL0</td>
+                        <td>Real</td>
+                        <td>Hourly emission for hour 0 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>HRVAL1</td>
+                        <td>Real</td>
+                        <td>Hourly emission for hour 1 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>17</td>
+                        <td>HRVAL2</td>
+                        <td>Real</td>
+                        <td>Hourly emission for hour 2 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                        <td>&nbsp;</td>
+                        <td>..</td>
+                     </tr>
+                     <tr>
+                        <td>34</td>
+                        <td>HRVAL23</td>
+                        <td>Real</td>
+                        <td>Hourly emission for hour 23 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>35</td>
+                        <td>COMMENT</td>
+                        <td>Char</td>
+                        <td>(optional)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e40107"></a>8.2.7.4.&nbsp;EMS-95 Format and EMS-95 Wider Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>For EMS-95 formatted data, SMOKE requires that the sources in the <code class="envar">PTHOUR</code> file also be in the <code class="envar">PTINV</code> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These
+               fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE,
+               so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.
+            </p>
+            <p>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <a href="ch08s02s07.html#tbl_input_pthour_ems" title="Table&nbsp;8.24.&nbsp;EMS-95 Format for individual hour-specific files">Table&nbsp;8.24, &#8220;EMS-95 Format for individual hour-specific files&#8221;</a> and the wider EMS-95 format is shown in <a href="ch08s02s07.html#tbl_input_pthour_ems_wider" title="Table&nbsp;8.25.&nbsp;EMS-95 Wider Format for individual hour-specific files">Table&nbsp;8.25, &#8220;EMS-95 Wider Format for individual hour-specific files&#8221;</a>. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wider
+               format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation
+               is used. To use the EMS-95 wider format, the optional environmental variable <code class="envar">HOURLY_WIDE_FMT</code> needs to be set to <code class="envar">Y</code>.
+            </p>
+            <p>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS
+               number from column 261 to 276. If this new field is filled, the <code class="envar">POLID</code> is not used.  If the new field is not filled, the <code class="envar">POLID</code> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory
+               pollutant is provided on each line of the file. <span><strong class="command">Smkinven</strong></span> matches these numbers with the CAS numbers from an inventory table (<code class="envar">INVTABLE</code>) file, described in <a href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table">Section&nbsp;8.10.4, &#8220;<code class="envar">INVTABLE</code>: Inventory table&#8221;</a>. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between
+               the numbers in the SMOKE ORL file and the inventory table.
+            </p>
+            <div class="table"><a name="tbl_input_pthour_ems"></a><p class="title"><b>Table&nbsp;8.24.&nbsp;EMS-95 Format for individual hour-specific files</b></p>
+               <table summary="EMS-95 Format for individual hour-specific files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1-2</td>
+                        <td>STID</td>
+                        <td>Int</td>
+                        <td>State Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3-5</td>
+                        <td>CYID</td>
+                        <td>Int</td>
+                        <td>County Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>6-20</td>
+                        <td>FCID</td>
+                        <td>Char</td>
+                        <td>Facility ID (a.k.a. Plant ID) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>21-32</td>
+                        <td>SKID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Unit ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Point ID
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>33-44</td>
+                        <td>DVID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Release Point ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Stack ID
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>45-56</td>
+                        <td>PRID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Process ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Segment
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>57-61</td>
+                        <td>POLID</td>
+                        <td>Char</td>
+                        <td>Pollutant name (required)</td>
+                     </tr>
+                     <tr>
+                        <td>62-69</td>
+                        <td>DATE</td>
+                        <td>Char</td>
+                        <td>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</td>
+                     </tr>
+                     <tr>
+                        <td>70-72</td>
+                        <td>TZONNAM</td>
+                        <td>Char</td>
+                        <td>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST.
+                           (required)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>73-79</td>
+                        <td>HRVAL1</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 1 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>80-86</td>
+                        <td>HRVAL2</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 2 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>87-93</td>
+                        <td>HRVAL3</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 3 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td>234-240</td>
+                        <td>HRVAL24</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 24 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>241-248</td>
+                        <td>DAYTOT</td>
+                        <td>Real</td>
+                        <td>Daily emissions total (short tons/day)</td>
+                     </tr>
+                     <tr>
+                        <td>250-259</td>
+                        <td>SCC</td>
+                        <td>Char</td>
+                        <td>SCC (required).</td>
+                     </tr>
+                     <tr>
+                        <td>261-276</td>
+                        <td>DATNAM</td>
+                        <td>Char</td>
+                        <td>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants
+                           used in the ORL inventory files. This field should be used instead of the "<code class="envar">POLID</code>" field when pollutant anmes are longer than 5 characters. If this field is filled, <code class="envar">POLID</code> is not used.
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="table"><a name="tbl_input_pthour_ems_wider"></a><p class="title"><b>Table&nbsp;8.25.&nbsp;EMS-95 Wider Format for individual hour-specific files</b></p>
+               <table summary="EMS-95 Wider Format for individual hour-specific files" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1-2</td>
+                        <td>STID</td>
+                        <td>Int</td>
+                        <td>State Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3-5</td>
+                        <td>CYID</td>
+                        <td>Int</td>
+                        <td>County Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>6-20</td>
+                        <td>FCID</td>
+                        <td>Char</td>
+                        <td>Facility ID (a.k.a. Plant ID) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>21-32</td>
+                        <td>SKID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Unit ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Point ID
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>33-44</td>
+                        <td>DVID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Release Point ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Stack ID
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>45-56</td>
+                        <td>PRID</td>
+                        <td>Char</td>
+                        <td>
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in FF10 format: Process ID (required)
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>If <code class="envar">PTINV</code> in ORL format: Segment
+                                 </td>
+                              </tr>
+                           </table>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>57-61</td>
+                        <td>     </td>
+                        <td>     </td>
+                        <td>Leave blank</td>
+                     </tr>
+                     <tr>
+                        <td>62-69</td>
+                        <td>DATE</td>
+                        <td>Char</td>
+                        <td>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</td>
+                     </tr>
+                     <tr>
+                        <td>70-72</td>
+                        <td>TZONNAM</td>
+                        <td>Char</td>
+                        <td>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST.
+                           (required)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>73-84</td>
+                        <td>HRVAL1</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 1 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>85-96</td>
+                        <td>HRVAL2</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 2 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>97-108</td>
+                        <td>HRVAL3</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 3 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td>349-360</td>
+                        <td>HRVAL24</td>
+                        <td>Real</td>
+                        <td>Hourly emissions for hour 24 (short tons/hour) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>361-372</td>
+                        <td>DAYTOT</td>
+                        <td>Real</td>
+                        <td>Daily emissions total (short tons/day)</td>
+                     </tr>
+                     <tr>
+                        <td>373-380</td>
+                        <td>SCC</td>
+                        <td>Char</td>
+                        <td>SCC (required).</td>
+                     </tr>
+                     <tr>
+                        <td>381-396</td>
+                        <td>DATNAM</td>
+                        <td>Char</td>
+                        <td>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants
+                           used in the ORL inventory files. This field should be used instead of the "<code class="envar">POLID</code>" field when pollutant anmes are longer than 5 characters. If this field is filled, <code class="envar">POLID</code> is not used.
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.6.&nbsp;<code class="envar">PTDAY</code>: Point source day-specific emissions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.8.&nbsp;<code class="envar">PTINV</code>: Point source annual or average day emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

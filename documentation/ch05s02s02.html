@@ -1,0 +1,341 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.2.2.&nbsp;MOVES Driver Scripts</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s02.html" title="5.2.&nbsp;MOVES Utility Scripts">
+      <link rel="prev" href="ch05s02.html" title="5.2.&nbsp;MOVES Utility Scripts">
+      <link rel="next" href="ch05s02s03.html" title="5.2.3.&nbsp;Run MOVES Model">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.2.2.&nbsp;MOVES Driver Scripts</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.2.&nbsp;MOVES Utility Scripts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="section_moves_driver_script"></a>5.2.2.&nbsp;MOVES Driver Scripts
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s02s02.html#d0e17486">5.2.2.1. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s02.html#d0e17553">5.2.2.2. How-To-Run</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s02.html#d0e17564">5.2.2.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <p>The MOVES Runspec script <span><strong class="command">Runspec_generator.pl</strong></span> is written in Perl, generates the scripts and inputs needed to run MOVES for each representative county. The MOVES Model
+            can be run at any of the three domains/scales: national, county or project.  The <span><strong class="command">Runspec_generator.pl</strong></span> is only applicable to the county-level because this level of model detail is required by EPA for SIP and conformity analyses.
+             For this scale, MOVES requires a MySQL input database containing local data for a single county. The <span><strong class="command">Runspec_generator.pl</strong></span> is designed to prepare the MOVES importer and MOVES run scripts so that the fewest number of runs will produce all of the
+            necessary emissions factors. In this approach, user can specify one or more groups of pollutants to model in the run control
+            fil.
+         </p>
+         <p>There are a total of four types of modeling pollutant groups: 1) Ozone precursors, 2) Toxics, 3) Particulate Matters, and
+            4) GreenHouse Gases (GHG) based on <a href="ch02s08s04.html#tbl_concepts_moves_pollutant_groups" title="Table&nbsp;2.8.&nbsp;MOVES Pollutant Groups">Table&nbsp;2.8, &#8220;MOVES Pollutant Groups&#8221;</a>.  The choice of pollutant group(s) determines what pollutants are included in the three emission rate lookup tables (RPD,
+            RPV, and RPP) by MOVES.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e17486"></a>5.2.2.1.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Runspec_generator.pl</strong></span> run after <span><strong class="command">Met4moves</strong></span>. It assembles the instructions for MOVES to create MySQL input databases from XML files and creates the importer.csh scripts
+               and assembles run specification XML files to run MOVES for a necessary range of conditions (for each emissions process: rate-per-distance,
+               rate-per-vehicle, and rate-per-profile) based on the <span><strong class="command">Met4moves</strong></span> output temperature list by county-specific runspec.csh.
+            </p>
+            <p>The <span><strong class="command">Runspec_generator.pl</strong></span> uses following steps:
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Reads the representative county min/max temperature and 24-hours temperature profiles output file from <span><strong class="command">Met4moves</strong></span> for RPP mode. Find detail information from <a href="ch09s08.html#sect_intmed_moves_output" title="9.8.1.&nbsp;MOVES_OUTFILE">Section&nbsp;9.8.1, &#8220;<code class="envar">MOVES_OUTFILE</code>&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>Reads the representative county specific min/max temperatures and average RH output file from <span><strong class="command">Met4moves</strong></span> for RPD, RPV and RPH modes. Find detail information from <a href="ch09s08s02.html" title="9.8.2.&nbsp;MOVES_RH_OUTFILE">Section&nbsp;9.8.2, &#8220;<code class="envar">MOVES_RH_OUTFILE</code>&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>Import the name of pollutant group to model from the run control file (<a href="ch08s09s02.html#sect_input_runctlfile" title="8.9.2.2.1.&nbsp;Run Control File for MOVES Driver Script">contorl.in</a>) based on <a href="ch02s08s04.html#tbl_concepts_moves_pollutant_groups" title="Table&nbsp;2.8.&nbsp;MOVES Pollutant Groups">Table&nbsp;2.8, &#8220;MOVES Pollutant Groups&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>Reads the run control file (<a href="ch08s09s02.html#sect_input_runctlfile" title="8.9.2.2.1.&nbsp;Run Control File for MOVES Driver Script">control.in</a>) and representative county file (<a href="ch08s09s02.html#sect_input_refcountyfile" title="8.9.2.2.2.&nbsp;Representative County File for MOVES Driver Script">countyrep.in</a>) created by user.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Assembles instructions for MOVES to create MySQL input databases from XML files
+                        (data importer).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Assembles runspec XML files to run MOVES for a wide range of conditions.</p>
+                  </li>
+                  <li>
+                     <p>Generates the run-specific temperature and humidity comma-separated-values (CSV) format file.</p>
+                  </li>
+                  <li>
+                     <p> Assembles a batch list of data importer files, runspec files, and also a list of the
+                        MySQL output database names to be postprocessed.
+                     </p>
+                  </li>
+                  <li>
+                     <p>importer.csh and runspec.csh scripts are used to create the on-road operating rateperdistance table (RPD), off-network processes
+                        ratepervehicle table (RPV),  and vapor venting off-network rateperprofile table (RPP).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Review log file of the MOVES, called runlog_*.txt.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e17553"></a>5.2.2.2.&nbsp;How-To-Run
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Check out the most latest processing scripts and the &#8220;<span class="quote">How to run</span>&#8221; instructions are available from  <a href="https://github.com/CEMPD/SMOKE-MOVES/" target="_top">the SMOKE-MOVES Github repository</a>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e17564"></a>5.2.2.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s02s02.html#d0e17567">5.2.2.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s02.html#section_moves_driver_script_output">5.2.2.3.2. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e17567"></a>5.2.2.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="table"><a name="tbl_smoke_moves_utility_script"></a><p class="title"><b>Table&nbsp;5.1.&nbsp;Input Files</b></p>
+                  <table summary="Input Files" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_refcountyfile" title="8.9.2.2.2.&nbsp;Representative County File for MOVES Driver Script">countyrep.in</a></td>
+                           <td>ASCII</td>
+                           <td>Representative county file containing the county/state/country FIPS codes and the full path and file names for the files containing
+                              MOVES data for AGE, FUELSUPPLY, FUELFORM(optional), IM, POP, SourceType, HPMSVMT, VMT for each representative county
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_runctlfile" title="8.9.2.2.1.&nbsp;Run Control File for MOVES Driver Script">control.in</a></td>
+                           <td>ASCII</td>
+                           <td>Run control file that user specifies fields for the Database Host, Project Name, Model year, day type (weekday or weekend),
+                              pollutant and the met4moves MET output file for the batch run of MOVES
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch09s08.html#sect_intmed_moves_output" title="9.8.1.&nbsp;MOVES_OUTFILE">MOVES_OUTFILE</a></td>
+                           <td>ASCII</td>
+                           <td><span><strong class="command">Met4moves</strong></span> output for each fuel month for the MOVES Driver script (minimum and maximum temperatures, and 24-hour temperature profiles
+                              for all representative counties by temperature bin)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch09s08s02.html" title="9.8.2.&nbsp;MOVES_RH_OUTFILE">MOVES_RH_OUTFILE</a></td>
+                           <td>ASCII</td>
+                           <td><span><strong class="command">Met4moves</strong></span> outputs fuel month-specific averaged, min, and max temperatures and averaged RH values in local time for all representative
+                              counties by temperature bin
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_sourceTypeAgeDist" title="8.9.2.2.3.&nbsp;Age Distribution File for Representative County for MOVES model">sourceTypeAgeDistribution</a></td>
+                           <td>ASCII</td>
+                           <td>Age distribution by source type over 30 vehicle model years</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_fuelsupply" title="8.9.2.2.4.&nbsp;Fuel Supply file for MOVES model">fuelSupply</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file used to define the fuel properties, their market shares and the months that the fuels are used for each
+                              representative county
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_fuelformulation" title="8.9.2.2.5.&nbsp;Fuel Formulation file for MOVES model (optional)">fuelformulation (optional)</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file used to define the fuel supply and the months that the fuels are used for each representative counties</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_IMcoverage" title="8.9.2.2.7.&nbsp;IM Coverage file for MOVES Model">IMCoverage</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file used to define the inspection and maintanance data available for each representative counties</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_sourcetypeyear" title="8.9.2.2.8.&nbsp;MOVES Vehicle Population by source type input file for MOVES model">sourcetypeyear</a></td>
+                           <td>ASCII</td>
+                           <td>Vehicle population by MOVES source type</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_HPMSVTypeYear" title="8.9.2.2.6.&nbsp;HPMSV Type for MOVES model">HPMSVTypeYear</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file used to define the annual VMT by Highway Performance Monitoring System (HPMS) vehicle type</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_dummy_avgspeeddistribution" title="8.9.2.2.9.&nbsp;Dummy Average Speed Distribution file for MOVES model">dummy_avgspeeddistribution</a></td>
+                           <td>ASCII</td>
+                           <td>Speed distribution by roadway type and vehicle class. MOVES dummy inputs files provided with tool package in OUTDIR directory</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_dummy_monthvmtfraction" title="8.9.2.2.12.&nbsp;Dummy Month VMT Fraction file for MOVES model">dummy_monthvmtfraction</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file that allocates annual VMT to the individual months</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_dummy_dayvmtfraction" title="8.9.2.2.10.&nbsp;Dummy Day VMT Fraction file for MOVES model">dummy_dayvmtfraction</a></td>
+                           <td>ASCII</td>
+                           <td>file that allocates month VMT day type, weekday or weekend and the decimal fraction of the proportion of vehicle miles travelled
+                              for the weekday or weekend day type
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_dummy_hourvmtfraction" title="8.9.2.2.11.&nbsp;Dummy Hour VMT Fraction file for MOVES model">dummy_hourvmtfraction</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file that allocates the day-type VMT to individual hours of the day</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s09s02.html#sect_input_dummy_roadtypedistribution" title="8.9.2.2.13.&nbsp;Dummy Road Type Distribution file for MOVES model">dummy_roadtypedistribution</a></td>
+                           <td>ASCII</td>
+                           <td>list directed file that allocates annual VMT to five MOVES roadway types</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="section_moves_driver_script_output"></a>5.2.2.3.2.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><a href="ch05s02s03.html#section_moves_runspec_batch" title="5.2.3.3.&nbsp;MOVES Runspec batch script">runspec.csh</a></td>
+                           <td>ASCII</td>
+                           <td>Batch or c-shell script to run required MOVES runs. Fine more information from <a href="ch05s02s03.html#section_moves_runspec_batch" title="5.2.3.3.&nbsp;MOVES Runspec batch script">Section&nbsp;5.2.3.3, &#8220;MOVES Runspec batch script&#8221;</a></td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch05s02s03.html#section_moves_importer" title="5.2.3.2.&nbsp;MOVES importer script">importer.csh</a></td>
+                           <td>ASCII</td>
+                           <td>Batch or c-shell Script to create MySQL MOVES databases and import the data. Fine more information from <a href="ch05s02s03.html#section_moves_importer" title="5.2.3.2.&nbsp;MOVES importer script">Section&nbsp;5.2.3.2, &#8220;MOVES importer script&#8221;</a></td>
+                        </tr>
+                        <tr>
+                           <td>InputDBlist</td>
+                           <td>ASCII</td>
+                           <td>
+                              
+                              <p>List of MySQL database names to process. It will be used as an input to MOVES Post-processing script. See example below:</p>
+                              <pre class="programlisting">
+localhost
+/work/MOVES_Processing_Scripts/post_process
+13121_2008_1
+</pre>
+                              </td>
+                        </tr>
+                        <tr>
+                           <td>Data importer files</td>
+                           <td>ASCII</td>
+                           <td>data importer files (*_imp.xml)</td>
+                        </tr>
+                        <tr>
+                           <td>Runspec files</td>
+                           <td>ASCII</td>
+                           <td>runspec files (*_mrs.xml)</td>
+                        </tr>
+                        <tr>
+                           <td>zonemonthhour files</td>
+                           <td>ASCII</td>
+                           <td>MOVES-formatted zonemonthhour (*_zmh.csv) contains temperature and RH data from the Met4Moves Meteorological processor. Relative
+                              Humidity is a single value averaged over the time period selected by the user in Met4Moves and averaged over the entire group
+                              of inventory counties that map to a representative county.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.2.&nbsp;MOVES Utility Scripts&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.2.3.&nbsp;Run MOVES Model</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

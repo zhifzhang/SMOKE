@@ -1,0 +1,70 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.14.&nbsp;Assign country codes, years, and time zones</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">
+      <link rel="next" href="ch02s09s15.html" title="2.9.15.&nbsp;Handle inventories that have data for multiple years">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.14.&nbsp;Assign country codes, years, and time zones</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s13.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s15.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_assign_countries"></a>2.9.14.&nbsp;Assign country codes, years, and time zones
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>For all source categories, <span><strong class="command">Smkinven</strong></span> assigns country codes, years, and time zones to inventory files that do not contain this information in the inventory records.
+         </p>
+         <p>Since most inventory formats do not include a column for country or year, the country code and year must be provided in header
+            fields in the inventory. because most inventory formats do not include a column for country or year. Users can provide data
+            for up to 10 countries using as many separate files, or separate headers within a single file, as needed. The inventory file
+            formats listed in <a href="ch08s02.html" title="8.2.&nbsp;Inventory Files">Section&nbsp;8.2, &#8220;Inventory Files&#8221;</a> provide a further description of these country-setting headers and the valid country codes.
+         </p>
+         <p>Users can also provide multiple inventory years in a single <span><strong class="command">Smkinven</strong></span> run. This is necessary in some cases when an inventory for one region (e.g., Canada or Mexico) is unavailable for the same
+            year as the majority of the inventory region (e.g., the U.S.). <span><strong class="command">Smkinven</strong></span> stores the inventory year as part of the source attributes.
+         </p>
+         <p>In addition to country codes and years, <span><strong class="command">Smkinven</strong></span> assigns a time zone to each source based on the county associated with the source. <span><strong class="command">Smkinven</strong></span> uses the <code class="envar">COSTCY</code> or the <code class="envar">GEOCODE_LEVEL4</code> (if USE_EXP_GEOCODES Y) file to get this information. It matches the county code from the inventory to the county code in
+            this file. If a county code included in the inventory is missing from this file, or if the time zone is not provided in the
+            <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL4</code> file, <span><strong class="command">Smkinven</strong></span> uses the <code class="envar">SMK_DEFAULT_TZONE</code> setting to obtain a default time zone for sources in such a county. In some cases, the time zone set in the <code class="envar">COSTCY</code> or  <code class="envar">GEOCODE_LEVEL4</code> file is an approximation, since counties that are bisected by two time zones have only the predominant zone represented in
+            this file.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s13.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s15.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.13.&nbsp;Set the weekday averaging approach&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.15.&nbsp;Handle inventories that have data for multiple years</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,220 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.15.&nbsp;Uam2ncf</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s14.html" title="5.3.14.&nbsp;Surgtool">
+      <link rel="next" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.15.&nbsp;<span><strong class="command">Uam2ncf</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s14.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_uam2ncf"></a>5.3.15.&nbsp;<span><strong class="command">Uam2ncf</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s15.html#d0e21436">5.3.15.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s15.html#d0e21471">5.3.15.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s15.html#d0e21476">5.3.15.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21436"></a>5.3.15.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Uam2ncf</strong></span> program takes UAM  EMISSIONS gridded files and creates an I/O API gridded file from them, which can then be merged with other
+               gridded SMOKE I/O API files. This program is useful for converting area, nonroad mobile, on-road mobile, and biogenic UAM-ready
+               files to the I/O API format needed for CMAQ. <span><strong class="command">Uam2ncf</strong></span> can also be used with low-level point sources, but not with the elevated-point-source inputs for UAM and CAM<sub>X</sub>.
+            </p>
+            <p>If you wish to create CMAQ inputs from model-ready emissions for UAM or CAM<sub>X</sub>, you must take the following steps:
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Use <span><strong class="command">Uam2ncf</strong></span> to convert individual source categories for area, biogenic, and mobile sources to I/O API format.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Run SMOKE for point-source inventory to create 3-D I/O API file.</p>
+                  </li>
+                  <li>
+                     <p>Run <span><strong class="command">Mrggrid</strong></span> to combine converted inventory for nonpoint sources with SMOKE-created inventory for point sources.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21471"></a>5.3.15.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Because this optional program operates on model-ready files, it is run before the CMAQ air quality model.</p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21476"></a>5.3.15.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s15.html#d0e21479">5.3.15.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s15.html#d0e21521">5.3.15.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s15.html#d0e21535">5.3.15.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21479"></a>5.3.15.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GRIDDESC</code></td>
+                           <td>ASCII</td>
+                           <td>Grid descriptions file that defines the input grid in the <code class="envar">UAMEMIS</code> file. This is needed because the <code class="envar">UAMEMIS</code> file does not include enough information to describe the grid for the I/O API. The file must include the name of the grid
+                              set by the <code class="envar">IOAPI_GRIDNAME_1</code> environment variable setting.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">UAMEMIS</code></td>
+                           <td>Fortran binary</td>
+                           <td>UAM-ready, gridded, hourly, speciated emissions file.</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21521"></a>5.3.15.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">IOAPI_GRIDNAME_1</code>: [default: blank]
+                        </p>
+                        <p>This variable sets the name of the input (and output) grid definition to be read from the <code class="envar">GRIDDESC</code> input file. The name can be a maximum of 16 characters long (the limitation of I/O API grid names).
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21535"></a>5.3.15.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">E2DNCF</code>:
+                           </td>
+                           <td>I/O API NetCDF</td>
+                           <td>Gridded, hourly, speciated emissions in the I/O API format needed for CMAQ.</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Uam2ncf</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s14.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.14.&nbsp;<span><strong class="command">Surgtool</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;6.&nbsp;SMOKE Core Programs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,111 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.7.&nbsp;Set up country codes, state codes, or county codes</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s06.html" title="4.4.6.&nbsp;Change which programs are run">
+      <link rel="next" href="ch04s04s08.html" title="4.4.8.&nbsp;Set up list of known SCCs and ORIS IDs">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.7.&nbsp;Set up country codes, state codes, or county codes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e13668"></a>4.4.7.&nbsp;Set up country codes, state codes, or county codes
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>By default, SMOKE is setup to use the country, state, and county codes based on a U.S. view. The codes assume a 3-tier system
+            of codes as described in <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">Section&nbsp;2.3.4, &#8220;Country, state, and county codes&#8221;</a>. The three tiers allow specification of regions as follows:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>One digit for country code</p>
+               </li>
+               <li>
+                  <p>Two digits for state codes</p>
+               </li>
+               <li>
+                  <p>Three digits for county codes</p>
+               </li>
+            </ul>
+         </div>
+         <p>All codes provided in the emission inventories must be integers and must match entries in the <code class="envar">COSTCY</code> or <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL4</code></a> (if USE_EXP_GEOCODE Y) file, which is the master list of country, state, county and tribal codes in any given SMOKE installation.
+            The format for the COSTCY file can be found in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>. By default, the codes are shared by all scenarios installed in the same SMOKE system (using different <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> (if USE_EXP_GEOCODE Y) files requires changing the Assigns file to not share the same <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> (if USE_EXP_GEOCODE Y) file among all cases).
+         </p>
+         <p>The codes in the inventory must match the codes in this file. SMOKE assigns time zones, daylight saving time exemptions, state
+            names, and county names using this file. Therefore, if one of the counties in the inventory does not match a valid country,
+            state, and county code in the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> file (if USE_EXP_GEOCODE Y), it can cause errors in the modeling.
+         </p>
+         <p>The following list provides the steps that users should take to ensure that the file will work for their modeling case:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Check whether the countries with data in the inventory are included in the /COUNTRY/ section of the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> (if USE_EXP_GEOCODE Y) file.
+                  </p>
+               </li>
+               <li>
+                  <p>Change country codes and names if necessary within the limitation of 10 countries per file. If the country codes change, the
+                     country-specific SMOKE temporal profile assignments made by <code class="envar">ATREF</code>, <code class="envar">MTREF</code>, and <code class="envar">PTREF</code> may no longer be valid.
+                  </p>
+               </li>
+               <li>
+                  <p>Check whether the states with data in the inventory are included in the /STATE/ section of the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> file (if USE_EXP_GEOCODE Y) file.
+                  </p>
+               </li>
+               <li>
+                  <p>Change or add state codes and names if necessary to ensure all states are listed for all countries.</p>
+               </li>
+               <li>
+                  <p>Check whether the counties with data in the inventory are included in the /COUNTY/ section of the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> file (if USE_EXP_GEOCODE Y) file and that all counties have assigned time zones.
+                  </p>
+                  <p><span><strong class="command">Smkinven</strong></span> will perform this function for you if needed and will list in the <span><strong class="command">Smkinven</strong></span> log file all counties that are not included in the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL[1-4]</code> file (if USE_EXP_GEOCODE Y) file or that do not have time zones assigned. If county codes have changed for merged or separated
+                     counties (e.g., Miami/Dade county in Florida).
+                  </p>
+               </li>
+               <li>
+                  <p>Change or add county codes and names if necessary to ensure all counties are included in the inventory for all states and
+                     countries and that time zones have been assigned to each.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.6.&nbsp;Change which programs are run&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.8.&nbsp;Set up list of known SCCs and ORIS IDs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

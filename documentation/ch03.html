@@ -1,0 +1,93 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Chapter&nbsp;3.&nbsp;SMOKE Directory Structure</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="ch02s20.html" title="2.20.&nbsp;Quality assurance">
+      <link rel="next" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Chapter&nbsp;3.&nbsp;SMOKE Directory Structure</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s20.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="ch_dirs_files"></a>Chapter&nbsp;3.&nbsp;SMOKE Directory Structure
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch03.html#d0e7820">3.1. Introduction</a></span></dt>
+               <dt><span class="section"><a href="ch03s02.html">3.2. Directory structure</a></span></dt>
+               <dt><span class="section"><a href="ch03s03.html">3.3. How to change the default directory structure</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both"><a name="d0e7820"></a>3.1.&nbsp;Introduction
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <p>The primary user interface for SMOKE is a series of UNIX scripts. Because the basic SMOKE installation and instructions use
+               these scripts, a key factor in using SMOKE is understanding the directory structure used for reading input files and writing
+               output files. Additionally, it is critical that users know where to find the run scripts and other files that must be configured
+               for a specific application of SMOKE. <a href="ch03s02.html" title="3.2.&nbsp;Directory structure">Section&nbsp;3.2, &#8220;Directory structure&#8221;</a> of this chapter describes the default directory structure.
+            </p>
+            <p>Because SMOKE is based on UNIX scripts, it can also be reconfigured to use a different directory structure. This is useful
+               if SMOKE is to be used from the MIMS interface, incorporated into another modeling system, or modified to suit the needs of
+               a particular user. In <a href="ch03s03.html" title="3.3.&nbsp;How to change the default directory structure">Section&nbsp;3.3, &#8220;How to change the default directory structure&#8221;</a>, we describe what must be done to reconfigure the default directory structure to meet such needs.
+            </p>
+            <p>In this chapter, we describe the default directory structures set automatically by the Assigns file provided with the default
+               installation of SMOKE. We discuss a basic directory structure and an advanced structure that follow the same approach and
+               can easily be adjusted using the Assigns file. For example, you can change a scenario name in the Assigns file, and this will
+               automatically change all of your intermediate and output directory names. However, these two directory structures are only
+               examples; as noted above, SMOKE is flexible enough to use any structure one wants to create. You could rework the Assigns
+               file (or even completely remove it) if so desired, although this would be a much more complex process than changing a few
+               environment variables. We have developed the SMOKE default directory structure based upon experience gained from many years
+               of emissions modeling; we hope that SMOKE users will find it useful.
+            </p>
+            <p>In addition to a default directory structure, SMOKE comes with a test case including example data files. <a href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">Section&nbsp;4.2, &#8220;Test case descriptions&#8221;</a> provides descriptions about these files including where the files were obtained. These descriptions are intended to provide
+               you with some background on the data files and a starting point for developing your own modeling files.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s20.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.20.&nbsp;Quality assurance&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.&nbsp;Directory structure</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

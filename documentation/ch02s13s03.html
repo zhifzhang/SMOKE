@@ -1,0 +1,61 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.13.3.&nbsp;Creating the growth matrix</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s13.html" title="2.13.&nbsp;Growth processing">
+      <link rel="prev" href="ch02s13s02.html" title="2.13.2.&nbsp;Reporting on the factors assigned to each source in the inventory">
+      <link rel="next" href="ch02s13s04.html" title="2.13.4.&nbsp;Applying the growth matrix">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.13.3.&nbsp;Creating the growth matrix</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s13s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.13.&nbsp;Growth processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s13s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e6235"></a>2.13.3.&nbsp;Creating the growth matrix
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The growth matrix created by <span><strong class="command">Cntlmat</strong></span> contains the growth factors for each source and pollutant. If pollutant-specific growth factors are used, the growth matrix
+            contains one column for each pollutant that is grown. The names of the columns are the same as the names of the pollutants
+            from the SMOKE inventory file, so that the <span><strong class="command">Grwinven</strong></span> program knows which column to apply to which inventory pollutant. If the growth factors are applied uniformly to all pollutants
+            in the inventory, then <span><strong class="command">Cntlmat</strong></span> does not output a separate but identical factor for each pollutant. Instead, it writes only one column in the matrix, with
+            the name &#8220;<span class="quote">pfac</span>&#8221;.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s13s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s13.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s13s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.13.2.&nbsp;Reporting on the factors assigned to each source in the inventory&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.13.4.&nbsp;Applying the growth matrix</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

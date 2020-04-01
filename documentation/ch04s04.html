@@ -1,0 +1,360 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.&nbsp;How to use SMOKE</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">
+      <link rel="prev" href="ch04s03.html" title="4.3.&nbsp;Running the SMOKE test case">
+      <link rel="next" href="ch04s04s02.html" title="4.4.2.&nbsp;Use new inventory data">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.&nbsp;How to use SMOKE</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;4.&nbsp;How to Use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_scripts_how_use_smoke"></a>4.4.&nbsp;How to use SMOKE
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s04.html#sect_scripts_change_assigns">4.4.1. Change Assigns file to set scenario names, grid names, and other case-specific configuration information</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s02.html">4.4.2. Use new inventory data</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s03.html">4.4.3. Select which pollutants in the inventory are kept</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s04.html">4.4.4. Set fallback stack paramaters</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s05.html">4.4.5. Changing output and intermediate directory names</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s06.html">4.4.6. Change which programs are run</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s07.html">4.4.7. Set up country codes, state codes, or county codes</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s08.html">4.4.8. Set up list of known SCCs and ORIS IDs</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s09.html">4.4.9. Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s10.html">4.4.10. Use a different speciation mechanism or change speciation inputs</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s11.html">4.4.11. Setup projection and control scenarios</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s12.html">4.4.12. Use MOVES for on-road mobile sources</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s13.html">4.4.13. Change temporal processing</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s14.html">4.4.14. Use <span><strong class="command">Elevpoint</strong></span> for selecting elevated and PinG sources</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s15.html">4.4.15. Use BEIS3</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s16.html">4.4.16. Change meteorology data</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s17.html">4.4.17. Plume Rise Calculation for Fires</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s18.html">4.4.18. In-line Plume Rise Calculation in CMAQ model (as of version 4.7)</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s19.html">4.4.19. Model for CMAQ</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s20.html">4.4.20. Model for UAM and CAM<sub>X</sub></a></span></dt>
+               <dt><span class="section"><a href="ch04s04s21.html">4.4.21. Determine if a run worked correctly and troubleshoot</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s22.html">4.4.22. Change reports</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s23.html">4.4.23. Generating CMAQ-ready Source Apportionment Input Data Files</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s24.html">4.4.24. Generating AERMOD-ready Input Data Files [SMOKE4AERMOD)</a></span></dt>
+            </dl>
+         </div>
+         <p>This section builds on the previous section to describe how to use the SMOKE files, scripts, and programs to create emission
+            inputs for your air quality model. The first part of setting up SMOKE for a case other than the test case that comes with
+            SMOKE is to create an Assigns file and script files for your case. If you have not read through the earlier parts of this
+            chapter, we recommend that you do so. There are some critical points that you need to understand about the Assigns file and
+            scripts. In <a href="ch04.html#sect_scripts_introduction" title="4.1.&nbsp;Introduction">Section&nbsp;4.1, &#8220;Introduction&#8221;</a>, we have described that an Assigns file must always be used when starting to work with SMOKE and the UNIX commands to do
+            that. In <a href="ch04s02s02.html" title="4.2.2.&nbsp;Script descriptions">Section&nbsp;4.2.2, &#8220;Script descriptions&#8221;</a>, we have already described the purpose and use of the Assigns file and scripts, so please refer to that section for more
+            information on these.
+         </p>
+         <p>You may use this section as a step-by-step guide for all of the changes that you need to make to the scripts and files for
+            running SMOKE. If you read it straight through and follow all of the steps that apply to your situation, then you will have
+            set up SMOKE for your modeling case. If you are already familiar with SMOKE, you may also use this section as a reference
+            for changing specific parts of the configuration to meet specific needs.
+         </p>
+         <p>To create your own scripts and use your own data for the first time, you must take the following steps:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Copy the example Assigns file to your own copy. The name of the Assigns file is not critical to the success of this step,
+                     but it is useful to name the file something that you will be able to identify easily for the modeling case for which it will
+                     be used.
+                  </p>
+                  <p><strong class="userinput"><code><span><strong class="command">cp</strong></span> <code class="filename">ASSIGNS.nctox.cmaq.cb05_soa.us12-nc</code> <em class="replaceable"><code>&lt;yourfile&gt;</code></em></code></strong></p>
+               </li>
+               <li>
+                  <p>Modify the necessary features of the Assigns file for your case. For example, change the scenario names, episode dates, duration,
+                     grid name, or speciation name. Some of these changes require additional input files. See <a href="ch04s04.html#sect_scripts_change_assigns" title="4.4.1.&nbsp;Change Assigns file to set scenario names, grid names, and other case-specific configuration information">Section&nbsp;4.4.1, &#8220;Change Assigns file to set scenario names, grid names, and other case-specific configuration information&#8221;</a> for more details on the settings that you can change and the values to use for each.
+                  </p>
+               </li>
+               <li>
+                  <p>Invoke the Assigns file. This will create all of the input and output directories that you will need to set up your case:</p>
+                  <p><strong class="userinput"><code><span><strong class="command">source</strong></span> <em class="replaceable"><code>&lt;yourfile&gt;</code></em></code></strong></p>
+               </li>
+               <li>
+                  <p>Copy the appropriate nctox scripts to your own scripts, change the Assigns file listed in the script to the one that you created
+                     in the previous step.
+                  </p>
+               </li>
+               <li>
+                  <p>Using one or more of the subsections in this chapter, create your input files and change the options in the scripts. The subsections
+                     below explain what files and settings need to be changed and checked for many types of operations for configuring SMOKE.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>You need not always start from the example Assigns file. Once you have your own case-specific Assigns files, you may use them
+            as starting points for creating other files.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_scripts_change_assigns"></a>4.4.1.&nbsp;Change Assigns file to set scenario names, grid names, and other case-specific configuration information
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>This subsection provides an overview of all of the Assigns file settings that you may need to change. The remaining subsections
+               in this chapter include more detail about the changes as associated with specific modeling needs. For example, <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a> explains how to change the Assigns file to set different chemical mechanisms as well as all of the files needed.
+            </p>
+            <p>In the 5-step list provided in the previous section, note that the Assigns file must first be changed (step 2) and then invoked
+               (step 3) to create the input and output directories for your case. Ideally, all of the settings in the list below would be
+               done in step 2 before step 3 is performed. If this is not possible, however, you should <span class="emphasis"><em>at a minimum</em></span> set the first five items on the list below before moving to step 3. These are the variables that affect the input and output
+               directory names, so if they are set, then the directories that you need to use will for all other configuration steps will
+               be set up for you.
+            </p>
+            <p>The list below provides the typical settings that may need to be changed to be consistent with the case that you need. Each
+               item in the list references a different section of this chapter and <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a> or <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a> for more information. The variables in the <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a> are used for naming files and directories. <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a> includes the settings for controlling the time period and grid of your SMOKE runs.
+            </p>
+            <p>The checklist of major Assigns settings to change is:</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Change the <code class="envar">INVID</code>, <code class="envar">INVEN</code>, and <code class="envar">INVOP</code> values to a new inventory name. The simplest approach is to set these three variables to the same name, but different names
+                        can be used. Examples of which files or directories are affected by these settings are provided in <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>. See also <a href="ch04s04s02.html" title="4.4.2.&nbsp;Use new inventory data">Section&nbsp;4.4.2, &#8220;Use new inventory data&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">ABASE</code>, <code class="envar">BBASE</code>, <code class="envar">MBASE</code>, <code class="envar">PBASE</code>, and <code class="envar">EBASE</code> values to a new scenario name. The simplest approach is to set these three variables to the same name, but different names
+                        can be used. Examples of which files or directories are affected by these settings are provided in <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>. See also <a href="ch04s04s02.html" title="4.4.2.&nbsp;Use new inventory data">Section&nbsp;4.4.2, &#8220;Use new inventory data&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">METSCEN</code> value to your meteorology scenario name. This will affect the name of the input directory for the meteorology files (the
+                        <code class="filename"><code class="envar">$METDAT</code></code> directory, which can be a linked directory if you do not want to install your meteorology files under the SMOKE directory
+                        structure).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">SPC</code> value to one of the supported speciation mechanisms (see <a href="ch04s04s10.html#sect_scripts_use_default_spc" title="4.4.10.1.&nbsp;Choosing from default mechanisms">Section&nbsp;4.4.10.1, &#8220;Choosing from default mechanisms&#8221;</a>) or to a new speciation mechanism (see <a href="ch04s04s10.html#sect_scripts_use_new_spc" title="4.4.10.2.&nbsp;Setup of new mechanism or changing an existing mechanism">Section&nbsp;4.4.10.2, &#8220;Setup of new mechanism or changing an existing mechanism&#8221;</a>).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">GRID</code> and <code class="envar">IOAPI_GRIDNAME_1</code> values to the grid names for naming files. See also <a href="ch04s04s09.html" title="4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)">Section&nbsp;4.4.9, &#8220;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the run period naming settings <code class="envar">ESDATE</code> and <code class="envar">NDAYS</code> (see <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>). See also <a href="ch04s04s13.html#sect_scripts_duration_output" title="4.4.13.4.&nbsp;Changing the dates, times, and duration of model-ready SMOKE emissions files">Section&nbsp;4.4.13.4, &#8220;Changing the dates, times, and duration of model-ready SMOKE emissions files&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the episode settings <code class="envar">EPI_STDATE</code>, <code class="envar">EPI_STTIME</code>, <code class="envar">EPI_RUNLEN</code>, and <code class="envar">EPI_NDAY</code> and the run period settings <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, and <code class="envar">G_RUNLEN</code>. See <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a> and <a href="ch04s04s13.html#sect_scripts_change_episode" title="4.4.13.3.&nbsp;Changing the episode">Section&nbsp;4.4.13.3, &#8220;Changing the episode&#8221;</a> and <a href="ch04s04s13.html#sect_scripts_duration_output" title="4.4.13.4.&nbsp;Changing the dates, times, and duration of model-ready SMOKE emissions files">Section&nbsp;4.4.13.4, &#8220;Changing the dates, times, and duration of model-ready SMOKE emissions files&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">YEAR</code> value to the year of your base case inventory.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <div class="table"><a name="tbl_scripts_variables_files"></a><p class="title"><b>Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories</b></p>
+               <table summary="Variable in Assigns file for naming files and directories" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">Environment Variable</th>
+                        <th align="center" valign="bottom">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">INVID</code></td>
+                        <td>Inventory input directory identifier. Controls directory path of input inventory. <code class="envar">INVDIR</code> = <code class="filename"><code class="envar">$SMKDAT</code>/inventory/<code class="envar">$INVID</code></code></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVOP</code></td>
+                        <td>Base year inventory output name. Controls output file names for SMOKE intermediate inventory files and other output files
+                           from <span><strong class="command">Smkinven</strong></span> and inventory-only reports from <span><strong class="command">Smkreport</strong></span>. This variable is used to initialize the <code class="envar">FYIOP</code> variable, which is also used in the Assigns file and is equal to <code class="envar">INVOP</code> for base case modeling. <code class="envar">FYIOP</code> is reset by the <code class="filename">set_case.scr</code> helper script (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a> documentation on <code class="envar">FYEAR</code> and <code class="envar">CNTLCASE</code>)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVEN</code></td>
+                        <td>Base year inventory name, with version. Controls directory path of output inventory. <code class="envar">INVOPD</code> = <code class="filename"><code class="envar">$SMKDAT</code>/inventory/<code class="envar">$INVEN</code></code></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ABASE</code></td>
+                        <td>Scenario identifier for area/non-point and nonroad mobile sources. Controls output file names and directories for outputs
+                           from SMOKE programs other than <span><strong class="command">Smkinven</strong></span> (e.g., locations and file names of all matrices, hourly emissions, model-ready files). This variable is used to initialize
+                           the <code class="envar">ASCEN</code> variable, which is also used in the Assigns file and is equal to <code class="envar">ABASE</code> for base case modeling. <code class="envar">ASCEN</code> is reset by the <code class="filename">set_case.scr</code> helper script (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a> documentation on <code class="envar">FYEAR</code> and <code class="envar">CNTLCASE</code>). Should be set to the same value as <code class="envar">BBASE</code>, <code class="envar">MBASE</code>, <code class="envar">PBASE</code>, and <code class="envar">EBASE</code> for the basic configuration.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BBASE</code></td>
+                        <td>Scenario identifier for biogenic sources that works the same way as <code class="envar">ABASE</code>, but affects the <code class="envar">BSCEN</code> variable.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MBASE</code></td>
+                        <td>Scenario identifier for on-road mobile sources that works the same way as <code class="envar">ABASE</code>, but affects the <code class="envar">MSCEN</code> variable.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PBASE</code></td>
+                        <td>Scenario identifier for on-road mobile sources that works the same way as <code class="envar">ABASE</code>, but affects the <code class="envar">PSCEN</code> variable.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">EBASE</code></td>
+                        <td>Scenario identifier for merged emissions sources. Controls output file names and directories for outputs for final model-ready
+                           files. Sets the path for the <code class="envar">STATIC</code>, <code class="envar">SCENARIO</code>, and <code class="envar">OUTPUT</code> directories and file names for the merged outputs for multiple source categories from the <span><strong class="command">Smkmerge</strong></span> program (e.g., the <code class="envar">EGTS3D_L</code> file).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">METSCEN</code></td>
+                        <td>Meteorology scenario name. Sets the <code class="envar">METDAT</code> directory for the MCIP meteorology files and can be used to set the meteorology file names (not done in example nctox scripts).
+                           Also helps set names for meteorology-dependent SMOKE intermediate files for biogenics (<span><strong class="command">Tmpbeis3</strong></span> outputs <code class="envar">B3GTS_S</code> and <code class="envar">B3GTS_L</code>), on-road mobile (<span><strong class="command">Temporal</strong></span> output <code class="envar">MTMP</code>), and point (<span><strong class="command">Laypoint</strong></span> outputs <code class="envar">PLAY</code> and <code class="envar">PLAY_EX</code>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRID</code></td>
+                        <td>Grid name used for naming files that depend on the selected grid. User must coordinate <code class="envar">GRID</code> settings with <code class="envar">IOAPI_GRIDNAME_1</code> setting <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a>. Dependent files include gridding matrix, gridded land use and biogenic emissions, hourly mobile emissions, layer-fractions
+                           files, model-ready emissions, and some reports.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SPC</code></td>
+                        <td>Speciation profile name for selecting input files and naming output files and directories that depend on the chemical mechanism.
+                           This setting can be overridden by the <code class="envar">SPC_OVERRIDE</code> script setting (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>). The <code class="envar">SPC</code> setting sets input files <code class="envar">GSPRO</code> and <code class="envar">GSREF</code>; speciation matrix intermediate file names, and output directories <code class="envar">OUTPUT</code>, <code class="envar">A_OUT</code>, <code class="envar">B_OUT</code>, <code class="envar">M_OUT</code>, <code class="envar">N_OUT</code>, and <code class="envar">P_OUT</code>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ESDATE</code></td>
+                        <td>Starting date for first modeled period in episode. Has format YYYYMMDD where YYYY is the 4-digit year, MM is the two-digit
+                           month (e.g., 07 for July), and DD is the two-digit day (e.g., 01 for the first). Users should coordinate this with the <code class="envar">G_STDATE</code> setting <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a>. The Assigns file resets this variable if the <code class="envar">G_STDATE_ADVANCE</code> variable is set by a calling script (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MSDATE</code></td>
+                        <td>Meteorology file dates. This variable can be used to help name time-dependent meteorology files or directory names. In the
+                           example scripts for the nctox case, however, this variable is not used and the <code class="envar">G_STDATE</code> variable is used instead.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">NDAYS</code></td>
+                        <td>Number of days in a modeling period. To break up a modeling episode into multiple modeling periods of one or more days, the
+                           user must set and coordinate this setting with the <code class="envar">G_RUNLEN</code> setting <a href="ch04s04.html#tbl_scripts_variables_time" title="Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing">Table&nbsp;4.2, &#8220;Variables in Assigns file for controlling time period and grid of processing&#8221;</a>. <code class="envar">NDAYS</code> represents the number of days indicated in hours by the <code class="envar">G_RUNLEN</code> variable. <code class="envar">NDAYS</code> is used for naming hourly emissions files output from the <span><strong class="command">Temporal</strong></span> program, biogenic outputs from <span><strong class="command">Tmpbio</strong></span>, layer fractions files from <span><strong class="command">Laypoint</strong></span>, and model-ready emissions files from <span><strong class="command">Smkmerge</strong></span>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">YEAR</code></td>
+                        <td>Base case modeling year. This setting is used to set several things in coordination with the <code class="envar">FYEAR</code> and <code class="envar">SMK_FUTURE_YN</code> script settings (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>). For growth modeling, it is used in the file name for the <code class="envar">GCNTL</code> input file, set by the growth/control example nctox scripts. This setting can be overridden by the <code class="envar">YEAR_OVERRIDE</code> setting, also described in <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>. Lastly, it is used to set the file name for the winter/summer designations file output from <span><strong class="command">Metscan</strong></span>, called the <code class="envar">BIOSEASON</code> file.
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="table"><a name="tbl_scripts_variables_time"></a><p class="title"><b>Table&nbsp;4.2.&nbsp;Variables in Assigns file for controlling time period and grid of processing</b></p>
+               <table summary="Variables in Assigns file for controlling time period and grid of processing" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">Environment Variable</th>
+                        <th align="center" valign="bottom">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">G_STDATE</code></td>
+                        <td>Julian starting date of first modeled period in episode. Has format YYYYDDD where YYYY is a 4-digit year and DDD is a 3-digit
+                           Julian date (e.g., 001 for the first day of the year). Users should coordinate this with the <code class="envar">ESDATE</code> setting <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>. The Assigns file resets this variable if the <code class="envar">G_STDATE_ADVANCE</code> variable is set by a calling script (see <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>). Controls operation of time-dependent programs <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Tmpbio</strong></span>, <span><strong class="command">Laypoint</strong></span>, and <span><strong class="command">Smkmerge</strong></span>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">G_STTIME</code></td>
+                        <td>Start time of each period in the episode. Has format HHMMSS where HH is a 2-digit hour (leading zero not required), MM is
+                           a 2-digit minute (set to 00 for SMOKE), and SS is a 2-digit second (set to 00 for SMOKE).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">G_RUNLEN</code></td>
+                        <td>Duration of each run period in episode. To break up a modeling episode into multiple modeling periods of one or more days,
+                           the user must set and coordinate this setting with the <code class="envar">NDAYS</code> setting <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>. <code class="envar">G_RUNLEN</code> has format HHHHMMSS, where HHHH is a 4-digit duration in hours (leading zeros not required), MM and HH should be set as for
+                           <code class="envar">G_STTIME</code>. <code class="envar">G_RUNLEN</code> controls the duration modeled for each run of the <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Tmpbio</strong></span>, <span><strong class="command">Laypoint</strong></span>, and <span><strong class="command">Smkmerge</strong></span> programs. Must be set one hour greater than the number of days times 24 (e.g., a two-day period length is 2 x 24 + 1 = 49).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">G_TSTEP</code></td>
+                        <td>Time step. Has format HHMMSS with format the same as described for <code class="envar">G_STTIME</code>. The current version of SMOKE allows this setting to only be 10000, for hourly timesteps.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">EPI_STDATE</code></td>
+                        <td>Episode start date. Has the same format as <code class="envar">G_STDATE</code>. Does not change during the course of an episodic run. In the Assigns file, should be set the same as <code class="envar">G_STDATE</code>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">EPI_STTIME</code></td>
+                        <td>Episode start time. Has the same format as <code class="envar">G_STTIME</code>. Does not change during the course of an episodic run. In the Assigns file, should be set the same as <code class="envar">G_STTIME</code>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">EPI_RUNLEN</code></td>
+                        <td>Episode duration. Has the same format as <code class="envar">G_RUNLEN</code>. Does not change during the course of an episodic run. In the Assigns file, should be set for the entire duration of the
+                           modeling episode, which must be greater than or equal to <code class="envar">G_RUNLEN</code> minus one hour, is limited to at most one year, and for best results, should be a multiple of <code class="envar">G_RUNLEN</code> minus one hour. For example, if <code class="envar">G_RUNLEN</code> is 250000 (one day plus the required one additional hour), <code class="envar">EPI_RUNLEN</code> must be at least 240000 and at most 365 x 240000 = 87600000. This example would run an annual episode using 24-hour run periods.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">EPI_NDAY</code></td>
+                        <td>The number of days in the episode. Should be the value of <code class="envar">EPI_RUNLEN</code> divided by 240000. This settings controls for how many days to use the automatic looping in the example scripts, which loops
+                           over all of the periods (set by <code class="envar">G_RUNLEN</code>) during the episode (set by <code class="envar">EPI_RUNLEN</code>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">IOAPI_GRIDNAME_1</code></td>
+                        <td>The selected grid. Controls which grid will be selected by the <span><strong class="command">Grdmat</strong></span> program from the <code class="envar">GRIDDESC</code> file. Users should coordinate this setting with the <code class="envar">GRID</code> setting from <a href="ch04s04.html#tbl_scripts_variables_files" title="Table&nbsp;4.1.&nbsp;Variable in Assigns file for naming files and directories">Table&nbsp;4.1, &#8220;Variable in Assigns file for naming files and directories&#8221;</a>, which is used for naming files. This setting must match the grid names in the gridded land use and spatial surrogates files&#8217;
+                           headers. 
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.3.&nbsp;Running the SMOKE test case&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.2.&nbsp;Use new inventory data</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

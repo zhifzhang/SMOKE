@@ -1,0 +1,179 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.7.&nbsp;Inlineto2D</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s06.html" title="5.3.6.&nbsp;Geofac">
+      <link rel="next" href="ch05s03s08.html" title="5.3.8.&nbsp;Invsplit">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.7.&nbsp;<span><strong class="command">Inlineto2D</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_inlineto2d"></a>5.3.7.&nbsp;<span><strong class="command">Inlineto2D</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s07.html#d0e20082">5.3.7.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s07.html#d0e20089">5.3.7.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s07.html#d0e20096">5.3.7.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20082"></a>5.3.7.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Inlineto2D</strong></span> merges the CMAQ inline-ready 2-D point sources emissions (INLN) with the elevated source stack group (STACK_GROUPS) files
+               to generate 2-D hourly emissions.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20089"></a>5.3.7.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Inlineto2D</strong></span> can be run on any gridded I/O API file.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20096"></a>5.3.7.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s07.html#d0e20099">5.3.7.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s07.html#d0e20136">5.3.7.3.2. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20099"></a>5.3.7.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">INLN</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>CMAQ-ready Inline 2-D ridded emissions file, output by <span><strong class="command">Smkmerge</strong></span></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">STACK_GROUPS</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Elevated sources stack parameters file, output by <span><strong class="command">Elevpoint</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20136"></a>5.3.7.3.2.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Gridded emissions file</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Inlineto2D</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.6.&nbsp;<span><strong class="command">Geofac</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.8.&nbsp;<span><strong class="command">Invsplit</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

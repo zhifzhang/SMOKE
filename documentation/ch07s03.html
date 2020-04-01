@@ -1,0 +1,157 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.&nbsp;REPCONFIG Input File</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">
+      <link rel="prev" href="ch07s02s03.html" title="7.2.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch07s03s02.html" title="7.3.2.&nbsp;Define-group section">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_qa_repconfig"></a>7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s03.html#sect_qa_repconfig_one_time">7.3.1. One-time section</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s02.html">7.3.2. Define-group section</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html">7.3.3. Create-report Section</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s04.html">7.3.4. The /DELIMITER/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s05.html">7.3.5. The /SET LABEL/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s06.html">7.3.6. The /REPORT TIME/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s07.html">7.3.7. The /AVEDAY/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s08.html">7.3.8. The /NEWFILE/ packet</a></span></dt>
+            </dl>
+         </div>
+         <p>The <code class="envar">REPCONFIG</code> file is used to control the <span><strong class="command">Smkreport</strong></span> program. As noted earlier, each run of <span><strong class="command">Smkreport</strong></span> is constrained to a single source category (area, mobile, or point), at most one speciation scenario, at most one grid, and
+            at most one hourly emissions file. All of these component datasets are optional, however, and their use is controlled by the
+            settings in <code class="envar">REPCONFIG</code>. This file also controls the number and types of reports created by <span><strong class="command">Smkreport</strong></span>, which can create an unlimited number of reports in each program run.
+         </p>
+         <p>The file works on the principles of &#8220;<span class="quote">packets</span>&#8221; and &#8220;<span class="quote">instructions</span>&#8221;. Packets are groups of instructions or a single action that have been predefined by the <code class="envar">REPCONFIG</code> file format to control the <span><strong class="command">Smkreport</strong></span> outputs; instructions are settings that tell <span><strong class="command">Smkreport</strong></span> what to do. Some types of packets must appear in one of three sections, while other packets can appear anywhere in the <code class="envar">REPCONFIG</code> file. The three sections are: &#8220;<span class="quote">One-time</span>&#8221; (see <a href="ch07s03.html#sect_qa_repconfig_one_time" title="7.3.1.&nbsp;One-time section">Section&nbsp;7.3.1, &#8220;One-time section&#8221;</a>), &#8220;<span class="quote">Define-group</span>&#8221; (see <a href="ch07s03s02.html" title="7.3.2.&nbsp;Define-group section">Section&nbsp;7.3.2, &#8220;Define-group section&#8221;</a>), and &#8220;<span class="quote">Create-report</span>&#8221; (see <a href="ch07s03s03.html" title="7.3.3.&nbsp;Create-report Section">Section&nbsp;7.3.3, &#8220;Create-report Section&#8221;</a>); each file section has a large number of options. In this section of the chapter, we first provide details on these three
+            file sections and their packets, and then we describe four additional packets that can appear between other packets at any
+            point in the <code class="envar">REPCONFIG</code> file.
+         </p>
+         <p>The full list of packets that one can use in the <code class="envar">REPCONFIG</code> input file are as follows:
+         </p>
+         <p>One-time section (<a href="ch07s03.html#sect_qa_repconfig_one_time" title="7.3.1.&nbsp;One-time section">Section&nbsp;7.3.1, &#8220;One-time section&#8221;</a>)
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>SMK_SOURCE</p>
+               </li>
+            </ul>
+         </div>
+         <p>Define-group section (<a href="ch07s03s02.html" title="7.3.2.&nbsp;Define-group section">Section&nbsp;7.3.2, &#8220;Define-group section&#8221;</a>)
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>/DEFINE GROUP REGION/</p>
+               </li>
+               <li>
+                  <p>/DEFINE SUBGRID/</p>
+               </li>
+            </ul>
+         </div>
+         <p>Create-report section (<a href="ch07s03s03.html" title="7.3.3.&nbsp;Create-report Section">Section&nbsp;7.3.3, &#8220;Create-report Section&#8221;</a>)
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>/CREATE REPORT/</p>
+               </li>
+            </ul>
+         </div>
+         <p>Packets that can appear anywhere in the file</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>/DELIMITER/ (<a href="ch07s03s04.html" title="7.3.4.&nbsp;The /DELIMITER/ packet">Section&nbsp;7.3.4, &#8220;The /DELIMITER/ packet&#8221;</a>)
+                  </p>
+               </li>
+               <li>
+                  <p>/AVEDAY/ (<a href="ch07s03s07.html" title="7.3.7.&nbsp;The /AVEDAY/ packet">Section&nbsp;7.3.7, &#8220;The /AVEDAY/ packet&#8221;</a>)
+                  </p>
+               </li>
+               <li>
+                  <p>/REPORT TIME/ (<a href="ch07s03s06.html" title="7.3.6.&nbsp;The /REPORT TIME/ packet">Section&nbsp;7.3.6, &#8220;The /REPORT TIME/ packet&#8221;</a>)
+                  </p>
+               </li>
+               <li>
+                  <p>/NEWFILE/ (<a href="ch07s03s08.html" title="7.3.8.&nbsp;The /NEWFILE/ packet">Section&nbsp;7.3.8, &#8220;The /NEWFILE/ packet&#8221;</a>)
+                  </p>
+               </li>
+               <li>
+                  <p>/SET LABEL/ (<a href="ch07s03s05.html" title="7.3.5.&nbsp;The /SET LABEL/ packet">Section&nbsp;7.3.5, &#8220;The /SET LABEL/ packet&#8221;</a>)
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>Comments can be put in the file using a pound sign (#) at the first column of a line, or a double pound sign (##) anywhere
+            else on a line. The double pound can appear after packet labels or instructions in the file.
+         </p>
+         <p>Finally, note that the maximum number of characters that can be read on any line in this file is 300. This can be important
+            in particular for the SELECT DATA instruction.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_qa_repconfig_one_time"></a>7.3.1.&nbsp;One-time section
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The first section of the file is the One-time section, and it is a required section. This section is used for setting the
+               environment variables that control <span><strong class="command">Smkreport</strong></span> for all reports in a given run. The variables are set by listing the environment variable as an instruction, followed by
+               its value. No <span><strong class="command">setenv</strong></span> command (used in the C shell) is needed, because SMOKE is interpreting these values directly. At this time, the one instruction
+               available in the One-time section is the SMK_SOURCE variable:
+            </p>
+            <p><code class="envar">SMK_SOURCE</code>: Set as &#8220;<span class="quote">A</span>&#8221;, &#8220;<span class="quote">M</span>&#8221;, or &#8220;<span class="quote">P</span>&#8221;, for area-source reporting, mobile-source reporting, and point-source reporting, respectively.
+            </p>
+            <p>An example of the way this setting would appear in the <code class="envar">REPCONFIG</code> file is the following:
+            </p><pre class="programlisting">SMK_SOURCE   A</pre></div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.2.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.2.&nbsp;Define-group section</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

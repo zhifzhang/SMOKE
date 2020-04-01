@@ -1,0 +1,92 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.3.&nbsp;Running the SMOKE test case</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">
+      <link rel="prev" href="ch04s02s05.html" title="4.2.5.&nbsp;SMOKE settings controlled through scripts">
+      <link rel="next" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.3.&nbsp;Running the SMOKE test case</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s02s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;4.&nbsp;How to Use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_scripts_run_example"></a>4.3.&nbsp;Running the SMOKE test case
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>As mentioned in <a href="ch04.html#sect_scripts_introduction" title="4.1.&nbsp;Introduction">Section&nbsp;4.1, &#8220;Introduction&#8221;</a>, the first step in working with SMOKE is invoking the Assigns file. In this section, we will go beyond that first step to
+            actually running the scripts for the nctox case. But first, we will review the essential steps for running SMOKE each and
+            every time you start to work with the SMOKE system.
+         </p>
+         <p>First, the <code class="envar">SMK_HOME</code> environment variable needs to be defined. In <a href="ch12s03.html" title="12.3.&nbsp;Installing SMOKE">Section&nbsp;12.3, &#8220;Installing SMOKE&#8221;</a>, we explain that you can configure your UNIX system to set this automatically each time you log into your computer. If you
+            have not done that, then you will need to set the <code class="envar">SMK_HOME</code> variable manually before invoking an Assigns file:
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">setenv</strong></span> <code class="envar">SMK_HOME</code> <em class="replaceable"><code>&lt;directory in which you installed SMOKE&gt;</code></em></code></strong></p>
+         <p>Second, you must invoke the Assigns file for the case that you want to run. This will make available all of the environment
+            variables that you can use to navigate through the SMOKE directory structure. There is a different Assigns file for each case,
+            so we provide this instruction with the case-specific documentation below. Of course, when you develop an Assigns file for
+            your case, you will use that instead.
+         </p>
+         <p><span class="bold"><strong>NOTE:</strong></span> All of the SMOKE scripts assume that you are running a variant of the C-shell (either <span><strong class="command">csh</strong></span> or <span><strong class="command">tcsh</strong></span>). The scripts will not work with other shells such as <span><strong class="command">bash</strong></span>. If your shell is not <span><strong class="command">csh</strong></span> or <span><strong class="command">tcsh</strong></span>, you will need to change into an appropriate shell before running any SMOKE scripts.
+         </p>
+         <p>To run the nctox test case, you must first source the Assigns file using the commands below:</p>
+         <p><strong class="userinput"><code><span><strong class="command">cd</strong></span> <code class="filename"><code class="envar">$SMK_HOME</code>/subsys/smoke/assigns</code></code></strong> <span class="emphasis"><em>(change to the assigns directory)</em></span></p>
+         <p><strong class="userinput"><code><span><strong class="command">source</strong></span> <code class="filename">ASSIGNS.nctox.cmaq.cb05_soa.us12-nc</code></code></strong> <span class="emphasis"><em>(set up for the nctox case)</em></span></p>
+         <p>Next, you&#8217;ll run the base-year nctox scripts. These scripts process the stationary area, biogenic, nonroad mobile, and point
+            emissions for the base year. The commands to run the scripts are below:
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">cd</strong></span> <code class="filename"><code class="envar">$SCRIPTS</code>/run</code></code></strong> <span class="emphasis"><em>(change to the run scripts directory)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_area_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the stationary area run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_bg_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the BEIS3 biogenic run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_nonroad_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the nonroad mobile run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_point_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the point run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_rateperdistance_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the MOVES mobile sources on-roadway rate-per-distance (RPD) run script for all processes)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_ratepervehicle_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the MOVES mobile sources off-network rate-per-vehicle (RPV) run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_rateperprofile_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the MOVES mobile sources off-network rate-per-profile (RPP) run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_rateperhour_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the MOVES mobile sources off-network rate-per-hour (RPH) run script)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">smk_mrgall_nctox.csh</code></code></strong> <span class="emphasis"><em>(invoke the all-sources merge script)</em></span></p>
+         <p>To verify that the nctox scripts have run correctly, go to the log file directory and look for errors by using:</p>
+         <p><strong class="userinput"><code><span><strong class="command">cd</strong></span> <code class="filename"><code class="envar">$LOGS</code></code></code></strong> <span class="emphasis"><em>(change to the log file directory for the test case)</em></span></p><pre class="programlisting">
+grep ERROR *
+</pre><p> If there are no errors, the next step is to run a QA script to be sure that the answers match.</p>
+         <p><strong class="userinput"><code><span><strong class="command">cd</strong></span> <code class="filename"><code class="envar">$SCRIPTS</code>/install</code></code></strong> <span class="emphasis"><em>(change to the install directory)</em></span></p>
+         <p><strong class="userinput"><code><code class="filename">check_smk_install</code></code></strong> <span class="emphasis"><em>(invoke the smoke install quality assurance script)</em></span></p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s02s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.2.5.&nbsp;SMOKE settings controlled through scripts&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.&nbsp;How to use SMOKE</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

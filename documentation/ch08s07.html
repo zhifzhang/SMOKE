@@ -1,0 +1,98 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.7.&nbsp;Special Merging Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s06.html" title="8.6.&nbsp;Growth and Controls Files">
+      <link rel="next" href="ch08s08.html" title="8.8.&nbsp;Meteorology Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.7.&nbsp;Special Merging Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_merging"></a>8.7.&nbsp;Special Merging Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s07.html#sect_input_filelist">8.7.1. <code class="envar">FILELIST</code>: Gridded merge 2-D file list</a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the special merging files should be stored are listed in <a href="ch08.html#tbl_input_merging_files" title="Table&nbsp;8.6.&nbsp;Special Merging Input File Locations">Table&nbsp;8.6, &#8220;Special Merging Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_filelist"></a>8.7.1.&nbsp;<code class="envar">FILELIST</code>: Gridded merge 2-D file list
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The <code class="envar">FILELIST</code> file is used to provide a list of logical file names to the <span><strong class="command">Mrggrid</strong></span> program. This list should contain the logical file names for all 2- or 3-D files to be merged in a given run. It is a very
+               simple file, and has no limit to the number of files listed. Note that unlike most list files used in SMOKE, <code class="envar">FILELIST</code> requires a list of logical file names, <span class="emphasis"><em>not</em></span> the actual file name. The format of the <code class="envar">FILELIST</code> file is shown in <a href="ch08s07.html#tbl_input_filelist" title="Table&nbsp;8.52.&nbsp;Format for FILELIST">Table&nbsp;8.52, &#8220;Format for <code class="envar">FILELIST</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_filelist"></a><p class="title"><b>Table&nbsp;8.52.&nbsp;Format for <code class="envar">FILELIST</code></b></p>
+               <table summary="Format for FILELIST" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Logical file name</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.6.&nbsp;Growth and Controls Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.8.&nbsp;Meteorology Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

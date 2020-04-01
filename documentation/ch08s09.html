@@ -1,0 +1,2537 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.9.&nbsp;Source-Specific files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s08.html" title="8.8.&nbsp;Meteorology Files">
+      <link rel="next" href="ch08s09s02.html" title="8.9.2.&nbsp;Mobile">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.9.&nbsp;Source-Specific files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s09s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_source_specific"></a>8.9.&nbsp;Source-Specific files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s09.html#sect_input_source_biogenics">8.9.1. Biogenics</a></span></dt>
+               <dt><span class="section"><a href="ch08s09s02.html">8.9.2. Mobile</a></span></dt>
+               <dt><span class="section"><a href="ch08s09s03.html">8.9.3. Point</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_source_biogenics"></a>8.9.1.&nbsp;Biogenics
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08s09.html#sect_input_bioseason">8.9.1.1. <code class="envar">BIOSEASON</code>: Bioseason switch file</a></span></dt>
+                  <dt><span class="section"><a href="ch08s09.html#sect_input_b360fac">8.9.1.2. <code class="envar">B360FAC</code>: Biogenic emissions factors file for BEIS v3.60 </a></span></dt>
+                  <dt><span class="section"><a href="ch08s09.html#sect_input_b3fac">8.9.1.3. <code class="envar">B3FAC</code>: Biogenic emissions factors file for BEIS v3.14 or earlier</a></span></dt>
+                  <dt><span class="section"><a href="ch08s09.html#sect_input_source_beld4">8.9.1.4. <code class="envar">BELD4</code>: Landuse input file for BEIS v3.60</a></span></dt>
+                  <dt><span class="section"><a href="ch08s09.html#sect_input_source_beld3">8.9.1.5. <code class="envar">BELD3</code>: Landuse input file for BEIS v3.14 or earlier</a></span></dt>
+               </dl>
+            </div>
+            <p>The directories where the biogenic-specific input files should be stored are listed in <a href="ch08.html#tbl_input_biogenic_files" title="Table&nbsp;8.8.&nbsp;Biogenic-Specific Input File Locations">Table&nbsp;8.8, &#8220;Biogenic-Specific Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_bioseason"></a>8.9.1.1.&nbsp;<code class="envar">BIOSEASON</code>: Bioseason switch file
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The <code class="envar">BIOSEASON</code> switch file is an I/O API netCDF file used to indicate how each day in a given year should be treated, either as summer or
+                  winter. This file can be created using the <span><strong class="command">Metscan</strong></span> utility program. The <code class="envar">BIOSEASON</code> file is time-dependent and usually contains data for an entire year (365 or 366 days). It uses one variable, SEASON, which
+                  is either 0 (grid cell should use winter factors for current day) or 1 (grid cell should use summer factors for current day).
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_b360fac"></a>8.9.1.2.&nbsp;<code class="envar">B360FAC</code>: Biogenic emissions factors file for BEIS v3.60 
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The <code class="envar">B360FAC</code> file for BEIS version 3.60 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and
+                  normalized emission fluxes for 34 different species/compounds listed in <a href="ch08s09.html#tbl_input_b360fac" title="Table&nbsp;8.55.&nbsp;Format for B3FAC, BEIS version 3.60">Table&nbsp;8.55, &#8220;Format for <code class="envar">B3FAC</code>, BEIS version 3.60&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_b360fac"></a><p class="title"><b>Table&nbsp;8.55.&nbsp;Format for <code class="envar">B3FAC</code>, BEIS version 3.60</b></p>
+                  <table summary="Format for B3FAC, BEIS version 3.60" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1+</td>
+                           <td>A</td>
+                           <td>Abbreviated name for land use type (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>String indicating type (e.g. Leaf Area Index (LAI), Dry Leaf Biomass (LFBIO), Winter Biomass (WFAC), Specific Leaf Weight
+                              (SLW), Isoprene (ISOP), Sesquiterpene (SESQT) emissions, etc.) (Character)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Units or &#8220;none&#8221; if no units (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Value of LAI, LFBIO, WFAC, SLW, or Normalized emissions (i.e., ISOP, SESQT, and son on) flux for item in position B (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_b3fac"></a>8.9.1.3.&nbsp;<code class="envar">B3FAC</code>: Biogenic emissions factors file for BEIS v3.14 or earlier
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The <code class="envar">B3FAC</code> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and
+                  normalized emission fluxes for 34 different species/compounds listed in <a href="ch08s09.html#tbl_input_b314fac" title="Table&nbsp;8.56.&nbsp;Format for B3FAC, BEIS version 3.14">Table&nbsp;8.56, &#8220;Format for <code class="envar">B3FAC</code>, BEIS version 3.14&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_b314fac"></a><p class="title"><b>Table&nbsp;8.56.&nbsp;Format for <code class="envar">B3FAC</code>, BEIS version 3.14</b></p>
+                  <table summary="Format for B3FAC, BEIS version 3.14" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1+</td>
+                           <td>1-16</td>
+                           <td>Abbreviated name for land use type (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>A</td>
+                           <td>Leaf area index  (m<sup>2</sup>/m<sup>2</sup>) (Integer)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>Dry leaf biomass (g/m<sup>2</sup>) (Integer)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Winter biomass factor (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Indicator of specific leaf weight (Integer)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>Normalized emissions flux for ISOP (g C/km<sup>2</sup>-hr) (Real) 
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Normalized emissions flux for MBO (g C/km<sup>2</sup>-hr) (Real) 
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>Normalized emissions flux for METH (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Normalized emissions flux for APIN (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>I</td>
+                           <td>Normalized emissions flux for BPIN (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>J</td>
+                           <td>Normalized emissions flux for D3CAR (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>K</td>
+                           <td>Normalized emissions flux for DLIM (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>L</td>
+                           <td>Normalized emissions flux for CAMPH (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>M</td>
+                           <td>Normalized emissions flux for MYRC (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>N</td>
+                           <td>Normalized emissions flux for ATERP (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>O</td>
+                           <td>Normalized emissions flux for BPHE (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>P</td>
+                           <td>Normalized emissions flux for SABI (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>Q</td>
+                           <td>Normalized emissions flux for PCYM (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>R</td>
+                           <td>Normalized emissions flux for OCIM (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>S</td>
+                           <td>Normalized emissions flux for ATHU (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>T</td>
+                           <td>Normalized emissions flux for TRPO (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>U</td>
+                           <td>Normalized emissions flux for GTERP (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>V</td>
+                           <td>Normalized emissions flux for ETHE (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>W</td>
+                           <td>Normalized emissions flux for PROPE (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>X</td>
+                           <td>Normalized emissions flux for ETHO (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>Y</td>
+                           <td>Normalized emissions flux for ACET (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>Z</td>
+                           <td>Normalized emissions flux for HEXA (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AA</td>
+                           <td>Normalized emissions flux for HEXE (gC/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AB</td>
+                           <td>Normalized emissions flux for HEXY (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AC</td>
+                           <td>Normalized emissions flux for FORM (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AD</td>
+                           <td>Normalized emissions flux for ACTAL (gC/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AE</td>
+                           <td>Normalized emissions flux for BUTE (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AF</td>
+                           <td>Normalized emissions flux for ETHA (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AG</td>
+                           <td>Normalized emissions flux for FORAC (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AH</td>
+                           <td>Normalized emissions flux for ACTAC (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AI</td>
+                           <td>Normalized emissions flux for BUTO (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AJ</td>
+                           <td>Normalized emissions flux for CO (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AK</td>
+                           <td>Normalized emissions flux for ORVOC (g C/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>AL</td>
+                           <td>Normalized emissions flux for NO (g N/km<sup>2</sup>-hr) (Real)
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_source_beld4"></a>8.9.1.4.&nbsp;<code class="envar">BELD4</code>: Landuse input file for BEIS v3.60
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p><a href="ch08s09.html#tbl_input_landuse286" title="Table&nbsp;8.57.&nbsp;Land use categories in BELD4">Table&nbsp;8.57, &#8220;Land use categories in BELD4&#8221;</a> contains names and descriptions of the 286 land use categories in BELD4.
+               </p>
+               <div class="table"><a name="tbl_input_landuse286"></a><p class="title"><b>Table&nbsp;8.57.&nbsp;Land use categories in BELD4</b></p>
+                  <table summary="Land use categories in BELD4" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Land use category</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>NLCD_11</td>
+                           <td>Open Water</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_12</td>
+                           <td>Perennial Ice/Snow</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_21</td>
+                           <td>Developed Open Space</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_22</td>
+                           <td>Developed Low Intensity</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_23</td>
+                           <td>Developed Medium Intensity</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_24</td>
+                           <td>Developed High Intensity</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_31</td>
+                           <td>Barren Land (Rock/Sand/Clay)</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_32</td>
+                           <td>Unconsolidated Shore</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_41</td>
+                           <td>Deciduous Forest</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_42</td>
+                           <td>Evergreen Forest</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_43</td>
+                           <td>Mixed Forest</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_51</td>
+                           <td>Dwarf Scrub</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_52</td>
+                           <td>Shrub/Scrub</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_71</td>
+                           <td>Grassland/Herbaceous</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_72</td>
+                           <td>Sedge/Herbaceous</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_73</td>
+                           <td>Lichens</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_74</td>
+                           <td>Moss</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_75</td>
+                           <td>Tundra</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_81</td>
+                           <td>Pasture/Hay</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_82</td>
+                           <td>Cultivated Crops</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_90</td>
+                           <td>Woody Wetlands</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_91</td>
+                           <td>Palustrine Forested Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_92</td>
+                           <td>Palustrine Scrub/Shrub Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_93</td>
+                           <td>Estuarine Forested Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_94</td>
+                           <td>Estuarine Scrub/Shrub Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_95</td>
+                           <td>Emergent Herbaceous Wetlands</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_96</td>
+                           <td>Palustrine Emergent Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_97</td>
+                           <td>Estuarine Emergent Wetland</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_98</td>
+                           <td>Palustrine Aquatic Bed</td>
+                        </tr>
+                        <tr>
+                           <td>NLCD_99</td>
+                           <td>Estuarine Aquatic Bed</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_0</td>
+                           <td>water</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_1</td>
+                           <td>Evergreen needleleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_2</td>
+                           <td>Evergreen broadleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_3</td>
+                           <td>Deciduous needleleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_4</td>
+                           <td>Deciduous broadleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_5</td>
+                           <td>Mixed forests</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_6</td>
+                           <td>Closed shrublands</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_7</td>
+                           <td>Open shrublands</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_8</td>
+                           <td>Woody savannas</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_9</td>
+                           <td>Savannas</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_10</td>
+                           <td>Grasslands</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_11</td>
+                           <td>Permanent wetlands</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_12</td>
+                           <td>Croplands</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_13</td>
+                           <td>Urban and built up</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_14</td>
+                           <td>Cropland / natural vegetation mosaic</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_15</td>
+                           <td>Permanent snow and ice</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_16</td>
+                           <td>Barren or sparsely vegetated</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_17</td>
+                           <td>IGBP water</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_254</td>
+                           <td>Unclassified</td>
+                        </tr>
+                        <tr>
+                           <td>MODIS_255</td>
+                           <td>Fill value (normally ocean water)</td>
+                        </tr>
+                        <tr>
+                           <td>Alfalfa</td>
+                           <td>Alfalfa</td>
+                        </tr>
+                        <tr>
+                           <td>Acacia</td>
+                           <td>Acacia spp</td>
+                        </tr>
+                        <tr>
+                           <td>Ailanthus</td>
+                           <td>Ailanthus altissima</td>
+                        </tr>
+                        <tr>
+                           <td>Alder</td>
+                           <td>Alnus</td>
+                        </tr>
+                        <tr>
+                           <td>Alfalfa</td>
+                           <td>Alfalfa irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Alfalfa_ir</td>
+                           <td>Malus</td>
+                        </tr>
+                        <tr>
+                           <td>Apple</td>
+                           <td>Malus</td>
+                        </tr>
+                        <tr>
+                           <td>Ash</td>
+                           <td>Fraxinus</td>
+                        </tr>
+                        <tr>
+                           <td>Barley</td>
+                           <td>Barley</td>
+                        </tr>
+                        <tr>
+                           <td>Barley_ir</td>
+                           <td>Barley irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Basswood</td>
+                           <td>Tilia</td>
+                        </tr>
+                        <tr>
+                           <td>Beans</td>
+                           <td>Beans</td>
+                        </tr>
+                        <tr>
+                           <td>Beans_ir</td>
+                           <td>Beans irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>BeansEdible</td>
+                           <td>Beans edible</td>
+                        </tr>
+                        <tr>
+                           <td>BeansEdible_ir</td>
+                           <td>Beans edible irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Beech</td>
+                           <td>Fagus</td>
+                        </tr>
+                        <tr>
+                           <td>Birch</td>
+                           <td>Betula</td>
+                        </tr>
+                        <tr>
+                           <td>Bumelia_gum</td>
+                           <td>Bumelia lanuginosa</td>
+                        </tr>
+                        <tr>
+                           <td>Cajeput</td>
+                           <td>Melaleuca quinquenervia</td>
+                        </tr>
+                        <tr>
+                           <td>Califor_laurel</td>
+                           <td>Umbellularia californica</td>
+                        </tr>
+                        <tr>
+                           <td>Cascara_buckthor</td>
+                           <td>Rhamnus purshiana</td>
+                        </tr>
+                        <tr>
+                           <td>Canola</td>
+                           <td>Canola</td>
+                        </tr>
+                        <tr>
+                           <td>Canola_ir</td>
+                           <td>Canola irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Cascara_buckthor</td>
+                           <td>Rhamnus purshiana</td>
+                        </tr>
+                        <tr>
+                           <td>Castanea</td>
+                           <td>American chestnut or chinkapin</td>
+                        </tr>
+                        <tr>
+                           <td>Catalpa</td>
+                           <td>Catalpa</td>
+                        </tr>
+                        <tr>
+                           <td>Cedar_chamaecyp</td>
+                           <td>Orford, Alaska, and Atlantic white cedars</td>
+                        </tr>
+                        <tr>
+                           <td>Cedar_thuja</td>
+                           <td>Northern white and western red cedars</td>
+                        </tr>
+                        <tr>
+                           <td>Chestnut_buckeye</td>
+                           <td>Aesculus - Horse chestnut or buckeyes</td>
+                        </tr>
+                        <tr>
+                           <td>Chinaberry</td>
+                           <td>Melia azedarach</td>
+                        </tr>
+                        <tr>
+                           <td>CornGrain</td>
+                           <td>Corn Grain</td>
+                        </tr>
+                        <tr>
+                           <td>CornGrain_ir</td>
+                           <td>Corn Grain irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>CornSilage</td>
+                           <td>Corn Silage</td>
+                        </tr>
+                        <tr>
+                           <td>CornSilage_ir</td>
+                           <td>Corn Silage irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Cotton</td>
+                           <td>Cotton</td>
+                        </tr>
+                        <tr>
+                           <td>Cotton_ir</td>
+                           <td>Cotton irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Cypress_cupress</td>
+                           <td>Cupressus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Cypress_taxodium</td>
+                           <td>Taxodium - bald and pond cypress and yew</td>
+                        </tr>
+                        <tr>
+                           <td>Dogwood</td>
+                           <td>Cornus</td>
+                        </tr>
+                        <tr>
+                           <td>Douglas_fir</td>
+                           <td>Pseudotsuga</td>
+                        </tr>
+                        <tr>
+                           <td>East_hophornbean</td>
+                           <td>Ostrya virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Elder</td>
+                           <td>Sambucus</td>
+                        </tr>
+                        <tr>
+                           <td>Elm</td>
+                           <td>Ulmus</td>
+                        </tr>
+                        <tr>
+                           <td>Eucalyptus</td>
+                           <td>Eucalyptus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_balsam</td>
+                           <td>Abies balsamea</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_CA_red</td>
+                           <td>Abies magnifica</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_corkbark</td>
+                           <td>Abies lasiocarpa</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_fraser</td>
+                           <td>Abies fraseri</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_grand</td>
+                           <td>Abies grandis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_noble</td>
+                           <td>Abies procera</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_Pacf_silver</td>
+                           <td>Abies amabilis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_SantaLucia</td>
+                           <td>Abies bracteata</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_Shasta_red</td>
+                           <td>Abies magnifica shastensis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_spp</td>
+                           <td>Abies spp</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_subalpine</td>
+                           <td>Abies lasiocarpa arizonica</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_white</td>
+                           <td>Abies concolor</td>
+                        </tr>
+                        <tr>
+                           <td>Gleditsia_locust</td>
+                           <td>Waterlocust and Honeylocust</td>
+                        </tr>
+                        <tr>
+                           <td>Hackberry</td>
+                           <td>Celtis</td>
+                        </tr>
+                        <tr>
+                           <td>Hawthorn</td>
+                           <td>Crataegus</td>
+                        </tr>
+                        <tr>
+                           <td>Hay</td>
+                           <td>Hay</td>
+                        </tr>
+                        <tr>
+                           <td>Hay_ir</td>
+                           <td>Hay irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Hemlock</td>
+                           <td>Tsuga</td>
+                        </tr>
+                        <tr>
+                           <td>Hickory</td>
+                           <td>Carya - includes pecan</td>
+                        </tr>
+                        <tr>
+                           <td>Holly_American</td>
+                           <td>Ilex</td>
+                        </tr>
+                        <tr>
+                           <td>Hornbeam</td>
+                           <td>Carpinus caroliniana</td>
+                        </tr>
+                        <tr>
+                           <td>Incense_cedar</td>
+                           <td>Calocedrus decurrens</td>
+                        </tr>
+                        <tr>
+                           <td>Juniper</td>
+                           <td>Juniperus - include Sou/Eas red cedar</td>
+                        </tr>
+                        <tr>
+                           <td>KY_coffeetree</td>
+                           <td>Gymnocladus dioicus</td>
+                        </tr>
+                        <tr>
+                           <td>Larch</td>
+                           <td>Larix</td>
+                        </tr>
+                        <tr>
+                           <td>Loblolly_bay</td>
+                           <td>Gordonia lasianthus</td>
+                        </tr>
+                        <tr>
+                           <td>Madrone</td>
+                           <td>Arbutus</td>
+                        </tr>
+                        <tr>
+                           <td>Magnolia</td>
+                           <td>Magnolia</td>
+                        </tr>
+                        <tr>
+                           <td>Mahogany</td>
+                           <td>Cercocarpus</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_bigleaf</td>
+                           <td>Acer grandidentatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_bigtooth</td>
+                           <td>Acer macrophyllum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_black</td>
+                           <td>Acer nigrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_boxelder</td>
+                           <td>Acer negundo</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_FL</td>
+                           <td>Acer barbatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_mtn</td>
+                           <td>Acer spicatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_Norway</td>
+                           <td>Acer platanoides</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_red</td>
+                           <td>Acer rubrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_RkyMtn</td>
+                           <td>Acer glabrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_silver</td>
+                           <td>Acer saccharinum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_spp</td>
+                           <td>Acer spp</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_striped</td>
+                           <td>Acer pensylvanicum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_sugar</td>
+                           <td>Acer saccharum</td>
+                        </tr>
+                        <tr>
+                           <td>Mesquite</td>
+                           <td>Prosopis</td>
+                        </tr>
+                        <tr>
+                           <td>Misc_hardwoods</td>
+                           <td>Misc hardwoods - undefined from FIA</td>
+                        </tr>
+                        <tr>
+                           <td>Mixed_conifer_sp</td>
+                           <td>Mixed conifers - underfined from FIA</td>
+                        </tr>
+                        <tr>
+                           <td>Mountain_ash</td>
+                           <td>Sorbus</td>
+                        </tr>
+                        <tr>
+                           <td>Mulberry</td>
+                           <td>Morus</td>
+                        </tr>
+                        <tr>
+                           <td>Nyssa</td>
+                           <td>Tupelo and blackgum</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_AZ_white</td>
+                           <td>Quercus arizonica</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bear</td>
+                           <td>Quercus ilicifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_black</td>
+                           <td>Quercus velutina</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_blackjack</td>
+                           <td>Quercus marilandica</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_blue</td>
+                           <td>Quercus douglasii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bluejack</td>
+                           <td>Quercus incana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bur</td>
+                           <td>Quercus macrocarpa</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_black</td>
+                           <td>Quercus kelloggii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_live</td>
+                           <td>Quercus agrifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_white</td>
+                           <td>Quercus lobata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_canyon_live</td>
+                           <td>Quercus chrysolepis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_chestnut</td>
+                           <td>Quercus prinus</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_chinkapin</td>
+                           <td>Quercus muehlenbergii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_delta_post</td>
+                           <td>Quercus stellata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Durand</td>
+                           <td>Quercus durandii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Emery</td>
+                           <td>Quercus emoryi</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Engelmann</td>
+                           <td>Quercus engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_evergreen_sp</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Gambel</td>
+                           <td>Quercus gambelii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_interio_live</td>
+                           <td>Quercus wislizenni</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_laurel</td>
+                           <td>Quercus laurifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_live</td>
+                           <td>Quercus virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Mexicanblue</td>
+                           <td>Quercus oblongifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Northrn_pin</td>
+                           <td>Quercus ellipsoidalis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Northrn_red</td>
+                           <td>Quercus rubra</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_nuttall</td>
+                           <td>Quercus nuttallii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_OR_white</td>
+                           <td>Quercus garryana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_overcup</td>
+                           <td>Quercus lyrata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_pin</td>
+                           <td>Quercus palustris</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_post</td>
+                           <td>Quercus stellata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_scarlet</td>
+                           <td>Quercus coccinea</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_scrub</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_shingle</td>
+                           <td>Quercus imbricaria</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Shumrd_red</td>
+                           <td>Quercus shumardii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_silverleaf</td>
+                           <td>Quercus hypoleucoides</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Southrn_red</td>
+                           <td>Quercus falcata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_spp</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_cnut</td>
+                           <td>Quercus michauxii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_red</td>
+                           <td>Quercus falcata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_white</td>
+                           <td>Quercus bicolor</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_turkey</td>
+                           <td>Quercus laevis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_water</td>
+                           <td>Quercus nigra</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_white</td>
+                           <td>Quercus alba</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_willow</td>
+                           <td>Quercus phellos</td>
+                        </tr>
+                        <tr>
+                           <td>Oaks</td>
+                           <td>Oaks</td>
+                        </tr>
+                        <tr>
+                           <td>Oaks_ir</td>
+                           <td>Oaks irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Osage_orange</td>
+                           <td>Maclura pomifera</td>
+                        </tr>
+                        <tr>
+                           <td>Other_crop</td>
+                           <td>Other crops</td>
+                        </tr>
+                        <tr>
+                           <td>Other_crop_ir</td>
+                           <td>Other crops irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Other_grass</td>
+                           <td>Other grass</td>
+                        </tr>
+                        <tr>
+                           <td>Other_grass_ir</td>
+                           <td>Other grass irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Paulownia</td>
+                           <td>Paulownia tomentosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pawpaw</td>
+                           <td>Asimina triloba</td>
+                        </tr>
+                        <tr>
+                           <td>Persimmon</td>
+                           <td>Diospyros virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Apache</td>
+                           <td>Pinus engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Austrian</td>
+                           <td>Pinus nigra</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_AZ</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Bishop</td>
+                           <td>Pinus muricata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_blackjack</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_brstlcone</td>
+                           <td>Pinus aristata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_chihuahua</td>
+                           <td>Pinus leiophylla</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Coulter</td>
+                           <td>Pinus coulteri</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_digger</td>
+                           <td>Pinus sabiniana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Ewhite</td>
+                           <td>Pinus strobus</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_foxtail</td>
+                           <td>Pinus balfouriana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_jack</td>
+                           <td>Pinus banksiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Jeffrey</td>
+                           <td>Pinus jefferyi</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_knobcone</td>
+                           <td>Pinus attenuata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_limber</td>
+                           <td>Pinus flexilis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_loblolly</td>
+                           <td>Pinus taeda</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_lodgepole</td>
+                           <td>Pinus contorta</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_longleaf</td>
+                           <td>Pinus palustris</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Monterey</td>
+                           <td>Pinus radiata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon</td>
+                           <td>Pinus monophylla</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon_brdr</td>
+                           <td>Pinus discolor</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon_cmn</td>
+                           <td>Pinus edulis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pitch</td>
+                           <td>Pinus rigida</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pond</td>
+                           <td>Pinus serotina</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_ponderosa</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_red</td>
+                           <td>Pinus resinosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_sand</td>
+                           <td>Pinus clausa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_scotch</td>
+                           <td>Pinus sylvestris</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_shortleaf</td>
+                           <td>Pinus echinata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_slash</td>
+                           <td>Pinus elliottii</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_spruce</td>
+                           <td>Pinus glabra</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_sugar</td>
+                           <td>Pinus lambertiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Swwhite</td>
+                           <td>Pinus strobiformis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_tablemtn</td>
+                           <td>Pinus pungens</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_VA</td>
+                           <td>Pinus virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Washoe</td>
+                           <td>Pinus washoensis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_whitebark</td>
+                           <td>Pinus albicaulis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Wwhite</td>
+                           <td>Pinus monticola</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_yellow</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Populus</td>
+                           <td>Cottonwood, poplars, and aspens</td>
+                        </tr>
+                        <tr>
+                           <td>Potatoes</td>
+                           <td>Potatoes</td>
+                        </tr>
+                        <tr>
+                           <td>Potatoes_ir</td>
+                           <td>Potatoes irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Prunus</td>
+                           <td>Cherry and plum</td>
+                        </tr>
+                        <tr>
+                           <td>Redbud</td>
+                           <td>Cercis</td>
+                        </tr>
+                        <tr>
+                           <td>Rice</td>
+                           <td>Rice</td>
+                        </tr>
+                        <tr>
+                           <td>Rice_ir</td>
+                           <td>Rice irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Robinia_locust</td>
+                           <td>Black and NM locust</td>
+                        </tr>
+                        <tr>
+                           <td>Rye</td>
+                           <td>Rye</td>
+                        </tr>
+                        <tr>
+                           <td>Rye_ir</td>
+                           <td>Rye irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Sassafras</td>
+                           <td>Sassafras albidum</td>
+                        </tr>
+                        <tr>
+                           <td>Sequoia</td>
+                           <td>Redwood and giant sequoia</td>
+                        </tr>
+                        <tr>
+                           <td>Serviceberry</td>
+                           <td>Amelanchier arborea</td>
+                        </tr>
+                        <tr>
+                           <td>Silverbell</td>
+                           <td>Halesia</td>
+                        </tr>
+                        <tr>
+                           <td>Smoketree</td>
+                           <td>Cotinus obovatus</td>
+                        </tr>
+                        <tr>
+                           <td>Soapberry_westrn</td>
+                           <td>Sapindus drummondii</td>
+                        </tr>
+                        <tr>
+                           <td>SorghumGrain</td>
+                           <td>Sorghum Grain</td>
+                        </tr>
+                        <tr>
+                           <td>SorghumGrain_ir</td>
+                           <td>Sorghum Grain irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>SorghumSilage</td>
+                           <td>Sorghum Silage</td>
+                        </tr>
+                        <tr>
+                           <td>SorghumSilage_ir</td>
+                           <td>Sorghum Silage irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Sourwood</td>
+                           <td>Oxydendrum arboretum</td>
+                        </tr>
+                        <tr>
+                           <td>Soybeans</td>
+                           <td>Soybeans</td>
+                        </tr>
+                        <tr>
+                           <td>Soybeans_ir</td>
+                           <td>Soybeans irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Sparkleberry</td>
+                           <td>Vaccinium arboreum</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_black</td>
+                           <td>Picea marianna</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_blue</td>
+                           <td>Picea pungens</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Brewer</td>
+                           <td>Picea breweriana</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Englemann</td>
+                           <td>Picea engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Norway</td>
+                           <td>Picea abies</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_red</td>
+                           <td>Picea rubens</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Sitka</td>
+                           <td>Picea sitchensis</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_spp</td>
+                           <td>Picea spp</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_white</td>
+                           <td>Picea glauca</td>
+                        </tr>
+                        <tr>
+                           <td>Sweetgum</td>
+                           <td>Liquidambar styraciflua</td>
+                        </tr>
+                        <tr>
+                           <td>Sycamore</td>
+                           <td>Platanus</td>
+                        </tr>
+                        <tr>
+                           <td>Tallowtree_chins</td>
+                           <td>Sapium sebiferum</td>
+                        </tr>
+                        <tr>
+                           <td>Tamarix</td>
+                           <td>Tamarix chinensis</td>
+                        </tr>
+                        <tr>
+                           <td>Tanoak</td>
+                           <td>Lithocarpus densiflorus</td>
+                        </tr>
+                        <tr>
+                           <td>Torreya</td>
+                           <td>Torreya californica</td>
+                        </tr>
+                        <tr>
+                           <td>Tung_oil_tree</td>
+                           <td>Aleurites fordii</td>
+                        </tr>
+                        <tr>
+                           <td>Unknown_tree</td>
+                           <td>Unknown spp</td>
+                        </tr>
+                        <tr>
+                           <td>Walnut</td>
+                           <td>Juglans - includes butternut</td>
+                        </tr>
+                        <tr>
+                           <td>Wheat_spring</td>
+                           <td>Wheat spring</td>
+                        </tr>
+                        <tr>
+                           <td>Wheat_spring_ir</td>
+                           <td>Wheat spring irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Wheat_winter</td>
+                           <td>Wheat winter</td>
+                        </tr>
+                        <tr>
+                           <td>Wheat_winter_ir</td>
+                           <td>Wheat winter irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Water_elm</td>
+                           <td>Planera aquatica</td>
+                        </tr>
+                        <tr>
+                           <td>Willow</td>
+                           <td>Salix</td>
+                        </tr>
+                        <tr>
+                           <td>Yellow_poplar</td>
+                           <td>Liriodendron tulipifera</td>
+                        </tr>
+                        <tr>
+                           <td>Yellowwood</td>
+                           <td>Cladrastis lutea</td>
+                        </tr>
+                        <tr>
+                           <td>Yucca_Mojave</td>
+                           <td>Yucca schidigera</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_source_beld3"></a>8.9.1.5.&nbsp;<code class="envar">BELD3</code>: Landuse input file for BEIS v3.14 or earlier
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p><a href="ch08s09.html#tbl_input_landuse230" title="Table&nbsp;8.58.&nbsp;Land use categories in BELD3">Table&nbsp;8.58, &#8220;Land use categories in BELD3&#8221;</a> contains names and descriptions of the 230 land use categories in BELD3.
+               </p>
+               <div class="table"><a name="tbl_input_landuse230"></a><p class="title"><b>Table&nbsp;8.58.&nbsp;Land use categories in BELD3</b></p>
+                  <table summary="Land use categories in BELD3" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Land use category</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>USGS_urban</td>
+                           <td>USGS urban and built up land</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_drycrop</td>
+                           <td>USGS dryland cropland and pasture</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_irrcrop</td>
+                           <td>USGS irrigated cropland and pasture</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_cropgrass</td>
+                           <td>USGS cropland/grassland mosaic</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_cropwdlnd</td>
+                           <td>USGS cropland/woodland mosaic</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_grassland</td>
+                           <td>USGS grassland</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_shrubland</td>
+                           <td>USGS shrubland</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_shrubgrass</td>
+                           <td>USGS mixed shrubland/grassland</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_savanna</td>
+                           <td>USGS savanna</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_decidforest</td>
+                           <td>USGS deciduous broadleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_evbrdleaf</td>
+                           <td>USGS evergreen broadleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_coniferfor</td>
+                           <td>USGS evergreen needleleaf forest</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_mxforest</td>
+                           <td>USGS mixed forest</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_water</td>
+                           <td>USGS water bodies</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_wetwoods</td>
+                           <td>USGS wooded wetland</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_sprsbarren</td>
+                           <td>USGS barren or sparsely vegetated</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_woodtundr</td>
+                           <td>USGS wooded tundra</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_mxtundra</td>
+                           <td>USGS mixed tundra</td>
+                        </tr>
+                        <tr>
+                           <td>USGS_snowice</td>
+                           <td>USGS snow or ice</td>
+                        </tr>
+                        <tr>
+                           <td>Alfalfa</td>
+                           <td>Alfalfa</td>
+                        </tr>
+                        <tr>
+                           <td>Barley</td>
+                           <td>Barley</td>
+                        </tr>
+                        <tr>
+                           <td>CornGrain</td>
+                           <td>CornGrain</td>
+                        </tr>
+                        <tr>
+                           <td>Corn_ir</td>
+                           <td>CornGrain irrigated</td>
+                        </tr>
+                        <tr>
+                           <td>Cotton</td>
+                           <td>Cotton</td>
+                        </tr>
+                        <tr>
+                           <td>Grass</td>
+                           <td>Grass (from ag data)</td>
+                        </tr>
+                        <tr>
+                           <td>Hay</td>
+                           <td>Hay</td>
+                        </tr>
+                        <tr>
+                           <td>Misc_crop</td>
+                           <td>Miscellaneous crops</td>
+                        </tr>
+                        <tr>
+                           <td>Oats</td>
+                           <td>Oats</td>
+                        </tr>
+                        <tr>
+                           <td>Pasture</td>
+                           <td>Pasture (from ag data)</td>
+                        </tr>
+                        <tr>
+                           <td>Peanuts</td>
+                           <td>Peanuts</td>
+                        </tr>
+                        <tr>
+                           <td>Potatoes</td>
+                           <td>Potatoes</td>
+                        </tr>
+                        <tr>
+                           <td>Rice</td>
+                           <td>Rice</td>
+                        </tr>
+                        <tr>
+                           <td>Rye</td>
+                           <td>Rye</td>
+                        </tr>
+                        <tr>
+                           <td>Sorghum</td>
+                           <td>Sorghum</td>
+                        </tr>
+                        <tr>
+                           <td>Soybeans</td>
+                           <td>Soybeans</td>
+                        </tr>
+                        <tr>
+                           <td>Tobacco</td>
+                           <td>Tobacco</td>
+                        </tr>
+                        <tr>
+                           <td>Wheat</td>
+                           <td>Wheat</td>
+                        </tr>
+                        <tr>
+                           <td>Acacia</td>
+                           <td>Acacia spp</td>
+                        </tr>
+                        <tr>
+                           <td>Ailanthus</td>
+                           <td>Ailanthus altissima</td>
+                        </tr>
+                        <tr>
+                           <td>Alder</td>
+                           <td>Alnus</td>
+                        </tr>
+                        <tr>
+                           <td>Apple</td>
+                           <td>Malus</td>
+                        </tr>
+                        <tr>
+                           <td>Ash</td>
+                           <td>Fraxinus</td>
+                        </tr>
+                        <tr>
+                           <td>Basswood</td>
+                           <td>Tilia</td>
+                        </tr>
+                        <tr>
+                           <td>Beech</td>
+                           <td>Fagus</td>
+                        </tr>
+                        <tr>
+                           <td>Birch</td>
+                           <td>Betula</td>
+                        </tr>
+                        <tr>
+                           <td>Bumelia_gum</td>
+                           <td>Bumelia lanuginosa</td>
+                        </tr>
+                        <tr>
+                           <td>Cajeput</td>
+                           <td>Melaleuca quinquenervia</td>
+                        </tr>
+                        <tr>
+                           <td>Califor_laurel</td>
+                           <td>Umbellularia californica</td>
+                        </tr>
+                        <tr>
+                           <td>Cascara_buckthor</td>
+                           <td>Rhamnus purshiana</td>
+                        </tr>
+                        <tr>
+                           <td>Castanea</td>
+                           <td>American chestnut or chinkapin</td>
+                        </tr>
+                        <tr>
+                           <td>Catalpa</td>
+                           <td>Catalpa</td>
+                        </tr>
+                        <tr>
+                           <td>Cedar_chamaecyp</td>
+                           <td>Orford, Alaska, and Atlantic white cedars</td>
+                        </tr>
+                        <tr>
+                           <td>Cedar_thuja</td>
+                           <td>Northern white and western red cedars</td>
+                        </tr>
+                        <tr>
+                           <td>Chestnut_buckeye</td>
+                           <td>Aesculus - Horse chestnut or buckeyes</td>
+                        </tr>
+                        <tr>
+                           <td>Chinaberry</td>
+                           <td>Melia azedarach</td>
+                        </tr>
+                        <tr>
+                           <td>Cypress_cupress</td>
+                           <td>Cupressus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Cypress_taxodium</td>
+                           <td>Taxodium - bald and pond cypress and yew</td>
+                        </tr>
+                        <tr>
+                           <td>Dogwood</td>
+                           <td>Cornus</td>
+                        </tr>
+                        <tr>
+                           <td>Douglas_fir</td>
+                           <td>Pseudotsuga</td>
+                        </tr>
+                        <tr>
+                           <td>East_hophornbean</td>
+                           <td>Ostrya virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Elder</td>
+                           <td>Sambucus</td>
+                        </tr>
+                        <tr>
+                           <td>Elm</td>
+                           <td>Ulmus</td>
+                        </tr>
+                        <tr>
+                           <td>Eucalyptus</td>
+                           <td>Eucalyptus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_balsam</td>
+                           <td>Abies balsamea</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_CA_red</td>
+                           <td>Abies magnifica</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_corkbark</td>
+                           <td>Abies lasiocarpa</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_fraser</td>
+                           <td>Abies fraseri</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_grand</td>
+                           <td>Abies grandis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_noble</td>
+                           <td>Abies procera</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_Pacf_silver</td>
+                           <td>Abies amabilis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_SantaLucia</td>
+                           <td>Abies bracteata</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_Shasta_red</td>
+                           <td>Abies magnifica shastensis</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_spp</td>
+                           <td>Abies spp</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_subalpine</td>
+                           <td>Abies lasiocarpa arizonica</td>
+                        </tr>
+                        <tr>
+                           <td>Fir_white</td>
+                           <td>Abies concolor</td>
+                        </tr>
+                        <tr>
+                           <td>Gleditsia_locust</td>
+                           <td>Waterlocust and Honeylocust</td>
+                        </tr>
+                        <tr>
+                           <td>Hackberry</td>
+                           <td>Celtis</td>
+                        </tr>
+                        <tr>
+                           <td>Hawthorn</td>
+                           <td>Crataegus</td>
+                        </tr>
+                        <tr>
+                           <td>Hemlock</td>
+                           <td>Tsuga</td>
+                        </tr>
+                        <tr>
+                           <td>Hickory</td>
+                           <td>Carya - includes pecan</td>
+                        </tr>
+                        <tr>
+                           <td>Holly_American</td>
+                           <td>Ilex</td>
+                        </tr>
+                        <tr>
+                           <td>Hornbeam</td>
+                           <td>Carpinus caroliniana</td>
+                        </tr>
+                        <tr>
+                           <td>Incense_cedar</td>
+                           <td>Calocedrus decurrens</td>
+                        </tr>
+                        <tr>
+                           <td>Juniper</td>
+                           <td>Juniperus - include Sou/Eas red cedar</td>
+                        </tr>
+                        <tr>
+                           <td>KY_coffeetree</td>
+                           <td>Gymnocladus dioicus</td>
+                        </tr>
+                        <tr>
+                           <td>Larch</td>
+                           <td>Larix</td>
+                        </tr>
+                        <tr>
+                           <td>Loblolly_bay</td>
+                           <td>Gordonia lasianthus</td>
+                        </tr>
+                        <tr>
+                           <td>Madrone</td>
+                           <td>Arbutus</td>
+                        </tr>
+                        <tr>
+                           <td>Magnolia</td>
+                           <td>Magnolia</td>
+                        </tr>
+                        <tr>
+                           <td>Mahogany</td>
+                           <td>Cercocarpus</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_bigleaf</td>
+                           <td>Acer grandidentatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_bigtooth</td>
+                           <td>Acer macrophyllum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_black</td>
+                           <td>Acer nigrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_boxelder</td>
+                           <td>Acer negundo</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_FL</td>
+                           <td>Acer barbatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_mtn</td>
+                           <td>Acer spicatum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_Norway</td>
+                           <td>Acer platanoides</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_red</td>
+                           <td>Acer rubrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_RkyMtn</td>
+                           <td>Acer glabrum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_silver</td>
+                           <td>Acer saccharinum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_spp</td>
+                           <td>Acer spp</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_striped</td>
+                           <td>Acer pensylvanicum</td>
+                        </tr>
+                        <tr>
+                           <td>Maple_sugar</td>
+                           <td>Acer saccharum</td>
+                        </tr>
+                        <tr>
+                           <td>Mesquite</td>
+                           <td>Prosopis</td>
+                        </tr>
+                        <tr>
+                           <td>Misc_hardwoods</td>
+                           <td>Misc hardwoods - undefined from FIA</td>
+                        </tr>
+                        <tr>
+                           <td>Mixed_conifer_sp</td>
+                           <td>Mixed conifers - underfined from FIA</td>
+                        </tr>
+                        <tr>
+                           <td>Mountain_ash</td>
+                           <td>Sorbus</td>
+                        </tr>
+                        <tr>
+                           <td>Mulberry</td>
+                           <td>Morus</td>
+                        </tr>
+                        <tr>
+                           <td>Nyssa</td>
+                           <td>Tupelo and blackgum</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_AZ_white</td>
+                           <td>Quercus arizonica</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bear</td>
+                           <td>Quercus ilicifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_black</td>
+                           <td>Quercus velutina</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_blackjack</td>
+                           <td>Quercus marilandica</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_blue</td>
+                           <td>Quercus douglasii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bluejack</td>
+                           <td>Quercus incana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_bur</td>
+                           <td>Quercus macrocarpa</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_black</td>
+                           <td>Quercus kelloggii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_live</td>
+                           <td>Quercus agrifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_CA_white</td>
+                           <td>Quercus lobata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_canyon_live</td>
+                           <td>Quercus chrysolepis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_chestnut</td>
+                           <td>Quercus prinus</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_chinkapin</td>
+                           <td>Quercus muehlenbergii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_delta_post</td>
+                           <td>Quercus stellata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Durand</td>
+                           <td>Quercus durandii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Emery</td>
+                           <td>Quercus emoryi</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Engelmann</td>
+                           <td>Quercus engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_evergreen_sp</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Gambel</td>
+                           <td>Quercus gambelii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_interio_live</td>
+                           <td>Quercus wislizenni</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_laurel</td>
+                           <td>Quercus laurifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_live</td>
+                           <td>Quercus virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Mexicanblue</td>
+                           <td>Quercus oblongifolia</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Northrn_pin</td>
+                           <td>Quercus ellipsoidalis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Northrn_red</td>
+                           <td>Quercus rubra</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_nuttall</td>
+                           <td>Quercus nuttallii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_OR_white</td>
+                           <td>Quercus garryana</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_overcup</td>
+                           <td>Quercus lyrata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_pin</td>
+                           <td>Quercus palustris</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_post</td>
+                           <td>Quercus stellata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_scarlet</td>
+                           <td>Quercus coccinea</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_scrub</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_shingle</td>
+                           <td>Quercus imbricaria</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Shumrd_red</td>
+                           <td>Quercus shumardii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_silverleaf</td>
+                           <td>Quercus hypoleucoides</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_Southrn_red</td>
+                           <td>Quercus falcata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_spp</td>
+                           <td>Quercus spp</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_cnut</td>
+                           <td>Quercus michauxii</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_red</td>
+                           <td>Quercus falcata</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_swamp_white</td>
+                           <td>Quercus bicolor</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_turkey</td>
+                           <td>Quercus laevis</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_water</td>
+                           <td>Quercus nigra</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_white</td>
+                           <td>Quercus alba</td>
+                        </tr>
+                        <tr>
+                           <td>Oak_willow</td>
+                           <td>Quercus phellos</td>
+                        </tr>
+                        <tr>
+                           <td>Osage_orange</td>
+                           <td>Maclura pomifera</td>
+                        </tr>
+                        <tr>
+                           <td>Paulownia</td>
+                           <td>Paulownia tomentosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pawpaw</td>
+                           <td>Asimina triloba</td>
+                        </tr>
+                        <tr>
+                           <td>Persimmon</td>
+                           <td>Diospyros virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Apache</td>
+                           <td>Pinus engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Austrian</td>
+                           <td>Pinus nigra</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_AZ</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Bishop</td>
+                           <td>Pinus muricata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_blackjack</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_brstlcone</td>
+                           <td>Pinus aristata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_chihuahua</td>
+                           <td>Pinus leiophylla</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Coulter</td>
+                           <td>Pinus coulteri</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_digger</td>
+                           <td>Pinus sabiniana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Ewhite</td>
+                           <td>Pinus strobus</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_foxtail</td>
+                           <td>Pinus balfouriana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_jack</td>
+                           <td>Pinus banksiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Jeffrey</td>
+                           <td>Pinus jefferyi</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_knobcone</td>
+                           <td>Pinus attenuata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_limber</td>
+                           <td>Pinus flexilis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_loblolly</td>
+                           <td>Pinus taeda</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_lodgepole</td>
+                           <td>Pinus contorta</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_longleaf</td>
+                           <td>Pinus palustris</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Monterey</td>
+                           <td>Pinus radiata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon</td>
+                           <td>Pinus monophylla</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon_brdr</td>
+                           <td>Pinus discolor</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pinyon_cmn</td>
+                           <td>Pinus edulis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pitch</td>
+                           <td>Pinus rigida</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_pond</td>
+                           <td>Pinus serotina</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_ponderosa</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_red</td>
+                           <td>Pinus resinosa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_sand</td>
+                           <td>Pinus clausa</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_scotch</td>
+                           <td>Pinus sylvestris</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_shortleaf</td>
+                           <td>Pinus echinata</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_slash</td>
+                           <td>Pinus elliottii</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_spruce</td>
+                           <td>Pinus glabra</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_sugar</td>
+                           <td>Pinus lambertiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Swwhite</td>
+                           <td>Pinus strobiformis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_tablemtn</td>
+                           <td>Pinus pungens</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_VA</td>
+                           <td>Pinus virginiana</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Washoe</td>
+                           <td>Pinus washoensis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_whitebark</td>
+                           <td>Pinus albicaulis</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_Wwhite</td>
+                           <td>Pinus monticola</td>
+                        </tr>
+                        <tr>
+                           <td>Pine_yellow</td>
+                           <td>Pinus ponderosa</td>
+                        </tr>
+                        <tr>
+                           <td>Populus</td>
+                           <td>Cottonwood, poplars, and aspens</td>
+                        </tr>
+                        <tr>
+                           <td>Prunus</td>
+                           <td>Cherry and plum</td>
+                        </tr>
+                        <tr>
+                           <td>Redbud</td>
+                           <td>Cercis</td>
+                        </tr>
+                        <tr>
+                           <td>Robinia_locust</td>
+                           <td>Black and NM locust</td>
+                        </tr>
+                        <tr>
+                           <td>Sassafras</td>
+                           <td>Sassafras albidum</td>
+                        </tr>
+                        <tr>
+                           <td>Sequoia</td>
+                           <td>Redwood and giant sequoia</td>
+                        </tr>
+                        <tr>
+                           <td>Serviceberry</td>
+                           <td>Amelanchier arborea</td>
+                        </tr>
+                        <tr>
+                           <td>Silverbell</td>
+                           <td>Halesia</td>
+                        </tr>
+                        <tr>
+                           <td>Smoketree</td>
+                           <td>Cotinus obovatus</td>
+                        </tr>
+                        <tr>
+                           <td>Soapberry_westrn</td>
+                           <td>Sapindus drummondii</td>
+                        </tr>
+                        <tr>
+                           <td>Sourwood</td>
+                           <td>Oxydendrum arboretum</td>
+                        </tr>
+                        <tr>
+                           <td>Sparkleberry</td>
+                           <td>Vaccinium arboreum</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_black</td>
+                           <td>Picea marianna</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_blue</td>
+                           <td>Picea pungens</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Brewer</td>
+                           <td>Picea breweriana</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Englemann</td>
+                           <td>Picea engelmannii</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Norway</td>
+                           <td>Picea abies</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_red</td>
+                           <td>Picea rubens</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_Sitka</td>
+                           <td>Picea sitchensis</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_spp</td>
+                           <td>Picea spp</td>
+                        </tr>
+                        <tr>
+                           <td>Spruce_white</td>
+                           <td>Picea glauca</td>
+                        </tr>
+                        <tr>
+                           <td>Sweetgum</td>
+                           <td>Liquidambar styraciflua</td>
+                        </tr>
+                        <tr>
+                           <td>Sycamore</td>
+                           <td>Platanus</td>
+                        </tr>
+                        <tr>
+                           <td>Tallowtree_chins</td>
+                           <td>Sapium sebiferum</td>
+                        </tr>
+                        <tr>
+                           <td>Tamarix</td>
+                           <td>Tamarix chinensis</td>
+                        </tr>
+                        <tr>
+                           <td>Tanoak</td>
+                           <td>Lithocarpus densiflorus</td>
+                        </tr>
+                        <tr>
+                           <td>Torreya</td>
+                           <td>Torreya californica</td>
+                        </tr>
+                        <tr>
+                           <td>Tung_oil_tree</td>
+                           <td>Aleurites fordii</td>
+                        </tr>
+                        <tr>
+                           <td>Unknown_tree</td>
+                           <td>Unknown spp</td>
+                        </tr>
+                        <tr>
+                           <td>Walnut</td>
+                           <td>Juglans - includes butternut</td>
+                        </tr>
+                        <tr>
+                           <td>Water_elm</td>
+                           <td>Planera aquatica</td>
+                        </tr>
+                        <tr>
+                           <td>Willow</td>
+                           <td>Salix</td>
+                        </tr>
+                        <tr>
+                           <td>Yellow_poplar</td>
+                           <td>Liriodendron tulipifera</td>
+                        </tr>
+                        <tr>
+                           <td>Yellowwood</td>
+                           <td>Cladrastis lutea</td>
+                        </tr>
+                        <tr>
+                           <td>Yucca_Mojave</td>
+                           <td>Yucca schidigera</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s09s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.8.&nbsp;Meteorology Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.9.2.&nbsp;Mobile</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

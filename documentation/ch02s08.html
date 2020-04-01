@@ -1,0 +1,102 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s07.html" title="2.7.&nbsp;Sparse matrix approach to emissions modeling">
+      <link rel="next" href="ch02s08s02.html" title="2.8.2.&nbsp;Area-source processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s08s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_processing_summaries"></a>2.8.&nbsp;Area, biogenic, mobile, and point processing summaries
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s08.html#sect_concepts_summary_source_processing">2.8.1. Summary of SMOKE processing categories</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s02.html">2.8.2. Area-source processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s03.html">2.8.3. Biogenic-source processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html">2.8.4. Mobile-source processing using MOVES</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s05.html">2.8.5. Point-source processing</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_concepts_summary_source_processing"></a>2.8.1.&nbsp;Summary of SMOKE processing categories
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>Each SMOKE processing category is defined by its source <span class="emphasis"><em>characteristics</em></span>, which correspond to the identifiers used in creating the emission inventory (e.g., state/county FIPS code and SCC). The
+               processing categories also have source <span class="emphasis"><em>attributes</em></span>, which are the other useful data in the emission inventories that SMOKE uses; examples are point-source flue gas exit height
+               and temperature. Source characteristics <span class="emphasis"><em>define</em></span> the sources as area, biogenic, mobile, or point sources and also distinguish one source in the inventory from another. Source
+               attributes are additional data about the source that do not contribute to the source&#8217;s uniqueness in SMOKE. We have previously
+               described in <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a> the data types and the data attributes that are contained in the inventories that SMOKE uses. In the subsections below, we
+               summarize the source characteristics of area, biogenics, mobile, and point sources. Please refer to <a href="ch02s03s02.html#tbl_concepts_inv_categories" title="Table&nbsp;2.1.&nbsp;Inventory source categories and SMOKE processing capabilities and categories">Table&nbsp;2.1, &#8220;Inventory source categories and SMOKE processing capabilities and categories&#8221;</a> for more information about how SMOKE processing categories map to the inventory source categories.
+            </p>
+            <p>In SMOKE, each processing category is defined by source characteristics as follows:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span class="bold"><strong>Area sources</strong></span> are defined by (1) <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">country, state, and county codes</a>, (2) <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">SCCs</a>, and (3) optionally, grid cell.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Biogenic sources</strong></span> are defined differently depending on the type of processing you are using. They can be defined either by (1) <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">country, state, and county codes</a> and (2) land use code, or by (1) grid cell and (2) land use code.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Mobile sources</strong></span> are defined by (1) <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">country, state, and county codes</a>, (2) <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">SCCs</a>, and (3) optionally link codes.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Point sources</strong></span> are defined by (1) <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">country, state, and county codes</a>, (2) plant/facility codes, and (3) characteristics 1 through 5, one of which must be the <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">SCC</a>.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s08s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.7.&nbsp;Sparse matrix approach to emissions modeling&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.8.2.&nbsp;Area-source processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

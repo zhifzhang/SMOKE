@@ -1,0 +1,75 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.8.&nbsp;The /NEWFILE/ packet</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03s07.html" title="7.3.7.&nbsp;The /AVEDAY/ packet">
+      <link rel="next" href="ch07s04.html" title="7.4.&nbsp;Reports Created by Smkreport">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.8.&nbsp;The /NEWFILE/ packet</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_newfile"></a>7.3.8.&nbsp;The /NEWFILE/ packet
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The /NEWFILE/ packet can be used before or between any /CREATE REPORT/ packets to cause <span><strong class="command">Smkreport</strong></span> to write out the subsequent reports to a different report file. The syntax of the command is the following:
+         </p>
+         <p>/NEWFILE/ &lt;Filename&gt;</p>
+         <p>The placeholder &lt;Filename&gt; is replaced by either:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>A physical file name, including the path.</p>
+               </li>
+               <li>
+                  <p>A logical file name.</p>
+               </li>
+            </ol>
+         </div>
+         <p><span><strong class="command">Smkreport</strong></span> will detect whether the file is a physical or logical file name by checking to see if the &lt;Filename&gt; value is defined with
+            a nonblank value in the run-time environment. If it is, then <span><strong class="command">Smkreport</strong></span> assumes the value is a logical file name, and opens a file using the value found from the environment.
+         </p>
+         <p>If no information is given for &lt;Filename&gt;, the output files will be named by their automatic logical file names, <code class="envar">REPORT[#]</code>, where [#] is replaced by the number of the report file in order of its associated /NEWFILE/ packet.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.7.&nbsp;The /AVEDAY/ packet&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.4.&nbsp;Reports Created by <span><strong class="command">Smkreport</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

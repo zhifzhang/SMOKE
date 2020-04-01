@@ -1,0 +1,215 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.11.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s11.html" title="6.11.&nbsp;Mrgpt">
+      <link rel="prev" href="ch06s11s02.html" title="6.11.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s12.html" title="6.12.&nbsp;Normbeis3">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.11.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s11s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.11.&nbsp;<span><strong class="command">Mrgpt</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s12.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e27079"></a>6.11.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s11s03.html#d0e27122">6.11.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s11s03.html#d0e27190">6.11.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s11s03.html#d0e27249">6.11.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_mrgpt"></a><p class="title"><b>Figure&nbsp;6.11.&nbsp;<span>Mrgpt</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\mrgpt_html.jpg" alt="Mrgpt input and output files"></div>
+         </div>
+         <p><a href="ch06s11s03.html#fig_programs_mrgpt" title="Figure&nbsp;6.11.&nbsp;Mrgpt input and output files">Figure&nbsp;6.11, &#8220;<span>Mrgpt</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Mrgpt</strong></span> program. The input files are a list of the logical file names for the speciated hourly emissions files  from <span><strong class="command">Smkmerge</strong></span> to be merged (<code class="envar">FILELIST_INLN</code>) and a list of the logical file names for the ASCII elevated output files from <span><strong class="command">Elevpoint</strong></span> to be merged (<code class="envar">FILELIST_STACK</code>). The program outputs a log file (<code class="envar">LOGFILE</code>), a merged specated hourly emissions file (<code class="envar">OUTFILE_INLN</code>), a merged ASCII elevated output file (<code class="envar">OUTFILE_STACK</code>), and if merging different days, a report file (<code class="envar">REPMRGGRID</code>).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27122"></a>6.11.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">FILELIST_INLN</code></td>
+                        <td>ASCII</td>
+                        <td>List of <span class="emphasis"><em>logical</em></span> file name for hourly speciated I/O API NetCDF files; this file cannot contain the full paths and file names. Users should
+                           make sure that the logical file names that appear in <code class="envar">FILELIST_INLN</code> are defined prior to running <span><strong class="command">Mrgpt</strong></span>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">FILELIST_STACK</code></td>
+                        <td>ASCII</td>
+                        <td>List of <span class="emphasis"><em>logical</em></span> file name for ASCII elevated output files; this file cannot contain the full paths and file names. Users should make sure
+                           that the logical file names that appear in <code class="envar">FILELIST_STACK</code> are defined prior to running <span><strong class="command">Mrgpt</strong></span>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ADJ_FACS</code><p>(optional)</p>
+                        </td>
+                        <td>ASCII</td>
+                        <td>
+                           <p>File that lists the species name, the logical file name, and the factor to be applied to all grid cells. The species name
+                              must be in columns A, the logical file name in column B, and the factor in columns C. SMOKE will ignore the case of the text,
+                              treating lower- and uppercase characters as if they were the same. For example, the following <code class="envar">ADJ_FACS</code> file sample would multiply NO emissions from the PTIPMTS_L_INLN file by 1.3 (30% increase) and multiply PAR from the PTNONIPMTS_L_INLN
+                              file by 0.6 (40% decrease).
+                           </p>
+                           <pre class="programlisting">NO, PTNONIPMTS_L_INLN, 1.3
+PAR, PTIPMTS_L_INLN, 0.6</pre></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27190"></a>6.11.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">MRG_DIFF_DAYS</code>: [default: N]
+                     </p>
+                     <p>This environment variable allows <span><strong class="command">Mrgpt</strong></span> to merge files with data from different days.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Allow data from different dates to be merged together</p>
+                              <p><span><strong class="command">Mrgpt</strong></span> will use the environment variables <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, <code class="envar">G_RUNLEN</code>, and <code class="envar">G_TSTEP</code> to set the start date, start time, length, and time step of the output file. All input files must have the same starting
+                                 time as <code class="envar">G_STTIME</code>, the same time step as <code class="envar">G_TSTEP</code>, and must contain more than <code class="envar">G_RUNLEN</code> steps of data. For each input file, if it contains data to cover the actual episode requested by <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, and <code class="envar">G_RUNLEN</code>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Require all merged data to be from the same date</p>
+                              <p><span><strong class="command">Mrgpt</strong></span> will determine the output file time period based on the latest starting input file and the earliest ending input file.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27249"></a>6.11.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Mrgpt</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">OUTFILE_INLN</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Merged inline-mode hourly speciated emission file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">OUTFILE_STACK</code></td>
+                        <td>ASCII</td>
+                        <td>Merged inline-mode ASCII point elevated file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPMRGGRID</code></td>
+                        <td>ASCII</td>
+                        <td>Report file generated when <code class="envar">MRG_DIFF_DAYS</code> is set to Y; the report lists the date and time for each output time step along with the actual date and time of the data
+                           read from each file
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPMERG_ADJ</code></td>
+                        <td>ASCII</td>
+                        <td>Report file generated when <code class="envar">ADJ_FACS</code> is set; the report lists the date, the logical file name, the species name, the factor applied, a daily total of species
+                           before and after applying adjustment factor, and the ratio (after/ratio). The report only lists when the ratio is not equal
+                           to 1.0 
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s11s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s11.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s12.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.11.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.12.&nbsp;<span><strong class="command">Normbeis3</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

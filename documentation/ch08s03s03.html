@@ -1,0 +1,104 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.3.3.&nbsp;HOLIDAYS: Holidays date list</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s03.html" title="8.3.&nbsp;Temporal Allocation Files">
+      <link rel="prev" href="ch08s03s02.html" title="8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file">
+      <link rel="next" href="ch08s03s04.html" title="8.3.4.&nbsp;PROCDATES: Procdates date list">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.3.3.&nbsp;<code class="envar">HOLIDAYS</code>: Holidays date list
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.3.&nbsp;Temporal Allocation Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s03s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_holidays"></a>8.3.3.&nbsp;<code class="envar">HOLIDAYS</code>: Holidays date list
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE can process holidays as specific days of the week in order to better model activity patterns. The <code class="envar">HOLIDAYS</code> file is used to indicate which days should receive special treatment and how the days should be treated. The format of this
+            file is shown in <a href="ch08s03s03.html#tbl_input_holidays" title="Table&nbsp;8.35.&nbsp;Format for HOLIDAYS">Table&nbsp;8.35, &#8220;Format for <code class="envar">HOLIDAYS</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_holidays"></a><p class="title"><b>Table&nbsp;8.35.&nbsp;Format for <code class="envar">HOLIDAYS</code></b></p>
+            <table summary="Format for HOLIDAYS" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>Five-digit FIPS code, only 00000 is currently supported (required)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>Month of holiday (1 - 12) (required)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Day of holiday (1 - 31) (required)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>D</td>
+                     <td>Year of holiday (4 digits) (required)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>E</td>
+                     <td>Day of the week to treat holiday as, valid values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday (required)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s03s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.3.2.&nbsp;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.3.4.&nbsp;<code class="envar">PROCDATES</code>: Procdates date list
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

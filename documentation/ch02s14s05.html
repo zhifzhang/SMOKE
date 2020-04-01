@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.5.&nbsp;Using Grwinven to apply the multiplicative control matrices</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="prev" href="ch02s14s04.html" title="2.14.4.&nbsp;Reporting on factors assigned to each source in the inventory">
+      <link rel="next" href="ch02s14s06.html" title="2.14.6.&nbsp;Creating a controlled intermediate inventory file">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.5.&nbsp;Using <span><strong class="command">Grwinven</strong></span> to apply the multiplicative control matrices
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.14.&nbsp;Control processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s14s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e6495"></a>2.14.5.&nbsp;Using <span><strong class="command">Grwinven</strong></span> to apply the multiplicative control matrices
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Grwinven</strong></span> program applies the multiplicative control matrices to the inventory pollutants by multiplying the control factors for the
+            pollutants with the annual and average-day emission values. (Reactivity matrices cannot be applied by <span><strong class="command">Grwinven</strong></span>; only the <span><strong class="command">Smkmerge</strong></span> program can apply those, as discussed in <a href="ch02s14s07.html" title="2.14.7.&nbsp;Using Smkmerge to apply the multiplicative and/or reactivity control matrices">Section&nbsp;2.14.7, &#8220;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices&#8221;</a>.) <span><strong class="command">Grwinven</strong></span> reads in the SMOKE intermediate inventory file and up to 80 control matrices and then applies the control factors from all
+            matrices to the appropriate pollutants.
+         </p>
+         <p>As discussed in <a href="ch02s13s04.html" title="2.13.4.&nbsp;Applying the growth matrix">Section&nbsp;2.13.4, &#8220;Applying the growth matrix&#8221;</a>, the <span><strong class="command">Grwinven</strong></span> program can also apply growth matrices at the same time it applies control matrices, and the total number of growth and control
+            matrices that can be applied in one run is 80. If desired, the control processing features of <span><strong class="command">Grwinven</strong></span> can be used on a SMOKE intermediate file that has been created by <span><strong class="command">Grwinven</strong></span> with grown and/or controlled emissions, as long as no <span class="emphasis"><em>growth</em></span> processing features are included in that second pass. (See section <a href="ch02s13s04.html" title="2.13.4.&nbsp;Applying the growth matrix">Section&nbsp;2.13.4, &#8220;Applying the growth matrix&#8221;</a> for discussion of this restriction on applying growth matrices, caused by <span><strong class="command">Grwinven</strong></span>&#8217;s addition of the /FYEAR/ header element.)
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s14s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.4.&nbsp;Reporting on factors assigned to each source in the inventory&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.14.6.&nbsp;Creating a controlled intermediate inventory file</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

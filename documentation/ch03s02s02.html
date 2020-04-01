@@ -1,0 +1,218 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.2.&nbsp;The basic SMOKE directories</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="prev" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="next" href="ch03s02s03.html" title="3.2.3.&nbsp;Locations of input files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.2.&nbsp;The basic SMOKE directories</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">3.2.&nbsp;Directory structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_dirs_basic_smoke_dirs"></a>3.2.2.&nbsp;The basic SMOKE directories
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>By default, SMOKE is installed in a directory called <code class="envar">SMK_HOME</code> (the complete process for installing SMOKE is described in <a href="ch12.html" title="Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE">Chapter&nbsp;12, <i>Downloading, Installing, and Compiling SMOKE</i></a>). As shown in the previous section, <code class="envar">SMK_HOME</code> is an environment variable on which other SMOKE directories depend; it is the root directory of all other SMOKE directories.
+            When you install SMOKE, you must define and create your own <code class="envar">SMK_HOME</code> directory as part of the installation process. Since <code class="envar">SMK_HOME</code> is an environment variable, you can choose whatever name you like; we cannot prescribe a name for you because each UNIX user
+            has a different computer and disk names. One recommendation that we can make is that <code class="envar">SMK_HOME</code> be set close to the bottom of a directory structure, such as a short directory name like <code class="filename">/models</code>. Using a short directory name will limit the overall directory lengths for some of the subdirectories deep within the SMOKE
+            directory structure. The <code class="envar">SMK_HOME</code> directory used for SMOKE can be the same directory used to install <a href="http://www.verdi-tool.org" target="_top">VERDI</a> or the <a href="http://www.baronams.com/products/ioapi/" target="_top">I/O API</a>.
+         </p>
+         <p><a href="ch03s02s02.html#fig_dirs_basic_dirs" title="Figure&nbsp;3.1.&nbsp;Basic SMOKE directories: the first three levels of the directory structure">Figure&nbsp;3.1, &#8220;Basic SMOKE directories: the first three levels of the directory structure&#8221;</a> shows the first three layers of the SMOKE directory structure. All of the directories in the figure are created during the
+            SMOKE installation process. From the <code class="envar">SMK_HOME</code> directory stems the <code class="filename">data</code> directory, the <code class="filename">scripts</code> directory, and the <code class="filename">subsys</code> directory. The <code class="filename">data</code> directory corresponds to the environment variable <code class="envar">SMKDAT</code>, while the <code class="filename">subsys</code> directory corresponds to <code class="envar">SMK_SUBSYS</code>; the environment variables are shown in parentheses underneath the actual directory names in the figure. The <code class="filename">scripts</code> directory does not have an associated environment variable since we did not feel that one was necessary. The <code class="filename">subsys</code> directory is discussed in more detail within this subsection. The <code class="filename">data</code> directory will be described more fully in <a href="ch03s02s03.html" title="3.2.3.&nbsp;Locations of input files">Section&nbsp;3.2.3, &#8220;Locations of input files&#8221;</a>, <a href="ch03s02s04.html" title="3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases">Section&nbsp;3.2.4, &#8220;Locations of intermediate files for base and growth/control cases&#8221;</a>, <a href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">Section&nbsp;3.2.5, &#8220;Locations of model-ready output files for base and growth/control cases&#8221;</a>, and <a href="ch03s02s06.html" title="3.2.6.&nbsp;Locations of reports">Section&nbsp;3.2.6, &#8220;Locations of reports&#8221;</a>, when we describe the locations of input, intermediate, output, and report files. We will not discuss the <code class="filename">scripts</code> directory since it only contains two general setup scripts that should not need to be modified under normal SMOKE use.
+         </p>
+         <div class="figure"><a name="fig_dirs_basic_dirs"></a><p class="title"><b>Figure&nbsp;3.1.&nbsp;Basic SMOKE directories: the first three levels of the directory structure</b></p>
+            <div class="mediaobject"><img src="images\dirs\basic_directories_html.jpg" alt="Basic SMOKE directories: the first three levels of the directory structure"></div>
+         </div>
+         <p>The environment variables shown in parentheses are available to you once you invoke the Assigns file from the command line.
+            The run scripts that come with SMOKE invoke the Assigns file to set up the environment variables automatically. To manually
+            invoke the Assigns file, you must go to the <code class="filename"><code class="envar">$SMKROOT</code>/assigns</code> directory and type
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">source</strong></span> <em class="replaceable"><code>&lt;Assigns file name&gt;</code></em></code></strong></p>
+         <p>where <em class="replaceable"><code>&lt;Assigns file name&gt;</code></em> is replaced with your specific Assigns file name. Note that SMOKE only works with variants of the C-shell including <span><strong class="command">csh</strong></span> and <span><strong class="command">tcsh</strong></span>. If you are running a different shell (such as <span><strong class="command">bash</strong></span>), you will need to switch into a C-shell before sourcing the Assigns file or running any SMOKE scripts.
+         </p>
+         <p>Once this command has been used in a UNIX window (e.g., <span><strong class="command">xterm</strong></span>, <span><strong class="command">terminal</strong></span>, <span><strong class="command">console</strong></span>), then the environment variables are available at the command line or to a script that uses the Assigns file. What this means
+            is that the UNIX environment &#8220;<span class="quote">remembers</span>&#8221; the setting of the environment variable. To access the contents of the variable - in this case, a path name - the dollar
+            sign ($) must be used in front of the variable from a UNIX prompt or script. From the prompt, this is most useful for changing
+            directories. For example, after the Assigns file has been invoked, the command
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">cd</strong></span> <code class="envar">$SMKDAT</code></code></strong></p>
+         <p>will take you to the <code class="filename"><code class="envar">$SMK_HOME</code>/data</code> directory, no matter where else in the directory structure you were located when the command was issued. Similarly, the Assigns
+            file can use these environment variables for setting the paths for the input and output files.
+         </p>
+         <p>As shown in <a href="ch03s02s02.html#fig_dirs_basic_dirs" title="Figure&nbsp;3.1.&nbsp;Basic SMOKE directories: the first three levels of the directory structure">Figure&nbsp;3.1, &#8220;Basic SMOKE directories: the first three levels of the directory structure&#8221;</a>, the <code class="filename">subsys</code> directory (creating during installation of SMOKE) contains six subdirectories, each with the following purposes:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><code class="filename">edss_tools</code>: Contains the source code, makefiles, and library object files for the EDSS Tools library, necessary for compiling SMOKE
+                     programs.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">filesetapi</code>: Contains the source code, makefiles, and library object files for the FileSetAPI library, necessary for compiling SMOKE
+                     programs.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">ioapi</code>: A placeholder location for the I/O API library object files. When compiling SMOKE, the makefiles look here for the I/O API
+                     library and the SMOKE scripts look here for the I/O API utility programs. The files can be linked to the main I/O API installation
+                     which can be located elsewhere. Please see <a href="ch12.html" title="Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE">Chapter&nbsp;12, <i>Downloading, Installing, and Compiling SMOKE</i></a> for more information.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">ioapi_includes</code>: Location for the I/O API include files, needed for compiling the FileSetAPI library, EDSS Tools library, and SMOKE libraries
+                     and programs. All makefiles that come with SMOKE look here for the I/O API include files.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">netcdf</code>: A placeholder location for the NetCDF library object files. When compiling SMOKE, the makefiles look here for the NetCDF
+                     library, but the actual library can be linked to the main NetCDF installation, which can be elsewhere on your computer. Please
+                     see <a href="ch12.html" title="Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE">Chapter&nbsp;12, <i>Downloading, Installing, and Compiling SMOKE</i></a> for more information.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">smoke</code>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), SMOKE source code, makefiles, scripts,
+                     and executables.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p><a href="ch03s02s02.html#fig_dirs_subdirs_main" title="Figure&nbsp;3.2.&nbsp;Subdirectories of the main SMOKE directory">Figure&nbsp;3.2, &#8220;Subdirectories of the main SMOKE directory&#8221;</a> shows the subdirectories inside the main SMOKE directory, <code class="filename">smoke</code>; these are all created during the installation of SMOKE. These subdirectories contain the Assigns files, source code and
+            makefiles, scripts, and executables.
+         </p>
+         <div class="figure"><a name="fig_dirs_subdirs_main"></a><p class="title"><b>Figure&nbsp;3.2.&nbsp;Subdirectories of the main SMOKE directory</b></p>
+            <div class="mediaobject"><img src="images\dirs\subdirs_main_html.jpg" alt="Subdirectories of the main SMOKE directory"></div>
+         </div>
+         <p>These five subdirectories have the following purposes:</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><code class="filename">assigns</code>: Contains the Assigns files and all helper scripts for the Assigns files.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">doc</code>: Contains the files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked
+                     properly.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename"><code class="envar">$SMOKE_EXE</code></code>: This directory contains the executables for your particular system. Different directory names apply to different platforms
+                     (e.g., <code class="filename">Linux2_x86_64pg</code>, <code class="filename">IRIXn32f90</code>, <code class="filename">SunOS5f90</code>). For more information about the various platforms for which SMOKE is available, see <a href="ch12.html" title="Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE">Chapter&nbsp;12, <i>Downloading, Installing, and Compiling SMOKE</i></a>.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">scripts</code>: Contains run scripts and other scripts
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle">
+                        <li>
+                           <p><code class="filename">scripts/install</code>: Scripts to install SMOKE and check the installation
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="filename">scripts/make</code>: Scripts for compiling SMOKE
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="filename">scripts/run</code>: Default run scripts and associated helper scripts
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p><code class="filename">src</code>: Contains subdirectories that store the source code and makefiles for each SMOKE program:
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle">
+                        <li>
+                           <p><code class="filename">src/biog</code>: <span><strong class="command">Normbeis3</strong></span>, <span><strong class="command">Tmpbeis3</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/cntlmat</code>: <span><strong class="command">Cntlmat</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/emmod</code>: Fortran 90 modules used by multiple SMOKE programs
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/emqa</code>: <span><strong class="command">Smkreport</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/emutil</code>: <span><strong class="command">Aggwndw</strong></span>, <span><strong class="command">Beld3to2</strong></span>, <span><strong class="command">BlueSky2Inv</strong></span>, <span><strong class="command">CEMScan</strong></span>, <span><strong class="command">Geofac</strong></span>, <span><strong class="command">Invsplit</strong></span>, <span><strong class="command">Layalloc</strong></span>, <span><strong class="command">Metcombine</strong></span>, <span><strong class="command">Metscan</strong></span>, <span><strong class="command">Pktreduc</strong></span>, <span><strong class="command">Smk2emis</strong></span>, <span><strong class="command">Surgtool</strong></span>, <span><strong class="command">Uam2ncf</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/grdmat</code>: <span><strong class="command">Grdmat</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/inc</code>: Include files shared by multiple SMOKE programs
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/lib</code>: SMOKE library
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/movesmrg</code>: <span><strong class="command">Movesmrg</strong></span>, <span><strong class="command">Met4moves</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/point</code>: <span><strong class="command">Elevpoint</strong></span>, <span><strong class="command">Laypoint</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/smkinven</code>: <span><strong class="command">Grwinven</strong></span>, <span><strong class="command">Smkinven</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/smkmerge</code>: <span><strong class="command">Mrgelev</strong></span>, <span><strong class="command">Mrggrid</strong></span>, <span><strong class="command">Smkmerge</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/spcmat</code>: <span><strong class="command">Spcmat</strong></span></p>
+                        </li>
+                        <li>
+                           <p><code class="filename">src/temporal</code>: <span><strong class="command">Temporal</strong></span></p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.&nbsp;Directory structure&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.3.&nbsp;Locations of input files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

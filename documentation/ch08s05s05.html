@@ -1,0 +1,140 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.5.5.&nbsp;GSTAG: Speciation tagging cross-reference file </title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">
+      <link rel="prev" href="ch08s05s04.html" title="8.5.4.&nbsp;GSREF: Speciation cross-reference file">
+      <link rel="next" href="ch08s06.html" title="8.6.&nbsp;Growth and Controls Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.5.5.&nbsp;<code class="envar">GSTAG</code>: Speciation tagging cross-reference file 
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s05s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.5.&nbsp;Chemical speciation</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_gstag"></a>8.5.5.&nbsp;<code class="envar">GSTAG</code>: Speciation tagging cross-reference file 
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The speciation tagging cross-reference file allows <span><strong class="command">Spcmat</strong></span> to tag existing model species based on the match between the source characteristics listed in the <code class="envar">GSTAG</code> file and source characteristics for each source in the inventory. The <span><strong class="command">Spcmat</strong></span> program will append the characters of the tag label specified in the <code class="envar">GSTAG</code> file. Note that this approach will not address raw inventory pollutants (VOC, NOX, PM2_5 and PM10) or any other model species
+            from biogenic sources from the BEIS model. When the environment variable <code class="envar">SRC_TAGGING</code> is set to &#8220;<span class="quote">Y</span>&#8221;, <span><strong class="command">Spcmat</strong></span> will look for the <code class="envar">GSTAG</code> file. The default setting for the <code class="envar">SRC_TAGGING</code> variable is &#8220;<span class="quote">N</span>&#8221; to support back-ward comparability. If an invalid character appears in a tag label in the <code class="envar">GSTAG</code> file, such as &#8220;<span class="quote">#</span>&#8221; or &#8220;<span class="quote">+</span>&#8221; is used, SMOKE will return an error.
+         </p>
+         <p>The format of the <code class="envar">GSTAG</code> file is shown in <a href="ch08s05s05.html#tbl_input_gstag" title="Table&nbsp;8.45.&nbsp;Format for GSTAG">Table&nbsp;8.45, &#8220;Format for <code class="envar">GSTAG</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_gstag"></a><p class="title"><b>Table&nbsp;8.45.&nbsp;Format for <code class="envar">GSTAG</code></b></p>
+            <table summary="Format for GSTAG" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>
+                        <p>Country/state/county code (6-digit Character in format YSSCCC) (optional):</p>
+                        
+                        
+                        <div class="itemizedlist">
+                           <ul type="disc" compact>
+                              <li>leave blank if not country/state-dependent</li>
+                              <li>set to YSS000 for country/state-dependent</li>
+                              <li>set to YSSCCC for county-dependent</li>
+                           </ul>
+                        </div>
+                        
+                        
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>20-digit maximum SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Species name (Character) (required; must match Species in <code class="envar">GSPRO</code> file; 16-character maximum). If missing or -9, SMOKE willl return an error.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>D</td>
+                     <td>Tagging label (Character) (required; 8-character maximum. The combination of Species name in column C and the tagging label
+                        can not exceed 16 chracters)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>E</td>
+                     <td>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>F</td>
+                     <td>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>G</td>
+                     <td>Plant ID for point sources (Character) (optional; leave bank or -9 if entry is not plant-specific)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p> An example of a two-entry <code class="envar">GSTAG</code> file is as follows:
+         </p>
+         <p><code class="envar"> 001001, 20400408,   ALD2, _T1</code></p>
+         <p><code class="envar"> 001001, 2530050000, NO,   _T1</code></p>
+         <p>This file would do the following:</p>
+         <p><code class="envar">ALD2</code> species from County 0100 and SCC 20400408 is tagged as <code class="envar">ALD2_T1</code>.
+         </p>
+         <p><code class="envar">NO</code> species from County 0100 and SCC 2530050000 is tagged as <code class="envar">NO_T1</code>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s05s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.5.4.&nbsp;<code class="envar">GSREF</code>: Speciation cross-reference file&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.6.&nbsp;Growth and Controls Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

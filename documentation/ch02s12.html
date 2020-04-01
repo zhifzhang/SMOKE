@@ -1,0 +1,139 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.12.&nbsp;Spatial processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s11s05.html" title="2.11.5.&nbsp;Creating speciation intermediate files">
+      <link rel="next" href="ch02s12s02.html" title="2.12.2.&nbsp;Assigning sources to grid cells">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.12.&nbsp;Spatial processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s11s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s12s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_spatial_processing"></a>2.12.&nbsp;Spatial processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s12.html#d0e5849">2.12.1. Defining the gridded region to output from SMOKE</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s02.html">2.12.2. Assigning sources to grid cells</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s03.html">2.12.3. Creating the spatial allocation intermediate files</a></span></dt>
+            </dl>
+         </div>
+         <p>The spatial processing operation, or <span class="emphasis"><em>gridding</em></span>, combines the grid specification for the air-quality modeling domain with source locations from the SMOKE inventory file.
+            The resulting gridding matrix is a sparse matrix that describes in which grid cells the emissions for each source occur within
+            the modeling domain. The gridding matrix is applied to the inventory emissions to transform source-based inventory emissions
+            to gridded emissions.
+         </p>
+         <p>The SMOKE <span><strong class="command">Grdmat</strong></span> program creates the gridding matrix for area, mobile, and point sources. The gridding step is different depending on the
+            type of source being processed.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>For area sources, county-total emissions are spread among the cells intersecting the county through the use of gridding surrogates.</p>
+               </li>
+               <li>
+                  <p>For mobile sources, the data can be provided by county (as area sources are), or the data can be provided as line sources
+                     (&#8220;<span class="quote">links</span>&#8221;). County-based mobile emissions are apportioned with gridding surrogates, preferably with surrogates based on the different
+                     road types for which the mobile emissions are provided. The line-source emissions are apportioned depending on the length
+                     of the link in each cell.
+                  </p>
+               </li>
+               <li>
+                  <p>For point sources, emissions are apportioned to the grid cell intersecting the point.</p>
+               </li>
+            </ul>
+         </div>
+         <p>As shown in <a href="ch02s12.html#fig_concepts_spatial_processing" title="Figure&nbsp;2.22.&nbsp;Relationship between inventory and gridding matrix">Figure&nbsp;2.22, &#8220;Relationship between inventory and gridding matrix&#8221;</a>, the gridding matrix contains the SMOKE source IDs that intersect each grid cell, and the source-to-cell factors for each.
+            The gridding matrix is a sparse matrix because each source intersects only a small number of cells relative to the total number
+            of cells in the domain, and the storage format shown in the figure reflects a sparse storage format. In the example in <a href="ch02s12.html#fig_concepts_spatial_processing" title="Figure&nbsp;2.22.&nbsp;Relationship between inventory and gridding matrix">Figure&nbsp;2.22, &#8220;Relationship between inventory and gridding matrix&#8221;</a>, source 1 intersects cells 1 and 2, with 10% of the emissions in cell 1 and 30% of the emissions in cell 2. The remainder
+            of the source&#8217;s emissions (60%) are either outside the grid or in other cells not shown in this example. Source 2 is completely
+            inside the domain; 40% of its emissions are in cell 1, 30% are in cell 2, and 30% are in cell 4. If this were a point-source
+            speciation matrix, there would be only one cell associated with each source because each point source exists in only one cell.
+         </p>
+         <div class="figure"><a name="fig_concepts_spatial_processing"></a><p class="title"><b>Figure&nbsp;2.22.&nbsp;Relationship between inventory and gridding matrix</b></p>
+            <div class="mediaobject"><img src="images\concepts\spatial_processing_html.jpg" alt="Relationship between inventory and gridding matrix"></div>
+         </div>
+         <p>Note that the gridding matrix depends only upon the source locations, the grid definition, and in some cases gridding surrogates
+            and cross-references. It is therefore independent of the other steps of emissions processing.
+         </p>
+         <p>Spatial processing addresses the following issues during emissions processing:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Defining the gridded region to output from SMOKE</p>
+               </li>
+               <li>
+                  <p>Assigning sources to grid cells</p>
+               </li>
+               <li>
+                  <p>Creating the spatial allocation intermediate files</p>
+               </li>
+            </ol>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5849"></a>2.12.1.&nbsp;Defining the gridded region to output from SMOKE
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The grid for which the spatial allocation step outputs the gridding matrix depends upon the <code class="envar">IOAPI_GRIDNAME_1</code> environment variable setting and the <code class="envar">GRIDDESC</code> input file. The file contains all of the settings needed by the I/O API to define each grid (together, these settings are
+               called a grid definition), and it contains many such grid definitions. The <code class="envar">IOAPI_GRIDNAME_1</code> setting selects the specific grid to use during a specific run, and it must match the grid name provided in the <code class="envar">GRIDDESC</code> file. The settings used by the I/O API to define a grid are documented as part of the <a href="http://www.baronams.com/products/ioapi/GRIDDESC.html" target="_top">I/O API web site</a>.
+            </p>
+            <p>There is another file format, called the <code class="envar">G_GRIDPATH</code> file, that can be provided to <span><strong class="command">Grdmat</strong></span> instead of the <code class="envar">GRIDDESC</code> file. However, the <code class="envar">G_GRIDPATH</code> format allows only one grid per file. It is included as an acceptable input to SMOKE to allow SMOKE to be backwardly compatible
+               with previous versions. All new users are advised to use a single <code class="envar">GRIDDESC</code> file to store all of their modeling grids, instead of using multiple <code class="envar">G_GRIDDPATH</code> files, one for each grid. The <code class="envar">IOAPI_GRIDNAME_1</code> setting is not used by <span><strong class="command">Grdmat</strong></span> when the <code class="envar">G_GRIDPATH</code> format is used.
+            </p>
+            <p>The gridded region selected at run time does not need to cover all of the counties in the inventory. If the gridded region
+               is smaller than the inventory, this processing step will still include the counties or parts of counties that do not overlap
+               the grid. This allows users who are performing emissions processing using nested grids to import the inventory once and apply
+               gridding matrices for each grid to the same inventory, creating gridded emissions for all nested grids without having to adjust
+               the inventory files. The downside of this approach is that SMOKE does not give a warning if a county that is in the inventory
+               is not in the spatial surrogates, or if a lat-lon coordinate is not inside the grid. It assumes that these sources are intended
+               to be dropped and proceeds without comment. Thus, you must ensure that your surrogate files contain the counties in your inventory
+               that are inside the grid and that your lat-lon coordinates for point and link sources are correct.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s11s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s12s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.11.5.&nbsp;Creating speciation intermediate files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.12.2.&nbsp;Assigning sources to grid cells</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

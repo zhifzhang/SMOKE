@@ -1,0 +1,106 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Chapter&nbsp;2.&nbsp;SMOKE Concepts</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="ch01s03.html" title="1.3.&nbsp;How to Use this Manual">
+      <link rel="next" href="ch02s02.html" title="2.2.&nbsp;Assigns file and environment variables">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch01s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="ch_concepts"></a>Chapter&nbsp;2.&nbsp;SMOKE Concepts
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02.html#d0e500">2.1. Introduction</a></span></dt>
+               <dt><span class="section"><a href="ch02s02.html">2.2. Assigns file and environment variables</a></span></dt>
+               <dt><span class="section"><a href="ch02s03.html">2.3. Emission inventories</a></span></dt>
+               <dt><span class="section"><a href="ch02s04.html">2.4. Cross-referencing and profiles</a></span></dt>
+               <dt><span class="section"><a href="ch02s05.html">2.5. Input and output file types</a></span></dt>
+               <dt><span class="section"><a href="ch02s06.html">2.6. Modeling parameters</a></span></dt>
+               <dt><span class="section"><a href="ch02s07.html">2.7. Sparse matrix approach to emissions modeling</a></span></dt>
+               <dt><span class="section"><a href="ch02s08.html">2.8. Area, biogenic, mobile, and point processing summaries</a></span></dt>
+               <dt><span class="section"><a href="ch02s09.html">2.9. Inventory import</a></span></dt>
+               <dt><span class="section"><a href="ch02s10.html">2.10. Temporal processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s11.html">2.11. Chemical speciation processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s12.html">2.12. Spatial processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s13.html">2.13. Growth processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s14.html">2.14. Control processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s15.html">2.15. Elevated-source processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s16.html">2.16. Mobile-source processing with MOVES</a></span></dt>
+               <dt><span class="section"><a href="ch02s17.html">2.17. Biogenic processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s18.html">2.18. Creating model-ready emissions</a></span></dt>
+               <dt><span class="section"><a href="ch02s19.html">2.19. Creating model-ready emissions using MOVES lookup tables</a></span></dt>
+               <dt><span class="section"><a href="ch02s20.html">2.20. Quality assurance</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both"><a name="d0e500"></a>2.1.&nbsp;Introduction
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <p>The purpose of SMOKE is to convert the resolution of the data in an emission inventory to the resolution needed by an air
+               quality model. Emission inventories typically have an annual-total emissions value for each emissions source, or perhaps an
+               average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell
+               (and perhaps model layer), and for each model species. Consequently, to achieve the input requirements of the AQM, emissions
+               processing must (at a minimum) transform inventory data by temporal allocation, chemical speciation, spatial allocation, and
+               perhaps layer assignment.
+            </p>
+            <p>In addition to changing the resolution of the data, SMOKE must also provide the AQM input files in the correct file format.
+               SMOKE can create the Input/Output Applications Programming Interface (I/O API) Network Common Data Form (NetCDF) output format
+               needed by the CMAQ model. It can also create the Fortran binary format for the 2-D emissions needed by UAM, and CAM<sub>X</sub>, and the ASCII elevated-point-source format used by the Ptsrce preprocessor to these models. File format is also important
+               for the input files used by SMOKE, most of which are ASCII files, but some of which are I/O API NetCDF or CF-compliant NetCDF
+               format files.
+            </p>
+            <p>In this chapter, we introduce you to various concepts that are critical to understanding the technical description of emissions
+               processing, as well as provide more detail about the processing capabilities of SMOKE. (Later, <a href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">Chapter&nbsp;5, <i>SMOKE Utility Tools</i></a>, <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>, <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a>, <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>, <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a>, and <a href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">Chapter&nbsp;10, <i>SMOKE Output Files</i></a> give more specifics about each program&#8217;s capabilities and each file&#8217;s format.) This chapter provides the context and framework
+               for the rest of the user&#8217;s manual. To assist you in reading and using this chapter, we provide <a href="go01.html" title="Appendix A. Glossary">Appendix A. Glossary</a> for definitions of emissions inventory and emissions modeling terminology.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch01s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">1.3.&nbsp;How to Use this Manual&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.2.&nbsp;Assigns file and environment variables</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

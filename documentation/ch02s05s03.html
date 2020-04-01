@@ -1,0 +1,68 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.5.3.&nbsp;Model-ready files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s05.html" title="2.5.&nbsp;Input and output file types">
+      <link rel="prev" href="ch02s05s02.html" title="2.5.2.&nbsp;I/O API files">
+      <link rel="next" href="ch02s06.html" title="2.6.&nbsp;Modeling parameters">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.5.3.&nbsp;Model-ready files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s05s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.5.&nbsp;Input and output file types</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_model_ready_files"></a>2.5.3.&nbsp;Model-ready files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE supports two major approaches for formatting its output files that are used as inputs to air quality models (i.e., model-ready
+            files): the CMAQ/Models-3 approach and the UAM-based approach. The CMAQ/Models-3 approach is used for the CMAQ model, and
+            the UAM-based approach is used for the UAM models, and CAM<sub>X</sub>.
+         </p>
+         <p>The CMAQ/Models-3 approach uses one required 3-D I/O API file that contains the gridded, hourly, speciated, and vertically
+            distributed emissions. In SMOKE, it is called the <code class="envar">EGTS3D_L</code> file. To create the 3-D model-ready emissions file, SMOKE computes plume rise for some or all point sources. For CMAQ, two
+            additional optional files can be provided for plume-in-grid (PinG) processing. The first must contain locations and stack
+            parameters for PinG sources and is called the <code class="envar">STACK_GROUPS</code> file. The second must contain the hourly, speciated emissions for the same PinG sources in a file called the <code class="envar">PINGTS_L</code> file.
+         </p>
+         <p>The UAM-based approach has two required files: (1) a 2-D emissions Fortran binary file with all sources other than point sources
+            and all low-level point sources, and (2) an elevated-point-source Fortran binary file. The SMOKE program <span><strong class="command">Smk2emis</strong></span> can create the 2-D emissions Fortran binary file (called the <code class="envar">UAM_EGTS</code> file) by converting a 2-D <code class="envar">EGTS_L</code> file from an I/O API format. To obtain the elevated-point-source Fortran binary file, the SMOKE program <span><strong class="command">Smkmerge</strong></span> can create an ASCII elevated-point-source file, which can then be converted to the required binary format using the UAM preprocessor
+            <a href="http://www.remsad.com/ptsrce.htm" target="_top">Ptsrce</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s05s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.5.2.&nbsp;I/O API files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.6.&nbsp;Modeling parameters</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

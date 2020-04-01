@@ -1,0 +1,186 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.12.2.&nbsp;Assigning sources to grid cells</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s12.html" title="2.12.&nbsp;Spatial processing">
+      <link rel="prev" href="ch02s12.html" title="2.12.&nbsp;Spatial processing">
+      <link rel="next" href="ch02s12s03.html" title="2.12.3.&nbsp;Creating the spatial allocation intermediate files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.12.2.&nbsp;Assigning sources to grid cells</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s12.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.12.&nbsp;Spatial processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s12s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e5900"></a>2.12.2.&nbsp;Assigning sources to grid cells
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s12s02.html#d0e5905">2.12.2.1. Spatial allocation of area/nonpoint, nonroad mobile, and on-road mobile nonlink sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s02.html#d0e5977">2.12.2.2. Spatial allocation of area-to-point sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s02.html#d0e5985">2.12.2.3. Spatial allocation of pregridded sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s02.html#d0e5993">2.12.2.4. Spatial allocation of on-road mobile link sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s12s02.html#d0e6018">2.12.2.5. Spatial allocation of point sources</a></span></dt>
+            </dl>
+         </div>
+         <p>SMOKE takes a different approach to assigning sources to grid cells for each SMOKE source category and some special cases.
+            In the following subsections, we describe the concepts of spatial allocation of (1)  area/nonpoint, nonroad, mobile, and on-road
+            mobile nonlink sources; (2) area-to-point sources; (3) pregridded area sources, (4) on-road mobile link sources, and (5) point
+            sources.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e5905"></a>2.12.2.1.&nbsp;Spatial allocation of area/nonpoint, nonroad mobile, and on-road mobile nonlink sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The area/nonpoint, nonroad mobile, and on-road mobile nonlink sources all have emissions in the inventory with county-total
+               values. To spatially allocate these emissions, factors must be assigned to each source to distribute the county-total emissions
+               across the grid cells that intersect the county. This is accomplished using a cross-referencing approach that assigns a spatial
+               surrogate to each source in the inventory.
+            </p>
+            <p>The spatial surrogates files, located in <code class="envar">SRGPRO_PATH</code> contain factors for allocating emissions from a county-total to a gridded value, and there are usually many sets of factors
+               available for each county. The data in this file are used to estimate the spatial distribution of county-total emissions inside
+               the county. These sets of factors are calculated from other data that are available at a finer resolution than the county
+               data, such as census tracks. Examples of commonly available surrogates are population, housing, urban area, rural area, agriculture,
+               water, railroads, major highways, airports, ports, and forest. To ensure correct emissions processing, it is essential that
+               all counties within the inventory and domain be included in the spatial surrogates file. If any counties inside the domain
+               are left out of the file, then SMOKE will not be able to detect this; instead, it will act as though the county is outside
+               of the domain and drop the emissions.
+            </p>
+            <p>The general case of cross-referencing and profiles was described in <a href="ch02s04.html" title="2.4.&nbsp;Cross-referencing and profiles">Section&nbsp;2.4, &#8220;Cross-referencing and profiles&#8221;</a>. During spatial allocation with the <span><strong class="command">Grdmat</strong></span> program, the spatial cross-reference file (<code class="envar">AGREF</code> or <code class="envar">MGREF</code>) assigns spatial surrogates for area/nonpoint, nonroad mobile, and on-road mobile nonlink sources. The spatial cross-reference
+               file associates SCCs with a spatial surrogate code, which is an arbitrary positive integer code that also appears in the spatial
+               surrogates file along with the spatial surrogate data. It is important to ensure (if possible) that the spatial surrogate
+               codes assigned to each SCC are actually available in the surrogate file for all counties in the inventory with that SCC. For
+               example, if the water surrogate is assigned to motorboat sources in a given county, the spatial surrogate file should have
+               values for the water surrogate in that county. If this is not the case, SMOKE will be forced to use a &#8220;<span class="quote">fallback</span>&#8221; surrogate, defined with the <code class="envar">SMK_DEFAULT_SRGID</code> environment variable setting, which assigns a surrogate that is defined for every county in the domain.   <code class="envar">SMK_DEFAULT_SRGID</code> is mandatory and must be set to the population surrogate code listed in the <code class="envar">SRGDESC</code> file.  The population surrogate in this case serves two purposes; 1) It defines all the FIPS codes contained within the gridded
+               domain which reduces I/O in the gridding process and 2) this fallback approach prevents the emissions for that county and
+               source category from being dropped from the emissions processing. <span><strong class="command">Grdmat</strong></span> produces warnings in the log file whenever the fallback surrogate is used. If the fallback surrogate also causes the emissions
+               to go to zero, an additional warning that indicates the emissions are being dropped is also written to the <span><strong class="command">Grdmat</strong></span> log file.  It is to the the users discretion to use the fallback described in purpose 2.  This is set by the <code class="envar">SMK_USE_FALLBACK</code> environment variable either set as [Y/N]. 
+            </p>
+            <p>The surrogate codes are defined, described and a reference to the spatial surrogate files listed in the surrogate description
+               file <code class="envar">SRGDESC</code> which is likewise set as the environment variable <code class="envar">SRGDESC</code>. Because the surrogate codes are arbitrarily assigned, you need to make sure that the spatial cross-reference is developed
+               in conjunction with the spatial surrogates so that the surrogate codes used in each are consistent. It is not generally wise
+               to develop surrogates without a cross-reference, unless the surrogate codes used in the surrogates file are set to the same
+               values that are in a spatial cross-reference file that is already available.  In other words, the surrogate codes in <code class="envar">SRGDESC</code>, <code class="envar">AMGREF</code> and <code class="envar">AMGPRO</code> should be in aggrement. 
+            </p>
+            <p><a href="ch02s12s02.html#fig_concepts_spatial_allocation_county" title="Figure&nbsp;2.23.&nbsp;Spatial allocation of county-total emissions">Figure&nbsp;2.23, &#8220;Spatial allocation of county-total emissions&#8221;</a> illustrates spatial allocation of all county-based emissions sources. The box at the left represents a grid with a single
+               county, shaded in gray to represent an emissions value in that county. The arrow represents the spatial allocation steps.
+               The box at right shows that all grid cells that intersect the county have emissions contributed by the county. Cells that
+               intersect more of the county are shown in darker colors, simulating the effect of using area surrogates. The darker cells
+               could also represent cells in which a large city causes the population surrogate to concentrate the emissions in those cells,
+               while the surrounding regions within the county have lower emissions.
+            </p>
+            <div class="figure"><a name="fig_concepts_spatial_allocation_county"></a><p class="title"><b>Figure&nbsp;2.23.&nbsp;Spatial allocation of county-total emissions</b></p>
+               <div class="mediaobject"><img src="images\concepts\spatial_allocation_county_html.jpg" alt="Spatial allocation of county-total emissions"></div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e5977"></a>2.12.2.2.&nbsp;Spatial allocation of area-to-point sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>In some cases, the inventory import processing (by the <span><strong class="command">Smkinven</strong></span> program) will have assigned point locations to some of the county-based inventory sources such as airports. Spatial allocation
+               for these sources ignores the assigned surrogate, sets the surrogate assignment to 0, and uses the point-source locations
+               and assigned fractions to determine the cells and associated magnitudes of the emissions from the county-total source.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e5985"></a>2.12.2.3.&nbsp;Spatial allocation of pregridded sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>When pregridded data are provided to SMOKE, the spatial allocation step must still be run. In this case, <span><strong class="command">Grdmat</strong></span> just maps the pregridded emissions to the correct cells and outputs a simple gridding matrix that is used in later processing
+               steps to maintain the pregridded nature of the inventory.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e5993"></a>2.12.2.4.&nbsp;Spatial allocation of on-road mobile link sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>On-road mobile link sources are straight line segments within a county that have emissions and/or VMT data associated with
+               them as well as the latitudes and longitudes of the starting and ending positions of the link. SMOKE determines the fraction
+               of each link within each grid cell, and then assigns the emissions or VMT from the link to those grid cells that the link
+               intersects, by weighting the emissions according to the length of the link within a grid cell divided by the total length
+               of the link.
+            </p>
+            <p>As shown in <a href="ch02s12s02.html#fig_concepts_spatial_allocation_link" title="Figure&nbsp;2.24.&nbsp;Spatial allocation of on-road mobile link sources">Figure&nbsp;2.24, &#8220;Spatial allocation of on-road mobile link sources&#8221;</a>, three link sources in the left-hand diagram are joined at their ends to represent a road cutting through the county. As
+               shown in the figure, link sources do not bisect county boundaries (new link sources would be used to continue the road into
+               an adjoining county). The three portions of the link have different VMT values, as represented by the three different shades
+               of gray that highlight the link. The arrow represents the spatial allocation step. In the right-hand diagram, the cells that
+               intersect the link sources are shaded, with darker shading used in cells in which the link intersects the cell more and the
+               link has higher VMT.
+            </p>
+            <div class="figure"><a name="fig_concepts_spatial_allocation_link"></a><p class="title"><b>Figure&nbsp;2.24.&nbsp;Spatial allocation of on-road mobile link sources</b></p>
+               <div class="mediaobject"><img src="images\concepts\spatial_allocation_link_html.jpg" alt="Spatial allocation of on-road mobile link sources"></div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e6018"></a>2.12.2.5.&nbsp;Spatial allocation of point sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Spatial allocation of point sources in <span><strong class="command">Grdmat</strong></span> is very straightforward. The <span><strong class="command">Grdmat</strong></span> program simply determines which cell the lat-lon coordinates are in and assigns all emissions from that source to a single
+               grid cell. Except for (1) plume-in-grid sources for all models and (2) elevated sources for UAM-based models (both addressed
+               in <a href="ch02s15.html" title="2.15.&nbsp;Elevated-source processing">Section&nbsp;2.15, &#8220;Elevated-source processing&#8221;</a>, this means that the AQMs do not have information about where in the grid cell the point source is located.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s12.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s12.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s12s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.12.&nbsp;Spatial processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.12.3.&nbsp;Creating the spatial allocation intermediate files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

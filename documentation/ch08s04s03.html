@@ -1,0 +1,107 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.4.3.&nbsp;AGREF and MGREF: Gridding cross-reference files for area and mobile sources</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s04.html" title="8.4.&nbsp;Spatial Allocation Files">
+      <link rel="prev" href="ch08s04s02.html" title="8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files">
+      <link rel="next" href="ch08s04s04.html" title="8.4.4.&nbsp;BELD3_A, BELD3_B, BELD3_TOT: BELD3 land use data files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.4.3.&nbsp;<code class="envar">AGREF</code> and <code class="envar">MGREF</code>: Gridding cross-reference files for area and mobile sources
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s04s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.4.&nbsp;Spatial Allocation Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s04s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_amgref"></a>8.4.3.&nbsp;<code class="envar">AGREF</code> and <code class="envar">MGREF</code>: Gridding cross-reference files for area and mobile sources
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The gridding cross-reference files are used to match the emissions sources with the spatial surrogates in the surrogates file.
+            The way that of the gridding cross-reference files are applied in SMOKE ensures that the most-specific matches override the
+            less-specific ones. A description of how the gridding cross-reference is applied to the inventory is provided in <a href="ch06s04.html" title="6.4.&nbsp;Grdmat">Section&nbsp;6.4, &#8220;<span><strong class="command">Grdmat</strong></span>&#8221;</a>. The format of the <code class="envar">AGREF</code> and <code class="envar">MGREF</code> files is shown in <a href="ch08s04s03.html#tbl_input_amgref" title="Table&nbsp;8.39.&nbsp;Format for AGREF and MGREF">Table&nbsp;8.39, &#8220;Format for <code class="envar">AGREF</code> and <code class="envar">MGREF</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_amgref"></a><p class="title"><b>Table&nbsp;8.39.&nbsp;Format for <code class="envar">AGREF</code> and <code class="envar">MGREF</code></b></p>
+            <table summary="Format for AGREF and MGREF" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>
+                        <p>Country/state/county code (6-digit Character YSSCCC) (optional):</p>
+                        
+                        
+                        <div class="itemizedlist">
+                           <ul type="disc" compact>
+                              <li>leave blank or put zero if not country/state-dependent</li>
+                              <li>set to YSS000 for country/state-dependent</li>
+                              <li>set to YSSCCC for county-dependent</li>
+                           </ul>
+                        </div>
+                        
+                        
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>20-digit SCC (Character) (optional, set to zero if not SCC-dependent)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Spatial surrogate code (Integer) (required)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s04s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s04s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.4.4.&nbsp;<code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, <code class="envar">BELD3_TOT</code>: BELD3 land use data files
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

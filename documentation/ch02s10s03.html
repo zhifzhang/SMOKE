@@ -1,0 +1,58 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.3.&nbsp;Using day- and hour-specific emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s02.html" title="2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles">
+      <link rel="next" href="ch02s10s04.html" title="2.10.4.&nbsp;Time zone adjustments">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.3.&nbsp;Using day- and hour-specific emissions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e5021"></a>2.10.3.&nbsp;Using day- and hour-specific emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE uses the most specific data available for any given source. For point sources, <span><strong class="command">Temporal</strong></span> will read in the day-specific and hour-specific emissions and use these instead of the annual or average-day emissions that
+            have been adjusted to hourly values. If both day-specific and hour-specific data are available for the same source, <span><strong class="command">Temporal</strong></span> will use the hour-specific data. The settings that control the use of these emissions are <code class="envar">HOUR_SPECIFIC_YN</code> and <code class="envar">DAY_SPECIFIC_YN</code>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.4.&nbsp;Time zone adjustments</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

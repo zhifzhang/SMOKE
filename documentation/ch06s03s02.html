@@ -1,0 +1,79 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.3.2.&nbsp;Processing Order</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s03.html" title="6.3.&nbsp;Elevpoint">
+      <link rel="prev" href="ch06s03.html" title="6.3.&nbsp;Elevpoint">
+      <link rel="next" href="ch06s03s03.html" title="6.3.3.&nbsp;Files and Environment Variables">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.3.2.&nbsp;Processing Order</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e23347"></a>6.3.2.&nbsp;Processing Order
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p><span><strong class="command">Smkinven</strong></span> must be run for point sources before <span><strong class="command">Elevpoint</strong></span>. If the <code class="envar">PELVCONFIG</code> file uses emissions as a source-grouping or source-selection criterion, then <span><strong class="command">Temporal</strong></span> must be run before <span><strong class="command">Elevpoint</strong></span>.
+         </p>
+         <p><span><strong class="command">Elevpoint</strong></span> must be run before <span><strong class="command">Laypoint</strong></span>.
+         </p>
+         <p><span><strong class="command">Elevpoint</strong></span> must be run before <span><strong class="command">Smkmerge</strong></span> if elevated sources are to be used.
+         </p>
+         <p><span><strong class="command">Elevpoint</strong></span> is an optional program that is not needed if all of the following criteria are met:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>A UAM-style model (e.g., UAM, CAM<sub>X</sub>) is not being used.
+                  </p>
+               </li>
+               <li>
+                  <p>No MEPSE/PinG source processing is required.</p>
+               </li>
+               <li>
+                  <p>You are willing to run <span><strong class="command">Laypoint</strong></span> for all point sources and treat all as &#8220;<span class="quote">potentially elevated</span>&#8221;. In this case, sources that rise above layer 1 will be &#8220;<span class="quote">elevated</span>&#8221; for reporting purposes in <span><strong class="command">Smkreport</strong></span>, but these sources may sometimes be within layer 1 if the plume rise algorithm in <span><strong class="command">Laypoint</strong></span> computes it that way.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.3.3.&nbsp;Files and Environment Variables</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

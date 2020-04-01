@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.13.4.&nbsp;Applying the growth matrix</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s13.html" title="2.13.&nbsp;Growth processing">
+      <link rel="prev" href="ch02s13s03.html" title="2.13.3.&nbsp;Creating the growth matrix">
+      <link rel="next" href="ch02s13s05.html" title="2.13.5.&nbsp;Creating a grown inventory file">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.13.4.&nbsp;Applying the growth matrix</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s13s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.13.&nbsp;Growth processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s13s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_apply_growth_with_grwinven"></a>2.13.4.&nbsp;Applying the growth matrix
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Grwinven</strong></span> program applies the growth factors to the inventory pollutants by simply multiplying the growth matrices for the pollutants
+            with the annual and average-day emission values. It reads in the SMOKE intermediate inventory file and up to 80 growth matrices,
+            then applies the growth factors from all growth matrices to the appropriate pollutants. If a growth matrix has the &#8220;<span class="quote">pfac</span>&#8221; variable, <span><strong class="command">Grwinven</strong></span> applies the factors to all pollutants in the inventory; if instead the matrix has pollutant-specific entries, the factors
+            are applied by matching the pollutants between the matrix and the inventory.
+         </p>
+         <p>As is further described in <a href="ch02s14.html" title="2.14.&nbsp;Control processing">Section&nbsp;2.14, &#8220;Control processing&#8221;</a>, <span><strong class="command">Grwinven</strong></span> can also apply the control matrix at the same time it applies the growth matrix, and the total number of growth and control
+            matrices that can be applied in one run is 80. The <span><strong class="command">Grwinven</strong></span> program&#8217;s growth processing features cannot be applied to a SMOKE intermediate file that <span><strong class="command">Grwinven</strong></span> has created, because of the /FYEAR/ header element described in the next section.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s13s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s13.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s13s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.13.3.&nbsp;Creating the growth matrix&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.13.5.&nbsp;Creating a grown inventory file</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

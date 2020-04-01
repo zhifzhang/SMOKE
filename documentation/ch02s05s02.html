@@ -1,0 +1,81 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.5.2.&nbsp;I/O API files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s05.html" title="2.5.&nbsp;Input and output file types">
+      <link rel="prev" href="ch02s05.html" title="2.5.&nbsp;Input and output file types">
+      <link rel="next" href="ch02s05s03.html" title="2.5.3.&nbsp;Model-ready files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.5.2.&nbsp;I/O API files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.5.&nbsp;Input and output file types</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s05s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e1632"></a>2.5.2.&nbsp;I/O API files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>I/O API files are read and written by the I/O API library used by SMOKE and other Models-3 programs. A library is a set of
+            routines that have been created and compiled for use by multiple programs. The I/O API library, in turn, is built upon yet
+            another library called the NetCDF library. For this reason, I/O API files are also referred to as I/O API NetCDF files. More
+            information on both of these libraries is available at the <a href="http://www.baronams.com/products/ioapi/" target="_top">I/O API web site</a>. <a href="ch12s04.html" title="12.4.&nbsp;Compiling SMOKE for UNIX">Section&nbsp;12.4, &#8220;Compiling SMOKE for UNIX&#8221;</a> contains instructions for obtaining the I/O API and NetCDF libraries.
+         </p>
+         <p>The I/O API files cannot be viewed with a text editor because they are binary files. These binary files use less disk space
+            than ASCII files containing the same data. They also allow much more efficient input and output of the data, and the I/O API
+            library provides many quality assurance (QA) features useful for all input and output (I/O), including I/O for emissions processing.
+         </p>
+         <p>The basic I/O API file has a limitation of 120 variables per file. To overcome this, SMOKE uses a wrapper called the FileSetAPI
+            that creates and manages multiple I/O API files when more than 120 variables are needed in a single I/O API dataset in SMOKE.
+            For example, if the SMOKE speciation matrix requires 140 pollutant-to-species variables, SMOKE will open by default two standard
+            I/O API files: one with 120 variables and one with 20 variables. This resulting &#8220;<span class="quote">file set</span>&#8221; will be treated by other SMOKE programs as a single file, which enables processing of any number of pollutants and species
+            in a single run, despite the I/O API variable limitation.
+         </p>
+         <p>Some I/O API files can be viewed by the <a href="http://www.verdi-tool.org" target="_top">Visualization Environment for Rich Data Interpretation</a> (VERDI). In SMOKE, any gridded output file from the <span><strong class="command">Smkmerge</strong></span>, <span><strong class="command">Mrggrid</strong></span>, or <span><strong class="command">Smk2emis</strong></span> programs can be viewed by VERDI.
+         </p>
+         <p>In some cases, it can be helpful to directly view the contents of the I/O API files in text form. This provides a quick way
+            to check grid settings, time period, or species names in the model-ready output files. By viewing the text version of the
+            model-ready output files produced by SMOKE, you can easily confirm that the correct species have been created or that the
+            emission units are correct. To convert the I/O API files to text, one can use a combination of the NetCDF-provided <span><strong class="command">ncdump</strong></span> utility and UNIX commands. The <span><strong class="command">ncdump</strong></span> utility is created when you compile the NetCDF library, or you can download it from the <a href="http://www.unidata.ucar.edu/packages/netcdf/" target="_top">NetCDF web site</a>. The command to convert the files to text format is:
+         </p>
+         <p><strong class="userinput"><code><span><strong class="command">ncdump</strong></span> <em class="replaceable"><code>&lt;infile&gt;</code></em> | <span><strong class="command">cut -c1-80</strong></span> &gt; <em class="replaceable"><code>&lt;outfile&gt;</code></em></code></strong></p>
+         <p>Replace <em class="replaceable"><code>&lt;infile&gt;</code></em> in the command above with your input I/O API file name, and <em class="replaceable"><code>&lt;outfile&gt;</code></em> with your desired ACSII output file name. The output file contains all the applicable data stored in the I/O API file including
+            grid information, time period, variable names, etc.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s05s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.5.&nbsp;Input and output file types&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.5.3.&nbsp;Model-ready files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

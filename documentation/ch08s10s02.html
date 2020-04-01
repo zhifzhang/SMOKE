@@ -1,0 +1,383 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.10.2.&nbsp;COSTCY: Country, state, and county names and data</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="prev" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="next" href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.10.2.&nbsp;<code class="envar">COSTCY</code>: Country, state, and county names and data
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.10.&nbsp;Other Support Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s10s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_costcy"></a>8.10.2.&nbsp;<code class="envar">COSTCY</code>: Country, state, and county names and data
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <code class="envar">COSTCY</code> file is used to assign numeric codes to the various countries, states, and counties to be modeled; the file also provides
+            information concerning default time zones and Daylight Savings observance. A header line can be used in this file to indicate
+            that population data are contained in the file as the last column on each line of the /COUNTY/ packet. The header line and
+            additional population column are optional. If it is present in the file, it must be on the first line of the file and use
+            the following syntax:
+         </p>
+         <p>#POPULATION &lt;year&gt;</p>
+         <p>where &lt;year&gt; is a 4-digit year.</p>
+         <p>The country, state, and county codes in each section of this file must be sorted in increasing order. If they are not, the
+            programs reading this file will give an error. The format of the <code class="envar">COSTCY</code> file is shown in <a href="ch08s10s02.html#tbl_input_costcy" title="Table&nbsp;8.83.&nbsp;Format for COSTCY">Table&nbsp;8.83, &#8220;Format for <code class="envar">COSTCY</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_costcy"></a><p class="title"><b>Table&nbsp;8.83.&nbsp;Format for <code class="envar">COSTCY</code></b></p>
+            <table summary="Format for COSTCY" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1</td>
+                     <td>A</td>
+                     <td>Start of country section using packet /COUNTRY/</td>
+                  </tr>
+                  <tr>
+                     <td>2+</td>
+                     <td>1</td>
+                     <td>Country code (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>3-22</td>
+                     <td>Country name (Character)</td>
+                  </tr>
+                  <tr>
+                     <td>3</td>
+                     <td>A</td>
+                     <td>Start of state section using packet /STATE/</td>
+                  </tr>
+                  <tr>
+                     <td>4+</td>
+                     <td>1</td>
+                     <td>Country code; should match an entry in the /COUNTRY/ section (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>2-3</td>
+                     <td>State code (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>4-5</td>
+                     <td>State abbreviation (Character) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>7-26</td>
+                     <td>State name (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>27-28</td>
+                     <td>EPA Region (Integer) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>32-34</td>
+                     <td>Standard (non-Daylight-Saving) state time zone; see <a href="ch08s10s02.html#tbl_input_costcy_geocode4_timezones" title="Table&nbsp;8.84.&nbsp;Valid COSTCY and GEOCODE_LEVEL4 time zones">Table&nbsp;8.84, &#8220;Valid <code class="envar">COSTCY and GEOCODE_LEVEL4</code> time zones&#8221;</a> for valid time zones (Character) (optional)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>5</td>
+                     <td>A</td>
+                     <td>Start of county section using packet /COUNTY/</td>
+                  </tr>
+                  <tr>
+                     <td>6+</td>
+                     <td>2-3</td>
+                     <td>State abbreviation, should match an entry in the /STATE/ section (Character) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>5-24</td>
+                     <td>County name (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>26</td>
+                     <td>Country code, should match the one in the /COUNTRY/ section (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>27-28</td>
+                     <td>State code, should match the one in the /STATE/ section (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>29-31</td>
+                     <td>County code (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>32-34</td>
+                     <td>AEROS State Code (Integer) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>35-38</td>
+                     <td>AEROS County Code (Integer) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>40-42</td>
+                     <td>Standard (non-Daylight-Saving) county time zone; see <a href="ch08s10s02.html#tbl_input_costcy_geocode4_timezones" title="Table&nbsp;8.84.&nbsp;Valid COSTCY and GEOCODE_LEVEL4 time zones">Table&nbsp;8.84, &#8220;Valid <code class="envar">COSTCY and GEOCODE_LEVEL4</code> time zones&#8221;</a> for valid time zones (Character)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>43</td>
+                     <td>Leaving this field blank indicates that Daylight Saving time is used in the county. Any character in this field will turn
+                        off the use of Daylight Saving time in the county.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>44-52</td>
+                     <td>County center longitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>53-61</td>
+                     <td>County center latitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>63-74</td>
+                     <td>County area (square miles) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>76-84</td>
+                     <td>Westernmost longitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>86-94</td>
+                     <td>Easternmost longitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>95-103</td>
+                     <td>Southernmost latitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>104-112</td>
+                     <td>Northernmost latitude (degrees) (Real) (not used by SMOKE)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>114-128</td>
+                     <td>Population for the county (optional; used only by <span><strong class="command">Smkreport</strong></span> with the NORMALIZE POPULATION instruction)
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="table"><a name="tbl_input_costcy_geocode4_timezones"></a><p class="title"><b>Table&nbsp;8.84.&nbsp;Valid <code class="envar">COSTCY and GEOCODE_LEVEL4</code> time zones</b></p>
+            <table summary="Valid COSTCY and GEOCODE_LEVEL4 time zones" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>GMT</th>
+                     <th>Time zone</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>+12:00</td>
+                     <td>BIT</td>
+                     <td>Baker Island Time</td>
+                  </tr>
+                  <tr>
+                     <td>+11:00</td>
+                     <td>SST</td>
+                     <td>Samoa Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+10:00</td>
+                     <td>HST</td>
+                     <td>Hawaii Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+9:00</td>
+                     <td>AKT</td>
+                     <td>Alaska Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+8:00</td>
+                     <td>PST</td>
+                     <td>Pacific Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+7:00</td>
+                     <td>MST</td>
+                     <td>Mountain Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+6:00</td>
+                     <td>CST</td>
+                     <td>Central Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+5:00</td>
+                     <td>EST</td>
+                     <td>Eastern Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+4:00</td>
+                     <td>AST</td>
+                     <td>Atlantic Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>+3:00</td>
+                     <td>ART</td>
+                     <td>Argentina Time</td>
+                  </tr>
+                  <tr>
+                     <td>+2:00</td>
+                     <td>FNT </td>
+                     <td>Fernando de Noronha Time</td>
+                  </tr>
+                  <tr>
+                     <td>+1:00</td>
+                     <td>EGT</td>
+                     <td>Eastern Greenland Time</td>
+                  </tr>
+                  <tr>
+                     <td>0:00</td>
+                     <td>GMT</td>
+                     <td>Greenwich Mean Time</td>
+                  </tr>
+                  <tr>
+                     <td>-1:00</td>
+                     <td>CET</td>
+                     <td>Central European Time</td>
+                  </tr>
+                  <tr>
+                     <td>-2:00</td>
+                     <td>EET</td>
+                     <td>Eastern European Time</td>
+                  </tr>
+                  <tr>
+                     <td>-3:00</td>
+                     <td>MSK</td>
+                     <td>Moscow Time</td>
+                  </tr>
+                  <tr>
+                     <td>-4:00</td>
+                     <td>GST</td>
+                     <td>Gulf Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-5:00</td>
+                     <td>PKT</td>
+                     <td>Pakistan Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-6:00</td>
+                     <td>BST</td>
+                     <td>Bangladesh Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-7:00</td>
+                     <td>THA</td>
+                     <td>Thailand Time</td>
+                  </tr>
+                  <tr>
+                     <td>-8:00</td>
+                     <td>HKT</td>
+                     <td>China Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-9:00</td>
+                     <td>KST</td>
+                     <td>Korean Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-10:00</td>
+                     <td>AET</td>
+                     <td>Austrailian Eastern Time</td>
+                  </tr>
+                  <tr>
+                     <td>-11:00</td>
+                     <td>ADT</td>
+                     <td>Austrailian Daylight Savings Time</td>
+                  </tr>
+                  <tr>
+                     <td>-12:00</td>
+                     <td>FJT</td>
+                     <td>Fiji Time</td>
+                  </tr>
+                  <tr>
+                     <td>-13:00</td>
+                     <td>NZT</td>
+                     <td>New Zealand Daylight Time</td>
+                  </tr>
+                  <tr>
+                     <td>-14:00</td>
+                     <td>LNT</td>
+                     <td>Line Islands Time</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s10s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.10.&nbsp;Other Support Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.10.3.&nbsp;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

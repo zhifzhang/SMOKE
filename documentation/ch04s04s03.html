@@ -1,0 +1,81 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.3.&nbsp;Select which pollutants in the inventory are kept</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s02.html" title="4.4.2.&nbsp;Use new inventory data">
+      <link rel="next" href="ch04s04s04.html" title="4.4.4.&nbsp;Set fallback stack paramaters">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.3.&nbsp;Select which pollutants in the inventory are kept</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e13331"></a>4.4.3.&nbsp;Select which pollutants in the inventory are kept
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Users have the option of deciding at run time which inventory pollutants will be kept from an inventory provided in ORL format.
+             The <code class="envar">INVTABLE</code> file lists all possible criteria and toxic pollutants. While the example files are fairly comprehensive, it is possible users
+            may need to add pollutants to this file using the <code class="envar">INVTABLE</code> file format description. Additionally, users can change which pollutants are kept for further processing in SMOKE. This is
+            done by setting the Keep column of the file to Y for all pollutants that SMOKE should keep, all pollutants in these files
+            must have the Keep column set to Y.
+         </p>
+         <p>Both the run time and intermediate file sizes can be reduced by keeping only the pollutants that you need to include for modeling
+            purposes. In the bulleted list below, we provide several examples of why a user might want to change which pollutants are
+            kept.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>You want to model additional toxics not set up in the example configuration (e.g., atrazine, dioxin).</p>
+               </li>
+               <li>
+                  <p>You want to import ROG emissions instead of VOC emissions from a criteria inventory.</p>
+               </li>
+               <li>
+                  <p>You want to import only mercury for CMAQ modeling and drop all other toxic pollutants.</p>
+               </li>
+               <li>
+                  <p>You want to add a tracer to the inventory and need SMOKE to output the tracer emissions to the model-ready file.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.2.&nbsp;Use new inventory data&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.4.&nbsp;Set fallback stack paramaters</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,91 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.9.&nbsp;Fill in and check point-source stack parameters</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s08.html" title="2.9.8.&nbsp;Assign point-source locations to area sources">
+      <link rel="next" href="ch02s09s10.html" title="2.9.10.&nbsp;Convert coordinates from UTM to lat-lon">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.9.&nbsp;Fill in and check point-source stack parameters</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s10.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_check_stack_params"></a>2.9.9.&nbsp;Fill in and check point-source stack parameters
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>An additional action taken by the <span><strong class="command">Smkinven</strong></span> program for point sources only is to check stack parameters and fill them in with valid values if they are missing. <span><strong class="command">Smkinven</strong></span> performs the following steps on stack parameters from the annual or average-day inventory files, but not the hour-specific
+            stack parameters file.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>If the stack parameters are zero, <span><strong class="command">Smkinven</strong></span> treats them as missing values and writes the warning messages.
+                  </p>
+               </li>
+               <li>
+                  <p>If the exit velocity is missing or zero and the exit flow is not, or if the <code class="envar">VELOC_RECALC</code> option is Y in the run script, <span><strong class="command">Smkinven</strong></span> automatically calculates the exit velocity using the formula:
+                  </p>
+                  <p>velocity = flow / (&#960; * diameter<sup>2</sup>/4)
+                  </p>
+               </li>
+               <li>
+                  <p>If the stack parameters are not missing or zero, <span><strong class="command">Smkinven</strong></span> ensures that their values are within the allowed ranges. The range for each stack parameter is as follows:
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle" compact>
+                        <li>Height: 0.5 to 2100 meters</li>
+                        <li>Diameter: 0.01 to 100 meters</li>
+                        <li>Exit temperature: 260 to 2000 K</li>
+                        <li>Exit velocity: 0.0001 to 500 m/s</li>
+                     </ul>
+                  </div>
+                  <p>When a stack parameter falls outside of its associated range, <span><strong class="command">Smkinven</strong></span> sets it to the top or bottom of the range, depending on whether it is higher than the upper end of the range or lower than
+                     the lower end. Note that a zero value is not treated as an out-of-range parameter, but is treated as a missing value.
+                  </p>
+               </li>
+               <li>
+                  <p>If the stack parameters  are missing or zero, <span><strong class="command">Smkinven</strong></span> uses the <code class="envar">PSTK</code> file to assign new stack parameters using country/state/county and SCC assignments. The format of <code class="envar">PSTK</code> file is described in <a href="ch08s09s03.html#sect_input_pstk" title="8.9.3.2.&nbsp;PSTK: Point source stack replacement parameters file">Section&nbsp;8.9.3.2, &#8220;<code class="envar">PSTK</code>: Point source stack replacement parameters file&#8221;</a>.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s10.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.8.&nbsp;Assign point-source locations to area sources&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.10.&nbsp;Convert coordinates from UTM to lat-lon</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

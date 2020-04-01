@@ -1,0 +1,68 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.5.&nbsp;Holiday processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s04.html" title="2.10.4.&nbsp;Time zone adjustments">
+      <link rel="next" href="ch02s10s06.html" title="2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.5.&nbsp;Holiday processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_holiday_processing"></a>2.10.5.&nbsp;Holiday processing
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Holidays that fall on weekdays can have different activity patterns than regular weekdays because commercial and commuting
+            activities are altered. <span><strong class="command">Temporal</strong></span> uses the <code class="envar">HOLIDAYS</code> file to identify which user-defined dates should be processed as holidays and to determine which day of the week (Saturday
+            or Sunday) to use to model the holiday. Usually, holidays are modeled as if they were a Sunday; this attempts to account for
+            things like plants being closed and traffic patterns being different. Of course, you can also set up specific temporal profile
+            inputs for a specific holiday and model that day separately, but this is not automated in SMOKE. Users therefore simply pick
+            Saturday or Sunday as an alternative date treatment in the hope that it will somewhat better represent the emissions than
+            using a weekday.
+         </p>
+         <p>Holidays processing happens automatically if you are running the <span><strong class="command">Temporal</strong></span> program for every day of your episode. If you are using the Monday-weekday-Saturday-Sunday approach described in <a href="ch02s10s06.html" title="2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing">Section&nbsp;2.10.6, &#8220;Monday, weekday, Saturday, Sunday processing&#8221;</a>, then additional scripting steps must be taken to ensure that the holidays are modeled properly. In particular, for inventories
+            that span multiple time zones and/or when the output time zone is not the same as at least one time zone in the inventory,
+            the scripts must be configured to model the holiday and the next day, so that the final hours in the holiday that are west
+            of the output time zone will be included in the next day&#8217;s file.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.4.&nbsp;Time zone adjustments&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

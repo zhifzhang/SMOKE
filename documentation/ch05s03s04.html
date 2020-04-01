@@ -1,0 +1,198 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.4.&nbsp;CEMScan</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s03.html" title="5.3.3.&nbsp;BlueSky2Inv">
+      <link rel="next" href="ch05s03s05.html" title="5.3.5.&nbsp;Gentpro">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.4.&nbsp;<span><strong class="command">CEMScan</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_cemscan"></a>5.3.4.&nbsp;<span><strong class="command">CEMScan</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s04.html#d0e18985">5.3.4.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s04.html#d0e19003">5.3.4.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s04.html#d0e19013">5.3.4.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18985"></a>5.3.4.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">CEMScan</strong></span> reads a year&#8217;s worth of CEM data and calculates summed annual NOx emissions, SO<sub>2</sub> emissions, heat input, gross load, and steam load for each uniquie ORIS/boiler combination in the output CEM data. While
+               writing the output, CEMScan will skip any ORIS/boiler combinations where the total annual NOx emissions are zero or null or
+               where the total annual gross load, steam load, and heat input are zero or null. The program will write these ORIS/boiler combinations
+               to the report file along with a flag indicating that the combination was not written to the output file. The output from <span><strong class="command">CEMScan</strong></span> is used by <span><strong class="command">Smkinven</strong></span> to calculate hourly emissions from annual inventory data when reading CEM data. Detail information is described in <a href="ch02s09s19.html" title="2.9.19.&nbsp;Processing hour-specific CEM data">Section&nbsp;2.9.19, &#8220;Processing hour-specific CEM data&#8221;</a>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19003"></a>5.3.4.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">CEMScan</strong></span> should be run before <span><strong class="command">Smkinven</strong></span> when processing CEM data.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19013"></a>5.3.4.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s04.html#d0e19016">5.3.4.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s04.html#d0e19041">5.3.4.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s04.html#d0e19052">5.3.4.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19016"></a>5.3.4.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">FILELIST</code></td>
+                           <td>ASCII</td>
+                           <td>List of CEM input files including path and filename; the files must contain data for an entire year to be consistent with
+                              the annual inventory
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19041"></a>5.3.4.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">MAX_CEM_UNITS</code>: [default: none]
+                        </p>
+                        <p>Maximum number of CEM units in input data; this value can usually be based on the number of sources in the annual inventory</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19052"></a>5.3.4.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>ASCII</td>
+                           <td>CEM summary file</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">REPFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Report summarizes CEM data</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.3.&nbsp;<span><strong class="command">BlueSky2Inv</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.5.&nbsp;<span><strong class="command">Gentpro</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

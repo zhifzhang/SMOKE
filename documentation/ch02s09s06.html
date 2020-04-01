@@ -1,0 +1,77 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.6.&nbsp;Sort the inventory</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">
+      <link rel="next" href="ch02s09s07.html" title="2.9.7.&nbsp;Aggregate or disaggregate toxics emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.6.&nbsp;Sort the inventory</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e4146"></a>2.9.6.&nbsp;Sort the inventory
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>When <span><strong class="command">Smkinven</strong></span> reads an inventory, it also puts its sources into a special sorted order prior to outputting the SMOKE intermediate inventory
+            files. All programs that read <span><strong class="command">Smkinven</strong></span> outputs, which includes most of the SMOKE programs, expect this order. The order is determined by sorting the source characteristics
+            listed in <a href="ch02s08.html#sect_concepts_summary_source_processing" title="2.8.1.&nbsp;Summary of SMOKE processing categories">Section&nbsp;2.8.1, &#8220;Summary of SMOKE processing categories&#8221;</a> in ascending order. For example, area sources will be sorted in order of increasing country/state/county code, and within
+            a single country/state/county code will be sorted in order of increasing SCC. In <a href="ch02s09s06.html#fig_concepts_sort_inventory" title="Figure&nbsp;2.19.&nbsp;Combining and sorting ASCII inputs to created sorted I/O API outputs">Figure&nbsp;2.19, &#8220;Combining and sorting ASCII inputs to created sorted I/O API outputs&#8221;</a>, we show how the sorted order may be completely different from the order of the files and records provided to <span><strong class="command">Smkinven</strong></span>. The figure shows the unsorted ASCII input files at left (provided to <span><strong class="command">Smkinven</strong></span> by logical files <code class="envar">ARINV</code>, <code class="envar">MBINV</code>, or <code class="envar">PTINV</code>) and how the records can be rearranged by <span><strong class="command">Smkinven</strong></span> to create the sorted I/O API output files (output from <span><strong class="command">Smkinven</strong></span> as <code class="envar">AREA</code>, <code class="envar">MOBL</code>, or <code class="envar">PNTS</code>). Each record in this diagram represents a complete inventory record with all source characteristics, source attributes,
+            and emissions.
+         </p>
+         <div class="figure"><a name="fig_concepts_sort_inventory"></a><p class="title"><b>Figure&nbsp;2.19.&nbsp;Combining and sorting ASCII inputs to created sorted I/O API outputs</b></p>
+            <div class="mediaobject"><img src="images\concepts\sort_inventory_html.jpg" alt="Combining and sorting ASCII inputs to created sorted I/O API outputs"></div>
+         </div>
+         <p>Having this sorted order is important because the programs that depend on <span><strong class="command">Smkinven</strong></span> outputs also store their outputs in the same order. However, these other programs (such as <span><strong class="command">Temporal</strong></span> for temporal allocation, <span><strong class="command">Spcmat</strong></span> for chemical speciation, and <span><strong class="command">Grdmat</strong></span> for spatial allocation) store their records using the record numbers to match their outputs with the <span><strong class="command">Smkinven</strong></span> outputs. This means that the source characteristics that are stored in the <span><strong class="command">Smkinven</strong></span> outputs are not also included in the outputs from <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Spcmat</strong></span>, <span><strong class="command">Grdmat</strong></span> and other programs; these programs rely on the sorted order in the <span><strong class="command">Smkinven</strong></span> outputs not changing. This approach allows minimal redundant data storage, this reducing disk space needs.
+         </p>
+         <p>As explained previously, the records output from <span><strong class="command">Smkinven</strong></span> are vectors of emissions and source characteristics that make up the SMOKE intermediate inventory files. Each record number
+            in the file identifies an element of the vector. The outputs from <span><strong class="command">Temporal</strong></span> are also vectors of hourly emissions. The record number in each hourly vector will match the record number in the intermediate
+            inventory files. The outputs from <span><strong class="command">Spcmat</strong></span> are a matrix of speciation factors, in which the record numbers (rows of the matrix) will match the record numbers of the
+            intermediate inventory files. The columns of the matrix are each valid pollutant-to-species transformations. The outputs from
+            <span><strong class="command">Grdmat</strong></span> are a sparse matrix, but again the rows of the matrix match the rows of the intermediate inventory file.  Therefore, assignment
+            of factors is a simple matter of selecting the same record number from the <span><strong class="command">Smkinven</strong></span> output files; this is in fact one part of the vector-matrix multiplication used by SMOKE.
+         </p>
+         <p>It is important to remember this sorted-order approach when you have run an inventory through all of the programs once, and
+            then want to change your inventory and re-import the data with <span><strong class="command">Smkinven</strong></span>. For the re-importing and subsequent rerun, if any source characteristics in the inventory change, or if any sources are
+            added or removed, then the number and/or order of the output sources in the new <span><strong class="command">Smkinven</strong></span> outputs will be different. This means that the outputs from all processing steps that depend on the <span><strong class="command">Smkinven</strong></span> outputs will need to be rerun.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.5.&nbsp;Combine toxics and criteria inventories&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.7.&nbsp;Aggregate or disaggregate toxics emissions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

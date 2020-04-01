@@ -1,0 +1,166 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>10.3.&nbsp;Elevpoint</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">
+      <link rel="prev" href="ch10s02s04.html" title="10.2.4.&nbsp;ACSUMREP, MCSUMREP, and PCSUMREP">
+      <link rel="next" href="ch10s03s02.html" title="10.3.2.&nbsp;STACK_GROUPS">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">10.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch10s02s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;10.&nbsp;SMOKE Output Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch10s03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_output_elevpoint"></a>10.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch10s03.html#sect_output_reppelv">10.3.1. <code class="envar">REPPELV</code></a></span></dt>
+               <dt><span class="section"><a href="ch10s03s02.html">10.3.2. <code class="envar">STACK_GROUPS</code></a></span></dt>
+            </dl>
+         </div>
+         <p>The <span><strong class="command">Elevpoint</strong></span> program is responsible for selecting the elevated sources. <span><strong class="command">Elevpoint</strong></span> creates the following output files:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Elevated-point-source report: <a href="ch10s03.html#sect_output_reppelv" title="10.3.1.&nbsp;REPPELV">Section&nbsp;10.3.1, &#8220;<code class="envar">REPPELV</code>&#8221;</a></p>
+               </li>
+               <li>
+                  <p>Stack groups file: <a href="ch10s03s02.html" title="10.3.2.&nbsp;STACK_GROUPS">Section&nbsp;10.3.2, &#8220;<code class="envar">STACK_GROUPS</code>&#8221;</a></p>
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_output_reppelv"></a>10.3.1.&nbsp;<code class="envar">REPPELV</code></h3>
+                  </div>
+               </div>
+            </div>
+            <p>Type: ASCII - list-directed</p>
+            <p>Summary: This ASCII output file contains the sources and criteria used for selecting elevated and PinG sources in SMOKE. The
+               following is a description of columns/header in the report:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Source ID: SMOKE source ID, used by SMOKE only</p>
+                  </li>
+                  <li>
+                     <p>Region: Country/state/county code (CSSYYY where C=country, SS=state, and YYY=county)</p>
+                  </li>
+                  <li>
+                     <p>Plant: Facility ID (FF10), Plant ID (ORL)</p>
+                  </li>
+                  <li>
+                     <p>Char 1: Unity ID (FF10), Point ID (ORL)</p>
+                  </li>
+                  <li>
+                     <p>Char 2: Release Point ID (FF10), Stack ID (ORL)</p>
+                  </li>
+                  <li>
+                     <p>Char 3: Process ID (FF10), Segment ID (ORL)</p>
+                  </li>
+                  <li>
+                     <p>Char 4: For IDA inventory, SCC</p>
+                  </li>
+                  <li>
+                     <p>Plt Name: Plant description from the input inventory</p>
+                  </li>
+                  <li>
+                     <p>Elevstat: Elevated status - P = plume-in-grid, E = elevated</p>
+                  </li>
+                  <li>
+                     <p>Group: SMOKE-assigned stack group number</p>
+                  </li>
+                  <li>
+                     <p>Stk Ht: Stack height in meters</p>
+                  </li>
+                  <li>
+                     <p>Stk Dm: Stack diameter in meters</p>
+                  </li>
+                  <li>
+                     <p>Stk Tmp: Stack exit gas temperature in K</p>
+                  </li>
+                  <li>
+                     <p>Stk Vel: Stack exit gas velocity in m/s</p>
+                  </li>
+                  <li>
+                     <p>Stk Flw: Stack exit gas flow rate in m<sup>3</sup>/s
+                     </p>
+                  </li>
+                  <li>
+                     <p>Rise: Briggs analytical solution plume rise in meters. This column is output only when RISE is specified as a selection criterion
+                        in the <code class="envar">PELVCONFIG</code> input file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Group &lt;pol&gt;: Daily maximum emissions for source or source group for each pollutant (&lt;pol&gt;) in the <code class="envar">PELVCONFIG</code> file. These emissions are source emissions when a single source has its own group number. This column is output only when
+                        a pollutant is specified as a selection criterion in the <code class="envar">PELVCONFIG</code> input file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Var 1: The first variable from the <code class="envar">PELVCONFIG</code> input file that was used in establishing the source as a PinG/elevated source
+                     </p>
+                  </li>
+                  <li>
+                     <p>Type 1: If &#8220;<span class="quote">TOP</span>&#8221; was used in the <code class="envar">PELVCONFIG</code> input file, this field says &#8220;<span class="quote">RANK</span>&#8221;
+                     </p>
+                  </li>
+                  <li>
+                     <p>Test 1: The test used to establish this source as a PinG/elevated source (e.g., &gt;, &lt;, &gt;=, =)</p>
+                  </li>
+                  <li>
+                     <p>Val 1: If TOP was used, this value is the RANK. Otherwise, this value is the criterion used with Var 1 and Test 1 (e.g., if
+                        Var 1 is HT, Test 1 is &#8220;<span class="quote">&gt;</span>&#8221;, and if Val 1 is 50, then the criterion for selection is that the stack height be greater than 50.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Var 2 through Val 2 are the same as Var 1 through Val 1, except these are defined only if an AND condition existed for the
+               OR condition that SMOKE used to establish the source as PinG or elevated. There will be as many variables of these types as
+               there are AND conditions in the <span><strong class="command">PELVCONFIG</strong></span> file.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch10s02s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch10s03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">10.2.4.&nbsp;<code class="envar">ACSUMREP</code>, <code class="envar">MCSUMREP</code>, and <code class="envar">PCSUMREP</code>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;10.3.2.&nbsp;<code class="envar">STACK_GROUPS</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

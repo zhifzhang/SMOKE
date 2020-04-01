@@ -1,0 +1,355 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.16.2.&nbsp;MOVES Model Processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s16.html" title="2.16.&nbsp;Mobile-source processing with MOVES">
+      <link rel="prev" href="ch02s16.html" title="2.16.&nbsp;Mobile-source processing with MOVES">
+      <link rel="next" href="ch02s16s03.html" title="2.16.3.&nbsp;SMOKE Model Processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.16.2.&nbsp;MOVES Model Processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s16.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.16.&nbsp;Mobile-source processing with MOVES</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s16s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e7036"></a>2.16.2.&nbsp;MOVES Model Processing
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s16s02.html#d0e7039">2.16.2.1. MOVES Driver Script</a></span></dt>
+               <dt><span class="section"><a href="ch02s16s02.html#d0e7060">2.16.2.2. MOVES Post-processing Script</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e7039"></a>2.16.2.1.&nbsp;MOVES Driver Script
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The inputs to <a href="ch05s02s02.html" title="5.2.2.&nbsp;MOVES Driver Scripts">the MOVES Driver Script</a> (<span><strong class="command">Runspec_generator.pl</strong></span>) include the temperature and humidity conditions output from <span><strong class="command">Met4moves</strong></span> and two additional inputs, the RunControl and RepCounty files.  The RunControl file contains pollutant selections and the
+               file path location to the <span><strong class="command">Met4moves</strong></span> output.  The RepCounty file contains file path locations to user-created MOVES-formatted inputs for age distribution, fuel
+               supply and formulation, inspection and maintenance programs, county level population and annual VMT for each representative
+               county.  Precise formats of the RunControl and RepCounty files can be found in the <a href="ch08s09s02.html#sect_input_refcountyfile" title="8.9.2.2.2.&nbsp;Representative County File for MOVES Driver Script">Section&nbsp;8.9.2.2.2, &#8220;Representative County File for MOVES Driver Script&#8221;</a> and <a href="ch08s09s02.html#sect_input_runctlfile" title="8.9.2.2.1.&nbsp;Run Control File for MOVES Driver Script">Section&nbsp;8.9.2.2.1, &#8220;Run Control File for MOVES Driver Script&#8221;</a>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e7060"></a>2.16.2.2.&nbsp;MOVES Post-processing Script
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>A MOVES Driver Script to automates the MOVES run setups and prepare two kinds of batch files.  When launched, the batch files
+               instruct MOVES to:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>import data into MySQL County Scale databases</p>
+                  </li>
+                  <li>
+                     <p>run MOVES for each runspec file</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The resulting RatePerDistance (RPD), RatePerVehicle (RPV), RatePerProfile (RPP), and RatePerHour (RPH) tables contain all
+               the conditions needed for regional modeling using SMOKE modeling system.
+            </p>
+            <p>Once a MOVES batch run completes, MOVES populates the four output lookup tables with formats listed in <a href="ch02s16s02.html#tbl_concepts_moves_lookup_tbl_mv_format" title="Table&nbsp;2.10.&nbsp;MOVES Emission Rate Lookup Table (MOVES Format)">Table&nbsp;2.10, &#8220;MOVES Emission Rate Lookup Table (MOVES Format)&#8221;</a>.   A <a href="ch05s02s04.html" title="5.2.4.&nbsp;MOVES Post-processing scripts"> MOVES Post-processing Script</a> (<span><strong class="command">Moves2smkEF.pl</strong></span>) in Perl interacts with MySQL to modify the default formats shown in <a href="ch02s16s02.html#tbl_concepts_moves_lookup_tbl_mv_format" title="Table&nbsp;2.10.&nbsp;MOVES Emission Rate Lookup Table (MOVES Format)">Table&nbsp;2.10, &#8220;MOVES Emission Rate Lookup Table (MOVES Format)&#8221;</a> into a text ASCII-format readable by SMOKE, shown in <a href="ch02s16s02.html#tbl_concepts_moves_lookup_tbl_sm_format" title="Table&nbsp;2.11.&nbsp;MOVES Emission Rate Lookup Table (SMOKE Format)">Table&nbsp;2.11, &#8220;MOVES Emission Rate Lookup Table (SMOKE Format)&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_lookup_tbl_mv_format"></a><p class="title"><b>Table&nbsp;2.10.&nbsp;MOVES Emission Rate Lookup Table (MOVES Format)</b></p>
+               <table summary="MOVES Emission Rate Lookup Table (MOVES Format)" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th rowspan="2" align="center" valign="bottom">RatePerDistance       (grams/mile)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerVehicle (grams/vehicle/hour)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerProfile (grams/vehicle/hour)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerHour (grams/activity-hour)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                     </tr>
+                     <tr>
+                        <td>MOVESRunID</td>
+                        <td>MOVESRunID</td>
+                        <td>MOVESRunID</td>
+                        <td>MOVESRunID</td>
+                     </tr>
+                     <tr>
+                        <td>yearID</td>
+                        <td>yearID</td>
+                        <td>temperatureProfileID</td>
+                        <td>yearID</td>
+                     </tr>
+                     <tr>
+                        <td>monthID</td>
+                        <td>monthID</td>
+                        <td>yearID</td>
+                        <td>monthID</td>
+                     </tr>
+                     <tr>
+                        <td>dayID</td>
+                        <td>dayID</td>
+                        <td>dayID</td>
+                        <td>dayID</td>
+                     </tr>
+                     <tr>
+                        <td>hourID</td>
+                        <td>hourID</td>
+                        <td>hourID</td>
+                        <td>hourID</td>
+                     </tr>
+                     <tr>
+                        <td>linkID</td>
+                        <td>zoneID</td>
+                        <td>pollutantID</td>
+                        <td>linkID</td>
+                     </tr>
+                     <tr>
+                        <td>pollutantID</td>
+                        <td>pollutantID</td>
+                        <td>processID</td>
+                        <td>pollutantID</td>
+                     </tr>
+                     <tr>
+                        <td>processID</td>
+                        <td>processID</td>
+                        <td>sourceTypeID</td>
+                        <td>processID</td>
+                     </tr>
+                     <tr>
+                        <td>sourceTypeID</td>
+                        <td>sourceTypeID</td>
+                        <td>SCC</td>
+                        <td>sourceTypeID</td>
+                     </tr>
+                     <tr>
+                        <td>SCC</td>
+                        <td>SCC</td>
+                        <td>fuelTypeID</td>
+                        <td>SCC</td>
+                     </tr>
+                     <tr>
+                        <td>fuelTypeID</td>
+                        <td>fuelTypeID</td>
+                        <td>modelYearID</td>
+                        <td>fuelTypeID</td>
+                     </tr>
+                     <tr>
+                        <td>modelYearID</td>
+                        <td>modelYearID</td>
+                        <td>Temperature</td>
+                        <td>modelYearID</td>
+                     </tr>
+                     <tr>
+                        <td>roadTypeID</td>
+                        <td>Temperature</td>
+                        <td>RatePerProfile</td>
+                        <td>roadTypeID</td>
+                     </tr>
+                     <tr>
+                        <td>avgSpeedBinID</td>
+                        <td>RatePerVehicle</td>
+                        <td>&nbsp;</td>
+                        <td>Temperature</td>
+                     </tr>
+                     <tr>
+                        <td>Temperature</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>RatePerHour</td>
+                     </tr>
+                     <tr>
+                        <td>relHumidity</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td>RatePerDistance</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p>The MOVES Post-processing Script converts the MOVES format Emission Rate Lookup Table to the SMOKE format Emission Rate Table
+               by performing the following:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Parses the state-county FIPS code from linkID, zoneID or TemperatureProfileID and stores it as a unique field, FIPS.</p>
+                  </li>
+                  <li>
+                     <p>Removes fields that are uninformative to SMOKE, including the MOVES source type,  fuel type and road type,  hourID in RatePerDistance,
+                        TemperatureProfileID in RatePerProfile.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Reduces the output database table size by performing a cross-tab query on the pollutant emissions, listing each pollutant
+                        in a separate field rather than in a single column with a higher number of data records.  The script also sorts the lookup
+                        tables by countyID, monthID and SCC for more efficient processing in SMOKE.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Optionally calculates additional output pollutants or species by applying user-specified formulas to MOVES-created emission
+                        factors.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Write out to the ASCII-formatted four processed SMOKE-ready MOVES lookup tables [RatePerDistance (RPD), RatePerVehicle (RPV),
+                         RatePerProfile (RPP), and RatePerHour (RPH)].
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table"><a name="tbl_concepts_moves_lookup_tbl_sm_format"></a><p class="title"><b>Table&nbsp;2.11.&nbsp;MOVES Emission Rate Lookup Table (SMOKE Format)</b></p>
+               <table summary="MOVES Emission Rate Lookup Table (SMOKE Format)" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th rowspan="2" align="center" valign="bottom">RatePerDistance       (grams/mile)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerVehicle (grams/vehicle/hour)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerProfile (grams/vehicle/hour)</th>
+                        <th rowspan="2" align="center" valign="bottom">RatePerHour (grams/activity-hour)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                        <td>MOVESScenarioID</td>
+                     </tr>
+                     <tr>
+                        <td>yearID</td>
+                        <td>yearID</td>
+                        <td>yearID</td>
+                        <td>yearID</td>
+                     </tr>
+                     <tr>
+                        <td>monthID</td>
+                        <td>monthID</td>
+                        <td>monthID</td>
+                        <td>monthID</td>
+                     </tr>
+                     <tr>
+                        <td>FIPS</td>
+                        <td>dayID</td>
+                        <td>dayID</td>
+                        <td>FIPS</td>
+                     </tr>
+                     <tr>
+                        <td>SCC</td>
+                        <td>hourID</td>
+                        <td>hourID</td>
+                        <td>SCC</td>
+                     </tr>
+                     <tr>
+                        <td>avgSpeedBin</td>
+                        <td>FIPS</td>
+                        <td>FIPS</td>
+                        <td>temperature</td>
+                     </tr>
+                     <tr>
+                        <td>temperature</td>
+                        <td>SCC</td>
+                        <td>SCC</td>
+                        <td>CO</td>
+                     </tr>
+                     <tr>
+                        <td>relHumidity</td>
+                        <td>temperature (for each grid cell)</td>
+                        <td>temperature (24hr temporal profile)</td>
+                        <td>TOG</td>
+                     </tr>
+                     <tr>
+                        <td>CO</td>
+                        <td>CO</td>
+                        <td>THC</td>
+                        <td>BENZENE</td>
+                     </tr>
+                     <tr>
+                        <td>TOG</td>
+                        <td>NOX</td>
+                        <td>TOG</td>
+                        <td>NOX</td>
+                     </tr>
+                     <tr>
+                        <td>BENZENE</td>
+                        <td>PM10OC</td>
+                        <td>VOC</td>
+                        <td>VOC</td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s16.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s16.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s16s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.16.&nbsp;Mobile-source processing with MOVES&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.16.3.&nbsp;SMOKE Model Processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

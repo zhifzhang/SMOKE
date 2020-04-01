@@ -1,0 +1,205 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.3.&nbsp;Elevpoint</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s02s03.html" title="6.2.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s03s02.html" title="6.3.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_elevpoint"></a>6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s03.html#d0e23099">6.3.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s03s02.html">6.3.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s03s03.html">6.3.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e23099"></a>6.3.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch06s03.html#sect_programs_elevpoint_briggs">6.3.1.1. Plume rise calculation</a></span></dt>
+                  <dt><span class="section"><a href="ch06s03.html#d0e23314">6.3.1.2. Summary</a></span></dt>
+               </dl>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> point
+            </p>
+            <p>The <span><strong class="command">Elevpoint</strong></span> program is used to select elevated point sources and to prepare certain input files for special elevated source or PinG processing.
+               <span><strong class="command">Elevpoint</strong></span> selects the major point source (MPS) and major elevated point source emissions (MEPSE) records using a variety of criteria,
+               such as stack parameters, emissions, and analytical plume rise calculations. (Note that MEPSE is another name for a PinG source.)
+            </p>
+            <p><span><strong class="command">Elevpoint</strong></span> distinguishes PinG sources from non-PinG elevated sources based on emission thresholds, highest day-specific emissions rank
+               compared to other sources, analytical plume rise, and/or stack parameters such as height. <span><strong class="command">Elevpoint</strong></span> flags sources as either elevated or PinG based on instructions given in an input configuration file, the <code class="envar">PELVCONFIG</code> file. <span><strong class="command">Elevpoint</strong></span> also permits grouping of stacks at the same facility if the stack parameters are similar, within tolerances you specify with
+               the <code class="envar">PELVCONFIG</code> file; the result is call a &#8220;<span class="quote">stack group</span>&#8221;. For more information on selecting and grouping elevated and PinG sources, refer to <a href="ch08s09s03.html#sect_input_pelvconfig" title="8.9.3.1.&nbsp;PELVCONFIG: Elevated source selection file">Section&nbsp;8.9.3.1, &#8220;<code class="envar">PELVCONFIG</code>: Elevated source selection file&#8221;</a>.
+            </p>
+            <p><span><strong class="command">Elevpoint</strong></span> can also be used to calculate plume rise using the &#8220;<span class="quote">cutoff</span>&#8221; method. This is the method traditionally used to prepare input files to the air quality models UAM-IV, UAM-V and CAM<sub>X</sub>, which require a separate model-ready input file containing emissions for elevated point sources. Below, we refer to this
+               path as the &#8220;<span class="quote">UAM style</span>&#8221; of emissions processing.
+            </p>
+            <p>For the cutoff method, the <span><strong class="command">Elevpoint</strong></span> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical
+               solution (but not actual gridded meteorology data); the details of this process are given in <a href="ch06s03.html#sect_programs_elevpoint_briggs" title="6.3.1.1.&nbsp;Plume rise calculation">Section&nbsp;6.3.1.1, &#8220;Plume rise calculation&#8221;</a>. <span><strong class="command">Elevpoint</strong></span> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <code class="envar">PELVCONFIG</code> file using the &#8220;<span class="quote">RISE</span>&#8221; instruction. Using the <code class="envar">PELVCONFIG</code> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.
+            </p>
+            <p>When emissions values are part of these selection criteria, <span><strong class="command">Elevpoint</strong></span> computes the maximum daily emissions using one or more <code class="envar">PTMP</code> files. <span><strong class="command">Elevpoint</strong></span> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You
+               have the option of providing either a list of paths and file names of one or more <code class="envar">PTMP</code> files, or a single <code class="envar">PTMP</code> file. The day or days that <span><strong class="command">Elevpoint</strong></span> uses to compute each source&#8217;s maximum depends on the time zone in which the source resides, based on the county and the <code class="envar">COSTCY</code> file setting for the time zone (the time zone is stored in the <code class="envar">PNTS</code> file output from <span><strong class="command">Smkinven</strong></span>). When using emissions values as a selection criterion, <span><strong class="command">Elevpoint</strong></span> only considers sources that are within the grid domain.
+            </p>
+            <p><span><strong class="command">Elevpoint</strong></span> also creates a report file that contains all SMOKE sources that have been selected as elevated, their source characteristics
+               (including stack parameters), emissions values used as selection criteria, stack-group numbers, status as either elevated
+               or PinG, and which selection criteria were used to assign the status to the source. The report does not include any low-level
+               sources. This report is in semicolon-delimited format for easier reading into a spreadsheet for sorting, review, and making
+               charts.
+            </p>
+            <p>The <span><strong class="command">Elevpoint</strong></span> program is not needed if the environment variables <code class="envar">SMK_PING_METHOD</code> and <code class="envar">SMK_ELEV_METHOD</code> are both set to 0.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_programs_elevpoint_briggs"></a>6.3.1.1.&nbsp;Plume rise calculation
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Briggs solution is documented in the following:</p>
+               <div class="orderedlist">
+                  <ol type="1">
+                     <li>
+                        <p>Briggs, Gary A., 1971: Some Recent Analyses of Plume Rise Observation, pp. 1029-1032 in <span class="emphasis"><em>Proceedings of the Second International Clean Air Congress</em></span>, edited by H. M. Englun and W. T. Beery. Academic Press, New York.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Briggs, Gary A., 1972: Discussion on Chimney Plumes in Neutral and Stable Surroundings, <span class="emphasis"><em>Atmos. Environ.</em></span> 6, 507-510.
+                        </p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The following formula is used in <span><strong class="command">Elevpoint</strong></span>:
+               </p>
+               <p>F = 0.25 x G x V<sub>S</sub> x D<sub>S</sub><sup>2</sup> x (T<sub>S</sub> - T)/T<sub>S</sub></p>
+               <p>For F less than 55,</p>
+               <p>Plume rise = H<sub>S</sub> + 21.31311057 x F<sup>0.75</sup>/U
+               </p>
+               <p>Otherwise,</p>
+               <p>Plume rise = H<sub>S</sub> + 38.87776061 x F<sup>0.6</sup>/U
+               </p>
+               <p>where</p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        F = Bouyancy flux (m<sup>4</sup>/s<sup>3</sup>)
+                        
+                     </li>
+                     <li>
+                        G = Mean gravitational acceleration (9.80665 m/s<sup>2</sup>)
+                        
+                     </li>
+                     <li>
+                        V<sub>S</sub> = Stack gas exit velocity (m/s)
+                        
+                     </li>
+                     <li>
+                        D<sub>S</sub> = Inside stack diameter (m)
+                        
+                     </li>
+                     <li>
+                        T<sub>S</sub> = Stack gas temperature (K)
+                        
+                     </li>
+                     <li>
+                        T = Default ambient air temperature (293 K)
+                        
+                     </li>
+                     <li>
+                        U = Default wind speed (2 m/s)
+                        
+                     </li>
+                     <li>
+                        H<sub>S</sub> = Physical stack height (m)
+                        
+                     </li>
+                  </ul>
+               </div>
+               <p>This represents an improved algorithm over the original so that the discontinuity at F = 55 no longer exists. Now, the second
+                  term in the plume rise formula approaches 595 as F approaches 55 from either side.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e23314"></a>6.3.1.2.&nbsp;Summary
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>In summary, <span><strong class="command">Elevpoint</strong></span> permits the following combinations of source selection and processing:
+               </p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p>Identify MEPSE/PinG sources for outputting to special PinG files only (all other point sources will be treated as potentially
+                           elevated by <span><strong class="command">Laypoint</strong></span>).
+                        </p>
+                     </li>
+                     <li>
+                        <p>Identify elevated sources (MPSs) with the <code class="envar">PELVCONFIG</code> file, which might include using the cutoff method alone or in combination with other criteria.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Identify elevated sources (MPSs) and MEPSE/PinG sources with the <code class="envar">PELVCONFIG</code> file with cutoff method (<span><strong class="command">Laypoint</strong></span> not used) and identify MEPSE/PinG sources with the <code class="envar">PSPLIT</code> file for outputting to special PinG files.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.2.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.3.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

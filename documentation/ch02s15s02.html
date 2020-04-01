@@ -1,0 +1,139 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.15.2.&nbsp;Creating an elevated-source file for UAM and CAMX</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s15.html" title="2.15.&nbsp;Elevated-source processing">
+      <link rel="prev" href="ch02s15.html" title="2.15.&nbsp;Elevated-source processing">
+      <link rel="next" href="ch02s16.html" title="2.16.&nbsp;Mobile-source processing with MOVES">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.15.2.&nbsp;Creating an elevated-source file for UAM and CAM<sub>X</sub></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s15.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.15.&nbsp;Elevated-source processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s16.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_create_elevated_uam"></a>2.15.2.&nbsp;Creating an elevated-source file for UAM and CAM<sub>X</sub></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s15s02.html#d0e6841">2.15.2.1. Using <span><strong class="command">Elevpoint</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch02s15s02.html#d0e6862">2.15.2.2. Using <span><strong class="command">Laypoint</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch02s15s02.html#d0e6905">2.15.2.3. Using <span><strong class="command">Smkmerge</strong></span></a></span></dt>
+            </dl>
+         </div>
+         <p>The other approach to modeling elevated sources is to create an elevated-point-source input file for one of the UAM models
+            or CAM<sub>X</sub>. To do this, SMOKE performs the following steps:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Uses the <span><strong class="command">Smkinven</strong></span> program to import the annual, average-day, day-specific, and/or hour-specific emissions.
+                  </p>
+               </li>
+               <li>
+                  <p>Optionally uses the <span><strong class="command">Temporal</strong></span> program to calculate hourly emissions if emissions will be used as a criterion for selecting elevated sources or PinG sources.
+                     For example, you may wish to select facilities with NO<sub>x</sub> emissions greater than 100 tons/day.
+                  </p>
+               </li>
+               <li>
+                  <p>Uses the <span><strong class="command">Elevpoint</strong></span> program to select elevated and optionally PinG sources. Unlike processing for CMAQ, this step is always required.
+                  </p>
+               </li>
+               <li>
+                  <p>Uses the <span><strong class="command">Elevpoint</strong></span> program to create the <code class="envar">STACK_GROUPS</code> file, which is needed for creating the elevated-point-source file with <span><strong class="command">Smkmerge</strong></span>.
+                  </p>
+               </li>
+               <li>
+                  <p>Uses the <span><strong class="command">Laypoint</strong></span> program to compute elevated plume rise for explicit plume rise sources, and store the layer fractions for the explicit sources
+                     only.
+                  </p>
+               </li>
+               <li>
+                  <p>Uses the <span><strong class="command">Smkmerge</strong></span> program to combine the <code class="envar">STACK_GROUPS</code> information, optional explicit plume rise information, and the hourly emissions to generate an ASCII elevated-point-source
+                     file with optional PinG flags.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e6841"></a>2.15.2.1.&nbsp;Using <span><strong class="command">Elevpoint</strong></span></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The primary difference between this approach is that the <span><strong class="command">Elevpoint</strong></span> processing step is required. Traditionally, elevated point sources have been selected for the UAM or CAM<sub>X</sub> models using the analytical plume rise calculation. While <span><strong class="command">Elevpoint</strong></span> can perform this calculation and use it exclusively to determine the elevated sources, you can also use the other selection
+               criteria if desired: emissions values, emissions rank, stack parameters, and plant numbers. As described in <a href="ch02s15.html#sect_concepts_compute_layer_cmaq" title="2.15.1.&nbsp;Computing layer fractions for CMAQ">Section&nbsp;2.15.1, &#8220;Computing layer fractions for CMAQ&#8221;</a>, if the selection criteria include emissions, then the <code class="envar">PTMPLIST</code> file will be used to input all hourly emissions files for the entire modeling episode.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e6862"></a>2.15.2.2.&nbsp;Using <span><strong class="command">Laypoint</strong></span></h4>
+                  </div>
+               </div>
+            </div>
+            <p>If explicit plume rise sources (e.g., wildfires with precomputed hourly plume rise) are included in the inventory, you must
+               run the <span><strong class="command">Laypoint</strong></span> program to compute the layer fractions for these sources only. This is the <span class="emphasis"><em>only</em></span> reason <span><strong class="command">Laypoint</strong></span> would be run in the UAM/CAM<sub>X</sub> processing approach, and it requires that the <code class="envar">EXPLICIT_PLUMES_YN</code> and the <code class="envar">HOUR_PLUMEDATA_YN</code> settings be set to Y. These settings cause <span><strong class="command">Laypoint</strong></span> to write the layer fractions to the <code class="envar">PLAY_EX</code> file instead of to the usual <code class="envar">PLAY</code> file. For these explicit sources, <span><strong class="command">Laypoint</strong></span> will skip the plume rise calculation. Instead, it will use the hourly data from the SMOKE <code class="envar">PHOUR</code> intermediate file containing the fraction of emissions in layer 1 and the top and bottom of the plume. <span><strong class="command">Laypoint</strong></span> will combine these data with the pressure weights used for all elevated point sources to compute the fraction of emissions
+               to go into each layer.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e6905"></a>2.15.2.3.&nbsp;Using <span><strong class="command">Smkmerge</strong></span></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Smkmerge</strong></span> program looks for the <code class="envar">SMK_ASCIIELEV_YN</code> setting to determine whether the ASCII output file should be created. When this is set to Y, the output files from <span><strong class="command">Elevpoint</strong></span> (<code class="envar">PELV</code> and <code class="envar">STACK_GROUPS</code>) are read to determine which sources should not be included in the 2-D emissions output file for point sources. The emissions
+               from these sources are instead output to an ASCII elevated file along with stack parameters and locations so that the AQM
+               can compute the plume rise.
+            </p>
+            <p>If <code class="envar">EXPLICIT_PLUMES_YN</code> is also set to Y, <span><strong class="command">Smkmerge</strong></span> will read the <code class="envar">PLAY_EX</code> file for the explicit plume sources. Since the UAM-based approach assumes that the AQM will compute the plume rise, SMOKE
+               must manipulate the input file to trick the model into using precomputed plume rise. This is done by inserting fake stacks
+               into the ASCII elevated file that extend to the center of each of the model layers and setting the stack parameters so that
+               the plume rise calculation will keep the emissions associated with the fake stacks in the layer of the stack. As the emissions
+               move from layer to layer, <span><strong class="command">Smkmerge</strong></span> moves the reported emissions in the ASCII elevated file from fake stack to fake stack to represent the same behavior.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s15.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s15.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s16.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.15.&nbsp;Elevated-source processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.16.&nbsp;Mobile-source processing with MOVES</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

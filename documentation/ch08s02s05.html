@@ -1,0 +1,373 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.5.&nbsp;MBINV: Mobile-source activity and emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="prev" href="ch08s02s04.html" title="8.2.4.&nbsp;ARINV: Area-source annual or average-day emissions">
+      <link rel="next" href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.5.&nbsp;<code class="envar">MBINV</code>: Mobile-source activity and emissions
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.2.&nbsp;Inventory Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_mbinv"></a>8.2.5.&nbsp;<code class="envar">MBINV</code>: Mobile-source activity and emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02s05.html#d0e38853">8.2.5.1. ORL Format</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s05.html#d0e39043">8.2.5.2. FF10 Activity Inventory Format</a></span></dt>
+            </dl>
+         </div>
+         <p>The <code class="envar">MBINV</code> file is the input mobile-source inventory data file. Two formats are available: one for activity data in FF10 format and
+            one for emissions data in ORL format.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e38853"></a>8.2.5.1.&nbsp;ORL Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The ORL format is list-directed and uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. Sample header records are shown below:
+            </p><pre class="programlisting">#ORL
+#TYPE     Mobile Source Toxics Inventory
+#COUNTRY  US
+#YEAR     1999
+#DESC     Draft 1999 version 2.0</pre><p>The format for the data records is shown in <a href="ch08s02s05.html#tbl_input_mbinv_orl" title="Table&nbsp;8.18.&nbsp;ORL Format for MBINV">Table&nbsp;8.18, &#8220;ORL Format for <code class="envar">MBINV</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_mbinv_orl"></a><p class="title"><b>Table&nbsp;8.18.&nbsp;ORL Format for <code class="envar">MBINV</code></b></p>
+               <table summary="ORL Format for MBINV" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>FIPS code for state and county (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>Source Classification Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>ANN_EMIS</td>
+                        <td>Real</td>
+                        <td>Annual emissions (short tons/year) (required)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>AVD_EMIS</td>
+                        <td>Real</td>
+                        <td>Average-day emissions (short tons/average day) (optional)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>SRCTYPE</td>
+                        <td>Char(2)</td>
+                        <td>
+                           <p>Source type; used by SMOKE in determining applicable MACT-based controls (required)</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc">
+                                 <li>01 = major</li>
+                                 <li>02 = Section 12 area source</li>
+                                 <li>03 = nonroad</li>
+                                 <li>04 = onroad</li>
+                              </ul>
+                           </div>
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>DATA_SOURCE</td>
+                        <td>Char</td>
+                        <td>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>YEAR</td>
+                        <td>Char</td>
+                        <td>Year of the emissions (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>TRIBAL_CODE</td>
+                        <td>Char(3)</td>
+                        <td>Indicates the particular tribe that submitted the data (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>CEFF</td>
+                        <td>Real</td>
+                        <td>Control Efficiency percentage (give value of 0-100) (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>REFF</td>
+                        <td>Real</td>
+                        <td>Rule Effectiveness percentage (give value of 0-100) (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>RPEN</td>
+                        <td>Real</td>
+                        <td>Rule Penetration percentage (give value of 0-100) (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>CONTROL_MEASURES</td>
+                        <td>Char</td>
+                        <td>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>PCT_REDUCTION</td>
+                        <td>Char</td>
+                        <td>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>CURRENT_COST</td>
+                        <td>Char</td>
+                        <td>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>CUMULATIVE_COST</td>
+                        <td>Char</td>
+                        <td>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e39043"></a>8.2.5.2.&nbsp;FF10 Activity Inventory Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The FF10 format is list-directed and uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. Sample header records are shown below:
+            </p><pre class="programlisting">
+#FORMAT   FF10_Activity
+#COUNTRY  US
+#YEAR     2008
+#DESC     Annual Mobile Source Source Inventory
+#DESC     FF10
+</pre><p>The format for the data records is shown in <a href="ch08s02s05.html#tbl_input_mbinv_ff10_activity" title="Table&nbsp;8.19.&nbsp;FF10 Format for MBINV">Table&nbsp;8.19, &#8220;FF10 Format for <code class="envar">MBINV</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_mbinv_ff10_activity"></a><p class="title"><b>Table&nbsp;8.19.&nbsp;FF10 Format for <code class="envar">MBINV</code></b></p>
+               <table summary="FF10 Format for MBINV" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required?</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>COUNTRY</td>
+                        <td>Char(3)</td>
+                        <td>Y</td>
+                        <td>Country code; default to "US"</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>Y</td>
+                        <td>FIPS code for state and county</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>TRIBAL CODE</td>
+                        <td>Char(3)</td>
+                        <td>N</td>
+                        <td>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>CENSUS_TRACT</td>
+                        <td>Char(20)</td>
+                        <td>N</td>
+                        <td>Not currently used by SMOKE</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>SHAPE_ID</td>
+                        <td>Char(20)</td>
+                        <td>Char</td>
+                        <td>Shape Identification (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>Y</td>
+                        <td>SCC</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>ACT_PARM_TYPE</td>
+                        <td>Char(10)</td>
+                        <td>N</td>
+                        <td>Not currently used by SMOKE</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>ACT_PARM_UOFMSR</td>
+                        <td>Char(20)</td>
+                        <td>N</td>
+                        <td>&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>ACTIVITY_TYPE</td>
+                        <td>Char(16)</td>
+                        <td>Y</td>
+                        <td>Activity variable names are VMT, VPOP, and SPEED</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>ANN_PARM_VALUE</td>
+                        <td>Real</td>
+                        <td>Y</td>
+                        <td>Annual activity values in unit of miles/yr for annual VMT and miles/hr for SPEED</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>CALC_YEAR</td>
+                        <td>Int</td>
+                        <td>N</td>
+                        <td>Year of inventory</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>DATE_UPDATED</td>
+                        <td>Int</td>
+                        <td>N</td>
+                        <td>Updated Date in fomrat of YYYYMMDD</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>DATA_SET_ID</td>
+                        <td>Int</td>
+                        <td>N</td>
+                        <td>Not currently used by SMOKE</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>JAN_VALUE</td>
+                        <td>Real</td>
+                        <td>N</td>
+                        <td>Filled in only if data were provided for January in unit of miles/month for VMT and miles/hr for SPEED</td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                     </tr>
+                     <tr>
+                        <td>27</td>
+                        <td>DEC_VALUE</td>
+                        <td>Real</td>
+                        <td>N</td>
+                        <td>Filled in only if data were provided for December in unit of miles/month for VMT and miles/hr for SPEED</td>
+                     </tr>
+                     <tr>
+                        <td>28</td>
+                        <td>COMMENT</td>
+                        <td>Char</td>
+                        <td>N</td>
+                        <td>Optional; not currently used by SMOKE</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.4.&nbsp;<code class="envar">ARINV</code>: Area-source annual or average-day emissions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.6.&nbsp;<code class="envar">PTDAY</code>: Point source day-specific emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

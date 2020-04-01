@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.7.&nbsp;The /AVEDAY/ packet</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03s06.html" title="7.3.6.&nbsp;The /REPORT TIME/ packet">
+      <link rel="next" href="ch07s03s08.html" title="7.3.8.&nbsp;The /NEWFILE/ packet">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.7.&nbsp;The /AVEDAY/ packet</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_aveday"></a>7.3.7.&nbsp;The /AVEDAY/ packet
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The /AVEDAY/ packet can be used to toggle on or off the use of the average-day emissions from the SMOKE inventory file. The
+            syntax of the command is the following:
+         </p>
+         <p>/AVEDAY/ &lt;option&gt;</p>
+         <p>The &lt;option&gt; field can be set to Y or N. The default behavior of the program (if no /AVEDAY/ packet appears) is to <span class="emphasis"><em>not</em></span> use the average-day emissions in the reports. This packet only affects the program <span class="emphasis"><em>only</em></span> when the inventory emission are being reported. If the TEMPORAL instruction is given, the output report will contain whatever
+            emission values were used to create the hourly emissions file.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.6.&nbsp;The /REPORT TIME/ packet&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.8.&nbsp;The /NEWFILE/ packet</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

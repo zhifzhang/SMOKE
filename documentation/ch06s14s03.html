@@ -1,0 +1,823 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.14.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s14.html" title="6.14.&nbsp;Smkmerge">
+      <link rel="prev" href="ch06s14s02.html" title="6.14.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s15.html" title="6.15.&nbsp;Spcmat">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.14.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s14s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.14.&nbsp;<span><strong class="command">Smkmerge</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s15.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e29087"></a>6.14.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s14s03.html#d0e29532">6.14.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s14s03.html#d0e29821">6.14.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s14s03.html#d0e30490">6.14.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_smkmerge_area"></a><p class="title"><b>Figure&nbsp;6.17.&nbsp;<span>Smkmerge</span> input and output files for area sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkmerge_area_html.jpg" alt="Smkmerge input and output files for area sources"></div>
+         </div>
+         <p><a href="ch06s14s03.html#fig_programs_smkmerge_area" title="Figure&nbsp;6.17.&nbsp;Smkmerge input and output files for area sources">Figure&nbsp;6.17, &#8220;<span>Smkmerge</span> input and output files for area sources&#8221;</a> shows the input and output files for the <span><strong class="command">Smkmerge</strong></span> program for area sources. The inputs include the optional multiplicative control matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">ACMAT</code>), the gridding matrix from <span><strong class="command">Grdmat</strong></span> (<code class="envar">AGMAT</code>), the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">AREA</code>), the optional reactivity matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">ARMAT</code>), and the optional speciation matrix from <span><strong class="command">Spcmat</strong></span> (<code class="envar">ASMAT</code>). <span><strong class="command">Smkmerge</strong></span> can also use hourly emissions from <span><strong class="command">Temporal</strong></span>, either a single file (<code class="envar">PTMP</code>) or hourly emissions for each day of the week (<code class="envar">ATMP_{day}</code>). The last three input files are the country, state, and county codes file (<code class="envar">COSTCY</code>), the inventory data table (<code class="envar">INVTABLE</code>), and the grid description file (<code class="envar">GRIDDESC</code>).
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> outputs a data file that is determined by the inputs and can be a model-ready emissions file (<code class="envar">AG[T][S][C]_L</code> or <code class="envar">AG[T][S][C]_S</code>), a log file (<code class="envar">LOGFILE</code>), and an optional report file (<code class="envar">REPAG[T][S][C]_L</code> or <code class="envar">REPAG[T][S][C]_S</code>).
+         </p>
+         <p>When using source apportionment (see <a href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">Section&nbsp;4.4.23, &#8220;Generating CMAQ-ready Source Apportionment Input Data Files&#8221;</a>), <span><strong class="command">Smkmerge</strong></span> will also read the source grouping file (<code class="envar">SOURCE_GROUPS</code>) and output the source group information <code class="envar">SRCGROUPS_OUT</code>, the emissions for each source group <code class="envar">SGINLNTS_L</code> or <code class="envar">SGINLNTS_S</code>, and a source group report file <code class="envar">SRCGRP_REPORT</code>.
+         </p>
+         <div class="figure"><a name="fig_programs_smkmerge_biogenic"></a><p class="title"><b>Figure&nbsp;6.18.&nbsp;<span>Smkmerge</span> input and output files for biogenic sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkmerge_biogenic_html.jpg" alt="Smkmerge input and output files for biogenic sources"></div>
+         </div>
+         <p><a href="ch06s14s03.html#fig_programs_smkmerge_biogenic" title="Figure&nbsp;6.18.&nbsp;Smkmerge input and output files for biogenic sources">Figure&nbsp;6.18, &#8220;<span>Smkmerge</span> input and output files for biogenic sources&#8221;</a> shows the input and output files for the <span><strong class="command">Smkmerge</strong></span> program for biogenic sources. The inputs are the optional surrogates file (<code class="envar">BGPRO</code>), the model-ready emissions file (<code class="envar">BGTS</code>), the country, state, and county file (<code class="envar">COSTCY</code>), the grid description file (<code class="envar">GRIDDESC</code>), and the inventory data table (<code class="envar">INVTABLE</code>).
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> outputs either a mole-based emissions file (<code class="envar">BGTS_L_O</code>) or a mass-based emissions file (<code class="envar">BGTS_S_O</code>). Note that _O is appended to the output file name to distinguish it from the input file. The program also writes a log file
+            (<code class="envar">LOGFILE</code>) and an optional report file (<code class="envar">REPBGTS_L</code> or <code class="envar">REPBGTS_S</code>).
+         </p>
+         <p>When using source apportionment (see <a href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">Section&nbsp;4.4.23, &#8220;Generating CMAQ-ready Source Apportionment Input Data Files&#8221;</a>), <span><strong class="command">Smkmerge</strong></span> will also read the source grouping file (<code class="envar">SOURCE_GROUPS</code>) and output the source group information <code class="envar">SRCGROUPS_OUT</code>, the emissions for each source group <code class="envar">SGINLNTS_L</code> or <code class="envar">SGINLNTS_S</code>, and a source group report file <code class="envar">SRCGRP_REPORT</code>.
+         </p>
+         <div class="figure"><a name="fig_programs_smkmerge_mobile"></a><p class="title"><b>Figure&nbsp;6.19.&nbsp;<span>Smkmerge</span> input and output files for mobile sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkmerge_mobile_html.jpg" alt="Smkmerge input and output files for mobile sources"></div>
+         </div>
+         <p><a href="ch06s14s03.html#fig_programs_smkmerge_mobile" title="Figure&nbsp;6.19.&nbsp;Smkmerge input and output files for mobile sources">Figure&nbsp;6.19, &#8220;<span>Smkmerge</span> input and output files for mobile sources&#8221;</a> shows the input and output files for the <span><strong class="command">Smkmerge</strong></span> program for mobile sources. The inputs include the country, state and county codes file (<code class="envar">COSTCY</code>), the inventory data table (<code class="envar">INVTABLE</code>), and the grid description file (<code class="envar">GRIDDESC</code>). <span><strong class="command">Smkmerge</strong></span> also reads the optional multiplicative control matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">MCMAT</code>), the gridding matrix from <span><strong class="command">Grdmat</strong></span> (<code class="envar">MGMAT</code>), the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">MOBL</code>), the optional reactivity matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">MRMAT</code>), and the optional speciation matrix from <span><strong class="command">Spcmat</strong></span> (<code class="envar">MSMAT_L</code> or <code class="envar">MSMAT_S</code>). Hourly emissions can be input either as a single file (<code class="envar">MTMP</code>) or as hourly emissions for each day of the week (<code class="envar">MTMP_{day}</code>).
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), a data file that is determined by the inputs and can be a model-ready emissions file (<code class="envar">MG[T][S][C]_L</code> or <code class="envar">MG[T][S][C]_S</code>), and an optional report file (<code class="envar">REPMG[T][S][C]_L</code> or <code class="envar">REPMG[T][S][C]_S</code>).
+         </p>
+         <p>When using source apportionment (see <a href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">Section&nbsp;4.4.23, &#8220;Generating CMAQ-ready Source Apportionment Input Data Files&#8221;</a>), <span><strong class="command">Smkmerge</strong></span> will also read the source grouping file (<code class="envar">SOURCE_GROUPS</code>) and output the source group information <code class="envar">SRCGROUPS_OUT</code>, the emissions for each source group <code class="envar">SGINLNTS_L</code> or <code class="envar">SGINLNTS_S</code>, and a source group report file <code class="envar">SRCGRP_REPORT</code>.
+         </p>
+         <div class="figure"><a name="fig_programs_smkmerge_point"></a><p class="title"><b>Figure&nbsp;6.20.&nbsp;<span>Smkmerge</span> input and output files for point sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkmerge_point_html.jpg" alt="Smkmerge input and output files for point sources"></div>
+         </div>
+         <p><a href="ch06s14s03.html#fig_programs_smkmerge_point" title="Figure&nbsp;6.20.&nbsp;Smkmerge input and output files for point sources">Figure&nbsp;6.20, &#8220;<span>Smkmerge</span> input and output files for point sources&#8221;</a> shows the input and output files for the <span><strong class="command">Smkmerge</strong></span> program for point sources. The inputs include the country, state, and county codes file (<code class="envar">COSTCY</code>), the inventory data table (<code class="envar">INVTABLE</code>), the grid description file (<code class="envar">GRIDDESC</code>), and the optional multiplicative control matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">PCMAT</code>). If using PinG or elevated sources, the <code class="envar">PELV</code> file is used. <span><strong class="command">Smkmerge</strong></span> reads the gridding matrix output from <span><strong class="command">Grdmat</strong></span> (<code class="envar">PGMAT</code>). The <code class="envar">PLAY</code> file is used to merge layer fractions, while the <code class="envar">PLAY_EX</code> file is used for explicit plumes. Other <span><strong class="command">Smkmerge</strong></span> input files include the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">PNTS</code>), the optional reactivity matrix from <span><strong class="command">Cntlmat</strong></span> (<code class="envar">PRMAT</code>), and the optional speciation matrix from <span><strong class="command">Spcmat</strong></span> (<code class="envar">PSMAT</code>). The hourly emissions from <span><strong class="command">Temporal</strong></span> are provided either as the <code class="envar">PTMP</code> file or as hourly emissions for each day of the week (<code class="envar">PTMP_{day}</code>). Finally, <span><strong class="command">Smkmerge</strong></span> can read the optional elevated stack groups file (<code class="envar">STACK_GROUPS</code>).
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> can output an elevated sources file (<code class="envar">ELEV[T]S[_S|_L]</code>) if requested. Like all other SMOKE programs, <span><strong class="command">Smkmerge</strong></span> outputs a log file (<code class="envar">LOGFILE</code>) detailing the program&#8217;s execution. The main data file is determined by the inputs and can be include a model-ready emissions
+            file (<code class="envar">PG[T][S][C][3D]_L</code> or <code class="envar">PG[T][S][C][3D]_S</code>). Other output files can be a PinG file (<code class="envar">PING[T][S][C][_S][_L]</code> and a report file (<code class="envar">REPPG[T][S][C]_L</code> or <code class="envar">REPPG[T][S][C]_S</code>).
+         </p>
+         <p>When using source apportionment (see <a href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">Section&nbsp;4.4.23, &#8220;Generating CMAQ-ready Source Apportionment Input Data Files&#8221;</a>), <span><strong class="command">Smkmerge</strong></span> will also read the source grouping file (<code class="envar">SOURCE_GROUPS</code>) and the stack groups file (<code class="envar">STACK_GROUPS</code>), and output the source group information <code class="envar">SRCGROUPS_OUT</code>, the emissions for each source group <code class="envar">SGINLNTS_L</code> or <code class="envar">SGINLNTS_S</code>, and a source group report file <code class="envar">SRCGRP_REPORT</code>.
+         </p>
+         <div class="figure"><a name="fig_programs_smkmerge_all"></a><p class="title"><b>Figure&nbsp;6.21.&nbsp;<span>Smkmerge</span> input and output files for all source categories</b></p>
+            <div class="mediaobject"><img src="images\programs\smkmerge_all_html.jpg" alt="Smkmerge input and output files for all source categories"></div>
+         </div>
+         <p><a href="ch06s14s03.html#fig_programs_smkmerge_all" title="Figure&nbsp;6.21.&nbsp;Smkmerge input and output files for all source categories">Figure&nbsp;6.21, &#8220;<span>Smkmerge</span> input and output files for all source categories&#8221;</a> shows the input and output files for the <span><strong class="command">Smkmerge</strong></span> program for all sources. The input and output files are a combination of those found in the previous four figures.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e29532"></a>6.14.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The input files needed depend upon the input environment variables that are set for this program. For example, if only area
+               sources are being merged, then only area-source-related inputs are required. Similarly, if <span><strong class="command">Smkmerge</strong></span> is being executed to produce speciated, gridded, temporally allocated area and point sources, then all area- and point-related
+               inputs for area and point sources, speciation matrices, gridding matrices, and temporal matrices are required.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Source Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CMAT</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Multiplicative control matrix, output by <span><strong class="command">Cntlmat</strong></span> (used when <code class="envar">MRG_CTLMAT_MULT</code> is set)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]GMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Gridding matrix from <span><strong class="command">Grdmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]RMAT</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Mass- or mole-based reactivity matrix, output by <span><strong class="command">Cntlmat</strong></span> (used when <code class="envar">MRG_CTLMAT_REAC</code> is set)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SMAT</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Mass- or mole-based speciation matrix from <span><strong class="command">Spcmat</strong></span> (used when <code class="envar">MRG_SPCMAT_YN</code> = Y)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TMP</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Hourly emissions from <span><strong class="command">Temporal</strong></span> (used when <code class="envar">MRG_TEMPORAL_YN</code> = Y and <code class="envar">MRG_BYDAY</code> is not set)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TMP_{day}</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Hourly emissions from <span><strong class="command">Temporal</strong></span> by day, where {day} = MON, TUE, WED, THU, FRI, SAT, SUN (used when <code class="envar">MRG_TEMPORAL_YN</code> = Y and <code class="envar">MRG_BYDAY</code> is set)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[AREA|MOBL|PNTS]</code></td>
+                        <td>SMOKE map</td>
+                        <td>A, M, P</td>
+                        <td>Intermediate area-, mobile-, or point-source inventory created by <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BGPRO</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>B</td>
+                        <td>Gridding surrogates for computing biogenic state and county totals from gridded biogenic inputs</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BGTS</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>B</td>
+                        <td>Biogenic model-ready emissions, to be input only when merging with other source categories, or when computing biogenic state
+                           and county totals, produced by <span><strong class="command">Tmpbio</strong></span> or <span><strong class="command">Tmpbeis3</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">COSTCY</code></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Country, state, and county file with time zones</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                           when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> files are used)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVTABLE</code></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Inventory data table containing activity and pollutant names</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRIDDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Description of the modeling grid</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PELV</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Elevated point sources identification file, output by <span><strong class="command">Elevpoint</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PLAY</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>P</td>
+                        <td>Hourly plume rise layer fractions, output by <span><strong class="command">Laypoint</strong></span> (used when <code class="envar">MRG_LAYERS_YN</code> = Y and <code class="envar">EXPLICIT_PLUMES_YN</code> = N)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PLAY_EX</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>P</td>
+                        <td>Hourly plume rise layer fractions for explicit sources, output by <span><strong class="command">Laypoint</strong></span> (used when <code class="envar">MRG_LAYERS_YN</code> = Y and <code class="envar">EXPLICIT_PLUMES_YN</code> = Y)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">STACK_GROUPS</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>P</td>
+                        <td>Elevated sources stack parameters file, output by <span><strong class="command">Elevpoint</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s13.html" title="8.10.13.&nbsp;SOURCE_GROUPS: Source apportionment groups"><code class="envar">SOURCE_GROUPS</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Source apportionment groups</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e29821"></a>6.14.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>NOTE: At least one of the <code class="envar">MRG_GRDOUT_YN</code>, <code class="envar">MRG_REPSTA_YN</code>, or <code class="envar">MRG_REPCNY_YN</code> environment variables must be set to Y.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">AREA_SURROGATE_NUM</code>: [default: 60]
+                     </p>
+                     <p>Surrogate code of the area surrogate in the <code class="envar">BGPRO</code> file, to use for totals of biogenic emissions by state and county.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">EXPLICIT_PLUMES_YN</code>: [default: N]
+                     </p>
+                     <p>Indicates whether only explicit plume rise sources should be merged.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Merge only explicit plume rise sources; uses <code class="envar">PLAY_EX</code> file
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Merge all plume rise sources; uses <code class="envar">PLAY</code> file
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y, then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                        country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_BYDAY</code>: [default: blank]
+                     </p>
+                     <p>String code that specifies which source categories (if any) are to use a by-day approach for the hourly input files (see &#8220;<span class="quote">Description</span>&#8221; section above for more information on this approach). Valid settings include A, M, P, or any combination. For example, set
+                        this environment variable to &#8220;<span class="quote">AMP</span>&#8221; to have <span><strong class="command">Smkmerge</strong></span> read the area-, mobile-, and point-source hourly emissions files individually for each day.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_CTLMAT_MULT</code>: [default: blank]
+                     </p>
+                     <p>String code that specifies which source categories (if any) are to be processed using a multiplicative control matrix. Valid
+                        settings include A, M, P, or any combination. For example, set this environment variable to &#8220;<span class="quote">M</span>&#8221; to have <span><strong class="command">Smkmerge</strong></span> read the mobile-source multiplicative control matrix.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_CTLMAT_REAC</code>: [default: blank]
+                     </p>
+                     <p>String code that specifies which source categories (if any) are to be processed using a reactivity control matrix. Valid settings
+                        include A, M, P, or any combination. For example, set this environment variable to &#8220;<span class="quote">MP</span>&#8221; to have <span><strong class="command">Smkmerge</strong></span> read the mobile- and point-source reactivity control matrices.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_GRDOUT_UNIT</code>: [default: input file units]
+                     </p>
+                     <p>String code that permits the user to change the units of the gridded output file. For example, &#8220;<span class="quote">kg/hr</span>&#8221; would convert the output emissions to kilograms per hour, before outputting the emissions data file. Not all conversions
+                        are known to SMOKE. Valid numerators are: &#8220;<span class="quote">tons</span>&#8221;, &#8220;<span class="quote">kg</span>&#8221;, &#8220;<span class="quote">moles</span>&#8221;, and &#8220;<span class="quote">g</span>&#8221;; note that molar emissions cannot be output without the mole-based speciation matrices. Valid denominators are &#8220;<span class="quote">yr</span>&#8221;, &#8220;<span class="quote">dy</span>&#8221;, &#8220;<span class="quote">hr</span>&#8221;, and &#8220;<span class="quote">s</span>&#8221;. Note that if annual output is requested but not available in the input file, leap year adjustments are not made.
+                     </p>
+                     <p>Units required by CMAQ are moles/s and most other air quality models are moles/hr.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_GRDOUT_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program produces a gridded output file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce the file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_LAYERS_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program uses the layer fractions file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use the layer fractions file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use the layer fractions file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_MARKETPEN_YN</code>: [default: Y]
+                     </p>
+                     <p>Defines whether the program uses market penetration from reactivity matrices.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use market penetration</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use market penetration</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_METCHK_YN</code>: [default: Y]
+                     </p>
+                     <p>Defines whether the program checks consistency of headers in the meteorology file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Check contents of meteorology file headers</p>
+                           </li>
+                           <li>
+                              <p>N: Do not check headers</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPCNY_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program produces a report of emission totals by county.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce county-total emissions report</p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPCTL_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program reports controlled emissions or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Report controlled emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not report controlled emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPSTA_YN</code>: [default: N]
+                        Defines whether the program produces a report of emission totals by state.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce state-total emissions report</p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_SOURCE</code>: [default: blank (processing halts)]
+                     </p>
+                     <p>Series of character codes representing the type(s) of sources to be merged.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>A: Area sources</p>
+                           </li>
+                           <li>
+                              <p>B: Biogenic sources</p>
+                           </li>
+                           <li>
+                              <p>M: Mobile sources</p>
+                           </li>
+                           <li>
+                              <p>P: Point sources</p>
+                           </li>
+                           <li>
+                              <p>AP: Area and point sources</p>
+                           </li>
+                           <li>
+                              <p>AM: Area and mobile sources</p>
+                           </li>
+                           <li>
+                              <p>etc.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_SPCMAT_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program produces speciated output.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Read the speciation matrix produced by the <span><strong class="command">Spcmat</strong></span> program
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not read the speciation matrix</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_TEMPORAL_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program produces temporally allocated output.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Read the temporal matrix produced by the <span><strong class="command">Temporal</strong></span> program
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not read the temporal matrix</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_TOTOUT_UNIT</code>: [default: input file units, or per day if hourly input is used]
+                     </p>
+                     <p>This variable is like the <code class="envar">MRG_GRDOUT_UNIT</code> variable, except that it controls the state and county totals reports separately from the gridded outputs. The only difference
+                        is the temporal resolution of <code class="envar">MRG_TOTOUT_UNIT</code>, which always outputs the emission values as daily totals, no matter what units are used.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_ASCIIELEV_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program produces an ASCII elevated point sources file, suitable for postprocessing with the Ptsrce program
+                        in EPS2.0/EPS2.5.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Create the ASCII elevated point sources file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not create the ASCII elevated point sources file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_AVEDAY_YN</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                     <p>NOTE: This setting affects the <span><strong class="command">Smkmerge</strong></span> results only when hourly emissions are not merged. To use hourly average-day emissions in <span><strong class="command">Smkmerge</strong></span>, this variable must be set to Y for the <span><strong class="command">Temporal</strong></span> program, so that average-day emissions will be used in creating the hourly emissions.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_EMLAYS</code>: See description in <a href="ch06s06s03.html#sect_programs_laypoint_envar" title="6.6.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.6.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                     <p>Used to set the default value for <code class="envar">UAM_LAYERS</code> when the <span><strong class="command">Smkmerge</strong></span> output is to be used in UAM-V elevated-point-source output processing.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_PING_METHOD</code>: See description in <a href="ch06s03s03.html#sect_programs_elevpoint_envar" title="6.3.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.3.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                     <p>Creates CMAQ PinG file or flags PinG sources in UAM-style elevated ASCII file (when the <code class="envar">SMK_ASCIIELEV_YN</code> environment variable is set to Y).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_REPORT_TIME</code>: [default: 230000]
+                     </p>
+                     <p>Time for writing daily reports from program (HHMMSS).</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SRCGROUP_OUTPUT_YN</code>: [default: N]
+                     </p>
+                     <p>Indicates if source apportionment emissions should be output</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Group sources and output source apportionment files</p>
+                           </li>
+                           <li>
+                              <p>N: Do not perform any source apportionment processing</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMKMERGE_CUSTOM_OUTPUT</code>: [default: N]
+                     </p>
+                     <p>Defines his/her own output file names from <span><strong class="command">Smkmerge</strong></span>. Manually define environment variables for those output file names below:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><code class="envar">[E|A|M|P]OUT</code> : Processing source output file
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ELEV</code> : Elevated-point-sources file, produced if <code class="envar">SMK_ASCIIELEV_YN</code> is set to Y; if PinG sources have also been selected, then the stack diameters listed in this file will be set to the negative
+                                 value of their actual value.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PING</code> : CMAQ PinG file, produced if <code class="envar">SMK_PING_METHOD</code> is set to 1
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">INLN</code> : CMAQ 2-D surface layer emissions file, produced if <code class="envar">SMK_ELEV_METHOD</code> is set to 2. For in-line processing plume rise processing, <code class="envar">MRG_LAYERS_YN</code> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7 or later.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">REP[E|A|M|P]G</code> : Emission total report file, produced if either <code class="envar">MRG_REPSTA_YN</code> or <code class="envar">MRG_REPCNY_YN</code> is set to Y
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <p>The rest of the variables in this list are relevant only when the <code class="envar">SMK_ASCIIELEV_YN</code> environment variable is set to Y. The UAM-style elevated-point-source file referenced in the following descriptions is produced
+               by <span><strong class="command">Smkmerge</strong></span> and used as input to the UAM preprocessor Ptsrce.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">UAM_LAYERS</code>: [default: set by value of <code class="envar">SMK_EMLAYS</code>]
+                     </p>
+                     <p>Number of layers to output to the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_NOTE</code>: [default: &#8220;<span class="quote">UAM elev pt emis from Smkmerge</span>&#8221;]
+                     </p>
+                     <p>Message to appear as a note in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_NPARAM</code>: [default: 20]
+                     </p>
+                     <p>Number of parameters for control packet to appear in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_LOCATIONS</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the locations table. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_METHODS</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the methods table. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_OUTGRD</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the output grid. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_UNITS</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the units table. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_VALUES</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the values table. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PRINT_VERTMETH</code>: [default: 0]
+                     </p>
+                     <p>Flag printed in the elevated-point-source file to control whether Ptsrce will print the vertical methods table. 0=No; 1=Yes.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_PTSRCE_OUTUNIT</code>: [default: 20]
+                     </p>
+                     <p>Ptsrce output file unit number in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM_VERTICAL_METHOD</code>: [default: STACKHGT]
+                     </p>
+                     <p>Vertical method in the elevated-point-source file. Appropriate values are STACKHGT and PLUMERISE.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_DIFFBREAK_UNIT</code>: [default: 0]
+                     </p>
+                     <p>DIFFBREAK file unit number in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_HTLOWR</code>: [default: 20]
+                     </p>
+                     <p>Minimum height (in meters) of cells between the surface and the &#8220;<span class="quote">diffbreak</span>&#8221; in the elevated-point-source file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_HTSFC</code>: [default: 0]
+                     </p>
+                     <p>Height of the surface layer (in meters) in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_HTUPPR</code>: [default: 100]
+                     </p>
+                     <p>Minimum height (in meters) of cells between the &#8220;<span class="quote">diffbreak</span>&#8221; and the top of the model in the elevated-point-source file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_LAYABOVE</code>: [default: <code class="envar">UAM_LAYERS</code> - <code class="envar">UAM4_LAYBELOW</code>]
+                     </p>
+                     <p>Number of layers above the &#8220;<span class="quote">diffbreak</span>&#8221; in the elevated-point-source file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_LAYBELOW</code>: [default: 3]
+                     </p>
+                     <p>Number of layers below the &#8220;<span class="quote">diffbreak</span>&#8221; in the elevated-point-source file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_METSCALARS_UNIT</code>: [default: 15]
+                     </p>
+                     <p>METSCALARS file unit number in the elevated-point-source file. Used only for <code class="envar">UAM_VERTICAL_METHOD</code> set to &#8220;<span class="quote">PLUMERISE</span>&#8221;.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_REGIONTOP_UNIT</code>: [default: 0]
+                     </p>
+                     <p>REGIONTOP file unit number in the elevated-point-source file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_TEMPERATUR_UNIT</code>: [default: 14]
+                     </p>
+                     <p>TEMPERATUR file unit number in the elevated-point-source file. Used only for <code class="envar">UAM_VERTICAL_METHOD</code> set to &#8220;<span class="quote">PLUMERISE</span>&#8221;.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UAM4_WIND_UNIT</code>: [default: 16]
+                     </p>
+                     <p>WIND file unit number in the elevated-point-source file. Used only for <code class="envar">UAM_VERTICAL_METHOD</code> set to &#8220;<span class="quote">PLUMERISE</span>&#8221;.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e30490"></a>6.14.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The output files produced by <span><strong class="command">Smkmerge</strong></span> are determined by the values of the input environment variables.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|B|M|P|E]G[T][S][C][3D][_S|_L][_O]</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>
+                           <p>Merged emission file, produced when <code class="envar">MRG_GRDOUT_YN</code> is set to Y; actual file name is determined by the environment variables used to configure <span><strong class="command">Smkmerge</strong></span>, as follows:
+                           </p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact="">
+                                 <li>[area|biogenic|mobile|point|every] (<code class="envar">MRG_SOURCE</code>)
+                                 </li>
+                                 <li>T = temporally allocated (<code class="envar">MRG_TEMPORAL_YN</code>)
+                                 </li>
+                                 <li>S = speciated (<code class="envar">MRG_SPCMAT_YN</code>)
+                                 </li>
+                                 <li>C = controlled (<code class="envar">MRG_CTLMAT_MULT</code> or <code class="envar">MRG_CTLMAT_REAC</code>)
+                                 </li>
+                                 <li>3D = layered (<code class="envar">MRG_LAYERS_YN</code>)
+                                 </li>
+                                 <li>_S = mass-based speciation (<code class="envar">SPC_INPUT</code>)
+                                 </li>
+                                 <li>_L = mole-based speciation (<code class="envar">SPC_INPUT</code>)
+                                 </li>
+                                 <li>_O = used when only merging biogenic sources (<code class="envar">MRG_SOURCE</code> = B)
+                                 </li>
+                              </ul>
+                           </div>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ELEV[T]S[C][_S|_L]</code></td>
+                        <td>ASCII</td>
+                        <td>Elevated-point-sources file, produced if <code class="envar">SMK_ASCIIELEV_YN</code> is set to Y; if PinG sources have also been selected, then the stack diameters listed in this file will be set to the negative
+                           value of their actual value
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Smkmerge</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PING[T][S][C][_S|_L]</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>CMAQ PinG file, produced if <code class="envar">SMK_PING_METHOD</code> is set to 1
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REP[A|B|M|P|E]G[T][S][C][_S|_L]</code></td>
+                        <td>ASCII</td>
+                        <td>Emission totals report file, produced if either <code class="envar">MRG_REPSTA_YN</code> or <code class="envar">MRG_REPCNY_YN</code> is set to Y
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SGINLNTS[_S|_L]</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SRCGROUPS_OUT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Source group information, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SRCGRP_REPORT</code></td>
+                        <td>ASCII</td>
+                        <td>Source group report file, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s14s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s15.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.14.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.15.&nbsp;<span><strong class="command">Spcmat</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

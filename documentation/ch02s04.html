@@ -1,0 +1,174 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.4.&nbsp;Cross-referencing and profiles</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s03s10.html" title="2.3.10.&nbsp;Source types: nonroad and onroad mobile sources">
+      <link rel="next" href="ch02s05.html" title="2.5.&nbsp;Input and output file types">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.4.&nbsp;Cross-referencing and profiles</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s03s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_cross_referencing"></a>2.4.&nbsp;Cross-referencing and profiles
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>The emission inventories described in <a href="ch02s03.html" title="2.3.&nbsp;Emission inventories">Section&nbsp;2.3, &#8220;Emission inventories&#8221;</a> can contain hundreds of thousands or even millions of sources. Collecting specific information for each source about its
+            temporal allocation, chemical speciation, and spatial allocation is not practical. Therefore, a part of emissions processing
+            involves assuming that many sources share the same factors for these major processing steps. For example, we apply monthly,
+            day-of-week, and hourly temporal factors (called profiles) to convert from an annual emissions value to an hour-specific emissions
+            value. A limited set of monthly, day-of-week, and hourly diurnal profiles are available from various studies, and these profiles
+            each have their own unique profile number (also called profile code or profile ID). This limited set of profiles is assigned
+            to the much more numerous inventory sources using an approach called cross-referencing, which is implemented using cross-reference
+            files.
+         </p>
+         <p>The cross-reference files assign the profiles based on source characteristics such as country, state, and county codes and/or
+            SCCs, using the profile numbers to associate source characteristics with the profiles. While the profile numbers are unique
+            in the profile files, they will appear many times in the cross-reference; this is how SMOKE is able to group the sources to
+            treat them in the same manner. This approach is used for temporal allocation profiles, chemical speciation profiles and the
+            spatial &#8220;<span class="quote">profiles</span>&#8221;, which are called spatial (or gridding) surrogates.
+         </p>
+         <p>The cross-reference tables are applied to the sources in a stepwise manner, such that the most specific entry available is
+            always applied. For example, if a cross-reference entry were available that matched a source by state, county, and SCC, SMOKE
+            would apply that entry instead of a different cross-reference entry that matched that source only by SCC. The hierarchy that
+            describes how each cross-reference file is applied to the inventory is described for each program in <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>.
+         </p>
+         <p><a href="ch02s04.html#fig_concepts_xref" title="Figure&nbsp;2.1.&nbsp;Generic example of how cross-reference files and profiles work together">Figure&nbsp;2.1, &#8220;Generic example of how cross-reference files and profiles work together&#8221;</a> provides a generic example of how cross-reference files and profile files work together. In the example, the profile to be
+            used for most of North Carolina is profile ID 16. Durham and Orange counties, however, are assigned profile 15, which would
+            be preferentially applied to all sources in Durham and Orange counties, instead of using the general North Carolina profile.
+            South Carolina sources would be assigned profile 17.
+         </p>
+         <div class="figure"><a name="fig_concepts_xref"></a><p class="title"><b>Figure&nbsp;2.1.&nbsp;Generic example of how cross-reference files and profiles work together</b></p>
+            <div class="mediaobject"><img src="images\concepts\xref_html.jpg" alt="Generic example of how cross-reference files and profiles work together"></div>
+         </div>
+         <p>This example does not correspond to a particular processing step (i.e., temporal allocation, chemical speciation, or spatial
+            allocation), but rather assigns generic &#8220;<span class="quote">factors</span>&#8221; from profiles 15, 16, and 17 based on the state and county information in the cross-reference file. (Note that we have used
+            the state and county names in this example, whereas real cross-reference files would use the country, state, and county codes
+            according to the file format of the actual cross-reference files.)
+         </p>
+         <p>SMOKE handles cross-references and profile application in a very efficient manner. In reading a cross-reference file, SMOKE
+            first sorts the cross-reference entries using the same sort criteria as are used for the inventory sources (e.g. by country/state/county
+            code, then by SCC, then by remaining source characteristics if any). Next, the cross-reference entries are grouped according
+            to the &#8220;<span class="quote">level</span>&#8221; of matching of each of the entries. For example, all entries that could match to the inventory using only state and county
+            codes would be in one group, while entries that could match to the inventory using only SCCs would be in another group. Once
+            the cross-reference entries are grouped, SMOKE processes each sources in the inventory, and attempts to find a matching entry
+            in one of the cross-reference groups. The most specific groups are searched first, and when a match is found for a particular
+            source, the other groups are not searched. This helps increase efficiency. In addition, because the cross-reference entries
+            are sorted within each group, an efficient searching algorithm can be used for each individual search. When a match to one
+            of the cross-reference groups has been found, SMOKE continues to the next source in the inventory until all sources have been
+            processed.
+         </p>
+         <p>Cross-references and profiles are used in the following SMOKE processing steps. These steps and their associated programs
+            (listed in parentheses) will be described in the sections to come.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc" compact="">
+               <li>Inventory import (<span><strong class="command">Smkinven</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">NHAPEXCLUDE</code>, <code class="envar">VMTMIX</code>, <code class="envar">PSTK</code>, <code class="envar">ARTOPNT</code></li>
+                        <li>profiles: none (factors are included in the cross-reference files when needed)</li>
+                     </ul>
+                  </div>
+               </li>
+               <li>Temporal allocation (<span><strong class="command">Temporal</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">ATREF</code>, <code class="envar">MTREF</code>, <code class="envar">PTREF</code></li>
+                        <li>profiles: <code class="envar">ATPRO</code>, <code class="envar">MTPRO</code>, <code class="envar">PTPRO</code></li>
+                     </ul>
+                  </div>
+               </li>
+               <li>Chemical speciation (<span><strong class="command">Spcmat</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">GSREF</code>, <code class="envar">GSCNV</code></li>
+                        <li>profiles: <code class="envar">GSPRO</code></li>
+                     </ul>
+                  </div>
+               </li>
+               <li>Spatial allocation (<span><strong class="command">Grdmat</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">AGREF</code>, <code class="envar">MGREF</code></li>
+                        <li>profiles: <code class="envar">AGPRO</code>, <code class="envar">MGPRO</code> (<span><strong class="command">* Note</strong></span>)
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>Growth and controls (<span><strong class="command">Cntlmat</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">GCNTL</code></li>
+                        <li>profiles: none (factors are included in the cross-reference files)</li>
+                     </ul>
+                  </div>
+               </li>
+               <li>Mobile-source speed assignment (<span><strong class="command">Movesmrg</strong></span>)
+                  
+                      
+                  <div class="itemizedlist">
+                     <ul type="circle" compact="">
+                        <li>cross-references: <code class="envar">MCXREF</code>, <code class="envar">MFMREF</code></li>
+                        <li>profiles: <code class="envar">SPDPRO</code></li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+         <p>The hierarchies that each SMOKE program uses to assign cross-reference entries to sources are provided in <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>, where the programs are described at length. The file contents and formats are described in more detail in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+         </p>
+         <p><span><strong class="command">Note</strong></span>:  The use of the Environment variable <code class="envar">AGPRO</code> (Area spatial surrogate file)and <code class="envar">MGPRO</code> (Mobile spatial surrogate file) have been discontinued.  Two new Environment variables have been introduced to SMOKE; <code class="envar">SRGPRO_PATH</code> (spatial surrogate profile file location) and <code class="envar">SRGDESC</code> (description file with the specific list of available surrogates located in <code class="envar">SRGPRO_PATH</code>) See <a href="ch06s04s03.html#fig_programs_grdmat" title="Figure&nbsp;6.4.&nbsp;Grdmat input and output files">Figure&nbsp;6.4, &#8220;<span>Grdmat</span> input and output files&#8221;</a>.  The surrogate files located in <code class="envar">SRGPRO_PATH</code> are refinements of the old [A|M]GPRO files.  They are of the same format as the old files, however, there now may be one
+            or more surrogate files.  <span><strong class="command">Grdmat</strong></span> now process each surrogate separately.  On domains with large cell counts, this approach limits the memory usage at the expense
+            of slightly longer run times. 
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s03s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.3.10.&nbsp;Source types: nonroad and onroad mobile sources&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.5.&nbsp;Input and output file types</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

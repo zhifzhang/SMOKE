@@ -1,0 +1,89 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.2.&nbsp;MOVES Utility Scripts</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">
+      <link rel="prev" href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">
+      <link rel="next" href="ch05s02s02.html" title="5.2.2.&nbsp;MOVES Driver Scripts">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.2.&nbsp;MOVES Utility Scripts</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;5.&nbsp;SMOKE Utility Tools</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s02s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="section_moves_utilities"></a>5.2.&nbsp;MOVES Utility Scripts
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s02.html#d0e17429">5.2.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s02.html">5.2.2. MOVES Driver Scripts</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s03.html">5.2.3. Run MOVES Model</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s04.html">5.2.4. MOVES Post-processing scripts</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e17429"></a>5.2.1.&nbsp;Overview
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The MOVES utility scripts are designed to assist the user by automating the proper use of using MOVES emission rate calculations
+               for the purpose of estimating mobile-source emissions for air quality modeling.  The MOVES default database has over 100 different
+               tables that store lookup/reference information, conversions/adjustment factors, emissions data, and activity data. MOVES uses
+               MySQL databases to store user inputs, intermediate results and final outputs. The MOVES utility scripts consist of 1) MOVES
+               Driver script and 2) MOVES Post-processing scripts. These scripts are run after the meteorological data processor program
+               (<span><strong class="command">Met4moves</strong></span>) which prepares the spatially and temporally averaged temperatures and relative humidity data used as meteorological input
+               conditions for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.
+            </p>
+            <p>The MOVES Driver script (<span><strong class="command">Runspec_generator.pl</strong></span>) creates data importer files and importer script and the MOVES batch run script which specifies the characteristic of the
+               particular scenario to be modeled.
+            </p>
+            <p>The MOVES Post-processing script (<span><strong class="command">Moves2smkEF.pl</strong></span>) formats the MOVES emission rate lookup tables for SMOKE. The second MOVES Post-processing script (<span><strong class="command">gen_8digit_scc.pl</strong></span>) generates an SCC mapping file used when importing activity data in <span><strong class="command">Smkinven</strong></span>. After the MOVES utility scripts are completed, the SMOKE postprocessing program (<span><strong class="command">Movesmrg</strong></span>) estimates emissions from mobile sources using the SMOKE formatted MOVES lookup tables (RPD, RPP, RPV, and RPH) output generated
+               by the MOVES utility scripts and meteorology data from <span><strong class="command">Met4moves</strong></span>.
+            </p>
+            <p><span><strong class="command">Movesmrg</strong></span> creates hourly, gridded, speciated air quality model-ready input files. Information about key concepts related to the MOVES
+               utility scripts including Representative Counties, Fuels Months, and Emissions Processes are covered in <a href="ch02s08s04.html#sect_concepts_reference_counties_moves" title="2.8.4.6.&nbsp;Representative Counties">Section&nbsp;2.8.4.6, &#8220;Representative Counties&#8221;</a> and  <a href="ch02s08s04.html#sect_concepts_moves_reference_fuel_month" title="2.8.4.7.&nbsp;Reference Fuel month">Section&nbsp;2.8.4.7, &#8220;Reference Fuel month&#8221;</a> and <a href="ch02s08s04.html#sect_concepts_moves_emission_processes" title="2.8.4.9.&nbsp; MOVES Emission Processes by Emission Rate Tables">Section&nbsp;2.8.4.9, &#8220; MOVES Emission Processes by Emission Rate Tables&#8221;</a></p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s02s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">Chapter&nbsp;5.&nbsp;SMOKE Utility Tools&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.2.2.&nbsp;MOVES Driver Scripts</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

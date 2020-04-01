@@ -1,0 +1,110 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>12.3.&nbsp;Installing SMOKE</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch12.html" title="Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE">
+      <link rel="prev" href="ch12s02.html" title="12.2.&nbsp;Downloading SMOKE">
+      <link rel="next" href="ch12s04.html" title="12.4.&nbsp;Compiling SMOKE for UNIX">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">12.3.&nbsp;Installing SMOKE</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch12s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;12.&nbsp;Downloading, Installing, and Compiling SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch12s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_install_install"></a>12.3.&nbsp;Installing SMOKE
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>Steps for installing SMOKE:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Make sure that the three files you downloaded from the CMAS website are in the same directory.</p>
+               </li>
+               <li>
+                  <p>Choose the directory where you want to install SMOKE and the data files. This directory will be known as your <code class="filename"><code class="envar">SMK_HOME</code></code> directory.
+                  </p>
+               </li>
+               <li>
+                  <p>At the command line, type:</p>
+                  <p><strong class="userinput"><code><span><strong class="command">setenv</strong></span> <code class="envar">SMK_HOME</code> <em class="replaceable"><code>&lt;your selected directory for SMOKE installation&gt;</code></em></code></strong></p>
+                  <p><span class="bold"><strong>NOTE:</strong></span> the SMOKE scripts are designed to run under the UNIX C-shell (either <span><strong class="command">csh</strong></span> or <span><strong class="command">tcsh</strong></span>); the scripts will not work with other shells such as <span><strong class="command">bash</strong></span>.
+                  </p>
+               </li>
+               <li>
+                  <p>Make sure your <code class="filename"><code class="envar">SMK_HOME</code></code> directory exists by typing the following command on the command line:
+                  </p>
+                  <p><strong class="userinput"><code><span><strong class="command">mkdir -p</strong></span> <code class="filename"><code class="envar">$SMK_HOME</code></code></code></strong></p>
+               </li>
+               <li>
+                  <p>Go to the directory when you have saved the SMOKE installation files.</p>
+               </li>
+               <li>
+                  <p>Type the following at the command line:</p>
+                  <p><strong class="userinput"><code><span><strong class="command">source</strong></span> <code class="filename">smoke_install.csh</code></code></strong></p>
+                  <p>This command will unzip and install the SMOKE files in your <code class="filename"><code class="envar">SMK_HOME</code></code> directory. If the script encounters any problems, it will print an error message to point you to the problem.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>The <code class="envar">SMK_HOME</code> setting is needed by the SMOKE scripts. Therefore, it is best to always have this setting defined when you log into your
+            computer. To do this, perform the following additional steps before proceeding:
+         </p>
+         <div class="orderedlist">
+            <ol start="7" type="1">
+               <li>
+                  <p>Go to your home directory, then use a text editor to view the <code class="filename">.cshrc</code> file (note that this file is a hidden file, which can be listed in UNIX using the <span><strong class="command">ls -a</strong></span> command at the prompt).
+                  </p>
+               </li>
+               <li>
+                  <p>In the <code class="filename">.cshrc</code> file, add the following line:
+                  </p>
+                  <p><strong class="userinput"><code><span><strong class="command">setenv</strong></span> <code class="envar">SMK_HOME</code> <em class="replaceable"><code>&lt;your selected directory for SMOKE installation&gt;</code></em></code></strong></p>
+               </li>
+               <li>
+                  <p>Save and close the <code class="filename">.cshrc</code> file. Your <code class="filename"><code class="envar">SMK_HOME</code></code> directory will now be defined automatically when you log into the computer or when you open a new <span><strong class="command">xterm</strong></span> window.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>Now you are ready to run the SMOKE nctox case. Running SMOKE is described in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, which discusses using the SMOKE scripts. Please refer to <a href="ch04s03.html" title="4.3.&nbsp;Running the SMOKE test case">Section&nbsp;4.3, &#8220;Running the SMOKE test case&#8221;</a> for instructions on running the example scripts for the nctox case. The current SMOKE documentation can be found online at
+            <a href="http://www.smoke-model.org" target="_top">http://www.smoke-model.org</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch12s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch12.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch12s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">12.2.&nbsp;Downloading SMOKE&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;12.4.&nbsp;Compiling SMOKE for UNIX</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

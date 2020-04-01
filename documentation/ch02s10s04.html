@@ -1,0 +1,252 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.4.&nbsp;Time zone adjustments</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s03.html" title="2.10.3.&nbsp;Using day- and hour-specific emissions">
+      <link rel="next" href="ch02s10s05.html" title="2.10.5.&nbsp;Holiday processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.4.&nbsp;Time zone adjustments</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_time_zones"></a>2.10.4.&nbsp;Time zone adjustments
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>You can use the <code class="envar">OUTZONE</code> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is
+            that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road
+            mobile sources with MOVES/MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or
+            processing biogenic emissions with SMOKE BEIS3 (required). The time zones must be consistent among all source categories processed,
+            so if one source category depends on the meteorology file, then all source categories must be processed with the same <code class="envar">OUTZONE</code> setting.
+         </p>
+         <p><span><strong class="command">Temporal</strong></span> compares the <code class="envar">OUTZONE</code> value with the time zone of the source, which was set in <span><strong class="command">Smkinven</strong></span> (see <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) based on the county. Additionally, it assesses and accounts for whether the date being processed falls within the range
+            of Daylight Savings Time, and whether the county of the source uses Daylight Savings Time. <span><strong class="command">Temporal</strong></span> uses the <code class="envar">COSTCY</code> or the <code class="envar">GEOCODE_LEVEL4</code> (if USE_EXP_GEOCODES Y) file to determine which counties use Daylight Savings Time and which do not; for example, the state
+            of Arizona does not use it. Using these pieces of information, <span><strong class="command">Temporal</strong></span> interprets the diurnal profiles assuming that they are local profiles in order to map the correct adjustment to the correct
+            output hour in the output time zone. <span><strong class="command">Temporal</strong></span> also uses the time zone of the source and the output time zone to determine the correct hour for switching from one month
+            to the next and from one day of the week to the next.
+         </p>
+         <p><a href="ch02s10s04.html#tbl_concepts_outzone" title="Table&nbsp;2.9.&nbsp;Example OUTZONE settings and their associated time zones">Table&nbsp;2.9, &#8220;Example <code class="envar">OUTZONE</code> settings and their associated time zones&#8221;</a> lists a sampling of <code class="envar">OUTZONE</code> settings and the time zones that they represent. Note that SMOKE expects <code class="envar">OUTZONE</code> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative
+            values. For example, Eastern Standard Time is listed in this table as -5:00 hours from GMT, but <code class="envar">OUTZONE</code> for EST in SMOKE is 5. One result of this implementation is that SMOKE does not work perfectly for time zones east of GMT.
+         </p>
+         <div class="table"><a name="tbl_concepts_outzone"></a><p class="title"><b>Table&nbsp;2.9.&nbsp;Example <code class="envar">OUTZONE</code> settings and their associated time zones</b></p>
+            <table summary="Example OUTZONE settings and their associated time zones" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th align="center"><code class="envar">OUTZONE</code></th>
+                     <th align="center">GMT</th>
+                     <th align="center">Time zone</th>
+                     <th align="center">Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>12</td>
+                     <td>-12:00</td>
+                     <td>BIT</td>
+                     <td>Baker Island Time</td>
+                  </tr>
+                  <tr>
+                     <td>11</td>
+                     <td>-11:00</td>
+                     <td>SST</td>
+                     <td>Samoa Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>10</td>
+                     <td>-10:00</td>
+                     <td>HST</td>
+                     <td>Hawaii Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>9</td>
+                     <td>-9:00</td>
+                     <td>AKT</td>
+                     <td>Alaska Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>8</td>
+                     <td>-8:00</td>
+                     <td>PST</td>
+                     <td>Pacific Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>7</td>
+                     <td>-7:00</td>
+                     <td>MST</td>
+                     <td>Mountain Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>6</td>
+                     <td>-6:00</td>
+                     <td>CST</td>
+                     <td>Central Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>5</td>
+                     <td>-5:00</td>
+                     <td>EST</td>
+                     <td>Eastern Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>4</td>
+                     <td>-4:00</td>
+                     <td>AST</td>
+                     <td>Atlantic Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>3</td>
+                     <td>-3:00</td>
+                     <td>ART</td>
+                     <td>Argentina Time</td>
+                  </tr>
+                  <tr>
+                     <td>2</td>
+                     <td>-2:00</td>
+                     <td>FNT</td>
+                     <td>Fernando de Noronha Time</td>
+                  </tr>
+                  <tr>
+                     <td>1</td>
+                     <td>-1:00</td>
+                     <td>EGT</td>
+                     <td>Eastern Greenland Time</td>
+                  </tr>
+                  <tr>
+                     <td>0</td>
+                     <td>0:00</td>
+                     <td>GMT</td>
+                     <td>Greenwich Mean Time</td>
+                  </tr>
+                  <tr>
+                     <td>-1</td>
+                     <td>1:00</td>
+                     <td>CET</td>
+                     <td>Central European Time</td>
+                  </tr>
+                  <tr>
+                     <td>-2</td>
+                     <td>2:00</td>
+                     <td>EET</td>
+                     <td>Eastern European Time</td>
+                  </tr>
+                  <tr>
+                     <td>-3</td>
+                     <td>3:00</td>
+                     <td>MSK</td>
+                     <td>Moscow Time</td>
+                  </tr>
+                  <tr>
+                     <td>-4</td>
+                     <td>4:00</td>
+                     <td>GST</td>
+                     <td>Gulf Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-5</td>
+                     <td>5:00</td>
+                     <td>PKT</td>
+                     <td>Pakistan Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-6</td>
+                     <td>6:00</td>
+                     <td>BST</td>
+                     <td>Bangladesh Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-7</td>
+                     <td>7:00</td>
+                     <td>THA</td>
+                     <td>Thailand Time</td>
+                  </tr>
+                  <tr>
+                     <td>-8</td>
+                     <td>8:00</td>
+                     <td>HKT</td>
+                     <td>China Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-9</td>
+                     <td>9:00</td>
+                     <td>KST</td>
+                     <td>Korean Standard Time</td>
+                  </tr>
+                  <tr>
+                     <td>-10</td>
+                     <td>10:00</td>
+                     <td>AET</td>
+                     <td>Australian Eastern Time</td>
+                  </tr>
+                  <tr>
+                     <td>-11</td>
+                     <td>11:00</td>
+                     <td>ADT</td>
+                     <td>Australian Daylight Time</td>
+                  </tr>
+                  <tr>
+                     <td>-12</td>
+                     <td>12:00</td>
+                     <td>FJT</td>
+                     <td>Fiji Time</td>
+                  </tr>
+                  <tr>
+                     <td>-13</td>
+                     <td>13:00</td>
+                     <td>NZT</td>
+                     <td>New Zealand Daylight Time</td>
+                  </tr>
+                  <tr>
+                     <td>-14</td>
+                     <td>14:00</td>
+                     <td>LNT</td>
+                     <td>Line Islands Time</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.3.&nbsp;Using day- and hour-specific emissions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.5.&nbsp;Holiday processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

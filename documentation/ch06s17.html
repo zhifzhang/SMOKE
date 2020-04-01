@@ -1,0 +1,77 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.17.&nbsp;Tmpbeis3</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s16s03.html" title="6.16.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s17s02.html" title="6.17.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.17.&nbsp;<span><strong class="command">Tmpbeis3</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s16s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s17s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_tmpbeis3"></a>6.17.&nbsp;<span><strong class="command">Tmpbeis3</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s17.html#d0e32269">6.17.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s17s02.html">6.17.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s17s03.html">6.17.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e32269"></a>6.17.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> biogenic
+            </p>
+            <p><span><strong class="command">Tmpbeis3</strong></span> uses version 3.14 or version 3.60 of the BEIS3 model. <span><strong class="command">Tmpbeis3</strong></span> reads the gridded, normalized emissions file <code class="envar">B3GRD</code> and meteorological data from <code class="envar">MET_FILE1</code> and optionally <code class="envar">MET_FILE2</code> (these files may be either <code class="envar">MET_CRO_2D</code> or <code class="envar">MET_CRO_3D</code>). Note that <span><strong class="command">Tmpbeis3</strong></span> uses temperature and surface pressure data that must be in <code class="envar">MET_FILE1</code>, and radiation/cloud data that may be in <code class="envar">MET_FILE1</code> or <code class="envar">MET_FILE2</code>. Within <span><strong class="command">Tmpbeis3</strong></span>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. Various speciation profiles
+               for the CB6, and SAPRC mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used
+               to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <code class="envar">BIOSEASON</code>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s16s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s17s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.16.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.17.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

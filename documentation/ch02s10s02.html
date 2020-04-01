@@ -1,0 +1,73 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="next" href="ch02s10s03.html" title="2.10.3.&nbsp;Using day- and hour-specific emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e4980"></a>2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Temporal</strong></span> program uses a cross-reference file and a temporal profiles file to assign the temporal profiles to the inventory sources.
+            The cross-reference file can assign the profiles using a hierarchy that is based on the source characteristics. A detailed
+            list of valid assignments is given in <a href="ch06s16.html" title="6.16.&nbsp;Temporal">Section&nbsp;6.16, &#8220;<span><strong class="command">Temporal</strong></span>&#8221;</a> with the detailed description of the <span><strong class="command">Temporal</strong></span> program. The cross-reference assigns a monthly, weekly, and diurnal profile to each source, and can also assign default profiles
+            to sources that don&#8217;t have more specific matches in the cross-reference file. When default assignments are made by the <span><strong class="command">Temporal</strong></span> program, you can optionally choose to have warnings given for all of these assignments, using the <code class="envar">REPORT_DEFAULTS</code> option.
+         </p>
+         <p>The temporal profiles file has different sections that contain the monthly, weekly, and diurnal profiles. Additionally, you
+            may provide different weekend (Saturday, Sunday) and weekday (Monday through Friday) diurnal profiles, or you may provide
+            a different set of diurnal profiles for each day of the week.
+         </p>
+         <p>When using multiple diurnal profiles, a given source must use a diurnal profile with the same profile code for each day. For
+            example, if a source uses diurnal profile 1 for Monday, it will also use profile 1 for Tuesday, but Monday&#8217;s profile 1 can
+            be different than Tuesday&#8217;s profile 1.
+         </p>
+         <p>For weekly profiles, <span><strong class="command">Temporal</strong></span> evaluates the TPFLAG setting (set by <span><strong class="command">Smkinven</strong></span> as explained in <a href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">Section&nbsp;2.9.13, &#8220;Set the weekday averaging approach&#8221;</a>) and uses the weekly-normalized weekly profiles or weekday-normalized weekly profiles, depending on the setting. 
+         </p>
+         <p>One limitation of using monthly, weekly, and diurnal profiles is that there is no week-to-week variation within a month. For
+            example, all Tuesdays in a month use the same emissions profile (unless one happens to be a holiday, see <a href="ch02s10s05.html" title="2.10.5.&nbsp;Holiday processing">Section&nbsp;2.10.5, &#8220;Holiday processing&#8221;</a>). This limitation can be overcome by using day-specific emissions data (only for point sources).
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.&nbsp;Temporal processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.3.&nbsp;Using day- and hour-specific emissions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

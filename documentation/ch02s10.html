@@ -1,0 +1,136 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.&nbsp;Temporal processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s09s19.html" title="2.9.19.&nbsp;Processing hour-specific CEM data">
+      <link rel="next" href="ch02s10s02.html" title="2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.&nbsp;Temporal processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s19.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_temporal_processing"></a>2.10.&nbsp;Temporal processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s10.html#d0e4954">2.10.1. Using annual or average-day data</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s02.html">2.10.2. Applying monthly, weekly, and diurnal profiles</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s03.html">2.10.3. Using day- and hour-specific emissions</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s04.html">2.10.4. Time zone adjustments</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s05.html">2.10.5. Holiday processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s06.html">2.10.6. Monday, weekday, Saturday, Sunday processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s07.html">2.10.7. Processing Non-sequential Dates</a></span></dt>
+               <dt><span class="section"><a href="ch02s10s08.html">2.10.8. Creating the intermediate files</a></span></dt>
+            </dl>
+         </div>
+         <p>The temporal allocation of emission inventory data always occurs after the inventory import processing previously described
+            in <a href="ch02s09.html" title="2.9.&nbsp;Inventory import">Section&nbsp;2.9, &#8220;Inventory import&#8221;</a>. The <span><strong class="command">Temporal</strong></span> program processes data for anthropogenic sources, while the <span><strong class="command">Tmpbio</strong></span> program allocates biogenic emissions. In this section, we focus on the temporal allocation of the anthropogenic inventories
+            using <span><strong class="command">Temporal</strong></span>. The biogenic processing is further described in <a href="ch02s17.html" title="2.17.&nbsp;Biogenic processing">Section&nbsp;2.17, &#8220;Biogenic processing&#8221;</a>.
+         </p>
+         <p>The primary purpose of the <span><strong class="command">Temporal</strong></span> program is to create an intermediate hourly emissions file (<code class="envar">ATMP</code>, <code class="envar">MTMP</code>, or <code class="envar">PTMP</code>). It also creates a supplementary intermediate file that indicates which monthly, weekly (day-of-week), and diurnal (hourly)
+            profiles were assigned to each source (<code class="envar">ATSUP</code>, <code class="envar">MTSUP</code>, or <code class="envar">PTSUP</code>). Since the <span><strong class="command">Temporal</strong></span> dynamically create names for the output files, two new environment variables <code class="envar">[A|M|P]TMPNAME</code> and <code class="envar">[A|M|P]TSUPNAME</code> are used to set the directory and file prefix for naming the output files <code class="envar">[A|M|P]TMP</code> and <code class="envar">[A|M|P]TSUP</code>. The files are named using the starting date of each time period.For example, if <code class="envar">ATMPNAME</code> is set to /data/ntmp.nctox., then the <code class="envar">ATMP</code> file for a given time period will be put in the data directory and named ntmp.nctox.[start date].ncf.
+         </p>
+         <p>The temporal processing operation applies factors based on the source characteristics to the emissions data from the SMOKE
+            inventory files. These factors can include monthly, weekly, and diurnal temporal profiles. The resulting emissions data vectors
+            (not a matrix) contain hourly emissions for the inventory species. SMOKE assumes an hourly time step (Even though the time
+            step is an input setting to SMOKE, it currently cannot be changed.). Most of the calculations are implemented as sparse-matrix
+            algebra based upon temporal cross-references and profiles, augmented by the substitution of values from day- and hour-specific
+            emissions data sets. For mobile sources, hourly emissions values also depend on meteorology (e.g., the temperature dependence
+            of evaporative emissions).
+         </p>
+         <p><a href="ch02s10.html#fig_concepts_temporal_processing" title="Figure&nbsp;2.20.&nbsp;Transformation of inventory data to hourly data">Figure&nbsp;2.20, &#8220;Transformation of inventory data to hourly data&#8221;</a> shows how data from the intermediate inventory are stored in the hourly file. The arrow represents the temporal processing
+            steps which convert the annual, average-day, or day- and hour-specific data to hourly data. After the temporal processing,
+            the hourly emissions are stored in the intermediate hourly file, by hour and source number. The emissions are stored in the
+            same order as the sources in the sorted intermediate inventory file.
+         </p>
+         <div class="figure"><a name="fig_concepts_temporal_processing"></a><p class="title"><b>Figure&nbsp;2.20.&nbsp;Transformation of inventory data to hourly data</b></p>
+            <div class="mediaobject"><img src="images\concepts\temporal_processing_html.jpg" alt="Transformation of inventory data to hourly data"></div>
+         </div>
+         <p>Temporal processing also addresses the following issues that need to be considered during emissions processing:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Using annual or average-day data when both are available in the inventory</p>
+               </li>
+               <li>
+                  <p>Applying monthly, weekly, and diurnal profiles</p>
+               </li>
+               <li>
+                  <p>Using day- and hour-specific emissions</p>
+               </li>
+               <li>
+                  <p>Time zone adjustments</p>
+               </li>
+               <li>
+                  <p>Holiday processing</p>
+               </li>
+               <li>
+                  <p>Monday-weekday-Saturday-Sunday (MWSS) processing</p>
+               </li>
+               <li>
+                  <p>Processing non-sequential dates</p>
+               </li>
+               <li>
+                  <p>Creating the intermediate files</p>
+               </li>
+            </ol>
+         </div>
+         <p>In the subsections below, we address each of these issues in the same order as the list above.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e4954"></a>2.10.1.&nbsp;Using annual or average-day data
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>When using the ORL or FF10 inventory format, you may choose to use either the annual or the average-day emissions values when
+               running the <span><strong class="command">Temporal</strong></span> program. The default is to use the annual data. To apply average-day data instead, the <code class="envar">SMK_AVEDAY</code> setting is used (this setting is relevant only for ORL or FF10 inventories). These emissions are then used in the merge-processing
+               step, resulting in model-ready emissions that depend on the data type selected. If part of your inventory is available as
+               average-day data and part is available as annual data, you have used <span><strong class="command">Smkinven</strong></span> to fill in annual values based on the average-day values. The <span><strong class="command">Temporal</strong></span> program is then run using annual values. <span><strong class="command">Temporal</strong></span> ensures that for those sources for which &#8220;<span class="quote">annual</span>&#8221; values were created, only day-of-week and hourly adjustments (not monthly profiles) are applied. <span><strong class="command">Temporal</strong></span> assumes that any average-day data provided has already been adjusted for a specific month, and therefore does not apply the
+               monthly profiles to them.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s19.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.19.&nbsp;Processing hour-specific CEM data&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.2.&nbsp;Applying monthly, weekly, and diurnal profiles</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

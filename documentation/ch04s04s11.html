@@ -1,0 +1,395 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.11.&nbsp;Setup projection and control scenarios</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">
+      <link rel="next" href="ch04s04s12.html" title="4.4.12.&nbsp;Use MOVES for on-road mobile sources">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.11.&nbsp;Setup projection and control scenarios</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s12.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_use_projection"></a>4.4.11.&nbsp;Setup projection and control scenarios
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s04s11.html#d0e14649">4.4.11.1. Setup for using growth only</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s11.html#d0e14810">4.4.11.2. Setup for using controls only</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s11.html#d0e15188">4.4.11.3. Setup for both growth and controls</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e14649"></a>4.4.11.1.&nbsp;Setup for using growth only
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The SMOKE growth capability is needed when the inventory year and the modeling year are different. For example, if your base-year
+               inventory is for 2002 and you must evaluate a control strategy in 2010, then you will need to use the SMOKE growth capability.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Create and install growth packet files</p>
+                     <p>The /PROJECTION/ packet handles the growth from the base year to a future year. This packet is part of the <code class="envar">GCNTL</code> file described in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>. A packet for each source category that requires growth should be created and saved in a file with the correct name, as described
+                        next. Users must ensure that all of the SCCs in the inventory that require growth are included in this packet. Any source
+                        that does not match an entry in this file will have a factor of 1 assigned to indicate no change from the base to the future
+                        year.
+                     </p>
+                     <p>In the default configuration of SMOKE, a <code class="envar">GCNTL</code> file must be created that includes the /PROJECTION/ packet to use SMOKE growth. This file must follow the naming convention
+                        <code class="filename">gcntl.<code class="envar">$YEAR</code>_<code class="envar">$FYEAR</code>.txt</code>, where <code class="envar">YEAR</code> is set in the Assigns file and <code class="envar">FYEAR</code> is set in the script as per <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>.
+                     </p>
+                     <p>The file should be installed in the inventory input directory for the source category to which it applies:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>Non-point (stationary area) files: <code class="filename"><code class="envar">$ARDAT</code></code> directory
+                              </p>
+                           </li>
+                           <li>
+                              <p>Nonroad mobile files: <code class="filename"><code class="envar">$NRDAT</code></code> directory
+                              </p>
+                           </li>
+                           <li>
+                              <p>On-road mobile files: <code class="filename"><code class="envar">$MBDAT</code></code> directory
+                              </p>
+                           </li>
+                           <li>
+                              <p>Point files: <code class="filename"><code class="envar">$PTDAT</code></code> directory
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Please note that these instructions apply to on-road mobile sources in the following ways:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>Growth of on-road mobile VMT</p>
+                           </li>
+                           <li>
+                              <p>Growth of on-road mobile precomputed emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Creating on-road mobile emission factors is accomplished by changing the <code class="envar">FYEAR</code> setting and using the <code class="envar">SMK_FUTURE_YN</code> set to Y. This is described also in <a href="ch04s04s12.html" title="4.4.12.&nbsp;Use MOVES for on-road mobile sources">Section&nbsp;4.4.12, &#8220;Use MOVES for on-road mobile sources&#8221;</a> on running SMOKE with MOVES.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create scripts with correct settings for your particular needs</p>
+                     <p>To create the scripts with the correct settings, the best starting place is one of the SMOKE example future-year scripts,
+                        introduced in <a href="ch04s02s03.html" title="4.2.3.&nbsp;Example script files and their purposes">Section&nbsp;4.2.3, &#8220;Example script files and their purposes&#8221;</a>. These scripts are already setup to run for growth only. To help you understand what the scripts are doing, we have described
+                        in the list below the key elements of the script:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>Uses the base-year Assigns file for the case we are running. The script settings (such as <code class="envar">FYEAR</code> and <code class="envar">SMK_FUTURE_YN</code>) will adjust what the Assigns file does.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">FYEAR</code> defined and <code class="envar">SMK_FUTURE_YN</code> not defined initially (default is N).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Run <span><strong class="command">Cntlmat</strong></span> to create growth matrices only (these scripts do not create control matrices, although that is not normally what users will
+                                 do in real cases). This program reads the <code class="envar">GCNTL</code> file and creates a growth matrix.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Run <span><strong class="command">Grwinven</strong></span> to grow base year inventory to future year (no controls).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Reset <code class="envar">SMK_FUTURE_YN</code> to Y (note: placeholder for resetting <code class="envar">SMK_CONTROL_YN</code> is included, but is not set to Y in example script).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Source the Assigns file, which will change output directories and file names now that <code class="envar">SMK_FUTURE_YN</code> is set to Y. Note that <code class="envar">RUN_PART1</code> is temporarily reset to N in the example script to prevent Assigns file from deleting SMOKE intermediate files.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Run <span><strong class="command">Temporal</strong></span> and <span><strong class="command">Smkmerge</strong></span>. The <span><strong class="command">Temporal</strong></span> program will use the grown emissions to create hourly grown emissions. <span><strong class="command">Smkmerge</strong></span> will use these in addition to the base-year gridding matrix and speciation matrix to create future-year model-ready emissions.
+                                 The base year matrices can be used because they are identical to the future-year ones when SMOKE is used to apply growth.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e14810"></a>4.4.11.2.&nbsp;Setup for using controls only
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Using controls only in the SMOKE scripts is needed when you import a grown inventory that does not include any or all of the
+               controls that you wish to apply to the inventory. This is what we have assumed in these instructions. We assume that in this
+               case, the growth of the inventory was performed outside of SMOKE, and SMOKE has read in an inventory for the year defined
+               by the <code class="envar">FYEAR</code> script setting. This inventory must be imported in a different script that is similar to the base-year script, but follows
+               the instructions for importing future-year inventories in <a href="ch04s04s02.html#sect_scripts_future_invs" title="4.4.2.6.&nbsp;Future-year inventories">Section&nbsp;4.4.2.6, &#8220;Future-year inventories&#8221;</a>.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Determine which control packets you need</p>
+                     <p>Please refer to the <span><strong class="command">Cntlmat</strong></span> section of <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a> for a description of what each of the control packets can do and how they interact.
+                     </p>
+                     <p>The available packets are:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>/MACT/ packet</p>
+                           </li>
+                           <li>
+                              <p>/CONTROL/ packet</p>
+                           </li>
+                           <li>
+                              <p>/EMS_CONTROL/ packet</p>
+                           </li>
+                           <li>
+                              <p>/CTG/ packet</p>
+                           </li>
+                           <li>
+                              <p>/ALLOWABLE/ packet</p>
+                           </li>
+                           <li>
+                              <p>/REACTIVITY/ packet</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create and install control packets file</p>
+                     <p>The control packets just listed handle the application of controls for a certain future year. These controls can represent
+                        the existing controls that must be applied by emission sources so that they will be in compliance with the law. The controls
+                        can also represent additional controls that you want to evaluate to see their impact on modeled air quality. <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> explains these packets and their formats.
+                     </p>
+                     <p>You should create a separate control file for each source category that contains all of the control packets that apply to
+                        that source category. Any inventory source and pollutant that does not receive a control is assigned a factor of 1 to indicate
+                        no change between the base case and the control case.
+                     </p>
+                     <p>In the default configuration of SMOKE, a <code class="envar">GCNTL</code> file must be created that includes the only control packets. This file must follow the naming convention <code class="filename">gcntl.<code class="envar">$CNTLCASE</code>.txt</code>, where <code class="envar">CNTLCASE</code> is set in the script as per Section <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create scripts with correct settings for your particular needs</p>
+                     <p>To create the scripts with the correct settings, the best starting place is one of the SMOKE example future-year scripts,
+                        introduced in <a href="ch04s02s03.html" title="4.2.3.&nbsp;Example script files and their purposes">Section&nbsp;4.2.3, &#8220;Example script files and their purposes&#8221;</a>. The script must be changed, however, in the following ways to implement control-only. There are two ways to run controls
+                        in SMOKE. The first is to apply multiplicative controls using <span><strong class="command">Grwinven</strong></span> and reactivity controls (if needed) with <span><strong class="command">Smkmerge</strong></span>. The second is the apply both multiplicative and reactivity controls using <span><strong class="command">Smkmerge</strong></span>. The following settings must be used for each case:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>Apply multiplicative controls with <span><strong class="command">Grwinven</strong></span> and reactivity control (if any) with <span><strong class="command">Smkmerge</strong></span></p>
+                              <div class="itemizedlist">
+                                 <ul type="circle">
+                                    <li>
+                                       <p>Uses the base-year Assigns file for the case we are running. The script settings (such as <code class="envar">FYEAR</code>, <code class="envar">CNTLCASE</code>, and <code class="envar">SMK_CONTROL_YN</code>) will adjust what the Assigns file does.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">FYEAR</code> = the imported future-year inventory
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">SMK_FUTURE_YN</code> = Y on the line after <code class="envar">FYEAR</code>. Remove this setting from later in the script (around line 120).
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_CNTLMAT</code> = Y to run <span><strong class="command">Cntlmat</strong></span> to create control matrices only
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_GRWINVEN</code> = Y to run <span><strong class="command">Grwinven</strong></span> to import the control matrices
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_TEMORAL</code> = Y to run <span><strong class="command">Temporal</strong></span> on controlled inventory
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_SMKMERGE</code> = Y to run <span><strong class="command">Smkmerge</strong></span> on controlled inventory
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set options for <span><strong class="command">Cntlmat</strong></span>, <span><strong class="command">Grwinven</strong></span>, <span><strong class="command">Temporal</strong></span>, and <span><strong class="command">Smkmerge</strong></span> (see <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>).
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">SMK_NUM_CTLMAT</code> to 1
+                                       </p>
+                                       <p>For area or nonroad mobile, set <code class="envar">ACMAT01</code> to <code class="envar">$ACMAT</code></p>
+                                       <p>For on-road mobile, set <code class="envar">MCMAT01</code> to <code class="envar">$MCMAT</code></p>
+                                       <p>For point, set <code class="envar">PCMAT01</code> to <code class="envar">$PCMAT</code></p>
+                                       <p>These settings assume that you are using only one multiplicative control matrix. <span><strong class="command">Grwinven</strong></span> can actually import multiple control matrices from different cases. To use more than one control matrix, set <code class="envar">SMK_NUM_CTLMAT</code> to the number of control matrices and set <code class="envar">ACMAT02</code>, <code class="envar">ACMAT03</code>, etc to the names of the additional control matrices.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">CNTLCASE</code> to the control strategy name that you want for the control case.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>At line 120 of file, reset <code class="envar">SMK_CONTROL_YN</code> to Y
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>To run <span><strong class="command">Smkmerge</strong></span> for reactivity controls, add the <code class="envar">MRG_CTLMAT_REAC</code> option to the <span><strong class="command">Smkmerge</strong></span> options and set to &#8220;<span class="quote">A</span>&#8221;, &#8220;<span class="quote">M</span>&#8221;, &#8220;<span class="quote">P</span>&#8221; or some combination of those letters to indicate whether you want it to use the reactivity matrix for area (including nonroad),
+                                          on-road mobile, or point sources.
+                                       </p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li>
+                              <p>Apply both multiplicative and reactivity controls with <span><strong class="command">Smkmerge</strong></span></p>
+                              <div class="itemizedlist">
+                                 <ul type="circle">
+                                    <li>
+                                       <p>Uses the base-year Assigns file for the case we are running. The script settings (such as <code class="envar">FYEAR</code>, <code class="envar">CNTLCASE</code>, and <code class="envar">SMK_CONTROL_YN</code>) will adjust what the Assigns file does.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">FYEAR</code> = the imported future-year inventory
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">SMK_FUTURE_YN</code> = Y on the line after <code class="envar">FYEAR</code>. Remove this setting from later in the script (around line 120).
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_CNTLMAT</code> = Y to run <span><strong class="command">Cntlmat</strong></span> to create control matrices only
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_GRWINVEN</code> = N to run <span><strong class="command">Grwinven</strong></span> to import the control matrices
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_TEMORAL</code> = N
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">RUN_SMKMERGE</code> = Y to run <span><strong class="command">Smkmerge</strong></span> on controlled inventory
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set options for <span><strong class="command">Cntlmat</strong></span> and <span><strong class="command">Smkmerge</strong></span> (see <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>).
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>Set <code class="envar">CNTLCASE</code> to the control strategy name that you want for the control case.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>At line 120 of file, reset <code class="envar">SMK_CONTROL_YN</code> to N
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>To run <span><strong class="command">Smkmerge</strong></span> for multiplicative controls, add the <code class="envar">MRG_CTLMAT_MULT</code> setting to <span><strong class="command">Smkmerge</strong></span> options and set to &#8220;<span class="quote">A</span>&#8221;, &#8220;<span class="quote">M</span>&#8221;, &#8220;<span class="quote">P</span>&#8221; or some combination of those letters to indicate whether you want it to use the multiplicative control matrix for area (including
+                                          nonroad), on-road mobile, or point sources.
+                                       </p>
+                                    </li>
+                                    <li>
+                                       <p>To run <span><strong class="command">Smkmerge</strong></span> for reactivity controls, add the <code class="envar">MRG_CTLMAT_REAC</code> setting to the <span><strong class="command">Smkmerge</strong></span> options and set to &#8220;<span class="quote">A</span>&#8221;, &#8220;<span class="quote">M</span>&#8221;, &#8220;<span class="quote">P</span>&#8221; or some combination of those letters to indicate whether you want it to use the reactivity control matrix for area (including
+                                          nonroad), on-road mobile, or point sources.
+                                       </p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e15188"></a>4.4.11.3.&nbsp;Setup for both growth and controls
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Follow the instructions that apply for both of the previous two subsections. The differences between this case and the previous
+               two cases are as follows:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Name the <code class="envar">GCNTL</code> input file differently. It should be named: <code class="filename">gcntl.<code class="envar">$YEAR</code>_<code class="envar">$FYEAR</code>_<code class="envar">$CNTLCASE</code>.txt</code></p>
+                  </li>
+                  <li>
+                     <p>The <span><strong class="command">Grwinven</strong></span> program must be used at least to grow the inventory, so you must
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Set <code class="envar">RUN_GRWINVEN</code> to Y.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Set <code class="envar">SMK_NUM_CTLMAT</code> to at least 1. It should be set to the total number of growth and control matrices to be applied by the <span><strong class="command">Grwinven</strong></span> program.
+                              </p>
+                           </li>
+                           <li>
+                              <p>The <code class="envar">ACMAT01</code>, <code class="envar">ACMAT02</code>, etc file names should be set to be consistent with the matrices being applied and the source categories (e.g., <code class="envar">ACMAT01</code> should be <code class="envar">$APMAT</code> or <code class="envar">$ACMAT</code>, but not <code class="envar">$PCMAT</code>, since that would be inconsistent between source categories).
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s12.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.12.&nbsp;Use MOVES for on-road mobile sources</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

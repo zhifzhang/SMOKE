@@ -1,0 +1,102 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.14.&nbsp;Use Elevpoint for selecting elevated and PinG sources</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s13.html" title="4.4.13.&nbsp;Change temporal processing">
+      <link rel="next" href="ch04s04s15.html" title="4.4.15.&nbsp;Use BEIS3">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.14.&nbsp;Use <span><strong class="command">Elevpoint</strong></span> for selecting elevated and PinG sources
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s13.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s15.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_use_elevpoint"></a>4.4.14.&nbsp;Use <span><strong class="command">Elevpoint</strong></span> for selecting elevated and PinG sources
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Elevpoint</strong></span> program can select elevated and/or PinG sources as needed for some air quality models and configurations. You must use the
+            <span><strong class="command">Elevpoint</strong></span> program in the following cases:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>You are running UAM or CAM<sub>X</sub> including elevated point sources and/or PinG sources.
+                  </p>
+               </li>
+               <li>
+                  <p>You are running CMAQ and want to select specific elevated sources or want to model with the PinG capability.</p>
+               </li>
+            </ul>
+         </div>
+         <p>The following steps must be taken to use <span><strong class="command">Elevpoint</strong></span>:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Create a <code class="envar">PELVCONFIG</code> file.
+                  </p>
+                  <p>The PELVCONFIG file is the <span><strong class="command">Elevpoint</strong></span> input file that controls what sources will be selected as elevated and/or PinG. <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> explains the file format for this file and how to use this format. A example <code class="envar">PELVCONFIG</code> file provided with SMOKE (in the nctox case <code class="filename"><code class="envar">PTDAT</code></code> directory) contains additional instructions on setting up this file.
+                  </p>
+               </li>
+               <li>
+                  <p>Update Assigns file to use the correct name of the <code class="envar">PELVCONFIG</code> file.
+                  </p>
+               </li>
+               <li>
+                  <p>Set <code class="envar">RUN_ELEVPOINT</code> to Y in point source run script.
+                  </p>
+               </li>
+               <li>
+                  <p>If using PinG sources, set <code class="envar">SMK_PING_METHOD</code> to 1 in point source run script (otherwise, set to 0).
+                  </p>
+               </li>
+               <li>
+                  <p>If selecting specific elevated sources, set <code class="envar">SMK_ELEV_METHOD</code> to 1 in point source run script (otherwise, set to 0).
+                  </p>
+               </li>
+               <li>
+                  <p>See model-specific settings in <a href="ch04s04s19.html" title="4.4.19.&nbsp;Model for CMAQ">Section&nbsp;4.4.19, &#8220;Model for CMAQ&#8221;</a> and <a href="ch04s04s20.html" title="4.4.20.&nbsp;Model for UAM and CAMX">Section&nbsp;4.4.20, &#8220;Model for UAM and CAM<sub>X</sub>&#8221;</a>.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s13.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s15.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.13.&nbsp;Change temporal processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.15.&nbsp;Use BEIS3</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

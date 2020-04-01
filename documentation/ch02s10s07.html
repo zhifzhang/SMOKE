@@ -1,0 +1,88 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.7.&nbsp;Processing Non-sequential Dates</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s06.html" title="2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing">
+      <link rel="next" href="ch02s10s08.html" title="2.10.8.&nbsp;Creating the intermediate files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.7.&nbsp;Processing Non-sequential Dates</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_non_seq_processing"></a>2.10.7.&nbsp;Processing Non-sequential Dates
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Previously, <span><strong class="command">Temporal</strong></span> processed a single continuous time period during each execution of the program producing one output file.  Typically, only
+            representative Monday, weekday, Saturday and Sunday, plus any holidays are processed for a single month.  This type of processing
+            can require complex scripting and <span><strong class="command">Temporal</strong></span> would need to be run several times.  See <a href="ch04s04s13.html#sect_scripts_change_episode" title="4.4.13.3.&nbsp;Changing the episode">Section&nbsp;4.4.13.3, &#8220;Changing the episode&#8221;</a>, <a href="ch04s04s13.html#sect_scripts_duration_output" title="4.4.13.4.&nbsp;Changing the dates, times, and duration of model-ready SMOKE emissions files">Section&nbsp;4.4.13.4, &#8220;Changing the dates, times, and duration of model-ready SMOKE emissions files&#8221;</a> and <a href="ch04s04s13.html#sect_scripts_non_seq_dates" title="4.4.13.5.&nbsp;Setting non-sequential processing dates">Section&nbsp;4.4.13.5, &#8220;Setting non-sequential processing dates&#8221;</a>.
+         </p>
+         <p>SMOKE now provides the capability for optionally setting non-sequential date processing during a single execution of <span><strong class="command">Temporal</strong></span> using a new input file <code class="envar">PROCDATES</code> to indicate a list of dates which <span><strong class="command">Temporal</strong></span> should process.  The format for <code class="envar">PROCDATES</code> is described in <a href="ch08s03s04.html" title="8.3.4.&nbsp;PROCDATES: Procdates date list">Section&nbsp;8.3.4, &#8220;<code class="envar">PROCDATES</code>: Procdates date list&#8221;</a>.  The format allows for blank lines, comment lines (any lines that start with a pound sign, and trailing comments (any characters
+            after an exclamation point).
+         </p>
+         <p><code class="envar">G_TSTEP</code> will be used to set the time step for all time periods.  The output data for each time period will be written to an endividual
+            file.
+         </p>
+         <p>An example of <code class="envar">PROCDATES</code> file is shown below.  In this case, we are processing the first day of each month in 2005.  Twelve output files will be produced.
+             Each file will contain 25 time steps.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li># First day of each month</li>
+               <li>20050101 0 250000 ! January</li>
+               <li>20050201 0 250000 ! February</li>
+               <li>20050301 0 250000 ! March</li>
+               <li>20050401 0 250000 ! April</li>
+               <li>20050501 0 250000 ! May</li>
+               <li>20050601 0 250000 ! June</li>
+               <li>20050701 0 250000 ! July</li>
+               <li>20050801 0 250000 ! August</li>
+               <li>20050901 0 250000 ! September</li>
+               <li>20051001 0 250000 ! October</li>
+               <li>20051101 0 250000 ! November</li>
+               <li>20051201 0 250000 ! December</li>
+            </ul>
+         </div>
+         <p><span><strong class="command">Temporal</strong></span> procduces two output files <code class="envar">[A|M|P]TMP</code> and <code class="envar">[A|M|P]TSUP</code>.  Since <span><strong class="command">Temporal</strong></span> will need to dynamically create names for the output files, we will use two new environment variables <code class="envar">[A|M|P]TMPNAME</code> and <code class="envar">[A|M|P]TSUPNAME</code> to set the directory and file prefix used to name the output files.  The files will be named using the starting date of each
+            time period.  For example, if <code class="envar">ATMPNAME</code> is set to /data/ntmp.nctox., (note the period at the end of the file string) the <code class="envar">ATMP</code> file for a given time period will be put in the <code class="envar">STATIC</code> directory and named "ntmp.nctox.&lt;start date&gt;.ncf".
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.8.&nbsp;Creating the intermediate files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

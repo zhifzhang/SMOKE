@@ -1,0 +1,142 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.13.&nbsp;Smkinven</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s12s03.html" title="6.12.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s13s02.html" title="6.13.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.13.&nbsp;<span><strong class="command">Smkinven</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s12s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s13s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_smkinven"></a>6.13.&nbsp;<span><strong class="command">Smkinven</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s13.html#d0e27742">6.13.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s13s02.html">6.13.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s13s03.html">6.13.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27742"></a>6.13.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> area, mobile, point
+            </p>
+            <p><span><strong class="command">Smkinven</strong></span> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE
+               programs. The program is run separately for area-, mobile-, and point-source processing. <span><strong class="command">Smkinven</strong></span> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are
+               combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such
+               &#8220;<span class="quote">temporal origin</span>&#8221; information is needed by the <span><strong class="command">Temporal</strong></span> program to determine whether to apply monthly adjustments. <span><strong class="command">Smkinven</strong></span> can also import gridded one-layer annual or average-day emissions in I/O API NetCDF or CF-compliant NetCDF format as an area
+               sourc.
+            </p>
+            <p><span><strong class="command">Smkinven</strong></span> writes several SMOKE inventory files for each source category: an ASCII file containing all character-string fields from
+               the inventory, individual I/O API NetCDF files containing emissions data for each output pollutant, and an ASCII map file
+               listing the names and locations of each file. The character string fields cannot be stored in the I/O API NetCDF file because
+               of limitations of the I/O API library. When day-specific and hour-specific data are available (this applies only for point
+               sources), <span><strong class="command">Smkinven</strong></span> can also read these data, and produce separate I/O API NetCDF files for each data type (day-specific or hour-specific).
+            </p>
+            <p><span><strong class="command">Smkinven</strong></span> supports the following input file formats and source categories:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>SMOKE one-record-per-line (ORL) format for nonpoint, nonroad mobile, on-road mobile, and point sources</p>
+                  </li>
+                  <li>
+                     <p>SMOKE one-record-per-line (ORL) format for fire point sources (modified to support wildfires and prescribed fires characteristics
+                        and pollutants)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Special mobile link format</p>
+                  </li>
+                  <li>
+                     <p>FF10 (Flat File 10) format for many different source categories including day-specific, hour-specific, monthly and annual
+                        for nonpoint, nonroad mobile, on-road mobile, and point sources (comma or semicolon delimited) 
+                     </p>
+                  </li>
+                  <li>
+                     <p>ASCII Continuous Emissions Monitoring (CEM) format (hour-specific point-source emissions)</p>
+                  </li>
+                  <li>
+                     <p>List format (for combining multiple files of the same or compatible formats) for area, mobile, and point</p>
+                  </li>
+                  <li>
+                     <p>LIST GRID format (for reading multiple gridded one-layer annual CF-compliant NetCDF inventory data) as area sources</p>
+                  </li>
+                  <li>
+                     <p>Gridded one-layer annual or average-day NetCDF I/O API or CF-compliant NetCDF emissions data (must be treated as an area source)</p>
+                  </li>
+               </ul>
+            </div>
+            <p>It is not possible to import only day- or hour-specific data from FF10 input files. If only such data are to be used, mock
+               annual files must be created; see <a href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions">Section&nbsp;8.2.6, &#8220;<code class="envar">PTDAY</code>: Point source day-specific emissions&#8221;</a> and <a href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions">Section&nbsp;8.2.7, &#8220;<code class="envar">PTHOUR</code>: Point source hour-specific emissions&#8221;</a> for more information on the required formats.
+            </p>
+            <p>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list
+               to be processed together. To use a list format, all input files must have the same or compatible formats.
+            </p>
+            <p>The list grid format is simply a list of CF-compliant NetCDF file names with paths with a special format identifier that allows
+               all files in the list to be processed together. To use a list grid format, all input files must have the same or compatible
+               formats with inventory data from the same year.
+            </p>
+            <p>When using CEM data, you are encouraged to preprocess your data to prepare them down to the dates and/or sources in the domain.
+                The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the
+               modeling grid) and/or by the <span><strong class="command">Grdmat</strong></span> program, which will remove sources outside the grid from the model-ready results.
+            </p>
+            <p><span><strong class="command">Smkinven</strong></span> also can process the hourly CEM data in a more sophisticated way. Hourly heat input from the CEM data are used to allocate
+               annual emissons to hourly emission data. More information are available at (<a href="ch05s03s04.html" title="5.3.4.&nbsp;CEMScan">Section&nbsp;5.3.4, &#8220;<span><strong class="command">CEMScan</strong></span>&#8221;</a>) and (<a href="ch02s09.html" title="2.9.&nbsp;Inventory import">Section&nbsp;2.9, &#8220;Inventory import&#8221;</a>)
+            </p>
+            <p>If new sources are added to the input files or sources are removed, <span><strong class="command">Smkinven</strong></span> must be rerun for that type of source. However, <span><strong class="command">Smkinven</strong></span> does not need to be rerun when processing additional control scenarios, growth projections, speciation profiles, or modeling
+               grids.
+            </p>
+            <p>By default, <span><strong class="command">Smkinven</strong></span> will fill in missing average-day data with annual data when possible. To fill in missing annual data with average-day data,
+               use the <code class="envar">FILL_ANNUAL</code> setting.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s12s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s13s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.12.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.13.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

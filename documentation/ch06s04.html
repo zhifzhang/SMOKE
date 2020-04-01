@@ -1,0 +1,160 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.4.&nbsp;Grdmat</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s03s03.html" title="6.3.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s04s02.html" title="6.4.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.4.&nbsp;<span><strong class="command">Grdmat</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s03s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s04s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_grdmat"></a>6.4.&nbsp;<span><strong class="command">Grdmat</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s04.html#d0e23845">6.4.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s04s02.html">6.4.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s04s03.html">6.4.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e23845"></a>6.4.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> area, mobile, point
+            </p>
+            <p>The <span><strong class="command">Grdmat</strong></span> program produces the matrix that contains the factors for spatially allocating the emission sources to the modeling domain.
+               
+            </p>
+            <p>For pre-gridded inventory data, grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR/RCP/HTAP)
+               to the output modeling grid when the user sets IMPORT_GRDNETCDF_YN to Y.  Spatial surrogates (AGPRO or MGPRO) are not needed
+               for processing gridded inventory data with SMOKE.  The input modeling domain information is obtained from the GRIDMASK input
+               file and the output grid is defined by the IOAPI_GRIDNAME_1 environment variable in the GRID_CRO_2D file.
+            </p>
+            <p>For inventory data that is not already pre-gridded, point sources are assigned to grid cells using the geographic coordinates
+               that are stored in each point-source record. For area and mobile sources, a cross-reference file matches the gridding surrogates
+               to the source-level emissions. When the gridding cross-reference files are applied, the most-specific matches always override
+               the less-specific ones.
+            </p>
+            <p>For the current version of SMOKE, a gridding surrogates file must be created for the specific grid of interest. This can be
+               accomplished in a variety of ways:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>ArcInfo (or other GIS) processing by an expert in creating gridding surrogates.</p>
+                  </li>
+                  <li>
+                     <p>Using the MIMS Spatial Allocation Tool.</p>
+                  </li>
+                  <li>
+                     <p>Extracting surrogate data from a larger gridding surrogates file. National 4-km surrogates are available from the EPA at <a href="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html" target="_top">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</a>. To use these data for your modeling, you must use the same grid projection as was used to create the gridding surrogates.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>For area sources, the gridding cross-reference file provides the following possible combinations, ordered from most specific
+               to least specific:
+            </p>
+            <div class="orderedlist">
+               <ol type="1" compact>
+                  <li>
+                     <p>Country/state/county code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code and 7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code</p>
+                  </li>
+                  <li>
+                     <p>Country/state code</p>
+                  </li>
+                  <li>
+                     <p>Ultimate default (country/state/county code = 0, SCC = 0)</p>
+                  </li>
+               </ol>
+            </div>
+            <p>For mobile sources, the available combinations and their order are:</p>
+            <div class="orderedlist">
+               <ol type="1" compact>
+                  <li>
+                     <p>Country/state/county code, and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code</p>
+                  </li>
+                  <li>
+                     <p>Country/state code</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Ultimate default (country/state/county code = 0, SCC = 0)</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s03s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s04s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.3.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.4.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

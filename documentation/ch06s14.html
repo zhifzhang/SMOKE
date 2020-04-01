@@ -1,0 +1,111 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.14.&nbsp;Smkmerge</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s13s03.html" title="6.13.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s14s02.html" title="6.14.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.14.&nbsp;<span><strong class="command">Smkmerge</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s13s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s14s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_smkmerge"></a>6.14.&nbsp;<span><strong class="command">Smkmerge</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s14.html#d0e28982">6.14.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s14s02.html">6.14.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s14s03.html">6.14.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e28982"></a>6.14.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch06s14.html#d0e29012">6.14.1.1. By-day processing</a></span></dt>
+               </dl>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> area, biogenic, mobile, point
+            </p>
+            <p>The <span><strong class="command">Smkmerge</strong></span> program combines the matrices produced by the other SMOKE programs to produce the emissions files for input to the AQM. The
+               <span><strong class="command">Smkmerge</strong></span> program may be run on any combination of source types and may incorporate temporal, speciation, projection, and spatial processing.
+            </p>
+            <p>If <span><strong class="command">Smkmerge</strong></span> is run to produce the input files to the AQM, all the other SMOKE programs must already have been run. However, you can also
+               run <span><strong class="command">Smkmerge</strong></span> to produce specialized reports. In that instance, only the required subset of SMOKE programs must have been run prior to
+               <span><strong class="command">Smkmerge</strong></span>.
+            </p>
+            <p><span><strong class="command">Smkmerge</strong></span> can be used to create 2-D or 3-D gridded, hourly, speciated files. It also outputs the hourly emissions file for PinG sources
+               needed by CMAQ. Finally, it outputs an ASCII elevated point sources file, suitable for postprocessing with the Ptsrce program
+               of EPS2.0/EPS2.5. If PinG sources have been selected and an ASCII elevated sources file is output, then SMOKE will set the
+               stack diameters to negative values for the PinG sources.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="d0e29012"></a>6.14.1.1.&nbsp;By-day processing
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p><span><strong class="command">Smkmerge</strong></span> can use a by-day processing approach, to read in one-day hourly files for each day of the week. When the <code class="envar">MRG_BYDAY</code> environment variable is set to A, M, P, or any combination of those letters, <span><strong class="command">Smkmerge</strong></span> reads a different logical file name for each day of the week for the hourly emission input files for the indicated sources.
+               </p>
+               <p>For example, if the <code class="envar">MRG_SOURCE</code> environment variable is set to AMBP, <span><strong class="command">Smkmerge</strong></span> will expect the following hourly input files: <code class="envar">ATMP</code>, <code class="envar">BGTS_[S|L]</code>, <code class="envar">MTMP</code>, and <code class="envar">PTMP</code>, for area, biogenic, mobile, and point source types respectively. If, in addition, <code class="envar">MRG_BYDAY</code> is set to &#8220;<span class="quote">A</span>&#8221;, then the hourly input files expected by <span><strong class="command">Smkmerge</strong></span> for area sources would be the <code class="envar">ATMP_{day}</code> files. The files for the other source types would remain the same.
+               </p>
+               <p>The <code class="envar">MRG_BYDAY</code> option is useful for implementing a Monday-weekday-Saturday-Sunday (MWSS) approach to save processing time for long episodes.
+                  This approach is applicable when weekly temporal profiles used by an inventory do not have variation between the five weekdays.
+                  In the MWSS approach, Monday is processed separately, because time zone differences across a large domain cause some Sunday
+                  emissions for some time zones to be in the Monday file. Additional environment variables other than the defaults in the Assigns
+                  file need to be set when this option is applied. <span><strong class="command">Smkmerge</strong></span> will prompt for a different file for each day of the week, but the logical file names for Tuesday through Friday can be defined
+                  as the same file when implementing the MWSS approach.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s13s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s14s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.13.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.14.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

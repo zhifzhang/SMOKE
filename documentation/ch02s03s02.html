@@ -1,0 +1,519 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.3.2.&nbsp;Inventory source categories</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s03.html" title="2.3.&nbsp;Emission inventories">
+      <link rel="prev" href="ch02s03.html" title="2.3.&nbsp;Emission inventories">
+      <link rel="next" href="ch02s03s03.html" title="2.3.3.&nbsp;Inventory file formats">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.3.2.&nbsp;Inventory source categories</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.3.&nbsp;Emission inventories</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_inv_source_categories"></a>2.3.2.&nbsp;Inventory source categories
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s03s02.html#d0e661">2.3.2.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s02.html#d0e888">2.3.2.2. Detailed source category descriptions</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e661"></a>2.3.2.1.&nbsp;Overview
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Emission inventories are divided into several source categories. These divisions stem from both differing methods for preparing
+               the inventories and from different characteristics and attributes of the categories (more on these terms later). Generally,
+               emission inventories are divided into the following source categories:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span class="bold"><strong>Stationary area/Nonpoint sources:</strong></span> Sources that are treated as being spread over a spatial extent (usually a county or air district) and that are not moveable
+                        (as compared to nonroad mobile and on-road mobile sources). Because it is not possible to collect the emissions at each point
+                        of emission, they are estimated over larger regions. The EPA introduced the term &#8220;<span class="quote">nonpoint</span>&#8221; to replace &#8220;<span class="quote">stationary area</span>&#8221; in order to avoid confusion with the term &#8220;<span class="quote">area source</span>&#8221;, which is used as a regulatory term in the toxics realm. However, &#8220;<span class="quote">nonpoint</span>&#8221; has not gained acceptance (thus far) by the criteria inventory/modeling community. Thus, in this manual we will use the
+                        term &#8220;<span class="quote">stationary area</span>&#8221; to refer to these sources when they are in criteria inventories, while we use the term &#8220;<span class="quote">nonpoint</span>&#8221; to refer to these sources when they are in toxics inventories. Examples of nonpoint or stationary area sources are residential
+                        heating and architectural coatings. Numerous sources, such as dry cleaning facilities, may be treated either as stationary
+                        area/nonpoint sources or as point sources; in particular, the toxics inventory contains numerous small sources (based on emissions)
+                        that are not inventoried as nonpoint sources because their locations are known and are provided.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Nonroad mobile sources:</strong></span> Vehicular and otherwise movable sources that do not include vehicles that travel on roadways. These sources are also computed
+                        as being spread over a spatial extent (again, a county or air district). Examples of nonroad mobile sources include locomotives,
+                        lawn and garden equipment, construction vehicles, and boating emissions. These sources are included in both criteria and toxics
+                        inventories.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>On-road mobile sources:</strong></span> Vehicular sources that travel on roadways. These sources can be computed either as being spread over a spatial extent or
+                        as being assigned to a line location (called a link). Data in on-road inventories can be either emissions or activity data.
+                        Activity data consists of vehicle miles traveled (VMT) and, optionally, vehicle speed. Activity data are used when SMOKE will
+                        be computing emission factors via another model such as MOVES. Examples of on-road mobile sources include light-duty gasoline
+                        vehicles and heavy-duty diesel vehicles. On-road mobile sources are included in both criteria and toxics inventories.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Point sources:</strong></span> These are sources that are identified by point locations, typically because they are regulated and their locations are available
+                        in regulatory reports. Point sources are often further subdivided into electric generating utilities (EGUs) and non-EGU sources,
+                        particularly in criteria inventories in which EGUs are a primary source of NO<sub>x</sub> and SO<sub>2</sub>. Examples of non-EGU point sources include chemical manufacturers and furniture refinishers. Point sources are included in
+                        both the criteria and toxics inventories.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Wildfire sources:</strong></span> Traditionally, wildfire emissions have been treated as stationary area sources. More recently, data have also been developed
+                        for point locations, with day-specific emissions and hour-specific plume rise (vertical distribution of emissions). In this
+                        case, the wildfire emissions are processed by SMOKE as point sources.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Biogenic land use data:</strong></span> Biogenic land use data characterize the type of vegetation that exists in either county total or grid cell values. The biogenic
+                        land use data in North American is available using two different sets of land use categories: the Biogenic Emissions Landcover
+                        Database (BELD) version 2 (BELD2), and the BELD version 3 (BELD3).
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Emission processing in SMOKE is divided into four processing categories: area, biogenic, mobile, and point. The definitions
+               of these categories that SMOKE uses are different than those used for defining emission inventories. <a href="ch02s03s02.html#tbl_concepts_inv_categories" title="Table&nbsp;2.1.&nbsp;Inventory source categories and SMOKE processing capabilities and categories">Table&nbsp;2.1, &#8220;Inventory source categories and SMOKE processing capabilities and categories&#8221;</a> lists the inventory source categories, the types of inventories (activity data, criteria, particulates, and toxics) that
+               SMOKE can process, the temporal resolution that is acceptable to SMOKE, and the SMOKE processing category that should be used
+               for processing the inventory.
+            </p>
+            <div class="table"><a name="tbl_concepts_inv_categories"></a><p class="title"><b>Table&nbsp;2.1.&nbsp;Inventory source categories and SMOKE processing capabilities and categories</b></p>
+               <table summary="Inventory source categories and SMOKE processing capabilities and categories" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th rowspan="2" align="center" valign="bottom">Inventory source category</th>
+                        <th colspan="4" align="center">Temporal resolution that SMOKE can process*</th>
+                        <th rowspan="2" align="center" valign="bottom">SMOKE processing category</th>
+                     </tr>
+                     <tr>
+                        <th align="center">Activity data</th>
+                        <th align="center">Criteria</th>
+                        <th align="center">Particulates</th>
+                        <th align="center">Toxics</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Nonpoint or stationary area</td>
+                        <td align="center">N/A</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td>Area</td>
+                     </tr>
+                     <tr>
+                        <td>Nonroad mobile</td>
+                        <td align="center">N/A</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td>Area</td>
+                     </tr>
+                     <tr>
+                        <td>On-road mobile (MOBILE 6)</td>
+                        <td align="center">A</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td>Mobile</td>
+                     </tr>
+                     <tr>
+                        <td>On-road mobile (MOVES)</td>
+                        <td align="center">A</td>
+                        <td align="center">H</td>
+                        <td align="center">H</td>
+                        <td align="center">H</td>
+                        <td>Mobile</td>
+                     </tr>
+                     <tr>
+                        <td>EGU</td>
+                        <td align="center">N/A</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td>Point</td>
+                     </tr>
+                     <tr>
+                        <td>Non-EGU</td>
+                        <td align="center">N/A</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td align="center">A, S, D, H</td>
+                        <td>Point</td>
+                     </tr>
+                     <tr>
+                        <td>Wildfire with precomputed plume rise</td>
+                        <td align="center">N/A</td>
+                        <td align="center">D, H</td>
+                        <td align="center">D, H</td>
+                        <td align="center">N/A</td>
+                        <td>Point</td>
+                     </tr>
+                     <tr>
+                        <td>Wildfire with internal plume rise calculation</td>
+                        <td align="center">N/A</td>
+                        <td align="center">D</td>
+                        <td align="center">D</td>
+                        <td align="center">N/A</td>
+                        <td>Point</td>
+                     </tr>
+                     <tr>
+                        <td>Biogenic land use</td>
+                        <td align="center">N/A</td>
+                        <td align="center">X</td>
+                        <td align="center">N/A</td>
+                        <td align="center">N/A</td>
+                        <td>Biogenic</td>
+                     </tr>
+                     <tr>
+                        <td colspan="6" align="center">* <span class="bold"><strong>A</strong></span> = Supports annual data; <span class="bold"><strong>S</strong></span> = Supports average-day data; <span class="bold"><strong>D</strong></span> = Supports day-specific data; <span class="bold"><strong>H</strong></span> = Supports hourly data; <span class="bold"><strong>X</strong></span> = Supports available data
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e888"></a>2.3.2.2.&nbsp;Detailed source category descriptions
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e905">2.3.2.2.1. Nonpoint/stationary area and nonroad mobile (SMOKE category: area)</a></span></dt>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e965">2.3.2.2.2. On-road mobile (SMOKE category: mobile)</a></span></dt>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e1007">2.3.2.2.3. Point sources (SMOKE category: point)</a></span></dt>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e1056">2.3.2.2.4. Wildfire with precomputed plume rise (SMOKE category: point)</a></span></dt>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e1100">2.3.2.2.5. Wildfires with internal plume rise calculation (SMOKE category: point)</a></span></dt>
+                  <dt><span class="section"><a href="ch02s03s02.html#d0e1139">2.3.2.2.6. Biogenic land use (SMOKE category: biogenic)</a></span></dt>
+               </dl>
+            </div>
+            <p>Each inventory source category has source characteristics, source attributes, data values, and data attributes. <span class="emphasis"><em>Source characteristics</em></span> are unique to each inventory source category and also distinguish one source in the inventory from another. <span class="emphasis"><em>Source attributes</em></span> further describe the sources with other information that is useful for emissions processing, such as point-source flue gas
+               exit height and temperature. The <span class="emphasis"><em>data values</em></span> are either emissions values or activity values. The <span class="emphasis"><em>data attributes</em></span> are additional information about the data values, such as the percentage reduction in emission from controls already applied
+               to the source. In the following subsections, we summarize the source characteristics and attributes and the data values and
+               attributes that are used by SMOKE for each of the inventory categories.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e905"></a>2.3.2.2.1.&nbsp;Nonpoint/stationary area and nonroad mobile (SMOKE category: area)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> For all typical inventories, the source characteristics that identify these sources are country/state/county code, SCC and/or
+                           GEOCODE_LEVEL[1-4]. See 
+                           	<a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">Section&nbsp;2.3.4, &#8220;Country, state, and county codes&#8221;</a> and <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">Section&nbsp;2.3.5, &#8220;Source Classification Codes&#8221;</a> and <a href="ch02s03s07.html" title="2.3.7.&nbsp;Geographical Code (GEOCODE_LEVEL[1-4]">Section&nbsp;2.3.7, &#8220;Geographical Code (GEOCODE_LEVEL[1-4]&#8221;</a> for further information.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> SMOKE can also use pregridded data from the same modeling domain as a SMOKE area source; this is described in more detail
+                           in <a href="ch02s08s02.html#sect_concepts_pregridded_data" title="2.8.2.2.&nbsp;Pre-gridded Emissions">Section&nbsp;2.8.2.2, &#8220;Pre-gridded Emissions&#8221;</a>. In this case, the source characteristics and attributes, (country/state/county code and SCC) are <span class="emphasis"><em>not</em></span> used in SMOKE. SMOKE can also use pregridded data from a different modeling domain along with geographical codes (GEOCODE_LEVEL[1-4])
+                           and source information from the ARINV file to specify the source characteristics and associated source attributes for each
+                           grid cell.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> The inventory year is associated with all sources in the inventory input files. In addition, SMOKE assigns a time zone (see
+                           <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) and an approach for normalization of temporal profiles (see <a href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">Section&nbsp;2.9.13, &#8220;Set the weekday averaging approach&#8221;</a>). In the nonpoint toxics inventory only, Standard Industrial Classification (SIC) codes, Maximum Achievable Control Technology
+                           (MACT) codes, and North American Industrial Classification System (NAICS) codes are optional source attributes; the NAICS
+                           code is read by SMOKE but not otherwise used at this time. Additionally, a &#8220;<span class="quote">source type</span>&#8221; field is available in the nonpoint inventory to identify major and Clean Air Act (CAA) section 112 area sources. See <a href="ch02s03s06.html" title="2.3.6.&nbsp;Standard Industrial Classification codes">Section&nbsp;2.3.6, &#8220;Standard Industrial Classification codes&#8221;</a> for a description of SIC codes, <a href="ch02s03s08.html" title="2.3.8.&nbsp;Maximum Achievable Control Technology codes">Section&nbsp;2.3.8, &#8220;Maximum Achievable Control Technology codes&#8221;</a> for more about MACT codes, and <a href="ch02s03s09.html" title="2.3.9.&nbsp;Source types: major and section-112 area sources">Section&nbsp;2.3.9, &#8220;Source types: major and section-112 area sources&#8221;</a> for more about source types. We will refer to the CAA section 112 area sources as simply &#8220;<span class="quote">section-112 area sources</span>&#8221;.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> SMOKE can read emissions data for criteria, particulate, and toxics pollutants for nonpoint/stationary area and nonroad inventories.
+                           The SMOKE system is not constrained with regard to the pollutants read (although typical examples were given in <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a>). SMOKE accepts annual emissions data, average-day emissions data, or both (though not all input formats support all types).
+                           An emission factor value can also be read by SMOKE, but SMOKE does nothing with it.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> Inventories for nonpoint/stationary area and nonroad mobile sources can contain control efficiency, rule penetration, and
+                           rule effectiveness information for each pollutant. SMOKE will use these data if provided; otherwise it will set default values
+                           that indicate that no control-based adjustments have been applied to the inventory pollutant data. The defaults are listed
+                           in the file formats in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e965"></a>2.3.2.2.2.&nbsp;On-road mobile (SMOKE category: mobile)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> For on-road mobile inventories, the minimum source characteristics that identify these sources are country/state/county code
+                           and either SCC <span class="emphasis"><em>or</em></span> road class and vehicle type codes. When the SCC is provided, it must follow a specific pattern in order to contain the road
+                           class and vehicle type codes (see <a href="ch02s08s04.html#sect_concepts_onroad_sccs" title="2.8.4.1.&nbsp;Special approach for on-road mobile MOVES SCCs">Section&nbsp;2.8.4.1, &#8220;Special approach for on-road mobile MOVES SCCs&#8221;</a>). When road class and vehicle type codes are provided to SMOKE directly, SMOKE translates these to SCC values.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> A link code may also identify on-road sources. This code must be unique within each county and SCC (or road class/vehicle
+                           type combination).
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> The inventory year is associated with all sources in the inventory input files. In addition, SMOKE assigns a time zone (see
+                           <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) and an approach for normalization of temporal profiles (see <a href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">Section&nbsp;2.9.13, &#8220;Set the weekday averaging approach&#8221;</a>). For sources with link codes, SMOKE will use the starting and ending coordinates of the link, using either latitude-longitude
+                           (lat-lon) values or coordinates in the Universal Transverse Mercator (UTM) coordinate system.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> Emissions data for criteria, particulate, and toxics pollutants can be read for on-road mobile inventories. SMOKE is not
+                           constrained with regard to the pollutants read (although typical examples were given in <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a>). SMOKE accepts annual emissions data, average-day emissions data, or both (though not all input formats support all types).
+                        </p>
+                        <p>Additionally, on-road mobile inventories can contain VMT and average speed activity data, which are needed when users would
+                           like SMOKE to run MOVES to compute emissions. A combination of precomputed emissions and VMT data is also acceptable for input
+                           to SMOKE, but you are responsible for preventing duplication of emissions. Duplication could occur if you input precomputed
+                           emissions for the same sources that you use SMOKE to compute the emissions on the fly, by multiplying the on-road emissions
+                           factors from MOVES by hourly VMT, and the off-network emission factors from MOVES by annual vehicle populations.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> No data attributes are associated with on-road mobile sources.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e1007"></a>2.3.2.2.3.&nbsp;Point sources (SMOKE category: point)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> The source characteristics for point sources depend on the inventory input format. The SMOKE one-record-per-line (ORL) and
+                           Flat File 10 Format (FF10) formats identify sources by country/state/county code, plant code, point code, stack code, segment
+                           code, and SCC. 95. 
+                           	
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> SMOKE can support up to five location identifiers within a plant, although the most used in any currently implemented input
+                           file format is four.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> As with other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns
+                           a time zone (see <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) and an approach for normalization of temporal profiles (see <a href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">Section&nbsp;2.9.13, &#8220;Set the weekday averaging approach&#8221;</a>). In addition, point sources have the following required source attributes not associated with other source categories: latitude,
+                           longitude, stack height, stack diameter (at the exit location), flue gas exit velocity, and flue gas exit temperature. Finally,
+                           the following optional source attributes are also used by SMOKE: SIC codes, MACT codes, plant descriptions, emissions release
+                           type point (e.g., horizontal stack, fugitive), source type (major or section-112 area), Office of Regulatory Information Systems
+                           (ORIS) identification codes, and boiler identification codes. Also, the MACT code and source types are supported only by the
+                           ORL format. See <a href="ch02s03s06.html" title="2.3.6.&nbsp;Standard Industrial Classification codes">Section&nbsp;2.3.6, &#8220;Standard Industrial Classification codes&#8221;</a>, <a href="ch02s03s08.html" title="2.3.8.&nbsp;Maximum Achievable Control Technology codes">Section&nbsp;2.3.8, &#8220;Maximum Achievable Control Technology codes&#8221;</a>, and <a href="ch02s03s09.html" title="2.3.9.&nbsp;Source types: major and section-112 area sources">Section&nbsp;2.3.9, &#8220;Source types: major and section-112 area sources&#8221;</a> for more information.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> Emissions data for criteria, particulate, and toxics pollutants can be read for point inventories. SMOKE is not constrained
+                           with regard to the pollutants read (although typical examples were given in <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a>). SMOKE accepts annual emissions data, average-day emissions data, or both.
+                        </p>
+                        <p>Optionally, point-source emissions data can be provided using day-specific or hour-specific records. The formats for these
+                           data are described in <a href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions">Section&nbsp;8.2.6, &#8220;<code class="envar">PTDAY</code>: Point source day-specific emissions&#8221;</a> and <a href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions">Section&nbsp;8.2.7, &#8220;<code class="envar">PTHOUR</code>: Point source hour-specific emissions&#8221;</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> EGU and non-EGU point sources can contain control efficiency and rule effectiveness information for each pollutant. SMOKE
+                           will use these data if provided; otherwise it will set default values that indicate that no control-based adjustments have
+                           been applied to the inventory pollutant data. The defaults are listed in the file formats in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e1056"></a>2.3.2.2.4.&nbsp;Wildfire with precomputed plume rise (SMOKE category: point)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> Wildfires with precomputed plumes are identified by the country/state/county code and the fire name.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> There are no optional source characteristics for wildfire sources.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns
+                           a time zone (see <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) and an approach for normalization of temporal profiles (see <a href="ch02s09s13.html" title="2.9.13.&nbsp;Set the weekday averaging approach">Section&nbsp;2.9.13, &#8220;Set the weekday averaging approach&#8221;</a>). In addition, wildfire sources require the latitude and longitude source attributes. Finally, additional hour-specific source
+                           attributes for wildfire sources <span class="emphasis"><em>must</em></span> be provided for the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of
+                           the top of the plume. These hour-specific attributes are provided to SMOKE using the point source hour-specific formats described
+                           in <a href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions">Section&nbsp;8.2.7, &#8220;<code class="envar">PTHOUR</code>: Point source hour-specific emissions&#8221;</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> Wildfire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the
+                           pollutants read (although typical examples were given in <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a>). These data must be provided as day-specific or hour-specific emissions values using point source formats specified in <a href="ch08s02s06.html" title="8.2.6.&nbsp;PTDAY: Point source day-specific emissions">Section&nbsp;8.2.6, &#8220;<code class="envar">PTDAY</code>: Point source day-specific emissions&#8221;</a> and <a href="ch08s02s07.html" title="8.2.7.&nbsp;PTHOUR: Point source hour-specific emissions">Section&nbsp;8.2.7, &#8220;<code class="envar">PTHOUR</code>: Point source hour-specific emissions&#8221;</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> No data attributes are associated with wildfire sources.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e1100"></a>2.3.2.2.5.&nbsp;Wildfires with internal plume rise calculation (SMOKE category: point)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> Wildfires with internal plume rise calculation are identified by the country/state/county code, fire identification, fire
+                           name, location identification, and SCC.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> There are optional source characteristics for fire sources, such as material burned, vegetation types, size of area burned,
+                           fuel loading, and fire start/end hour. The size of area burned and fuel loading are used for computing the fire-specific plume
+                           rise. Fire starting and ending hours are needed to adjust the hourly temporal profiles for the emissions.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns
+                           a time zone (see <a href="ch02s09s14.html" title="2.9.14.&nbsp;Assign country codes, years, and time zones">Section&nbsp;2.9.14, &#8220;Assign country codes, years, and time zones&#8221;</a>) and will re-normalize temporal profiles based on the starting and ending hours of the fire. In addition, wildfire sources
+                           require the latitude and longitude source attributes to locate the fire. Note that all emissions for a fire will be assumed
+                           to come from the single grid cell that contains the latititude and longitude of the fire. Finally, additional day-specific
+                           source attributes listed above for fire sources <span class="emphasis"><em>must</em></span> be provided for calculating the heat flux of each fire, which is used to estimate the fraction of emissions in the surface
+                           layer, the height of the bottom of the plume, and the height of the top of the plume. See more information about how to process
+                           at <a href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">Section&nbsp;4.4.17, &#8220;Plume Rise Calculation for Fires&#8221;</a></p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> Fire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants
+                           read (although typical examples were given in <a href="ch08s02s08.html#sect_input_ptinv_fire" title="8.2.8.3.&nbsp;ORL FIRE Format">Section&nbsp;8.2.8.3, &#8220;ORL FIRE Format&#8221;</a>). These data must be provided as day-specific emissions values using point source formats specified in <a href="ch08s02s06.html#sect_input_ptday_fireemis" title="8.2.6.2.&nbsp;ORL FIREEMIS Emission Format">Section&nbsp;8.2.6.2, &#8220;ORL FIREEMIS Emission Format&#8221;</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> No data attributes are associated with wildfire sources.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e1139"></a>2.3.2.2.6.&nbsp;Biogenic land use (SMOKE category: biogenic)
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><span class="bold"><strong>Source characteristics:</strong></span> Biogenic emission data does not fit as neatly into the source-characteristic paradigm as the previously described source
+                           types. Emissions for biogenic sources are estimated starting with land use data, which are available for both BELD2 and BELD3
+                           processing. The BELD2 data are available either by U.S. state/county and BELD2 land use category or by grid cell and BELD2
+                           land use category. BELD3 land use data are available by 1-km grid cell over North and Central America and by BELD3 land use
+                           category.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Optional source characteristics:</strong></span> Biogenic land use data do not include optional source characteristics. The data are either by state/county or by grid cell.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Source attributes:</strong></span> There are no source attributes for biogenic land use data.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data:</strong></span> The biogenic land use data consist of fractions associated with each land use type within a county or grid cell.
+                        </p>
+                     </li>
+                     <li>
+                        <p><span class="bold"><strong>Data attributes:</strong></span> There are no data attributes for biogenic land use data.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.3.&nbsp;Emission inventories&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.3.3.&nbsp;Inventory file formats</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

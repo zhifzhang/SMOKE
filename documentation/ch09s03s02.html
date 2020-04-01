@@ -1,0 +1,180 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>9.3.2.&nbsp;STACK_GROUPS</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch09s03.html" title="9.3.&nbsp;Elevpoint">
+      <link rel="prev" href="ch09s03.html" title="9.3.&nbsp;Elevpoint">
+      <link rel="next" href="ch09s04.html" title="9.4.&nbsp;Grdmat">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">9.3.2.&nbsp;<code class="envar">STACK_GROUPS</code></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch09s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">9.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch09s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_intmed_stack_groups"></a>9.3.2.&nbsp;<code class="envar">STACK_GROUPS</code></h3>
+               </div>
+            </div>
+         </div>
+         <p>Type: I/O API NetCDF - adapted gridded format</p>
+         <p>Used by: <span><strong class="command">Laypoint</strong></span> and <span><strong class="command">Smkmerge</strong></span></p>
+         <div class="table"><a name="d0e52999"></a><p class="title"><b>Table&nbsp;9.8.&nbsp;I/O API Header for <code class="envar">STACK_GROUPS</code></b></p>
+            <table summary="I/O API Header for STACK_GROUPS" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>I/O API Header variable</th>
+                     <th>Meaning</th>
+                     <th>Set by...</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>NROWS3D</td>
+                     <td>Number of PinG groups</td>
+                     <td>Determined by the <code class="envar">PELVCONFIG</code> file
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="table"><a name="d0e53027"></a><p class="title"><b>Table&nbsp;9.9.&nbsp;Variables in <code class="envar">STACK_GROUPS</code></b></p>
+            <table summary="Variables in STACK_GROUPS" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Variable Name</th>
+                     <th>Type</th>
+                     <th>Units</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>ISTACK</td>
+                     <td>Integer</td>
+                     <td>Unitless </td>
+                     <td>Stack group number</td>
+                  </tr>
+                  <tr>
+                     <td>LATITUDE</td>
+                     <td>Real</td>
+                     <td>degrees</td>
+                     <td>Latitude</td>
+                  </tr>
+                  <tr>
+                     <td>LONGITUDE</td>
+                     <td>Real</td>
+                     <td>degrees</td>
+                     <td>Longitude</td>
+                  </tr>
+                  <tr>
+                     <td>STKDM</td>
+                     <td>Real</td>
+                     <td>m</td>
+                     <td>Inside stack diameter</td>
+                  </tr>
+                  <tr>
+                     <td>STKHT</td>
+                     <td>Real</td>
+                     <td>m</td>
+                     <td>Stack height above ground surface</td>
+                  </tr>
+                  <tr>
+                     <td>STKTK</td>
+                     <td>Real</td>
+                     <td>K</td>
+                     <td>Stack exit temperature</td>
+                  </tr>
+                  <tr>
+                     <td>STKVE</td>
+                     <td>Real</td>
+                     <td>m/s</td>
+                     <td>Stack exit velocity</td>
+                  </tr>
+                  <tr>
+                     <td>STKFLW</td>
+                     <td>Real</td>
+                     <td>m<sup>3</sup>/s
+                     </td>
+                     <td>Stack exit flow rate</td>
+                  </tr>
+                  <tr>
+                     <td>STKCNT</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Number of stacks in group</td>
+                  </tr>
+                  <tr>
+                     <td>ROW</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Grid row number</td>
+                  </tr>
+                  <tr>
+                     <td>COL</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Grid column number</td>
+                  </tr>
+                  <tr>
+                     <td>XLOCA</td>
+                     <td>Real</td>
+                     <td>Coordinate system projection units</td>
+                     <td>Projection x coordinate</td>
+                  </tr>
+                  <tr>
+                     <td>YLOCA</td>
+                     <td>Real</td>
+                     <td>Coordinate system projection units</td>
+                     <td>Projection y coordinate</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch09s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch09s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch09s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">9.3.&nbsp;<span><strong class="command">Elevpoint</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;9.4.&nbsp;<span><strong class="command">Grdmat</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

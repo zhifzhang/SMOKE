@@ -1,0 +1,333 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="prev" href="ch03s02s03.html" title="3.2.3.&nbsp;Locations of input files">
+      <link rel="next" href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">3.2.&nbsp;Directory structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_dirs_location_intmed_files"></a>3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch03s02s04.html#sect_dirs_location_intmed_base">3.2.4.1. Basic configuration for base case</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s04.html#sect_dirs_location_intmed_advanced">3.2.4.2. Advanced configuration for base case</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s04.html#sect_dirs_location_intmed_growth">3.2.4.3. Configuration for growth and/or control case</a></span></dt>
+            </dl>
+         </div>
+         <p>The intermediate files for SMOKE are located in three primary directories for each case: the inventory output directory (<code class="envar">$INVOPD</code>), the scenario directory (<code class="envar">$SCENARIO</code>), and the static files directory (<code class="envar">$STATIC</code>). All intermediate file locations are subdirectories of the <code class="envar">$SMKDAT</code> directory shown in <a href="ch03s02s02.html#fig_dirs_basic_dirs" title="Figure&nbsp;3.1.&nbsp;Basic SMOKE directories: the first three levels of the directory structure">Figure&nbsp;3.1, &#8220;Basic SMOKE directories: the first three levels of the directory structure&#8221;</a> as <code class="filename"><code class="envar">$SMK_HOME/data</code></code>. Note that <a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>, <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>, and <a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a> show both intermediate and output directories. Here we focus only on the intermediate directories; the output directories
+            are discussed in <a href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">Section&nbsp;3.2.5, &#8220;Locations of model-ready output files for base and growth/control cases&#8221;</a>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_dirs_location_intmed_base"></a>3.2.4.1.&nbsp;Basic configuration for base case
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a> shows the SMOKE intermediate directories for a basic configuration of a base case. In this configuration, the Assigns file
+               variables <code class="envar">ASCEN</code>, <code class="envar">BSCEN</code>, <code class="envar">MSCEN</code>, <code class="envar">PSCEN</code>, and <code class="envar">ESCEN</code> are all set to the same value. These variables are the scenario names for the four processing categories (area, biogenic,
+               mobile, and point) and the combined category (used when combining emissions from multiple source categories). Having these
+               variables set to the same value allows a simpler structure in which the <code class="filename">run_<code class="envar">$ESCEN</code></code> directory is the same as the <code class="filename">run_<code class="envar">$ASCEN</code></code>, <code class="filename">run_<code class="envar">$BSCEN</code></code>, <code class="filename">run_<code class="envar">$MSCEN</code></code>, and <code class="filename">run_<code class="envar">$PSCEN</code></code> directories. In the figure, this single directory is shown simply as <code class="filename">run_<code class="envar">$ESCEN</code></code>.
+            </p>
+            <p>The <code class="envar">$BSCEN</code> setting for biogenic sources is often set to a different scenario name, usually simply &#8220;<span class="quote">beld2</span>&#8221; or &#8220;<span class="quote">beld3</span>&#8221;. This is because there are not very many scenarios to choose from for biogenic emissions, since users almost always want
+               to use one of the standard approaches and there are usually no control strategies considered for biogenic emissions. In this
+               case, the <code class="filename">run_<code class="envar">$BSCEN</code></code> directory is a separate branch in the directory structure that stores just the biogenic files for use by both base case and
+               future-year control scenarios. For the nctox test case, we have not used this approach since the biogenic data is specific
+               to the nctox modeling domain.
+            </p>
+            <div class="figure"><a name="fig_dirs_files_base"></a><p class="title"><b>Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration</b></p>
+               <div class="mediaobject"><img src="images\dirs\files_base_html.jpg" alt="Locations of intermediate and output files for SMOKE base case, basic configuration"></div>
+            </div>
+            <p>The following list describes the intermediate files that are associated with each of the intermediate directories <code class="envar">$INVOPD</code>, <code class="envar">$SCENARIO</code>, and <code class="envar">$STATIC</code>. You can refer to <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a> for more information about each of the intermediate files (look under the logical file names).
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">inventory/<code class="envar">$INVEN</code></code>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files
+                        are the outputs from <span><strong class="command">Smkinven</strong></span>, and <span><strong class="command">Tmpbeis3</strong></span>. The outputs from <span><strong class="command">Smkinven</strong></span> are map-formatted (see below for more information) while the biogenic outputs are I/O API NetCDF format. The subdirectories
+                        <code class="filename">area_dat</code>, <code class="filename">mobl_dat</code>, <code class="filename">nroad_dat</code>, and <code class="filename">pnts_dat</code> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory
+                        include:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><code class="envar">AREA</code>: Map-formatted SMOKE intermediate files for nonpoint/stationary area sources (from the <code class="envar">ARINV</code> input file) and/or nonroad mobile sources (from either the <code class="envar">ARINV</code> input file or from the <code class="envar">NRINV</code> input file if nonroad mobile sources are being run separately from other SMOKE area sources). Example file names include
+                                 <code class="filename">area.map.<code class="envar">$INVOP</code>.txt</code> and <code class="filename">nroad.map.<code class="envar">$INVOP</code>.txt</code>.
+                              </p>
+                              <p>The data from the inventories is stored in several different files, both ASCII and I/O API format. The map-formatted intermediate
+                                 files are used to organize and keep track of these separate files. See <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a> for an example and further discussion of the intermediate inventory files. For the <code class="envar">AREA</code> file, the additional inventory files <code class="filename">area.ncf</code> and <code class="filename">asrc.txt</code> are stored in the <code class="envar">$INVOPD</code> directory. The pollutant-specific files are stored in the <code class="filename">area_dat</code> directory. For the <code class="envar">NROAD</code> file, the files are named <code class="filename">nroad.ncf</code> and <code class="filename">nsrc.txt</code> and the pollutant-specific files are placed in the <code class="filename">nroad_dat</code> directory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ARDAY</code>: The day-specific SMOKE area-source intermediate inventory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ARHOUR</code>:The hour-specific SMOKE area-source intermediate inventory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ASCC</code>: List of area-source SCCs in the inventory. Can include <code class="filename">ASCC.<code class="envar">$INVOP</code>.txt</code> and <code class="filename">NSCC.<code class="envar">$INVOP</code>.txt</code> (e.g., <code class="filename">ASCC.nei99.txt</code> and <code class="filename">NSCC.nei99.txt</code>).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">B3GRD</code>: Normalized gridded biogenic emissions.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">MOBL</code>: Map-formatted SMOKE intermediate file for on-road mobile sources. Example file name is <code class="filename">mobl.map.<code class="envar">$INVOP</code>.txt</code>. The additional inventory files are named <code class="filename">mobl.ncf</code> and <code class="filename">msrc.txt</code>, and the pollutant-specific files are placed in the <code class="filename">mobl_dat</code> directory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">MSCC</code>: List of on-road mobile-source SCCs in the inventory; e.g., <code class="filename">MSCC.<code class="envar">$INVOP</code>.txt</code>.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PDAY</code>: The day-specific SMOKE intermediate inventory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PHOUR</code>: The hour-specific SMOKE intermediate inventory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PNTS</code>: Map-formatted SMOKE intermediate file for point sources. Example file name is <code class="filename">pnts.map.<code class="envar">$INVOP</code>.txt</code>. The additional inventory files are named <code class="filename">pnts.ncf</code> and <code class="filename">psrc.txt</code>, and the pollutant-specific files are placed in the <code class="filename">pnts_dat</code> directory.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PSCC</code>: List of point-source SCCs in the inventory; e.g., <code class="filename">PSCC.<code class="envar">$INVOP</code>.txt</code>.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="filename">reports</code>: Discussed in <a href="ch03s02s06.html" title="3.2.6.&nbsp;Locations of reports">Section&nbsp;3.2.6, &#8220;Locations of reports&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$BSCEN</code>/output/<code class="envar">$SPC</code></code>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files
+                        because in some cases these are not ready for the AQM, because the units need to be converted. <span><strong class="command">Tmpbeis3</strong></span> can output emissions in either moles/hr or moles/s. The CMAQ model needs data in units of moles/s.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>/output</code>: Discussed in <a href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">Section&nbsp;3.2.5, &#8220;Locations of model-ready output files for base and growth/control cases&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>/scenario</code>: Contains the intermediate hourly emissions files and other time-dependent files. The intermediate files in this directory
+                        include:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><code class="envar">ATMP</code>, <code class="envar">MTMP</code>, <code class="envar">PTMP</code>: The area/nonroad, mobile, and point hourly emissions created by the <span><strong class="command">Temporal</strong></span> program.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ATSUP</code>, <code class="envar">MTSUP</code>, <code class="envar">PTSUP</code>: The area/nonroad, mobile, and point temporal allocation supplementary files.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PLAY</code>: The point-source hourly layer fraction for each source.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PLAY_EX</code>: The point-source hourly layer fractions for <span class="emphasis"><em>explicit</em></span> plume rise sources when processing for UAM or CAM<sub>X</sub>.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>/static</code>: Contains the matrices and other time-independent files. The intermediate files in this directory include:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><code class="envar">ACMAT</code>, <code class="envar">MCMAT</code>, <code class="envar">PCMAT</code>: The area/nonroad, mobile, and point multiplicative control matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">AGMAT</code>, <code class="envar">MGMAT</code>, <code class="envar">PGMAT</code>: The area/nonroad, mobile, and point gridding matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">AGSUP</code>, <code class="envar">MGSUP</code>: The area/nonroad and mobile supplementary gridding files.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">APMAT</code>, <code class="envar">MPMAT</code>, <code class="envar">PPMAT</code>: The area/nonroad, mobile, and point growth matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ARMAT</code>, <code class="envar">MRMAT</code>, <code class="envar">PRMAT</code>: The area/nonroad, mobile, and point reactivity control matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ARSUP</code>, <code class="envar">MRSUP</code>, <code class="envar">MRSUP</code>: The area/nonroad, mobile, and point reactivity supplementary files.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ASMAT_L</code>, <code class="envar">MSMAT_L</code>, <code class="envar">PSMAT_L</code>: The area/nonroad, mobile, and point mole-based speciation matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ASMAT_S</code>, <code class="envar">MSMAT_S</code>, <code class="envar">PSMAT_S</code>: The area/nonroad, mobile, and point mass-based speciation matrices.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">ASSUP</code>, <code class="envar">MSSUP</code>, <code class="envar">PSSUP</code>: The area/nonroad, mobile, and point supplementary speciation files.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PELV</code>: The point-source elevated- and PinG-source selection file
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="filename"><code class="envar">$LOGS</code></code>: Contains the log files created when the SMOKE programs are run
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_dirs_location_intmed_advanced"></a>3.2.4.2.&nbsp;Advanced configuration for base case
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Instead of using the basic configuration technique of setting the scenario name variables (<code class="envar">ASCEN</code>, <code class="envar">BSCEN</code>, <code class="envar">MSCEN</code>, <code class="envar">PSCEN</code>, and <code class="envar">ESCEN</code>) all to the same value (<a href="ch03s02s04.html#sect_dirs_location_intmed_base" title="3.2.4.1.&nbsp;Basic configuration for base case">Section&nbsp;3.2.4.1, &#8220;Basic configuration for base case&#8221;</a>), you can set up an Assigns file to use different values for one or more of these variable. In this more advanced configuration,
+               separate directories are created and used for intermediate and output files for each source category (examples of when this
+               would be useful are given in the bullets below). <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a> illustrates the directory structure resulting from this approach; however, for simplicity&#8217;s sake, we have not included all
+               of the files in this structure. The files are the same as in <a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>, with the exception that files specific to a source category go to their category-specific directories, based on the values
+               given to <code class="envar">ASCEN</code>, <code class="envar">BSCEN</code>, <code class="envar">MSCEN</code>, and/or <code class="envar">PSCEN</code>. Note that the nonpoint (stationary area) and nonroad mobile sources would need to use the same scenario name, even if they
+               are processed separately, because the nonroad mobile <code class="filename">static</code> and <code class="filename">scenario</code> directories are set using the same <code class="envar">ASCEN</code> variable as for other area sources in the default Assigns files. Having separate source-category-specific directories does
+               not change the number of intermediate or output files, it just rearranges the files and results into fewer intermediate, output,
+               and/or report files in each directory.
+            </p>
+            <p>This approach is particularly useful in the following cases:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span class="bold"><strong>Using toxic inventories for some source categories but not others:</strong></span> In this case, different scenario names (<code class="envar">ASCEN</code>, <code class="envar">MSCEN</code>, <code class="envar">PSCEN</code>, and <code class="envar">ESCEN</code>) can be used to distinguish each case and the final-merged files (though it is not required to do this). For example, if
+                        you were running toxics for on-road mobile sources only, <code class="envar">MSCEN</code> could be set to &#8220;<span class="quote">case1_tox</span>&#8221;, while <code class="envar">ASCEN</code> and <code class="envar">PSCEN</code> could be set to just &#8220;<span class="quote">case1</span>&#8221; and <code class="envar">ESCEN</code> could be &#8220;<span class="quote">case1_all</span>&#8221;. If you would prefer instead to name all of these &#8220;<span class="quote">case1</span>&#8221; and simply remember that on-road mobile sources include toxics, then that would be fine as well.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Using the <span><strong class="command">Mrggrid</strong></span> program to combine model-ready files from several previously run scenarios:</strong></span> For example, you might want to combine the future-year base case for all source categories except nonroad with a future-year
+                        control case for nonroad, as part of an evaluation of the impact of the nonroad control case. If three previous Assigns files
+                        were set up using the basic structure for three different control cases (case1, case2, and case3), and a new case is needed
+                        that uses area sources from case1, on-road mobile sources from case2, and point sources from case3, you could set up a new
+                        Assigns file that sets <code class="envar">ASCEN</code> to case1, <code class="envar">MSCEN</code> to case2, and <code class="envar">PSCEN</code> to case3. When you invoke that new Assigns file, all of the environment variables needed by <span><strong class="command">Mrggrid</strong></span> for combining the model-ready files from the three different cases would be set: <code class="envar">AGTS_L</code> would be based on case1, <code class="envar">MGTS_L</code> would be based on case2, and <code class="envar">PGTS3D_L</code> would be based on case3. See <a href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">Section&nbsp;3.2.5, &#8220;Locations of model-ready output files for base and growth/control cases&#8221;</a> for more information on the model-ready files.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="figure"><a name="fig_dirs_files_advanced"></a><p class="title"><b>Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration</b></p>
+               <div class="mediaobject"><img src="images\dirs\files_advanced_html.jpg" alt="Locations of intermediate and output files for SMOKE base case, advanced configuration"></div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_dirs_location_intmed_growth"></a>3.2.4.3.&nbsp;Configuration for growth and/or control case
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The directory structure changes for growth and control cases. The default growth and control scripts have additional settings
+               that impact the intermediate directories when running SMOKE. These settings are described in more detail in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, but we introduce them here because they are closely linked to the directory structures used by SMOKE. The default configuration
+               of SMOKE uses different directories for files impacted by growth and control so that they will be separated from the base-year
+               files; this helps keep users from accidentally confusing their base and grown and/or controlled files.
+            </p>
+            <p>The key script environment variables that impact the directory structures are:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">CNTLCASE</code>: Sets the name of the control case that will impact the directory names. Also is used by the scripts to set the required
+                        name of the <code class="envar">GCNTL</code> files containing the packets for defining growth and controls for the <span><strong class="command">Cntlmat</strong></span> program.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">FYEAR</code>: Sets the future year with a four-digit year. The last two digits of the year are used to set the internal variable <code class="envar">fyr2</code>. For example, if <code class="envar">FYEAR</code> is set to 2018, <code class="envar">fyr2</code> will be 18. <code class="envar">FYEAR</code> is also used by the scripts to set the required name of the <code class="envar">GCNTL</code> files containing the packets for defining growth and controls for the <span><strong class="command">Cntlmat</strong></span> program.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_FUTURE_YN</code>: When set to Y, this setting causes the Assigns file to change the SMOKE intermediate inventory file names by inserting <code class="envar">$fyr2</code> into the individual file names. The Assigns file also changes the intermediate and output paths by appending <code class="envar">$fyr2</code> to <code class="envar">$ASCEN</code>, <code class="envar">$MSCEN</code>, <code class="envar">$PSCEN</code>, and <code class="envar">$ESCEN</code> (affecting the <code class="envar">$STATIC</code> and <code class="envar">$SCENARIO</code> directories and file names of intermediate files). This is illustrated in <a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_CONTROL_YN</code>: When set to Y, this setting causes the Assigns file to change the SMOKE intermediate inventory file names by inserting <code class="envar">$CNTLCASE</code> into the individual file names. The Assigns file also changes the intermediate and output paths by appending <code class="envar">$CNTLCASE</code> to <code class="envar">$ASCEN</code>, <code class="envar">$MSCEN</code>, <code class="envar">$PSCEN</code>, and <code class="envar">$ESCEN</code> (affecting the <code class="envar">$STATIC</code> and <code class="envar">$SCENARIO</code> directories and file names of intermediate files).
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="figure"><a name="fig_dirs_files_growth"></a><p class="title"><b>Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case</b></p>
+               <div class="mediaobject"><img src="images\dirs\files_growth_html.jpg" alt="Locations of intermediate and output files for SMOKE future-/past-year case"></div>
+            </div>
+            <p>The <code class="envar">$SCENARIO</code> directory for the future case is now a subdirectory of <code class="filename">data/run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code></code>. The <code class="envar">ATMP</code>, <code class="envar">MTMP</code>, and <code class="envar">PTMP</code> files are stored in this directory, because these depend on the future-year emissions inventory. Although the temporal profile
+               assignments stored in the <code class="envar">ATSUP</code>, <code class="envar">MTSUP</code>, and <code class="envar">PTSUP</code> files may not have changed from the base case, these files are written out for the future-/past-year case to be consistent
+               with the output files created by <span><strong class="command">Temporal</strong></span> for the base case.
+            </p>
+            <p>The <code class="envar">$STATIC</code> directory for the future case is now a subdirectory of <code class="filename">data/run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code></code>. However, unlike <a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>, <a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a> indicates that only the <code class="envar">PELV</code> file is stored in this directory. This is because SMOKE permits reusing the base-year gridding matrices and speciation matrices
+               for growth and control cases. The growth and control matrices will also be stored in the base-year <code class="envar">$STATIC</code> directory. Therefore, the only file that is stored in the future-year <code class="envar">$STATIC</code> directory is the <code class="envar">PELV</code> file, which can depend on the emissions values in the future year. For example, if the elevated-source selection criteria
+               were based on the future-year daily maximum emissions, then this <code class="envar">PELV</code> file would be different than the base-year file. It is therefore most safely stored in a directory that is named with the
+               future-year (or control case) information.
+            </p>
+            <p>When using controls only (no growth), <code class="envar">$SCENARIO</code> and <code class="envar">$STATIC</code> will be subdirectories of <code class="filename">data/run_<code class="envar">$ESCEN</code>_<code class="envar">$CNTLCASE</code></code>. For the case of growth and controls, the directory will be named <code class="filename">data/run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code>_<code class="envar">$CNTLCASE</code></code>.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.3.&nbsp;Locations of input files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

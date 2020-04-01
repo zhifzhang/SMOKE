@@ -1,0 +1,214 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.6.&nbsp;Geofac</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s05.html" title="5.3.5.&nbsp;Gentpro">
+      <link rel="next" href="ch05s03s07.html" title="5.3.7.&nbsp;Inlineto2D">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.6.&nbsp;<span><strong class="command">Geofac</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_geofac"></a>5.3.6.&nbsp;<span><strong class="command">Geofac</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s06.html#d0e19894">5.3.6.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s06.html#d0e19918">5.3.6.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s06.html#d0e19932">5.3.6.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19894"></a>5.3.6.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Geofac</strong></span> program provides a means for adjusting emissions by grid cell after SMOKE has already created model-ready inputs. For example,
+               the program could be used to zero emissions from all grid cells that intersect a certain state, which would be a rough approximation
+               of removing that state&#8217;s inventory from the model-ready files. Although it is more accurate to modify the emissions using
+               the <span><strong class="command">Cntlmat</strong></span> program, that approach takes longer and is possible only if the SMOKE input files used to create the model ready emissions
+               are still available. <span><strong class="command">Geofac</strong></span> is useful in situations where speed and simplicity are more important than the accuracy of the emissions, or when only the
+               gridded model-ready inputs are available and the inventories used to create them are not.
+            </p>
+            <p><span><strong class="command">Geofac</strong></span> reads in a gridded 2-D or 3-D SMOKE emissions file (output from the <span><strong class="command">Smkmerge</strong></span> program) and multiplies the emissions with a user-supplied adjustment factor for each individual species in the emissions
+               file. The factors are assigned by grid-cell regions, which are defined by the input &#8220;<span class="quote">mask</span>&#8221; file. Each grid cell either receives the factors or it does not (the mask is simply an on-off switch). The resulting hourly,
+               gridded, speciated emissions data are output to a new I/O API file with the same spatial and temporal resolution and the same
+               model species with different values.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19918"></a>5.3.6.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This optional program can be run after <span><strong class="command">Smkmerge</strong></span> and before either <span><strong class="command">Mrggrid</strong></span> (if it is being used to merge several <span><strong class="command">Smkmerge</strong></span> output files together) or the AQM of interest.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19932"></a>5.3.6.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s06.html#d0e19935">5.3.6.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s06.html#d0e20032">5.3.6.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s06.html#d0e20037">5.3.6.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19935"></a>5.3.6.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GEOMASK</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Gridded, time-independent file that assigns a 1 to any grid cell whose emissions you want to adjust. The emissions from <code class="envar">INFILE</code> in grid cells that have a 1 in <code class="envar">GEOMASK</code> are multiplied by the factor provided in <code class="envar">SPECFACS</code>. All other emissions and grid cells are untouched.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">INFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Hourly, gridded, speciated inputs from <span><strong class="command">Smkmerge</strong></span>. <code class="envar">INFILE</code> should be set to logical file name <code class="envar">AGTS_[L|S]</code>, <code class="envar">BGTS_[L|S]</code>, <code class="envar">MGTS_[L|S]</code>, <code class="envar">PGTS_[L|S]</code>, <code class="envar">PGTS3D_[L|S]</code>, <code class="envar">EGTS_[L|S]</code>, or <code class="envar">EGTS3D_[L|S]</code>, which are the output files from <span><strong class="command">Smkmerge</strong></span>.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">SPECFACS</code></td>
+                           <td>ASCII</td>
+                           <td>
+                              <p>File that lists the species name and the factor to be applied to all grid cells with a 1 value in the <code class="envar">GEOMASK</code> file. The species name must be in columns 1-16 and the factor in columns 17-22. For example, the following <code class="envar">SPECFACS</code> file sample would multiply NO and NO<sub>2</sub> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).
+                              </p>
+                              
+                              <pre class="programlisting">NO              1.3
+NO2             1.3
+PAR             0.6</pre></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20032"></a>5.3.6.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>None</p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20037"></a>5.3.6.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Geofac</strong></span></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Hourly, gridded, speciated emissions, adjusted based on <code class="envar">GEOMASK</code> and <code class="envar">SPECFACS</code>.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.5.&nbsp;<span><strong class="command">Gentpro</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.7.&nbsp;<span><strong class="command">Inlineto2D</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,272 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s08.html" title="4.4.8.&nbsp;Set up list of known SCCs and ORIS IDs">
+      <link rel="next" href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s10.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_use_grid"></a>4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s04s09.html#d0e13811">4.4.9.1. Set up for a different modeling grid</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s09.html#sect_scripts_install_spatial_inputs">4.4.9.2. Installing or changing spatial input files</a></span></dt>
+            </dl>
+         </div>
+         <p>Using a new modeling grid and/or changing the spatial inputs requires a number of changes to the Assigns file, scripts, and
+            input files. In this section, we first describe how to set up for a different modeling grid and then how to install new inputs
+            for that grid or change the spatial inputs for the existing grid.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e13811"></a>4.4.9.1.&nbsp;Set up for a different modeling grid
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following steps are needed to set up for a different modeling grid.</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Insert or find the grid parameters in the <code class="envar">GRIDDESC</code> file
+                     </p>
+                     <p>The <code class="envar">GRIDDESC</code> file contains many grid descriptions and grid projections. Each grid description is defined by a 16-character (or less) name.
+                        <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> contains the file format. If the grid you want is already in the file, note its name.
+                     </p>
+                     <p>If the grid you want is not in the file, use the format in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> to insert or modify a grid description for the new grid. The grid cells must align with the cells of the cross-grid meteorology
+                        data files that will be used for modeling biogenic emissions and possibly for point and on-road mobile sources.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the <code class="envar">GRID</code> variable in the Assigns file to a new grid name
+                     </p>
+                     <p>As described in Section <a href="ch04s04.html#sect_scripts_change_assigns" title="4.4.1.&nbsp;Change Assigns file to set scenario names, grid names, and other case-specific configuration information">Section&nbsp;4.4.1, &#8220;Change Assigns file to set scenario names, grid names, and other case-specific configuration information&#8221;</a>, change the <code class="envar">GRID</code> environment variable to a name that will be used to name output and intermediate files. This name should be coordinated with
+                        the selection made in step 3. Since the <code class="envar">GRID</code> variable is used in naming files, it is helpful to use a name that is easily distinguished from other grid names that you
+                        might use, but not so long as to add a lot of characters to the name of each file that includes the <code class="envar">GRID</code> variable in its name. Usually a name of 4 or 5 characters is sufficient.
+                     </p>
+                     <p>Changing the <code class="envar">GRID</code> setting is a good reason to create a new Assigns file. To do this, you can copy an existing Assigns file as described in
+                        <a href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">Section&nbsp;4.4, &#8220;How to use SMOKE&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change  the <code class="envar">IOAPI_GRIDNAME_1</code> variable in the Assigns file to the name of the grid entered or found in step 1.
+                     </p>
+                     <p>As noted in step 2, the name selected should have some relationship to the <code class="envar">GRID</code> environment variable. For example, if the <code class="envar">IOAPI_GRIDNAME_1</code> setting is &#8220;<span class="quote">US36_120X90</span>&#8221;, the <code class="envar">GRID</code> setting might be &#8220;<span class="quote">us36</span>&#8221;.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Update the run scripts to use the Assigns file for the new grid.</p>
+                  </li>
+                  <li>
+                     <p>Follow the remaining steps in the next subsection.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_scripts_install_spatial_inputs"></a>4.4.9.2.&nbsp;Installing or changing spatial input files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following steps are needed to install or change the spatial input files.</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Update or install the grid description in the <code class="envar">GRIDDESC</code> file, if not done previously (see step 1 in the previous subsection).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create and install the spatial surrogates file and surrogate description file <code class="envar">SRGDESC</code></p>
+                     <p>The Area and Mobile spatial surrogates files located in <code class="envar">SRGPRO_PATH</code> and the <code class="envar">BGPRO</code> are one of the most difficult inputs to create for SMOKE. The gridded data in the files must match the definition in the
+                        <code class="envar">GRIDDESC</code> and <code class="envar">SRGDESC</code> files for the grid selected using the <code class="envar">IOAPI_GRIDNAME_1</code> variable.
+                     </p>
+                     <p>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. For
+                        example, EPA has developed various spatial surrogates and available at EPA&#8217;s Emission Modeling Clearinghouse (<a href="http://www.epa.gov/ttn/chief/emch/index.html" target="_top">http://www.epa.gov/ttn/chief/emch/</a>). Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S.
+                        since the map projection for the surrogates is more distorted further away from the center of the projection. However, for
+                        most users, this distortion will be a small price to pay for having readily available spatial surrogates.
+                     </p>
+                     <p>The second best approach to creating this file is to use the MIMS Spatial Allocator (MSA). This tool can create SMOKE-ready
+                        surrogates using GIS shape files, which are provided with the tool for multiple surrogates. Please refer to the <a href="http://www.cmascenter.org" target="_top">CMAS web site</a> for more information.
+                     </p>
+                     <p>A third approach to creating this file it to perform the same calculations done by the MSA using a GIS like ArcInfo. The calculations
+                        being done by the MSA are provided on the MSA website and could be implemented in a GIS, though this would probably be much
+                        too difficult an option for most users.
+                     </p>
+                     <p>The surrogate file does not need to have the same outer boundaries as your modeling grid, but the grid cells do need to align
+                        with the grid cells of the surrogate file. This means that the projection of the surrogates must be the same as the projection
+                        as the modeling grid and the cell sizes must also match. SMOKE will produce an error if there is an inconsistency. If the
+                        grid represented by the surrogates file is larger than the modeling grid and the cells align, SMOKE will automatically extract
+                        the grid cells for the modeling domain from the larger grid provided by the surrogates.
+                     </p>
+                     <p>In addition to the surrogate file, it is important to create a surrogate description file (<code class="envar">SRGDESC</code>). This is simply a file that lists the surrogate codes and their descriptions. Since the surrogate file itself does not currently
+                        have descriptive text that indicate what the surrogate codes mean, the surrogate description file is the only way users have
+                        of knowing to what data the codes in the surrogate file refer.
+                     </p>
+                     <p>The same surrogate file can be used for Area and Mobile.  This is accomplished by using the same physical file name in the
+                        <code class="envar">SRGDESC</code>.  Please see <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> for more information on these files. The <code class="envar">BGPRO</code> file must include the &#8220;<span class="quote">county area</span>&#8221; spatial surrogate, and is used for estimating county-total emissions from gridded emissions.
+                     </p>
+                     <p>The Area and Mobile spatial surrogate file(s) should be installed as a sub-directory in the <code class="filename"><code class="envar">$GE_DAT</code></code> directory.  This sub-directory is assigned to <code class="envar">SRGPRO_PATH</code>.  The surrogate description file should be stored in <code class="filename"><code class="envar">$GE_DAT</code></code> as well. It is useful to include the name of the <code class="envar">GRID</code> in the name of the sub-directory <code class="envar">SRGPRO_PATH</code> for you may in the future be modeling different grids and therefore needing different surrogate files. The Biogenic surrogate
+                        file <code class="envar">BGPRO</code> should be located in <code class="filename"><code class="envar">$GE_DAT</code></code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create and install the spatial cross-reference file</p>
+                     <p>An example spatial cross-reference file (<code class="envar">AGREF</code> and <code class="envar">MGREF</code>) is provided with SMOKE that can be used for most inventories as long as the spatial surrogate codes in the new surrogate
+                        file match the codes in the example surrogate file, which are provided in the <code class="envar">SRGDESC</code> file described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>. If the codes match then the only concern will be whether the surrogate assignments are acceptable. By default, the same
+                        file is used for both the <code class="envar">AGREF</code> and <code class="envar">MGREF</code> files, which is accomplished by using the same physical file name in the Assigns file for both logical file names. The files
+                        can be the same file or two different files, at the discretion of the user - usually one file is more convenient unless different
+                        default settings (SCC=0) are needed, or unless the data all already available as two separate files.
+                     </p>
+                     <p>When <span><strong class="command">Smkinven</strong></span> imports an area, non-road mobile, or on-road mobile inventory, a list of SCCs is created (logical file name <code class="envar">ASCC</code>, <code class="envar">NSCC</code>, or <code class="envar">MSCC</code>). After importing the data but before running spatial allocation, it is wise to examine the list of SCCs included in this
+                        file and compare it with the list in the example spatial cross-reference files. This comparison can be accomplished manually
+                        or using the <span><strong class="command">Smkreport</strong></span> program with a report that includes the surrogate codes assigned to each SCC (see <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a>). The <span><strong class="command">Smkreport</strong></span> results will list all of the surrogate assignments by SCC and the emissions associated with each, with which users may evaluate
+                        if any SCCs were included in the inventory but not in the example SMOKE file. The example spatial cross-reference files (<code class="envar">AGREF</code> and <code class="envar">MGREF</code>) can be updated with any new assignments or to include SCCs that are in the user&#8217;s inventory but not in the example files.
+                     </p>
+                     <p>If a new surrogates file uses surrogate codes that are different from the example codes, then new spatial surrogate cross-reference
+                        files need to be created. These can be created by copying and editing the existing files to replace the example surrogate
+                        codes with the new codes. For example, the current code for population is 100. If the new code for population is 400, then
+                        all of the &#8220;<span class="quote">100</span>&#8221; surrogate codes in the file would need to be replaced with &#8220;<span class="quote">400</span>&#8221;s. These replacements must be made carefully because the example file also uses &#8220;<span class="quote">400</span>&#8221; for the rural land area surrogate, so if global search and replace is performed, one must be careful to change what one
+                        intends to change. It is much easier to simply use the codes that are already in use in any new surrogates file, or modify
+                        the surrogate file to use those codes.
+                     </p>
+                     <p>The spatial cross-reference file(s) should be installed in the <code class="filename"><code class="envar">$GE_DAT</code></code> directory, since the file is likely to be shared by many SMOKE runs and source categories. It is useful to name the file(s)
+                        to include the <code class="envar">GRID</code> environment variable for easier identification as association with the surrogate file(s) with which it works.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create and install the biogenic gridded land use data</p>
+                     <p>You must create a gridded biogenic land use data (<code class="envar">BELD4</code> for BEIS3.60 or <code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, and <code class="envar">BELD3_TOT</code> for BEIS3.14) to use for your grid. The MSA described in step 2 is able to create these files using the BELD3 or BELD4 database.
+                        Please refer to step 2 for the web address of this tool. The outputs of the MSA can be used for BEIS3 modeling directory.
+                     </p>
+                     <p>The gridded land use data in the file must match the definition in the <code class="envar">GRIDDESC</code> file for the grid selected using the <code class="envar">IOAPI_GRIDNAME_1</code> variable. As with the spatial surrogates, the grid can be larger than the modeling grid, but it the cells must overlay exactly
+                        with the grid cells of the actual modeling grid, which includes the grid projection and cell sizes.
+                     </p>
+                     <p>The gridded biogenic land use file(s) should be installed in the <code class="filename"><code class="envar">$BGDAT</code></code> directory for BEIS3 modeling.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create and install the meteorology files.</p>
+                     <p>Meteorology files are a necessary input to the air quality model; therefore, the same meteorology files that will be used
+                        for the air quality modeling can be used for input to SMOKE. The MCIP program (a CMAQ preprocessor) can be used to convert
+                        the files from MM5 output format to the I/O API input format for SMOKE and CMAQ. Other user-created programs can be used as
+                        well as long as the variable names and file arrangements are consistent with what SMOKE expects. <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> explains the details on the meteorology files that SMOKE expects and the variables that must be included in these files.
+                     </p>
+                     <p>The meteorology files must be consistent with the grid selected. Like the surrogate file, the meteorology grid can be larger
+                        than the SMOKE modeling grid, but the grid cells must align. This includes the cell sizes being the same and the projection
+                        being the same. If this is the case, the SMOKE programs that use the meteorology files (<span><strong class="command">Met4moves</strong></span>, <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Laypoint</strong></span>, <span><strong class="command">Tmpbio</strong></span>, and <span><strong class="command">Tmpbeis3</strong></span>) will extract the meteorology data from the region of the files that intersects with the modeling grid.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Optionally create the <code class="envar">BIOSEASON</code> file
+                     </p>
+                     <p>If you are modeling biogenic emissions with SMOKE for an episode and grid that covers both winter and summer seasons, then
+                        the best modeling approach is to create a <code class="envar">BIOSEASON</code> file from the meteorology data for input to <span><strong class="command">Tmpbio</strong></span> or <span><strong class="command">Tmpbeis3</strong></span>. This file indicates which grid cells and days are during &#8220;<span class="quote">winter</span>&#8221; and which are during &#8220;<span class="quote">summer</span>&#8221;, to allow <span><strong class="command">Tmpbio</strong></span> or <span><strong class="command">Tmpbeis3</strong></span> to apply the winter or summer emission factor for the correct cells and days. Summer is defined for biogenic modeling in
+                        the Northern Hemisphere as the period after the last freeze and before the first freeze in each grid cell. This file may not
+                        apply to some episodes or regions which do not experience freezing temperatures, and in those cases, users may run <span><strong class="command">Tmpbio</strong></span> or <span><strong class="command">Tmpbeis3</strong></span> without this file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Set the fallback surrogate in the run scripts for area/non-point, nonroad mobile, and on-road mobile sources.</p>
+                     <p>All scripts for source categories that use spatial surrogates have a <span><strong class="command">Grdmat</strong></span> setting <code class="envar">SMK_DEFAULT_SRGID</code> that is used to set a fallback surrogate code. The fallback surrogate code is explained in <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a> with the <span><strong class="command">Grdmat</strong></span> program. It prevents emissions from being zeroed out when there is no surrogate of the assigned type for a source. The fallback
+                        surrogate should therefore be a surrogate that is never zero for a county, such as population. Only one fallback surrogate
+                        can be set for all sources in a given run. The <code class="envar">SMK_DEFAULT_SRGID</code> setting should be reset if the surrogate codes change (e.g., the default setting of 8 is not population) or if you want to
+                        change the fallback surrogate to a different one.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Update Assigns file to use all new files.</p>
+                     <p>Update the Assigns file that you are using for this case to include all new files that you have created in this step:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p><code class="envar">BGPRO</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">AGREF</code>, <code class="envar">MGREF</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">SRGDESC</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">SRGPRO_PATH</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">BGUSE</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, <code class="envar">BELD3_TOT</code></p>
+                           </li>
+                           <li>
+                              <p><code class="envar">BIOSEASON</code></p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Check that the inventory files cover the region of the grid.</p>
+                     <p>When using a new grid, it is important to use an inventory that covers the states and counties included in your domain. There
+                        are two ways of checking that this is the case. First, obtain a map of your modeling domain prior to creating your inventory
+                        and note the states that are included wholly or in part in the domain. Before modeling, create, adapt, or amend your inventory
+                        to ensure that the inventories from each of those states are included.
+                     </p>
+                     <p>The second way that you can check that you are using data for all regions of the domain is to run the data through SMOKE and
+                        look at the resulting gridded emissions in PAVE. Using PAVE, reset the scale of the plot to a very small maximum value (e.g.,
+                        0.001). All areas of the domain with emissions should show up red. If any areas show up gray, then there are missing values
+                        that could be because the inventory is not complete.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s10.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.8.&nbsp;Set up list of known SCCs and ORIS IDs&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

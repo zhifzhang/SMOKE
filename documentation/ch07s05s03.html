@@ -1,0 +1,82 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.5.3.&nbsp;Reviewing reports created by SMOKE core programs</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s05.html" title="7.5.&nbsp;Quality Assurance Methods">
+      <link rel="prev" href="ch07s05s02.html" title="7.5.2.&nbsp;Reviewing log files">
+      <link rel="next" href="ch07s05s04.html" title="7.5.4.&nbsp;Reviewing and customizing reports created by Smkreport">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.5.3.&nbsp;Reviewing reports created by SMOKE core programs</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s05s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.5.&nbsp;Quality Assurance Methods</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s05s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_methods_core_reports"></a>7.5.3.&nbsp;Reviewing reports created by SMOKE core programs
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>In addition to log files, some SMOKE programs also create reports. These reports can help provide quality assurance concerning
+            the steps taken by the program. The programs and their associated reports and uses are as follows:
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span>: Creates the <code class="envar">REPINVEN</code> file, which documents the inventory data read, which data where kept, and the inventory totals for each data value. It also
+            includes the area-to-point conversion information.
+         </p>
+         <p><span><strong class="command">Laypoint</strong></span>: Creates the <code class="envar">REPRTLAY</code> file, which documents any point sources for which the <span><strong class="command">Laypoint</strong></span> program computed a plume rise into a layer greater than the layer number set by the <code class="envar">REP_LAYER_MAX</code> setting.
+         </p>
+         <p><span><strong class="command">Spcmat</strong></span>: Creates the <code class="envar">ASSUP</code>, <code class="envar">MSSUP</code>, and <code class="envar">PSSUP</code> files, which include the speciation profile codes assigned to each source by pollutant. These files can be used with the
+            ASCII component of the SMOKE intermediate inventory file (<code class="envar">AREA</code>, <code class="envar">MOBL</code>, and <code class="envar">PNTS</code>) to quickly determine the speciation profile assigned to a specific source. These files are also input files to the <span><strong class="command">Smkreport</strong></span> program, for creating more involved summaries of emissions and/or sources including the speciation profiles.
+         </p>
+         <p><span><strong class="command">Grdmat</strong></span>: Creates the <code class="envar">AGSUP</code> and <code class="envar">MGSUP</code> files, which include the spatial surrogate codes assigned to each source. They also indicate whether that assignment was
+            a fallback or original assignment. This file can be used with the ASCII component of the SMOKE intermediate inventory file
+            (<code class="envar">AREA</code> and <code class="envar">MOBL</code>) to quickly determine the spatial surrogate assigned to a specific source. These files can also be used by the <span><strong class="command">Smkreport</strong></span> program, for creating more involved summaries of emissions and/or sources including the spatial surrogate codes.
+         </p>
+         <p><span><strong class="command">Temporal</strong></span>: Creates the <code class="envar">ATSUP</code>, <code class="envar">MTSUP</code>, and <code class="envar">PTSUP</code> files, which include the monthly, weekly, and diurnal profile codes assigned to each source for each pollutant. These files
+            can be used with the ASCII component of the SMOKE intermediate inventory file (<code class="envar">AREA</code>, <code class="envar">MOBL</code>, and <code class="envar">PNTS</code>) to quickly determine the temporal profiles assigned to a specific source. When no pollutant-specific temporal profile assignments
+            have been made, these files can also be used by the <span><strong class="command">Smkreport</strong></span> program, for creating more involved summaries of emissions and/or sources including the temporal profile codes.
+         </p>
+         <p><span><strong class="command">Cntlmat</strong></span>: Writes several report files (documented with the <span><strong class="command">Cntlmat</strong></span> program in <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>) that summarize the growth and control factors. Separate reports are written for each type of projection (growth, multiplicative
+            control, reactivity control) with emissions before and after each control. Another report is written that summarizes all projections
+            made to each source.
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span>: Writes a report of state and/or county totals that are created at the same time as the model-ready files. These totals are
+            guaranteed to match the actual state/county totals in the model-ready gridded, hourly outputs (unless there is a problem introduced
+            into <span><strong class="command">Smkmerge</strong></span>). These reports are useful even though they duplicate the <span><strong class="command">Smkreport</strong></span> reports in some ways, because they allow you to ensure that the <span><strong class="command">Smkmerge</strong></span> totals and <span><strong class="command">Smkreport</strong></span> totals are the same - indicating that <span><strong class="command">Smkreport</strong></span> was run with the correct files. Because <span><strong class="command">Smkreport</strong></span> is run separately from <span><strong class="command">Smkmerge</strong></span>, this is not necessarily the case, so you should confirm it with the <span><strong class="command">Smkmerge</strong></span> report.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s05s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s05s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.5.2.&nbsp;Reviewing log files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.5.4.&nbsp;Reviewing and customizing reports created by <span><strong class="command">Smkreport</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

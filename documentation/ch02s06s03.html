@@ -1,0 +1,124 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.6.3.&nbsp;Modeling episodes</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s06.html" title="2.6.&nbsp;Modeling parameters">
+      <link rel="prev" href="ch02s06s02.html" title="2.6.2.&nbsp;Base year and past/future years">
+      <link rel="next" href="ch02s06s04.html" title="2.6.4.&nbsp;Chemical mechanisms">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.6.3.&nbsp;Modeling episodes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s06s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.6.&nbsp;Modeling parameters</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s06s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_modeling_episodes"></a>2.6.3.&nbsp;Modeling episodes
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The modeling episode is the total time period for which you will run SMOKE and your AQM. Unless the episode is just a few
+            days long, users typically set up SMOKE to create emissions files of a shorter duration than their modeling episode, often
+            creating one-day files for each day of their episode. Though SMOKE can create a single file for an entire episode, the file
+            often becomes too large for some computers to handle (the limit for 32-bit operating systems is 2 GB files), so necessity
+            rather than preference dictates that smaller files (usually one-day files) be created by SMOKE. We use the term &#8220;<span class="quote">run period</span>&#8221; to distinguish between these shorter durations and the full modeling episode; unless otherwise noted, we will assume that
+            the run period is one day. For example, a typical SMOKE episode might cover July 1, 1996 through July 31, 1996. There will
+            be 31 run periods (days) within this episode, the first starting on July 1, 1996 and the last starting on July 31, 1996.
+         </p>
+         <p>In the SMOKE Assigns file, there are several settings that you need to change to cause SMOKE to create emissions for the episode
+            of interest. <a href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">Section&nbsp;4.4, &#8220;How to use SMOKE&#8221;</a> provides more guidance on the particular form and approaches needed for using these settings.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The episode start date (<code class="envar">EPI_STDATE</code>), episode start time (<code class="envar">EPI_STTIME</code>), episode duration in hours (<code class="envar">EPI_RUNLEN</code>), and the episode number of days (<code class="envar">EPI_NDAY</code>) all must be set to cover the modeling episode. Note that SMOKE can only be run for periods contained within a single calendar
+                     year. It cannot, for example, start in December of 1996 and run through January of 1997. Two separate episodes would need
+                     to be set up in this case, with the first ending on December 31, 1996, and the second starting on January 1, 1997.
+                  </p>
+               </li>
+               <li>
+                  <p>The start date of the first run period needs to be set using the <code class="envar">G_STDATE</code> and <code class="envar">ESDATE</code> settings. The <code class="envar">G_STDATE</code> is the year and Julian day setting used by the SMOKE programs; in our example above, <code class="envar">G_STDATE</code> would be set to 1996183, since July 1 is the 183rd day of 1996. The <code class="envar">ESDATE</code> is the Gregorian date used in naming the SMOKE intermediate and output files; for our example, <code class="envar">ESDATE</code> would be 19960701. The SMOKE scripts will use the <code class="envar">EPI_NDAY</code> setting to automatically loop through the number of run periods in the episode, starting with the first <code class="envar">G_STDATE</code> value in the Assigns file. The <code class="envar">G_STDATE</code> and <code class="envar">ESDATE</code> settings are changed for each run period.
+                  </p>
+               </li>
+               <li>
+                  <p>The run period start time (<code class="envar">G_STTIME</code>) and duration (<code class="envar">G_RUNLEN</code>) must also be set to indicate the start time and length of each run period. Both values are provided as a number of hours,
+                     using a HHMMSS (hours, minutes, seconds) format.
+                  </p>
+                  <p>The run period duration (<code class="envar">G_RUNLEN</code>) is usually not the same as the episode duration (<code class="envar">EPI_RUNLEN</code>). For example, if the episode length is 30 days (720 hours), the run period duration setting could be just 1 day (25 hours),
+                     2 days (49 hours), or three days (73 hours) (the reason for the extra hour in each case is explained below). In the first
+                     case, SMOKE would create thirty 25-hourfiles; in the second case, fifteen 49-hour files; and in the third case, SMOKE would
+                     create ten 73-hour files.
+                  </p>
+               </li>
+               <li>
+                  <p>The <code class="envar">NDAYS</code>, <code class="envar">MSDATE</code>, and <code class="envar">MDAYS</code> settings are used for naming files. The <code class="envar">NDAYS</code> setting should be set to the number of days in each run period, and is used by default for naming time-based files. The <code class="envar">NDAYS</code> setting is also used along with the <code class="envar">EPI_NDAY</code> setting to loop through the run periods in the episode. The <code class="envar">MSDATE</code> and <code class="envar">MDAYS</code> settings can be used for naming the meteorology input files, but are not being used by the default Assigns file provided
+                     with SMOKE.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>There are a few key things to remember when you are verifying that you have the correct episode settings:</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>SMOKE cannot process emissions over a calendar-year break. Thus, the longest run that can be done is for 365 days, with the
+                     episode start date being January 1. If a modeling episode spans multiple years, then a different Assigns file, script, and
+                     sets of input files must be created for each year.
+                  </p>
+               </li>
+               <li>
+                  <p>The AQMs supported by SMOKE always need one extra hour in each emissions input file due to how they calculate boundary conditions.
+                     Therefore, if you are inputting emissions to run a 24-hour period, the <code class="envar">G_RUNLEN</code> setting should be 250000 for 25 hours.
+                  </p>
+               </li>
+               <li>
+                  <p>The CMAQ and CAM<sub>X</sub> models can accept emissions files for multiple days, but the UAM must have 25-hour files only. As stated earlier, however,
+                     all of these models are often run using 25-hour files, with one file for each day of the episode.
+                  </p>
+               </li>
+               <li>
+                  <p>All times are associated with a time zone, including the episode and run period start time settings. These settings must be
+                     consistent with the time zone of the meteorology files. If the meteorology data were created using MM5, the time zone is most
+                     likely Greenwich Mean Time (GMT); therefore, the <code class="envar">EPI_STDATE</code>, <code class="envar">EPI_STTIME</code>, <code class="envar">G_STDATE</code>, and <code class="envar">G_STTIME</code> settings would have to be provided in that same time zone. Whatever time zone is inherent in the meteorology files and these
+                     date settings will also be the time zone of the dates and times in the output emissions files from SMOKE. This ensures that
+                     the dates and times of the emissions and meteorology files are consistent for input to the AQM.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s06s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s06s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.6.2.&nbsp;Base year and past/future years&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.6.4.&nbsp;Chemical mechanisms</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,873 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.3.&nbsp;Create-report Section</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03s02.html" title="7.3.2.&nbsp;Define-group section">
+      <link rel="next" href="ch07s03s04.html" title="7.3.4.&nbsp;The /DELIMITER/ packet">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.3.&nbsp;Create-report Section</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_create_report"></a>7.3.3.&nbsp;Create-report Section
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e33902">7.3.3.1. AERMOD instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e33931">7.3.3.2. ARRANGE instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34020">7.3.3.3. ASCIIELEV instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34088">7.3.3.4. BY instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34328">7.3.3.5. CONTROL instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34336">7.3.3.6. CROSSWALK instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34349">7.3.3.7. GRIDDING instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34366">7.3.3.8. LAYFRAC instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34386">7.3.3.9. NORMALIZE instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34488">7.3.3.10. NUMBER instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34514">7.3.3.11. PROJECTION instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34519">7.3.3.12. SELECT instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34622">7.3.3.13. SPECIATION instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34640">7.3.3.14. TEMPORAL instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34683">7.3.3.15. TITLE instruction</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s03.html#d0e34693">7.3.3.16. UNITS instruction</a></span></dt>
+            </dl>
+         </div>
+         <p>The third section of the <code class="envar">REPCONFIG</code> file is called the Create-report section. It is responsible for providing instructions to <span><strong class="command">Smkreport</strong></span> for generating the reports. The /CREATE REPORT/ packet is used in this section. This packet uses the following types of instructions
+            (listed in alphabetical order):
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>ARRANGE</li>
+               <li>ASCIIELEV</li>
+               <li>BY</li>
+               <li>CONTROL</li>
+               <li>GRIDDING</li>
+               <li>LAYFRAC</li>
+               <li>NORMALIZE</li>
+               <li>NUMBER</li>
+               <li>PROJECTION</li>
+               <li>SELECT</li>
+               <li>SPECIATION</li>
+               <li>TEMPORAL</li>
+               <li>TITLE</li>
+               <li>UNITS</li>
+            </ul>
+         </div>
+         <p>By using these instructions (some of which have a number of different options), many different types of outputs can be achieved
+            by <span><strong class="command">Smkreport</strong></span>. The ordering of the instructions in the packet is not important, <span class="emphasis"><em>with one exception</em></span>: if multiple titles are used, they will be printed to the report in the order in which they appear in the packet. The remainder
+            of this subsection provides descriptions of each of these instructions.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33902"></a>7.3.3.1.&nbsp;AERMOD instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The AERMOD instruction causes <span><strong class="command">Smkreport</strong></span> to generate the customized summary reports for <a href="https://github.com/CEMPD/SMOKE/tree/master/scripts/aermod" target="_top">SMOKE4AERMOD post-processing scripts</a> that create AERMOD helper input files. The report includes daily total emissions by the grid cell, states, counties, SCC,
+               temporal profiles assignments, grid cell coordinates, and so on. The list of output contents varies by the type of inventory
+               source. For stationary point sources, it will include a few additional variables, such as point source facility ID, unit ID,
+               release point ID, process ID, and stack parameters (stack height, stack diameter, exit gas temperature and exit gas velocity).
+               
+            </p>
+            <p>The syntax of the AERMOD instruction is:</p>
+            <p>AERMOD &lt;option 1&gt;  &lt;option 2&gt;</p>
+            <p>with the following valid options:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>option 1: There are two options. One is for stationary point sources [ POINT ] and the other is for area sources [ NONPOINT
+                        ].
+                     </p>
+                  </li>
+                  <li>
+                     <p>option 2: This option 2 is only applicable when option 1 is defined as [ POINT ]. PTEGU is designed for point sources with
+                        hourly CEM inventory dataset, and PTNONIPM is for the rest of stationary point sources.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>See the example:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>AERMOD [ POINT | NONPOINT ]   [ PTEGU | PTNONIPM ]</li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33931"></a>7.3.3.2.&nbsp;ARRANGE instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The ARRANGE instruction controls the arrangement of variables and files for a single report. This instruction sets how many
+               variables are included in a report or a section of a report, and can set the number of sections that a report will have. It
+               also permits a database format that includes an emissions data value for each record in the report.
+            </p>
+            <p>If no ARRANGE instruction is provided for a report, <span><strong class="command">Smkreport</strong></span> will attempt to write all of the variables requested in the report to the same file and section. If too many variables are
+               requested in the report, this could cause <span><strong class="command">Smkreport</strong></span> to abort with an error. <span class="emphasis"><em>In general, if you have more than 20 variables that will be written to a given report, you should consider using the ARRANGE
+                     instruction.</em></span></p>
+            <p>The syntax of the ARRANGE instruction is:</p>
+            <p>ARRANGE &lt;option&gt;</p>
+            <p>with the following valid options:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>MULTIFILE [<span class="emphasis"><em>number of variables</em></span>]: Writes the report into multiple output files. This is different from the <span><strong class="command">Smkreport</strong></span> capability of creating multiple reports: the instruction applies to a single report and indicates that the report should
+                        be output as multiple files. The file names in this case are created automatically by <span><strong class="command">Smkreport</strong></span> based on the file name set by the associated NEWFILE instruction (explained in <a href="ch07s03s08.html" title="7.3.8.&nbsp;The /NEWFILE/ packet">Section&nbsp;7.3.8, &#8220;The /NEWFILE/ packet&#8221;</a>), by appending a &#8220;<span class="quote">_1</span>&#8221;, &#8220;<span class="quote">_2</span>&#8221;, &#8220;<span class="quote">_3</span>&#8221;, and so forth to the file name that would otherwise be output by <span><strong class="command">Smkreport</strong></span>. For example, if the output report setting <code class="envar">REPORT1</code> is defined as <code class="filename">/outdir/test/report1.myfile.txt</code>, but that report requires two files, then the actual files that would be written would be <code class="filename">/outdir/test/report1.myfile.txt_1</code> and <code class="filename">/outdir/test/report1.myfile.txt_2</code>.
+                     </p>
+                     <p>The <span class="emphasis"><em>number of variables</em></span> option controls the number of variables written to each file of the report. For example, if the report will include 100 variables
+                        and the number of variables is set to 15, then <span><strong class="command">Smkreport</strong></span> will create a report using seven separate files, six that include 15 variables (taking care of the first 90 variables) and
+                        a seventh file that has the remaining 10 variables. <span class="emphasis"><em><span><strong class="command">Smkreport</strong></span> allows a maximum of 30 variables per file using the MULTIFILE instruction.</em></span></p>
+                  </li>
+                  <li>
+                     <p>ONEFILE [<span class="emphasis"><em>number of variables</em></span>]: Writes the report into a single output file with multiple sections. Like the MULTIFILE option, this is different from the
+                        <span><strong class="command">Smkreport</strong></span> capability of creating multiple reports: the instruction applies to a single report, but permits multiple sections of the
+                        report to be written to the same file.
+                     </p>
+                     <p>The <span class="emphasis"><em>number of variables</em></span> option controls the number of variables written to each section of the report. The number of sections is set automatically
+                        by dividing the number of data variables selected for the report by the number of variables.
+                     </p>
+                  </li>
+                  <li>
+                     <p>DATABASE: Writes the report one variable at a time, with only one data variable on each row of the report. The attributes
+                        of the row are repeated for all variables, and all entries are written for one variable before the next variable is written.
+                        For example, if a report BY SCC10 is requested for the variables NOX and SO2, the report will list all SCCs with the NOX emissions
+                        as a data variable, followed by all SCCs again with SO2 emissions. Without the DATABASE instruction, the NOX and SO2 values
+                        would be written to the same line of the report and the SCC codes would be written only once.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34020"></a>7.3.3.3.&nbsp;ASCIIELEV instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The ASCIIELEV instruction causes <span><strong class="command">Smkreport</strong></span> to use the elevated ASCII emissions file (<code class="envar">ELEVTS_L</code> or <code class="envar">ELEVTS_S</code>) written by <span><strong class="command">Smkmerge</strong></span> as the sole source for emissions information in the report. This option can be used only for point sources (SMK_SOURCE is
+               set to P). When this option is included in a <code class="envar">REPCONFIG</code> file, all other reports in the <code class="envar">REPCONFIG</code> file must also include the ASCIIELEV instruction, or <span><strong class="command">Smkreport</strong></span> will produce an error.
+            </p>
+            <p>Using this instruction, <span><strong class="command">Smkreport</strong></span> will use the emissions in the <code class="envar">ELEVTS_S</code> or <code class="envar">ELEVTS_L</code> file as the sole source of emissions and inventory information. These files include information about the states, counties,
+               plants, stacks, stack parameters, hour, cell number, and speciated emissions. Therefore, only certain instructions may be
+               used with the ASCIIELEV instruction, or else a warning will be printed to the log file and the unusable instruction will be
+               ignored. The following subset of /CREATE REPORT/ instructions can be used with the ASCIIELEV instruction:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>ARRANGE</li>
+                  <li>BY &lt;COUNTRY | STATE | COUNTY | CELL | ELEVSTAT | HOUR | PLANT | SOURCE | STACK&gt;; other BY options will be ignored</li>
+                  <li>NORMALIZE</li>
+                  <li>NUMBER</li>
+                  <li>SELECT</li>
+                  <li>TITLE</li>
+                  <li>UNITS</li>
+               </ul>
+            </div>
+            <p>The following instructions are implied by the ASCIIELEV instruction:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>CONTROL (implied only if the emissions in the elevated ASCII file are controlled)</li>
+                  <li>GRIDDING</li>
+                  <li>PROJECTION (implied only if the emissions in the elevated ASCII file are grown)</li>
+                  <li>SPECIATION [MASS|MOLE] (which option is used depends on the <code class="envar">MRG_GRDOUT_UNIT</code> setting, described below)
+                  </li>
+                  <li>TEMPORAL</li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34088"></a>7.3.3.4.&nbsp;BY instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The BY instruction controls what columns in addition to data columns will be printed in the output report. Multiple BY commands
+               may appear in the same /CREATE REPORT/ packet, but not all combinations make sense. The BY instructions tell the program the
+               basis on which to sum the emissions or activity values. The syntax of the BY instruction is:
+            </p>
+            <p>BY &lt;option&gt;</p>
+            <p>with the following valid options:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>CELL: Records are printed by cell. This option requires the GRIDDING instruction, so <span><strong class="command">Smkreport</strong></span> automatically adds the GRIDDING instruction when the BY CELL instruction is used (even if it is not actually in the <code class="envar">REPCONFIG</code> file).
+                     </p>
+                  </li>
+                  <li>
+                     <p>COUNTRY [NAME]: Records are printed by country total. This option invokes use of the <code class="envar">COSTCY</code> file. NAME can be appended to the option to additionally output the country name instead of only the country number.
+                     </p>
+                  </li>
+                  <li>
+                     <p>COUNTY [NAME]: Records are printed by county total. This option invokes use of the <code class="envar">COSTCY</code> file. NAME can be appended to the option to additionally output the county name instead of only the county number.
+                     </p>
+                  </li>
+                  <li>
+                     <p>DOMCODE: Records are printed by Day of Month profile code. This option will work correctly only when monthly temporal profiles
+                        have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>ELEVSTAT [STACKGROUP]: Records include the status of sources as elevated (E), plume-in-grid (P), and low-level (L). All elevated
+                        statuses could appear in the same report, depending on the inventory and elevated source selection criteria. <code class="envar">STACKGROUP</code> can be appended to the option to additionally output stack group number from <code class="envar">PELV</code>. This instruction can be used for point sources only.
+                     </p>
+                  </li>
+                  <li>
+                     <p>FRICODE: Records are printed by Friday diurnal profile code. This option will work correctly only when monthly temporal profiles
+                        have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>GEOCODE_LEVEL1: Records are printed by the Country-level geographic code.</p>
+                  </li>
+                  <li>
+                     <p>GEOCODE_LEVEL2: Records are printed by the State-level geographic code.</p>
+                  </li>
+                  <li>
+                     <p>GEOCODE_LEVEL3: Records are printed by the County-level geographic code.</p>
+                  </li>
+                  <li>
+                     <p>GEOCODE_LEVEL4: Records are printed by the Tribal-level geographic code.</p>
+                  </li>
+                  <li>
+                     <p>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <span><strong class="command">Smkreport</strong></span> automatically adds that instruction even if it was not included in the input.
+                     </p>
+                  </li>
+                  <li>
+                     <p>INTEGRATE: Records are printed by the integration status of sources. &#8220;<span class="quote">Y</span>&#8221; willl appear for the integrated sources that were used to calculate the NONHAP[VOC|TOG] inventory pollutant. 
+                     </p>
+                  </li>
+                  <li>
+                     <p>LAYER: For point sources, daily emissions are printed by vertical layer. This option implies the LAYFRAC option (discussed
+                        later) that requires input of the <code class="envar">PLAY</code> SMOKE intermediate file. In the report, records are written first for one layer, then the next, and so on.  <span class="remark">Only records with nonzero emissions in a layer are written.</span> When used to together with the HOUR instruction (above), emissions will be written by hour as well as by layer. Since the
+                        number of records the report when using HOUR instruction is very large, we recommend that a source group be used to subselect
+                        the inventory records when appropriate.
+                     </p>
+                  </li>
+                  <li>
+                     <p>MACT [NAME]: Records are printed by MACT code. NAME can be appended to the option to additionally output the MACT code description
+                        (from the <code class="envar">MACTDESC</code> file) instead of only the MACT code.
+                     </p>
+                  </li>
+                  <li>
+                     <p>MATBURNED: For wildfire point sources, records are printed by MATBURNED code.</p>
+                  </li>
+                  <li>
+                     <p>METCODE: Records are printed by Meteorology-based hourly profile code. This option will work correctly only when monthly temporal
+                        profiles have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>MONCODE: Records are printed by Mothly profile code. This option will work correctly only when monthly temporal profiles have
+                        not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>MNDCODE: Records are printed by Monday diurnal profile code. This option will work correctly only when monthly temporal profiles
+                        have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>NFDRSCODE: For wildfire point sources, records are printed by NFDRSCODE code.</p>
+                  </li>
+                  <li>
+                     <p>NAICS [NAME]: Records are printed by NAICS code. NAME can be appended to the option to additional output the NAICS code description
+                        (from the <code class="envar">NAICSDESC</code> file) instead of only the NAICS code.
+                     </p>
+                  </li>
+                  <li>
+                     <p>ORIS [NAME]: Records are printed by ORIS ID code. NAME can be appended to the option to additional output the ORIS ID code
+                        description (from the <code class="envar">ORISDESC</code> file) instead of only the ORIS ID code.
+                     </p>
+                  </li>
+                  <li>
+                     <p>PLANT [NAME]: For point sources, emissions are printed by plant total. This option cannot be used in conjunction with the
+                        BY SOURCE option; if the <code class="envar">REPCONFIG</code> file contains both instructions, SMOKE will ignore the BY PLANT instruction.
+                     </p>
+                     <p>When the NAME option is included, the plant name will be included in the report. Otherwise, only the plant number will be
+                        included.
+                     </p>
+                  </li>
+                  <li>
+                     <p>ROADCLASS: Records are printed by road class total. This option can only be used for mobile sources.</p>
+                  </li>
+                  <li>
+                     <p>SATCODE: Records are printed by Saturday diurnal profile code. This option will work correctly only when monthly temporal
+                        profiles have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SCC [N] [NAME]: Records are printed and summed by all or part of the SCC, depending on the value of N, which can be set to
+                        1, 2, 3, or 4. These numbers correspond to the SCC levels described in <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">Section&nbsp;2.3.5, &#8220;Source Classification Codes&#8221;</a>. When N = 4, the full SCC is used. When N = 1, 2, or 3, the records are summed and reported by the corresponding SCC level.
+                        Differences between point and nonpoint/mobile SCCs are handled as described by the SCC structures. If no value is given. N
+                        is assumed to be 4 by default.
+                     </p>
+                     <p>The NAME option can be used for any N value. The SCC description is truncated assuming that semicolons separate the different
+                        parts of the SCC descriptions. If there are more than 3 semicolons in an SCC description (dividing into 4 parts), then all
+                        of the SCC sections after part 3 are put into part 4. The SCC description written by <span><strong class="command">Smkreport</strong></span> will match the value of N by including all parts of the SCC description up to and including the value of N.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SCC10 [NAME]: This option maintains backward compatibility with previous versions of <span><strong class="command">Smkreport</strong></span>. It is the same as the option "SCC 4 [NAME]".
+                     </p>
+                  </li>
+                  <li>
+                     <p>SIC [NAME]: Records are printed by SIC totals.</p>
+                     <p>When the &#8220;<span class="quote">NAME</span>&#8221; option is included, the SIC name will be included in the report. Otherwise, only the SIC code will be included. As with
+                        the BY SCC10 NAME instruction, the BY SIC NAME instruction will change the column delimiter from a semi-colon to the pipe
+                        symbol (&#8220;<span class="quote">|</span>&#8221;). The SIC name will also be enclosed in double quotes.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SOURCE [STACKPARM] [NAME] [LATLON]: Records are printed by source totals. Source characteristics are printed as well:</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>Point: country/state/county code, plant ID, stack ID, point ID, segment ID, SCC, and SIC</li>
+                           <li>Area: country/state/county code and SCC</li>
+                           <li>Mobile: country/state/county code, road type code, vehicle type code, link ID, and SCC</li>
+                        </ul>
+                     </div>
+                     <p>For area and mobile sources, the SCC descriptions will automatically be included in the report. This is the same as adding
+                        the &#8220;<span class="quote">BY SCC10 NAME</span>&#8221; instruction to the report instructions. There is no way to turn off this feature.
+                     </p>
+                     <p>For point sources, STACKPARM can be appended to the option to also output the stack parameters (height, diameter, exit velocity,
+                        exit temperature). Also for point sources, NAME can be appended to the option to get the facility names in the output file.
+                        LATLON can be appended to the option to print each source&#8217;s x- and y-coordinates.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SPCCODE &lt;POLLUTANT&gt;: Records are printed by speciation profile codes assigned to sources by the speciation cross-reference
+                        file. <span class="emphasis"><em>Only one pollutant can appear with this command throughout the entire <code class="envar">REPCONFIG</code> file.</em></span> The pollutant should be one that is in the inventory file and that was processed as part of the chemical speciation file
+                        run. This BY option does not imply the SPECIATION instruction (see below), and it can be used without included speciated emissions
+                        in the report. For example, the BY SPCCODE instruction may be used to indicate which speciation profiles were assigned to
+                        total VOC emissions (without reporting speciated VOC emissions). <span class="bold"><strong>NOTE: this BY SPCCODE option can't be used more than once in a REPCONFIG file.</strong></span></p>
+                  </li>
+                  <li>
+                     <p>SRCTYPE: Records are printed by source type code.</p>
+                  </li>
+                  <li>
+                     <p>SRGCODE [FALLBACK]: Records are printed by surrogate codes assigned to sources by the gridding cross-reference file. If no
+                        option is used, both primary and fallback surrogate codes are included in the output report. If the FALLBACK option is used,
+                        only the fallback surrogate codes are included in the output report, and a zero is used for all records that did not use a
+                        fallback surrogate (i.e., their primary surrogate did not cause emissions to go to zero). This BY option does not imply the
+                        GRIDDING instruction (see below); therefore, it can be used without applying the gridding matrix in the report. A value of
+                        -9 is used for fallback surrogate IDs in the resulting report.
+                     </p>
+                  </li>
+                  <li>
+                     <p>STATE [NAME]: Records are printed by state totals. This option invokes the use of the <code class="envar">COSTCY</code> file. NAME can be appended to the option to additionally output the state name instead of only the state number.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SUNCODE: Records are printed by Sunday diurnal profile code. This option will work correctly only when monthly temporal profiles
+                        have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>THUCODE: Records are printed by Thursday diurnal profile code. This option will work correctly only when monthly temporal
+                        profiles have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>TUECODE: Records are printed by Tuesday diurnal profile code. This option will work correctly only when monthly temporal profiles
+                        have not been applied by pollutant.
+                     </p>
+                  </li>
+                  <li>
+                     <p>WEKCODE: Records are printed by Weekly profile code. This option will work correctly only when monthly temporal profiles have
+                        not been applied by pollutant. Note that this option spelling is <span class="emphasis"><em>not</em></span> WEEKCODE.
+                     </p>
+                  </li>
+                  <li>
+                     <p>WEDCODE: Records are printed by Wednesday diurnal profile code. This option will work correctly only when monthly temporal
+                        profiles have not been applied by pollutant.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>The most detailed BY instruction will determine the resolution of the emissions and activity totals. For example, the COUNTRY,
+               STATE, and COUNTY options can be used in the same report to affect the column headers, but the data output will not be different
+               because the emissions totals will be at the finest resolution specified. In other words, if the instructs are to report BY
+               COUNTY and BY STATE, the emission totals in that report will be by county, and the BY STATE instruction will merely add the
+               state code to the columns printed. Another example is that the BY SCC10 instruction will override the resolution of BY ROADCLASS.
+            </p>
+            <p>Future versions of the BY command may support the following options, if a need for them is identified by SMOKE users:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>STACK [NAME]: For point sources only, records are printed as facility and stack totals. NAME can be appended to the option
+                        to get the facility names in the output file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>POINT [NAME]: For point sources only, records are printed as facility, stack, and point totals. NAME can be appended to the
+                        option to get the facility names in the output file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>VTYPE: For mobile sources only, records are printed as vehicle-type totals.</p>
+                  </li>
+                  <li>
+                     <p>GROUP &lt;option&gt;: Records are printed based on the user-defined groups, with the following options:</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>REGION: Rows in report are user-defined region groups.</li>
+                           <li>SCC: Rows in report are user-defined SCC groups.</li>
+                           <li>SOURCE: Rows in report are user-defined source groups, by SMOKE record number.</li>
+                           <li>HOURS: Rows in report are user-defined hour groups.</li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34328"></a>7.3.3.5.&nbsp;CONTROL instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The CONTROL instruction applies the multiplicative control matrix to all pollutants and species requested in the report. This
+               instruction does not limit the options available for resolution of the report, so reports that have the CONTROL instruction
+               can also include any combination of BY instructions.  <span><strong class="command">Smkreport</strong></span> is unable to apply the reactivity control matrix at this time.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34336"></a>7.3.3.6.&nbsp;CROSSWALK instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The CROSSWALK instruction allows users to generate the crosswalk output file that maps how the point inventory sources are
+               grouped into the output source for a single report. This option is only limited to stationary point sources (SMK_SOURCE is
+               set to P). The file names in this case are created automatically by <span><strong class="command">Smkreport</strong></span> based on the file name set by the associated NEWFILE instruction (explained in <a href="ch07s03s08.html" title="7.3.8.&nbsp;The /NEWFILE/ packet">Section&nbsp;7.3.8, &#8220;The /NEWFILE/ packet&#8221;</a>), by appending a &#8220;<span class="quote">_crosswalk</span>&#8221;.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34349"></a>7.3.3.7.&nbsp;GRIDDING instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The GRIDDING instruction controls whether or not the gridding matrix is used by <span><strong class="command">Smkreport</strong></span>. When the instruction is present, the gridding matrix is used in generating the report; the matrix is applied to the emissions
+               before the totals are made. The gridding matrix file name is determined by the environment variables set at run time. One
+               use of the GRIDDING instruction would be the following: a report could be generated without GRIDDING to see emission totals
+               before gridding, and another report could be generated with GRIDDING to see the totals after gridding. The totals from the
+               two reports could be compared to see if any emissions were lost because of the gridding step.
+            </p>
+            <p>The GRIDDING instruction is assumed when any of the following other instructions appear in the packet:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>SELECT SUBGRID</li>
+                  <li>BY CELL</li>
+                  <li>NORMALIZE CELLAREA</li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34366"></a>7.3.3.8.&nbsp;LAYFRAC instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The LAYFRAC instruction controls whether or not the point source layer fractions file (<code class="envar">PLAY</code>) from the <span><strong class="command">Laypoint</strong></span> program is used in determining elevated and low-level sources. If the <code class="envar">PLAY</code> file is not used for determining elevated sources, the <code class="envar">PELV</code> file from the <span><strong class="command">Elevpoint</strong></span> program will be required.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34386"></a>7.3.3.9.&nbsp;NORMALIZE instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The NORMALIZE instruction controls whether or not the emission values will be normalized using some other data value. Two
+               normalize options are currently supported; CELLAREA and POPULATION. Emissions normalization can provide additional insight
+               to the inventory, more than can be obtained by simply summarizing emissions values.
+            </p>
+            <p>The syntax of the NORMALIZE instruction is:</p>
+            <p>NORMALIZE &lt;option&gt;</p>
+            <p>with the following valid options:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>CELLAREA: Normalize emissions based on grid cell area. When the emissions are normalized by cell area, they are divided by
+                        the area of each cell (or just the cells selected, if a subgrid is used). Normalizing by grid cell area is useful for comparing
+                        emission reports from grids at different resolutions, including nested grids, to ensure that a consistent emissions density
+                        is maintained across the multiple grid resolutions.
+                     </p>
+                     <p>For Lambert and UTM grids, the cell ares are computed using the formula:</p>
+                     <p><span class="emphasis"><em>DX</em></span> * <span class="emphasis"><em>DY</em></span></p>
+                     <p>where</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li><span class="emphasis"><em>DX</em></span> is the cell x-direction size in meters
+                           </li>
+                           <li><span class="emphasis"><em>DY</em></span> is the cell y-direction size in meters
+                           </li>
+                        </ul>
+                     </div>
+                     <p>For lat-lon grids, the area of the lat-lon cell are estimated using the formula:</p>
+                     <p>(cos <span class="emphasis"><em>Y</em></span>)*( &#960; * <span class="emphasis"><em>DX</em></span> * <span class="emphasis"><em>R</em></span> / 180 )*( &#960; * <span class="emphasis"><em>DY</em></span> * <span class="emphasis"><em>R</em></span> / 180 )
+                     </p>
+                     <p>where</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li><span class="emphasis"><em>DX</em></span> is the cell x-direction size in degrees longitude
+                           </li>
+                           <li><span class="emphasis"><em>DY</em></span> is the cell y-direction size in degrees latitude
+                           </li>
+                           <li><span class="emphasis"><em>Y</em></span> is the cell center in degrees latitude
+                           </li>
+                           <li><span class="emphasis"><em>R</em></span> is the radius of the earth in meters
+                           </li>
+                        </ul>
+                     </div>
+                     <p><span class="remark">The NORMALIZE CELLAREA command cannot be used with polar stereographic grids at this time.</span></p>
+                     <p>This instruction requires that the GRIDDING instruction also be used, because the gridding information is needed in order
+                        to normalize the emissions by grid area. If the GRIDDING instruction is left out of the report instructions, <span><strong class="command">Smkreport</strong></span> will add it to the report and continue.
+                     </p>
+                  </li>
+                  <li>
+                     <p>POPULATION: Normalize emission based on county population.  Emissions in the report are divided by county population, regardless
+                        of whether the BY COUNTY instruction has been used in the report instructions.
+                     </p>
+                     <p>This option requires that the <code class="envar">COSTCY</code> input file to <span><strong class="command">Smkreport</strong></span> include an additional field and a #POPULATION header (as is described in the <code class="envar">COSTCY</code> documentation in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>).
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Future versions of the NORMALIZE instruction may support the following option, if a need for this option is identified by
+               SMOKE users:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>NORMALIZE COUNTYAREA: Normalize emissions based on county area.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34488"></a>7.3.3.10.&nbsp;NUMBER instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The NUMBER instruction controls the format used to display <span class="emphasis"><em>data values</em></span> in the report. The argument for the number instruction applies to all data values that are written to the report, and the
+               structure of the argument is simply the formats supported by Fortran. The data values in the reports are rounded to the nearest
+               value allowed based on the format selected. A value of 5 is rounded up to the next decimal place, when such rounded is needed.
+            </p>
+            <p>The syntax of the NUMBER instruction is simply:</p>
+            <p>NUMBER &lt;format&gt;</p>
+            <p>where &lt;format&gt; is the Fortran format specification. The common formats you might use are the following:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Float format: F&lt;x&gt;.&lt;y&gt;: where &lt;x&gt; is the number of digits for the number, including the decimal place, and &lt;y&gt; is the number
+                        of digits shown after the decimal place.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Exponential format: E&lt;x&gt;.&lt;y&gt;: where &lt;x&gt; is the complete width of the value, including five characters for &#8220;<span class="quote">E+00</span>&#8221; and the decimal, and &lt;y&gt; is the number of significant figures.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>If the NUMBER instruction does not appear in the report instructions, the E8.3 format is used.</p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34514"></a>7.3.3.11.&nbsp;PROJECTION instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The PROJECTION instruction will apply the growth matrix to all pollutants and species requested in the report.  This instruction
+               does not limit the options available for resolution of the report, so reports that have the PROJECTION instruction can also
+               include any combination of BY instructions.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34519"></a>7.3.3.12.&nbsp;SELECT instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The SELECT instruction controls which records in the inventory are used in generating the report. It allows the user to extract
+               particular records from the inventory, for inclusion in the report. This instruction also permits references to the groups
+               defined in the Define-groups section of the <code class="envar">REPCONFIG</code> file. If no SELECT instruction is used, then the other report instructions will be applied to all records in the inventory.
+               Only one SELECT statement of each type is permitted in per report; for example, only one SELECT REGION statement and one SELECT
+               SUBGRID statement could be used for a single report. Of course, different SELECT REGION or SELECT SUBGRID instructions could
+               be used for different reports in the same output file.
+            </p>
+            <p>The syntax of the command is:</p>
+            <p>SELECT &lt;options&gt; &lt;label&gt;</p>
+            <p>where &lt;label&gt; is an optional field, depending on the &lt;option&gt; selected. The following options are available for the SELECT
+               instruction:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>DATA &lt;label&gt;: Selects data values to include in the report. When no SELECT DATA instruction is used, all pollutants, activities,
+                        or species found in the input file(s) are reported. When species are being reported, the corresponding pollutants in the inventory
+                        or hourly emissions file are reported as well as the speciated emission values. The &lt;label&gt; must be a space-delimited list
+                        of pollutant, activity, or species names. Do not include the pollutant names in the list when species are listed, as these
+                        will be included by default.
+                     </p>
+                     <p>To specify a species value when the species name is the same as the pollutant name, an &#8220;<span class="quote">S</span>&#8221; and a hyphen can be inserted before the species name. You can also use this method for specifying the sum of post-speciated
+                        emissions. For instance, to specify carbon monoxide after speciation, the SELECT instruction should be:
+                     </p>
+                     <p>SELECT DATA S-CO</p>
+                     <p>To specify the sum of VOC emissions after speciation, the SELECT instruction should be:</p>
+                     <p>SELECT DATA S-VOC</p>
+                     <p><span class="emphasis"><em>Note that <span><strong class="command">Smkreport</strong></span> does not determine whether the summation makes sense, and does not correct for species molecular weights.</em></span> You must ensure that the data you request makes sense.
+                     </p>
+                     <p>Also note that the maximum number of characters that can be read on any line in this file is 1024. This can limit the number
+                        of pollutants that you can specifically request in a SELECT DATA statement.
+                     </p>
+                  </li>
+                  <li>
+                     <p>ELEVATED [PING]: Selects all elevated point sources (recognized for point sources only). If no elevated sources are found
+                        (after applying all other selection criteria), the report will contain a warning to that effect. If the PING option appears,
+                        only plume-in-grid sources will be selected. When the ELEVATED instruction is used by any report, the <code class="envar">PELV</code> file (from <span><strong class="command">Elevpoint</strong></span>) or <code class="envar">PLAY</code> file (from <span><strong class="command">Laypoint</strong></span>) will be required to determine which sources are elevated. The latter will be used when the LAYFRAC instruction is also included
+                        in the report instructions. If the PING option is used, the <code class="envar">PELV</code> file will be required in all cases, although the LAYFRAC instruction can still be used to set the elevated source status
+                        based on the layer fractions.
+                     </p>
+                  </li>
+                  <li>
+                     <p>NOELEVATED: Selects all low-level point sources (recognized for point sources only). If both the ELEVATED and NOELEVATED commands
+                        appear in the same report, a warning will be given, and the latter setting will be used to generate the report. If no low-level
+                        sources are found (after applying all other selection criteria), the report will contain a warning to this effect. The same
+                        rules apply for use of the <code class="envar">PELV</code> or <code class="envar">PLAY</code> files as described for the ELEVATED option.
+                     </p>
+                  </li>
+                  <li>
+                     <p>REGION &lt;label&gt;: Selects a region using the country/state/county code or a region group. For this option, &lt;label&gt; must be either
+                        a country/state/county code in NSSCCC format, or a region group label from the Define-group section of the <code class="envar">REPCONFIG</code> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>SUBGRID &lt;label&gt;: Selects a subgrid using the grid cell numbers or a subgrid group label. For this option, &lt;label&gt; must be
+                        either a range of grid cells, or a subgrid label from the Define-group Section of the file. When the &lt;label&gt; defines the cell
+                        range, you should use the same syntax that was specified above for the /DEFINE SUBGRID/ packet. However, the INCLUDE setting
+                        is assumed, and <span><strong class="command">Smkreport</strong></span> will not understand the INCLUDE and EXCLUDE commands as part of the &lt;label&gt;.
+                     </p>
+                     <p>For the REGION and SUBGRID options, the value of &lt;label&gt; must either match a group or subgrid label or match characteristics
+                        of the inventory or grid. Also, the &lt;label&gt; for the REGION and SUBGRID options must be 200 characters or fewer.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Future versions of <span><strong class="command">Smkreport</strong></span> may support the following additional options, if a need is identified:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>SCC &lt;label&gt;: Select a single SCC or SCC group for reporting.</p>
+                  </li>
+                  <li>
+                     <p>PLANT &lt;label&gt;: Select a single point source plant, or a plant group for reporting.</p>
+                  </li>
+                  <li>
+                     <p>STACK &lt;label&gt;: Select a single point source stack, or a stack group for reporting.</p>
+                  </li>
+                  <li>
+                     <p>POINT &lt;label&gt;: Select a single point source point, or a point group for reporting.</p>
+                  </li>
+                  <li>
+                     <p>HOURS &lt;label&gt;: Select a single hour or hour group for reporting.</p>
+                  </li>
+                  <li>
+                     <p>SOURCE &lt;label&gt;: Select a single source or source group for reporting.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34622"></a>7.3.3.13.&nbsp;SPECIATION instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The SPECIATION instruction controls whether the speciation matrix is used by the program. This option controls the columns
+               of data that will be printed in the output file. When the SPECIATION instruction is in the report instructions, the columns
+               in the output file will include speciated emissions values as well as inventory emissions from the SMOKE inventory or hourly
+               emissions file (depending on whether or not the TEMPORAL instruction is used). When the SPECIATION instruction is not used,
+               the columns in the output file will be inventory emissions and/or activities.
+            </p>
+            <p>The syntax of the SPECIATION instruction is:</p>
+            <p>SPECIATION &lt;option&gt;</p>
+            <p>where the following options are supported</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>MOLE: Uses the mole-based speciation matrix.</p>
+                  </li>
+                  <li>
+                     <p>MASS: Uses the mass-based speciation matrix.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34640"></a>7.3.3.14.&nbsp;TEMPORAL instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The TEMPORAL instruction controls whether or not emission values are used from the hourly emission files <code class="envar">ATMP</code>, <code class="envar">MTMP</code>, or <code class="envar">PTMP</code>. When this instruction is used, the default behavior of <span><strong class="command">Smkreport</strong></span> is to sum up the emissions by day and report emissions as daily totals. To override this behavior, the BY HOUR instruction
+               must be used.
+            </p>
+            <p>When dates and times are given in the report, the hours are reported in the time zone from the <code class="envar">ATMP</code>, <code class="envar">MTMP</code>, or <code class="envar">PTMP</code> file. Hours are reported as <span class="emphasis"><em>standard</em></span> time values for the time zone stored in the header of the hourly emissions file; hours are never reported as <span class="emphasis"><em>daylight</em></span> time values.
+            </p>
+            <p>The TEMPORAL instruction is assumed when either of the following options appear in the report instructions:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>SELECT HOURS</li>
+                  <li>BY HOUR</li>
+               </ul>
+            </div>
+            <p>In the future, we may be able to enhance this instruction to permit the reported hour values to be labeled with a different
+               time zone than is in the hourly emissions file.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34683"></a>7.3.3.15.&nbsp;TITLE instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The TITLE instruction allows one or more titles to be added to a report. The titles are printed into the report in the order
+               in which they appear in the packet. Quotes are <span class="emphasis"><em>not</em></span> needed in titles with blank spaces. The title will be ended at the last character on the line, or at a double pound sign
+               (##), whichever appears first on the line. Double pound signs cannot be printed in the titles of reports. It is recommended
+               that titles be 80 characters wide. The maximum title width is 300 characters. The syntax of the TITLE instruction is the following:
+            </p>
+            <p>TITLE &lt;title text&gt;</p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e34693"></a>7.3.3.16.&nbsp;UNITS instruction
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The UNITS instruction allows you to control the units of the output data. The current version of <span><strong class="command">Smkreport</strong></span> does not permit you to vary the units by data value; instead, the same units must be used for all data values, or the default
+               units will be used. Future versions of <span><strong class="command">Smkreport</strong></span> may permit control of the units by data variable.
+            </p>
+            <p>All unit conversions that <span class="emphasis"><em>can</em></span> be done, will be done. For example, if the inventory is stored in tons/hour, and the output is requested in fathoms/day,
+               the hour-to-day conversion will be made, while the impossible tons-to-fathoms conversion will not be made. The syntax of the
+               UNITS instruction is the following:
+            </p>
+            <p>UNITS ALL &lt;units&gt;</p>
+            <p>Valid values for the &lt;units&gt; option numerator are the following:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>ton(s)</li>
+                  <li>g, gm(s), gram(s)</li>
+                  <li>kg(s)</li>
+                  <li>mole(s), gm mole(s)</li>
+               </ul>
+            </div>
+            <p>Valid values for the &lt;units&gt; option denominator are the following:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>year(s), yr(s)</li>
+                  <li>day</li>
+                  <li>hour(s), hr(s)</li>
+                  <li>min(s)</li>
+                  <li>day(s)</li>
+                  <li>s, sec(s)</li>
+               </ul>
+            </div>
+            <p>No quotes are needed around the unit labels, and they must be 30 characters or fewer. Some examples of the units instruction
+               are the following:
+            </p><pre class="programlisting">UNITS ALL gm moles/s
+UNITS ALL tons/hr
+UNITS ALL kg/year</pre></div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.2.&nbsp;Define-group section&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.4.&nbsp;The /DELIMITER/ packet</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

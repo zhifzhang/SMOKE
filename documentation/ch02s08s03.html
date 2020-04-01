@@ -1,0 +1,82 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.8.3.&nbsp;Biogenic-source processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">
+      <link rel="prev" href="ch02s08s02.html" title="2.8.2.&nbsp;Area-source processing">
+      <link rel="next" href="ch02s08s04.html" title="2.8.4.&nbsp;Mobile-source processing using MOVES">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.8.3.&nbsp;Biogenic-source processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s08s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s08s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_biogenic_source_processing"></a>2.8.3.&nbsp;Biogenic-source processing
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE biogenic emissions modeling can be accomplished with the Biogenic Emissions Inventory System, version 3 (BEIS3) approach
+            using the processing scheme  (<a href="ch02s08s03.html#fig_concepts_biogenic_base" title="Figure&nbsp;2.11.&nbsp;Biogenic-source processing steps and intermediate files">Figure&nbsp;2.11, &#8220;Biogenic-source processing steps and intermediate files&#8221;</a>). The raw land use inventory data are imported and output as normalized emissions. Meteorology adjustments are then applied
+            to the normalized emissions to create hourly model-ready emissions estimates.
+         </p>
+         <div class="figure"><a name="fig_concepts_biogenic_base"></a><p class="title"><b>Figure&nbsp;2.11.&nbsp;Biogenic-source processing steps and intermediate files</b></p>
+            <div class="mediaobject"><img src="images\concepts\biogenic_base_html.jpg" alt="Biogenic-source processing steps and intermediate files"></div>
+         </div>
+         <p>The land use import can start with gridded BELD3 or BELD4 land use data and uses BEIS3 summer and winter emission factors.
+             In <a href="ch02s17.html" title="2.17.&nbsp;Biogenic processing">Section&nbsp;2.17, &#8220;Biogenic processing&#8221;</a>, we provide additional details about the SMOKE programs used for BEIS3 processing and its capabilities.
+         </p>
+         <p>A variation can be run on the processing steps shown in <a href="ch02s08s03.html#fig_concepts_biogenic_base" title="Figure&nbsp;2.11.&nbsp;Biogenic-source processing steps and intermediate files">Figure&nbsp;2.11, &#8220;Biogenic-source processing steps and intermediate files&#8221;</a> (see <a href="ch02s08s03.html#fig_concepts_biogenic_seasons" title="Figure&nbsp;2.12.&nbsp;Biogenic-source processing steps and intermediate files using both winter and summer emission factors">Figure&nbsp;2.12, &#8220;Biogenic-source processing steps and intermediate files using both winter and summer emission factors&#8221;</a>). In this variation, some grid cells use summer emission factors and some use winter emission factors. This is useful during
+            the changes of seasons. Based on guidance from EPA, the summer emissions factors should be used for time periods after the
+            last frost of the spring until the first frost of the fall, and winter emission factors should be used at other times of the
+            year. To make such assignments by grid cell, the SMOKE utility <span><strong class="command">Metscan</strong></span> analyzes the meteorology data for the entire year (or the period of interest) to establish which days each grid cell should
+            use winter and summer emission factors. <span><strong class="command">Metscan</strong></span> creates a winter/summer switch file that indicates the appropriate season for each grid cell for each day. More information
+            on <span><strong class="command">Metscan</strong></span> is available in <a href="ch05s03s11.html" title="5.3.11.&nbsp;Metscan">Section&nbsp;5.3.11, &#8220;<span><strong class="command">Metscan</strong></span>&#8221;</a>. The results of the meteorology analysis can then be used in the <a href="ch02s08s03.html#fig_concepts_biogenic_seasons" title="Figure&nbsp;2.12.&nbsp;Biogenic-source processing steps and intermediate files using both winter and summer emission factors">Figure&nbsp;2.12, &#8220;Biogenic-source processing steps and intermediate files using both winter and summer emission factors&#8221;</a> processing approach, in which both the summer and winter normalized emissions are provided to the meteorology adjustments
+            step, along with the winter/summer switch file. The resulting model-ready emissions data have used the winter emission factors
+            for all grid cells of the domain that have experienced the first freeze date of the year but not the last (within a calendar
+            year, this is the time periods January through March and November through December in many regions), and the summer emission
+            factors for all grid cells between the last and first freeze dates.
+         </p>
+         <div class="figure"><a name="fig_concepts_biogenic_seasons"></a><p class="title"><b>Figure&nbsp;2.12.&nbsp;Biogenic-source processing steps and intermediate files using both winter and summer emission factors</b></p>
+            <div class="mediaobject"><img src="images\concepts\biogenic_seasons_html.jpg" alt="Biogenic-source processing steps and intermediate files using both winter and summer emission factors"></div>
+         </div>
+         <p>In <a href="ch02s17.html" title="2.17.&nbsp;Biogenic processing">Section&nbsp;2.17, &#8220;Biogenic processing&#8221;</a> we describe the SMOKE programs that are needed for each of these processing types for BEIS3 processing, and additional details
+            about what activities are accomplished during each step.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s08s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s08s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.8.2.&nbsp;Area-source processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.8.4.&nbsp;Mobile-source processing using MOVES</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

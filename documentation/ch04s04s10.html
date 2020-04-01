@@ -1,0 +1,317 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s09.html" title="4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)">
+      <link rel="next" href="ch04s04s11.html" title="4.4.11.&nbsp;Setup projection and control scenarios">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s09.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s11.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_change_speciation"></a>4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s04s10.html#sect_scripts_use_default_spc">4.4.10.1. Choosing from default mechanisms</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s10.html#sect_scripts_use_new_spc">4.4.10.2. Setup of new mechanism or changing an existing mechanism</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s10.html#d0e14544">4.4.10.3. Changing speciation assignments</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s10.html#d0e14598">4.4.10.4. Changing the definition of NONHAPVOC or NONHAPTOG</a></span></dt>
+            </dl>
+         </div>
+         <p>A common change to the SMOKE configuration is to select a speciation approach for an air quality model and chemical mechanism.
+            In <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, we noted that many speciation files are available for download from EPA. In this section, we describe how to use the <code class="envar">SPC</code> value in the Assigns file to select these.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_scripts_use_default_spc"></a>4.4.10.1.&nbsp;Choosing from default mechanisms
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE provides several chemical mechanisms that one can select for modeling. In the default SMOKE configuration, only a few
+               small changes are necessary to the Assigns file and script to use a different chemical mechanism.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Set the <code class="envar">SPC</code> setting in the Assigns file.
+                     </p>
+                     <p>The <code class="envar">SPC</code> setting in the Assigns file controls which chemical mechanism is used by the scripts and SMOKE programs. Depending on what
+                        source categories you are modeling, the air quality model that you are using, and the chemical mechanism for that air quality
+                        model. See the default data files described in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a> for the actual file names that will be used for each source category. Where different files are needed for different source
+                        categories, the Assigns file will automatically detect this and set the <code class="envar">GSPRO</code> and <code class="envar">GSREF</code> files accordingly.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Determine whether VOC-to-TOG or ROG-to-TOG is needed and set script accordingly.</p>
+                     <p>If your inventory contains the pollutant VOC or ROG and you are modeling for CMAQ, UAM, or CAM<sub>X</sub>, then you will need to use SMOKE&#8217;s <code class="envar">GSCNV</code> file to convert the VOC or ROG mass to TOG mass.
+                     </p>
+                     <p>The SMOKE <span><strong class="command">Spcmat</strong></span> program will use the <code class="envar">GSCNV</code> file if the <code class="envar">POLLUTANT_CONVERSION</code> setting in the script is Y. This is the default configuration for the CMAQ run scripts.
+                     </p>
+                     <p>If your inventory contains TOG, then the <code class="envar">POLLUTANT_CONVERSION</code> setting in the run script should be set to N.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Ensure that the inventory pollutants that need speciation match the inventory pollutants in the speciation profiles and cross-reference
+                        files.
+                     </p>
+                     <p>All of the pollutants in your inventory that you wish to include in the outputs must have valid profiles in the <code class="envar">GSPRO</code> and <code class="envar">GSREF</code> files. If the pollutant is left out of the <code class="envar">GSREF</code> file, the pollutant will be dropped from modeling (in some cases, this is desirable, but a warning will be generated by <span><strong class="command">Spcmat</strong></span>). For each pollutant in your inventory check that:
+                     </p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>The pollutant has one or more entries in the <code class="envar">GSREF</code> file. In some cases, you may have to add entries. For example, not all <code class="envar">GSREF</code> files have &#8220;<span class="quote">ROG</span>&#8221; entries, but these can easily be added simply by copying the VOC assignments and changing the VOC label to ROG.
+                              </p>
+                           </li>
+                           <li>
+                              <p>For CMAQ, UAM, and CAM<sub>X</sub> and the pollutant is VOC or ROG, check that the TOG profiles are in the <code class="envar">GSPRO</code> file.
+                              </p>
+                           </li>
+                           <li>
+                              <p>For all models and all other pollutants, check that the profiles are included in the <code class="envar">GSPRO</code> file.
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Ensure that the correct Assigns file is used in your run scripts.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_scripts_use_new_spc"></a>4.4.10.2.&nbsp;Setup of new mechanism or changing an existing mechanism
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Create and install the <code class="envar">GSPRO</code> file.
+                     </p>
+                     <p>If only a few changes will be made to a <code class="envar">GSPRO</code> file, you can simply copy an existing <code class="envar">GSPRO</code> file to a new file. If more extensive changes are needed to create a new mechanism, currently, there is no utility for creating
+                        a <code class="envar">GSPRO</code> file in SMOKE.  For now, users must use the file format in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> and a high degree of expertise to develop new <code class="envar">GSPRO</code> files.
+                     </p>
+                     <p>Install the <code class="envar">GSPRO</code> file in the <code class="filename"><code class="envar">$GE_DAT</code></code> directory. For the default <code class="envar">GSPRO</code> file for that chemical mechanism (i.e., the one that applies to the most source categories), name the file <code class="filename">gspro.<code class="envar">$SPC</code>.txt</code>. If your speciation profile is specific to a certain source category, name the <code class="envar">GSPRO</code> file as follows:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>area/non-road mobile: <code class="filename">gspro.<code class="envar">$SPC</code>.a.txt</code></p>
+                           </li>
+                           <li>
+                              <p>on-road mobile: <code class="filename">gspro.<code class="envar">$SPC</code>.m.txt</code></p>
+                           </li>
+                           <li>
+                              <p>point: <code class="filename">gspro.<code class="envar">$SPC</code>.p.txt</code></p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create and install the <code class="envar">GSREF</code> file.
+                     </p>
+                     <p>You may be able to simply copy a <code class="envar">GSREF</code> file to a new name, depending on whether the profile codes are different for your new mechanism. In many cases, the same
+                        profile codes are used (e.g., from the SPECIATE database), but the profiles themselves are all that have changed.
+                     </p>
+                     <p>If you need to create a new <code class="envar">GSREF</code> from scratch, you will need to ensure that all of the SCCs and all of the pollutants in the inventory have profile assignments.
+                        Any pollutant in the inventory that is not included in the <code class="envar">GSREF</code> file will be dropped from modeling. Any SCC that is not included will be assigned the default profile, which is the profile
+                        assigned to SCC = 0.
+                     </p>
+                     <p>Name the <code class="envar">GSREF</code> file using a similar approach as for the <code class="envar">GSPRO</code> file, but use the &#8220;<span class="quote">gsref</span>&#8221; prefix instead of the &#8220;<span class="quote">gspro</span>&#8221; prefix. Therefore, the default file for that chemical mechanism (the one that applies to the most source categories) should
+                        be named <code class="filename">gsref.<code class="envar">$SPC</code>.txt</code>. Any source-category-specific files should use the names as follows:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>area/non-road mobile: <code class="filename">gsref.<code class="envar">$SPC</code>.a.txt</code></p>
+                           </li>
+                           <li>
+                              <p>on-road mobile: <code class="filename">gsref.<code class="envar">$SPC</code>.m.txt</code></p>
+                           </li>
+                           <li>
+                              <p>point: <code class="filename">gsref.<code class="envar">$SPC</code>.p.txt</code></p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create the pollutant-to-pollutant conversion file, if necessary.</p>
+                     <p>If the speciation profiles change or new profiles are added for VOC speciation, a <code class="envar">GSCNV</code> file must be created accordingly. This can be accomplished by copying and editing the example <code class="envar">GSCNV</code> file or creating a new <code class="envar">GSCNV</code> file from scratch. This requires a high degree of expertise and must be closely coordinated with creating the <code class="envar">GSPRO</code> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Edit the <code class="envar">INVTABLE</code> file.
+                     </p>
+                     <p>Particularly for toxics modeling, changes to the <code class="envar">GSPRO</code> file must be coordinated with changes to the <code class="envar">INVTABLE</code> file in the following ways:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>If the definition of NONHAPVOC changes, the <code class="envar">INVTABLE</code> definition of NONHAPVOC must change as well.
+                              </p>
+                           </li>
+                           <li>
+                              <p>If there are new explicit model species, these must be identified in the <code class="envar">INVTABLE</code> file.
+                              </p>
+                           </li>
+                           <li>
+                              <p>If there are new model species that are not part of the chemical mechanism, these must be identified in the <code class="envar">INVTABLE</code> file.
+                              </p>
+                           </li>
+                           <li>
+                              <p>If there are new pollutants, these must be included in the <code class="envar">INVTABLE</code> file (as well as the raw inventories, of course).
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Coordinate with MOVES inputs.</p>
+                     <p>When processing using on-road mobile emissions and SMOKE running MOVES, users need to create the <code class="envar">MEPROC</code> file that contains a list of MOVES pollutants by emissions processes created by MOVES. This SMOKE input need to be coordinated
+                        so that the pollutants expected by the chemical mechanism are all created by SMOKE/MOVES. This requires that the <code class="envar">MEPROC</code> file have all pollutant/process combinations for the required pollutants and that the MOVES inputs are configured to generate
+                        emissions for those pollutants. The <code class="envar">MEPROC</code> file is documented in <a href="ch08s09s02.html#sect_input_meproc_moves" title="8.9.2.1.4.&nbsp;MEPROC: List of mobile emission processes and associated activities and pollutants">Section&nbsp;8.9.2.1.4, &#8220;<code class="envar">MEPROC</code>: List of mobile emission processes and associated activities and pollutants&#8221;</a>. The MOVES inputs are documented in the MOVES manual, and the limitations placed on these files by SMOKE are documented in
+                        <a href="ch04s04s12.html" title="4.4.12.&nbsp;Use MOVES for on-road mobile sources">Section&nbsp;4.4.12, &#8220;Use MOVES for on-road mobile sources&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Edit the Assigns file and scripts</p>
+                     <p>Make sure to change the <code class="envar">SPC</code> variable in your Assigns file to the one for your new chemical mechanism. Also make sure that your run scripts use the Assigns
+                        file with the correct <code class="envar">SPC</code> setting.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e14544"></a>4.4.10.3.&nbsp;Changing speciation assignments
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Speciation assignments can be changed so that different speciation profiles are used for certain SCCs and pollutants or to
+               add SCCs and pollutants. You will need to ensure that all of the SCCs and all of the pollutants in the inventory have profile
+               assignments. Any pollutant in the inventory that is not included in the <code class="envar">GSREF</code> file will be dropped from modeling. Any SCC that is not included will be assigned the default profile, which is the profile
+               assigned to SCC = 0.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Adding entries to an existing cross-reference file.</p>
+                     <p>Edit an existing cross-reference file or copy it to a new file for editing. Insert the new speciation assignments based on
+                        the format of the file, described in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create new speciation cross-reference file(s) for your case.</p>
+                     <p>Copy the speciation cross-reference (<code class="envar">GSREF</code>) file for the chemical mechanism that you are using (or a chemical mechanism that is most similar to the one you have created).
+                        Edit the speciation profile assignments using the file format, described in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>. The naming convention for the new file must be consistent with the convention described in the previous subsection.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Change the pollutant-to-pollutant conversion file.</p>
+                     <p>If different SCCs get different profiles, then the <code class="envar">GSCNV</code> file must be changed as well. The VOC-to-TOG factor in the <code class="envar">GSCNV</code> depends on the profile that has been assigned to an SCC. So, the factor must be consistent with the profile assigned. Calculating
+                        the VOC-to-TOG factor requires some expertise, and this is outside the scope of this manual. However, if you change an SCC
+                        to use an existing profile, you can determine the correct VOC-to-TOG factor by first finding another SCC that uses that profile
+                        and then setting the VOC-to-TOG factor to be the same as the one for that other SCC.
+                     </p>
+                  </li>
+                  <li>
+                     <p>If any new files are created, ensure that the Assigns file uses all new files.</p>
+                     <p>Make sure that the <code class="envar">SPC</code> setting in the Assigns is correct and that the Assigns file will set the <code class="envar">GSPRO</code>, <code class="envar">GSREF</code>, and <code class="envar">GSCNV</code> files so that any new files will be used by the programs.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e14598"></a>4.4.10.4.&nbsp;Changing the definition of NONHAPVOC or NONHAPTOG
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The definition of NONHAPVOC and NONHAPTOG simply must be consistent between the <code class="envar">GSPRO</code> file and the <code class="envar">INVTABLE</code> file. This change applies only to chemical mechanisms that use VOC model species and can therefore benefit from the integration
+               of toxics and criteria VOC. This includes all models that SMOKE supports.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Edit the <code class="envar">INVTABLE</code> file.
+                     </p>
+                     <p>You can add pollutants and change their NONHAPVOC status using the <code class="envar">INVTABLE</code> file format provided in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create new speciation profiles.</p>
+                     <p>The speciation profiles must use the same definition of NONHAPVOC or NONHAPTOG. The header of the file must be updated to
+                        reflect the new definitions. The profiles for NONHAPVOC and NONHAPTOG must also be updated to be consistent. Finally, all
+                        other TOG profiles must be updated to be consistent with the definition.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Coordinate with MOVES inputs.</p>
+                     <p>When processing using on-road mobile emissions and SMOKE running MOVES, users need to create the <code class="envar">MEPROC</code> file that contains a list of MOVES pollutants by emissions processes created by MOVES. This SMOKE input need to be coordinated
+                        so that the pollutants expected by the chemical mechanism are all created by SMOKE/MOVES. This requires that the <code class="envar">MEPROC</code> file have all pollutant/process combinations for the required pollutants and that the MOVES inputs are configured to generate
+                        emissions for those pollutants. The <code class="envar">MEPROC</code> file is documented in <a href="ch08s09s02.html#sect_input_meproc_moves" title="8.9.2.1.4.&nbsp;MEPROC: List of mobile emission processes and associated activities and pollutants">Section&nbsp;8.9.2.1.4, &#8220;<code class="envar">MEPROC</code>: List of mobile emission processes and associated activities and pollutants&#8221;</a>. The MOVES inputs are documented in the MOVES manual, and the limitations placed on these files by SMOKE are documented in
+                        <a href="ch04s04s12.html" title="4.4.12.&nbsp;Use MOVES for on-road mobile sources">Section&nbsp;4.4.12, &#8220;Use MOVES for on-road mobile sources&#8221;</a>.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s09.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s11.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.9.&nbsp;Use a new modeling grid or change spatial inputs (anthropogenic and biogenic)&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.11.&nbsp;Setup projection and control scenarios</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

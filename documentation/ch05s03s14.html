@@ -1,0 +1,209 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.14.&nbsp;Surgtool</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s13.html" title="5.3.13.&nbsp;Smk2emis">
+      <link rel="next" href="ch05s03s15.html" title="5.3.15.&nbsp;Uam2ncf">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.14.&nbsp;<span><strong class="command">Surgtool</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s13.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s15.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_surgtool"></a>5.3.14.&nbsp;<span><strong class="command">Surgtool</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s14.html#d0e21286">5.3.14.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s14.html#d0e21311">5.3.14.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s14.html#d0e21331">5.3.14.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21286"></a>5.3.14.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Surgtool</strong></span> program inputs SMOKE-formatted gridding surrogates for a &#8220;<span class="quote">fine</span>&#8221; input grid and a grid definition for a &#8220;<span class="quote">coarse</span>&#8221; output grid.  It produces an approximate &#8220;<span class="quote">coarse</span>&#8221; grid surrogates file, the accuracy of which depends on how fine the resolution of the input grid is relative to that of
+               the output grid.
+            </p>
+            <p>The program requires that the input and output grids use a lat-lon, Lambert Conformal, or UTM map projection. <span><strong class="command">Surgtool</strong></span> can also perform Lambert-to-Lambert and UTM zone-to-zone transformations. In addition, the program requires that the input
+               grid resolution be much finer than the output grid resolution (at least three times finer is recommended, though no specific
+               limitation is given by the code). <span><strong class="command">Surgtool</strong></span> supports SMOKE-formatted surrogate coefficient files only.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21311"></a>5.3.14.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Since <span><strong class="command">Surgtool</strong></span> is an optional program that creates new Area and/or Mobile <code class="envar">BGPRO</code> spatial surrogate files from existing Area, Mobile and/or Biogenic <code class="envar">BGPRO</code> spatial surrogate files, it must be run before any of the following programs that use these files: <span><strong class="command">Grdmat</strong></span>, and <span><strong class="command">Smkmerge</strong></span>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e21331"></a>5.3.14.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s14.html#d0e21334">5.3.14.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s14.html#d0e21374">5.3.14.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s14.html#d0e21388">5.3.14.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21334"></a>5.3.14.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GRIDDESC</code></td>
+                           <td>ASCII</td>
+                           <td>Grid descriptions file that defines the output grid for the output surrogates file created by the program. It must include
+                              the name of the grid set by the <code class="envar">IOAPI_GRIDNAME_1</code> environment variable setting.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">INFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Area and Mobile spatial surrogate file format (see <a href="ch08s04s02.html" title="8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files">Section&nbsp;8.4.2, &#8220;Area and Mobile Spatial Surrogates Files&#8221;</a>) and Biogenic spatial surrogate file format (see <a href="ch08s04s05.html" title="8.4.5.&nbsp;BGPRO: Biogenic spatial surrogate file">Section&nbsp;8.4.5, &#8220;<code class="envar">BGPRO</code>: Biogenic spatial surrogate file&#8221;</a>). File can be for Lambert Conformal, UTM, or lat-lon projection.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21374"></a>5.3.14.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">IOAPI_GRIDNAME_1</code>: [default: blank]
+                        </p>
+                        <p>This variable sets the name of the output grid definition to be read from the <code class="envar">GRIDDESC</code> input file. The name can be a maximum of 16 characters (the limitation of I/O API grid names).
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e21388"></a>5.3.14.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Surgtool</strong></span></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Estimated surrogates file for the grid defined in <code class="envar">GRIDDESC</code> and selected by the <code class="envar">IOAPI_GRIDNAME_1</code> setting. This surrogates file is not as accurate as creating a spatial surrogates file from the MIMS spatial allocator. However,
+                              the finer the <span><strong class="command">Surgtool</strong></span> input grid is relative to the output grid, the more accurate the estimated surrogates are.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s13.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s15.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.13.&nbsp;<span><strong class="command">Smk2emis</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.15.&nbsp;<span><strong class="command">Uam2ncf</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,314 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.5.4.&nbsp;GSREF: Speciation cross-reference file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">
+      <link rel="prev" href="ch08s05s03.html" title="8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file ">
+      <link rel="next" href="ch08s05s05.html" title="8.5.5.&nbsp;GSTAG: Speciation tagging cross-reference file ">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.5.4.&nbsp;<code class="envar">GSREF</code>: Speciation cross-reference file
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s05s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.5.&nbsp;Chemical speciation</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s05s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_gsref"></a>8.5.4.&nbsp;<code class="envar">GSREF</code>: Speciation cross-reference file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s05s04.html#d0e43821">8.5.4.1. Area- and mobile-source speciation cross-reference file entries</a></span></dt>
+               <dt><span class="section"><a href="ch08s05s04.html#d0e43924">8.5.4.2. Point-source speciation cross-reference file entries</a></span></dt>
+            </dl>
+         </div>
+         <p>The speciation cross-reference file is used to match the emission sources with the speciation profiles in the <code class="envar">GSPRO</code> file. The <code class="envar">GSREF</code> file uses a header to define the point-source unique characteristics. The same file can be used for all source categories;
+            the SMOKE programs use only the applicable entries in the file. The way that the file is applied in SMOKE ensures that the
+            most-specific matches override the less-specific ones. A description of how the speciation cross-reference is applied to the
+            inventory is provided in <a href="ch06s15.html" title="6.15.&nbsp;Spcmat">Section&nbsp;6.15, &#8220;<span><strong class="command">Spcmat</strong></span>&#8221;</a>.
+         </p>
+         <p>When the special keyword &#8220;<span class="quote"><code class="envar">COMBO</code></span>&#8221; is placed in the speciation profile code column, all sources matching the cross-reference entry should use a combination
+            speciation profile provided in  <a href="ch08s05s03.html" title="8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file ">Section&nbsp;8.5.3, &#8220;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file &#8221;</a>. Using the profiles listed in the <code class="envar">GSPRO_COMBO</code> file, <span><strong class="command">Spcmat</strong></span> can use the fractions and the information from the <code class="envar">GSPRO</code> and <code class="envar">GSCNV</code> for the profiles provied to create weighted profiles for the matching source.
+         </p>
+         <p>As of SMOKE version 4.5, the chemical speciation profile split factor column M is added into the <a href="ch08s05s04.html#tbl_input_gsref_point" title="Table&nbsp;8.44.&nbsp;Format for point-source GSREF">Table&nbsp;8.44, &#8220;Format for point-source <code class="envar">GSREF</code>&#8221;</a> for users to apply multiple speciation profiles to a single inventory source. Unlike <code class="envar">GSPRO_COMBO</code> approach, this approach can be used to an individual stationary point source level.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e43821"></a>8.5.4.1.&nbsp;Area- and mobile-source speciation cross-reference file entries
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>When emission type are used (as with mobile source processing using the <span><strong class="command">Movesmrg</strong></span> program), column C must contain the emission types instead of the pollutants. For example, if the <code class="envar">MEPROC</code> file contained processes EXR (exhaust running), EPM (evaporative permeation), and CXR (crankcase running exhaust), then in
+               order to use pollutant-specific entries in the <code class="envar">GSREF</code> file for mobile sources, records would need to be added to the file that use the emission types EXR__TOG, EPM__TOG, and CXR__TOG
+               in column C. Note that the separator within these process-pollutant combinations must be a double underscore. The format of
+               the <code class="envar">GSREF</code> file for area and mobile sources is shown in <a href="ch08s05s04.html#tbl_input_gsref_area" title="Table&nbsp;8.43.&nbsp;Format for area- and mobile-source GSREF">Table&nbsp;8.43, &#8220;Format for area- and mobile-source <code class="envar">GSREF</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_gsref_area"></a><p class="title"><b>Table&nbsp;8.43.&nbsp;Format for area- and mobile-source <code class="envar">GSREF</code></b></p>
+               <table summary="Format for area- and mobile-source GSREF" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>
+                           
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>Area: 20-digit SCC, or 10-digit SCC with zeros filling the remaining digits (Character)</td>
+                              </tr>
+                              <tr>
+                                 <td>Mobile: 20-digit SCC code or 10-digit SCC (Character)</td>
+                              </tr>
+                              <tr>
+                                 <td>Set to zero if cross-reference entry is not SCC-specific</td>
+                              </tr>
+                           </table>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Speciation profile code (Character) (required; must match codes in the <code class="envar">GSPRO</code> file)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>Pollutant name or emission type (Character) (required; must match pollutants for profile code in <code class="envar">GSPRO</code> file; put zero id not pollutant-dependent)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>D</td>
+                        <td>
+                           <p>Country/state/county code (6-digit Character in format YSSCCC) (optional):</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact>
+                                 <li>leave blank if not country/state-dependent</li>
+                                 <li>set to YSS000 for country/state-dependent</li>
+                                 <li>set to YSSCCC for county-dependent</li>
+                              </ul>
+                           </div>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>E</td>
+                        <td>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>F</td>
+                        <td>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>...</td>
+                        <td>...</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>M</td>
+                        <td>Chemical Speciation Profile Split factor (real) (optional)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e43924"></a>8.5.4.2.&nbsp;Point-source speciation cross-reference file entries
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The format of the <code class="envar">GSREF</code> file for point sources is shown in <a href="ch08s05s04.html#tbl_input_gsref_point" title="Table&nbsp;8.44.&nbsp;Format for point-source GSREF">Table&nbsp;8.44, &#8220;Format for point-source <code class="envar">GSREF</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_gsref_point"></a><p class="title"><b>Table&nbsp;8.44.&nbsp;Format for point-source <code class="envar">GSREF</code></b></p>
+               <table summary="Format for point-source GSREF" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>A</td>
+                        <td>/POINT DEFN/</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Number of point source characteristics in addition to plant ID in point source definition (for ORL, this will always be 4)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>
+                           <p>Number of point source characteristic in addition to plant ID (if SCC is a part of the source definition); zero otherwise.</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact>
+                                 <li>FF10 and ORL inventories: 4</li>
+                              </ul>
+                           </div>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>2+</td>
+                        <td>A</td>
+                        <td>8- or 10- or 20- digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Speciation profile code (Character) (required; must match codes in the <code class="envar">GSPRO</code> file)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>Pollutant name or emission type (Character) (required; must match pollutants for profile code in <code class="envar">GSPRO</code> file; put zero if not pollutant-dependent)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>D</td>
+                        <td>
+                           <p>Country/state/county code (6-digit Character in format YSSCCC) (optional):</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact>
+                                 <li>leave blank if not country/state-dependent</li>
+                                 <li>set to YSS000 for country/state-dependent</li>
+                                 <li>set to YSSCCC for county-dependent</li>
+                              </ul>
+                           </div>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>E</td>
+                        <td>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>F</td>
+                        <td>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>G</td>
+                        <td>Facility ID for FF10 Point Sources (Plant ID for ORL), (Character(15), (optional ; leave blank if entry is not plant-specific)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>H</td>
+                        <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>I</td>
+                        <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>J</td>
+                        <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>K</td>
+                        <td>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (Character) (optional)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>L</td>
+                        <td>Characteristic 5 (blank for FF10 or ORL) (Character) (optional)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>M</td>
+                        <td>Chemical Speciation Profile Split factor (real) (optional)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s05s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s05s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.5.3.&nbsp;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file &nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.5.5.&nbsp;<code class="envar">GSTAG</code>: Speciation tagging cross-reference file 
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

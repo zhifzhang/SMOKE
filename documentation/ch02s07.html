@@ -1,0 +1,185 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.7.&nbsp;Sparse matrix approach to emissions modeling</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s06s05.html" title="2.6.5.&nbsp;Layer structures">
+      <link rel="next" href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.7.&nbsp;Sparse matrix approach to emissions modeling</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s06s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_sparse_matrix"></a>2.7.&nbsp;Sparse matrix approach to emissions modeling
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>The paradigm for atmospheric emissions models prior to SMOKE was a network of pipes and filters. This means that at any given
+            stage in the processing, an emissions file includes self-contained records describing each source and <span class="emphasis"><em>all</em></span> of the attributes acquired from previous processing stages. Each processing stage acts as a filter that inputs a stream of
+            these fully-defined records, combines it with data from one or more support files, and produces a new stream of these records.
+            Redundant data are passed down the pipe at the cost of extra I/O, storage, data processing, and program complexity. Using
+            this method, all processing is performed one record at a time, without necessarily a structure or order to the records.
+         </p>
+         <p>This old paradigm came about as a way to avoid repeatedly searching through data files for needed information, which would
+            be very inefficient. It is admirably suited to older computer architectures with very small available memories and tape-only
+            storage, but is not suitable for current desktop machines or high-performance computers. SMOKE developers demonstrated this
+            when the Emissions Preprocessor System (EPS) 2.0 was run on a Cray Y-MP. It ran four times slower on the Cray machine (a much
+            faster computer) than on a desktop 150 MHz DEC Alphastation 3000/300. This paradigm also fostered a serial approach to the
+            emissions processing steps, as shown in <a href="ch02s07.html#fig_concepts_serial_approach" title="Figure&nbsp;2.3.&nbsp;Serial approach to emissions processing">Figure&nbsp;2.3, &#8220;Serial approach to emissions processing&#8221;</a>.
+         </p>
+         <div class="figure"><a name="fig_concepts_serial_approach"></a><p class="title"><b>Figure&nbsp;2.3.&nbsp;Serial approach to emissions processing</b></p>
+            <div class="mediaobject"><img src="images\concepts\serial_approach_html.jpg" alt="Serial approach to emissions processing"></div>
+         </div>
+         <p>The new paradigm implemented in SMOKE came about from analyses indicating that emissions computations should be quite adaptable
+            to high-performance computing if the paradigm were appropriately changed. For each SMOKE processing category (i.e., area,
+            biogenic, mobile, and point sources), the following tasks are performed:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>read emissions inventory data files</p>
+               </li>
+               <li>
+                  <p>optionally grow emissions from the base year to the (future or past) modeled year (except biogenic sources)</p>
+               </li>
+               <li>
+                  <p>transform inventory species into chemical mechanism species defined by an AQM</p>
+               </li>
+               <li>
+                  <p>optionally apply emissions controls (except for biogenic sources)</p>
+               </li>
+               <li>
+                  <p>model the temporal distribution of the emissions, including any meteorology effects</p>
+               </li>
+               <li>
+                  <p>model the spatial distribution of the emissions;</p>
+               </li>
+               <li>
+                  <p>merge the various source categories of emissions to form input files for the AQM</p>
+               </li>
+               <li>
+                  <p>at every step of the processing, perform quality assurance on the input data and the results</p>
+               </li>
+            </ul>
+         </div>
+         <p>Each processing category has its particular complexities and deviations from the above list; these are described in <a href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">Section&nbsp;2.8, &#8220;Area, biogenic, mobile, and point processing summaries&#8221;</a>. For all categories, however, most of the needed processing steps are <span class="emphasis"><em>factor-based</em></span>; they are linear operations that can be represented as multiplication by matrices. Further, some of the matrices are <span class="emphasis"><em>sparse</em></span> matrices (i.e., most of their entries are zeros).
+         </p>
+         <p>SMOKE is designed to take advantage of these facts by formulating emissions modeling in terms of sparse matrix operations,
+            which can be performed by optimized sparse matrix libraries. Specifically, the inventory emissions are arranged as a vector
+            of emissions sorted in a particular order, with associated vectors that include characteristics about the sources such as
+            the state/county and SCCs. SMOKE then creates matrices that apply the control, gridding, and speciation factors to the vector
+            of emissions. In many cases, these matrices are independent from one another, and can therefore be generated in parallel and
+            applied to the inventory in a final &#8220;<span class="quote">merge</span>&#8221; step, which combines the inventory emissions vector (now an hourly inventory file) with the control, speciation, and gridding
+            matrices to create model-ready emissions. <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a> shows how the matrix approach allows for a more parallel approach to emissions processing, in which fewer steps depend on
+            other needed steps.
+         </p>
+         <p>Note that in <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a>, temporal allocation outputs hourly emissions instead of a temporal matrix. This is because of some peculiarities with temporal
+            modeling for point sources, which can use hourly emissions as input data. To be able to overwrite the inventory emissions
+            with these hourly emissions, the temporal allocation step must output the emissions data. The matrix approach is used internally
+            in the temporal allocation step.
+         </p>
+         <p>The growth and controls steps shown in <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a> are optional. If the inventory is not grown to a future or past year, then the temporal allocation step uses the original
+            inventory vectors to calculate the hourly emissions.
+         </p>
+         <div class="figure"><a name="fig_concepts_parallel_approach"></a><p class="title"><b>Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing</b></p>
+            <div class="mediaobject"><img src="images\concepts\parallel_approach_html.jpg" alt="Parallel approach to emissions processing"></div>
+         </div>
+         <p>Several benefits can be realized from this more parallel approach. For example, given a single emissions inventory, temporal
+            modeling is performed only once per inventory and episode (though in practice, this step is often performed once per episode
+            day). Also, gridding matrices typically need only be calculated once per inventory and model grid definition, without having
+            to reprocess other steps. As shown in <a href="ch02s07.html#fig_concepts_additional_grid" title="Figure&nbsp;2.5.&nbsp;Processing steps for running an additional grid in SMOKE">Figure&nbsp;2.5, &#8220;Processing steps for running an additional grid in SMOKE&#8221;</a>, SMOKE usually needs to rerun only the gridding and merge steps to process a different grid for the same inventory. The merge
+            step in the figure will read the previously created results from the temporal allocation, chemical speciation, and control
+            processing steps.
+         </p>
+         <div class="figure"><a name="fig_concepts_additional_grid"></a><p class="title"><b>Figure&nbsp;2.5.&nbsp;Processing steps for running an additional grid in SMOKE</b></p>
+            <div class="mediaobject"><img src="images\concepts\additional_grid_html.jpg" alt="Processing steps for running an additional grid in SMOKE"></div>
+         </div>
+         <p>In addition, speciation matrices need only be calculated once per inventory and chemical mechanism. Similar to the gridding
+            example, <a href="ch02s07.html#fig_concepts_additional_chemical" title="Figure&nbsp;2.6.&nbsp;Processing steps for running an additional chemical mechanism in SMOKE">Figure&nbsp;2.6, &#8220;Processing steps for running an additional chemical mechanism in SMOKE&#8221;</a> shows the SMOKE steps that generally need to be rerun for running an additional chemical mechanism.
+         </p>
+         <div class="figure"><a name="fig_concepts_additional_chemical"></a><p class="title"><b>Figure&nbsp;2.6.&nbsp;Processing steps for running an additional chemical mechanism in SMOKE</b></p>
+            <div class="mediaobject"><img src="images\concepts\additional_chemical_html.jpg" alt="Processing steps for running an additional chemical mechanism in SMOKE"></div>
+         </div>
+         <p>A final example of how this approach is beneficial is processing with a control strategy. Because of SMOKE&#8217;s parallel processing,
+            changing a control strategy requires only the control and merge steps to be processed again (<a href="ch02s07.html#fig_concepts_running_control" title="Figure&nbsp;2.7.&nbsp;Processing steps for running a control scenario in SMOKE">Figure&nbsp;2.7, &#8220;Processing steps for running a control scenario in SMOKE&#8221;</a>). In serial processing, on the other hand, the growth and controls step occurs as the second processing step, which requires
+            that all downstream steps be redone. In <a href="ch02s07.html#fig_concepts_running_control" title="Figure&nbsp;2.7.&nbsp;Processing steps for running a control scenario in SMOKE">Figure&nbsp;2.7, &#8220;Processing steps for running a control scenario in SMOKE&#8221;</a>, the speciation, temporal allocation, and gridding steps have already been run, and can be fed to the merge step without
+            being altered or regenerated.
+         </p>
+         <div class="figure"><a name="fig_concepts_running_control"></a><p class="title"><b>Figure&nbsp;2.7.&nbsp;Processing steps for running a control scenario in SMOKE</b></p>
+            <div class="mediaobject"><img src="images\concepts\running_control_html.jpg" alt="Processing steps for running a control scenario in SMOKE"></div>
+         </div>
+         <p>Although SMOKE processing generally follows the structure shown in <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a>, there are some exceptions. In the list below, we summarize these exceptions and provide references to the sections of this
+            chapter where these exceptions are explained and shown through diagrams. These exceptions are also described in more detail
+            in <a href="ch02s08s02.html" title="2.8.2.&nbsp;Area-source processing">Section&nbsp;2.8.2, &#8220;Area-source processing&#8221;</a>, <a href="ch02s08s03.html" title="2.8.3.&nbsp;Biogenic-source processing">Section&nbsp;2.8.3, &#8220;Biogenic-source processing&#8221;</a>, <a href="ch02s08s04.html" title="2.8.4.&nbsp;Mobile-source processing using MOVES">Section&nbsp;2.8.4, &#8220;Mobile-source processing using MOVES&#8221;</a>, and <a href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">Section&nbsp;2.8.5, &#8220;Point-source processing&#8221;</a>.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><span class="bold"><strong>On-road mobile processing with MOVES:</strong></span> One way of processing on-road mobile-source emissions is to have SMOKE run the MOVES model based on hourly, gridded meteorology
+                     data. To run a different grid or control strategy using this approach, users usually need to run a number of additional processing
+                     steps that we have not yet discussed. These differences from the standard processing approach are described in <a href="ch02s08s04.html" title="2.8.4.&nbsp;Mobile-source processing using MOVES">Section&nbsp;2.8.4, &#8220;Mobile-source processing using MOVES&#8221;</a>.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Biogenics processing:</strong></span> Biogenics processing uses different processors than those for anthropogenic sources. The emissions from biogenic sources
+                     are based on land use data and meteorology data instead of on actual emission inventories. For more information, please see
+                     <a href="ch02s08s03.html" title="2.8.3.&nbsp;Biogenic-source processing">Section&nbsp;2.8.3, &#8220;Biogenic-source processing&#8221;</a>.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Toxics processing for different chemical speciation mechanisms:</strong></span> Toxics processing may require some special processing steps during import of the inventory data when integrating the criteria
+                     and toxics inventories. This step depends on which chemical speciation approach is going to be used. Therefore, when changing
+                     the toxics speciation mechanism, it is sometimes necessary to rerun the data import step. See <a href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">Section&nbsp;2.9.5, &#8220;Combine toxics and criteria inventories&#8221;</a> for more information.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Point-source processing for CMAQ versus UAM, or CAM<sub>X</sub>:</strong></span> Point-source processing for CMAQ uses some different programs than processing for UAM or CAM<sub>X</sub>. In some cases, it may be necessary to rerun several programs in order to run for one model rather than another. Further
+                     details on this additional processing can be found in <a href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">Section&nbsp;2.8.5, &#8220;Point-source processing&#8221;</a>.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>Adding hour-specific or day-specific point-source data:</strong></span> If you want to add hour-specific or day-specific point-source data after a point source run has already been performed, several
+                     processing steps must be rerun. Further details on this additional processing can be found in <a href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">Section&nbsp;2.8.5, &#8220;Point-source processing&#8221;</a>.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s06s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.6.5.&nbsp;Layer structures&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

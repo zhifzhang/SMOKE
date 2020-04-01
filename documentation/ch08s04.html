@@ -1,0 +1,238 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.4.&nbsp;Spatial Allocation Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s03s04.html" title="8.3.4.&nbsp;PROCDATES: Procdates date list">
+      <link rel="next" href="ch08s04s02.html" title="8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.4.&nbsp;Spatial Allocation Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s03s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s04s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_spatial"></a>8.4.&nbsp;Spatial Allocation Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s04.html#sect_input_srgdesc">8.4.1. <code class="envar">SRGDESC</code>: Surrogate Designation, Description and Surrogate profile filename.</a></span></dt>
+               <dt><span class="section"><a href="ch08s04s02.html">8.4.2. Area and Mobile Spatial Surrogates Files</a></span></dt>
+               <dt><span class="section"><a href="ch08s04s03.html">8.4.3. <code class="envar">AGREF</code> and <code class="envar">MGREF</code>: Gridding cross-reference files for area and mobile sources</a></span></dt>
+               <dt><span class="section"><a href="ch08s04s04.html">8.4.4. <code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, <code class="envar">BELD3_TOT</code>: BELD3 land use data files</a></span></dt>
+               <dt><span class="section"><a href="ch08s04s05.html">8.4.5. <code class="envar">BGPRO</code>: Biogenic spatial surrogate file</a></span></dt>
+               <dt><span class="section"><a href="ch08s04s06.html">8.4.6. <code class="envar">GRIDDESC</code>: Grids and projection information</a></span></dt>
+            </dl>
+         </div>
+         <p>All spatial allocation (gridding) inputs need to be consistent. Each file has a header to indicate the grid projection, location,
+            dimensions, and resolution; SMOKE uses these headers to ensure consistency across all inputs. SMOKE also requires that any
+            meteorology data inputs be consistent with these gridded data. Most programs in SMOKE are capable of processing a modeling
+            grid that is a subgrid of the input data (i.e. spatial surrogates, meteorology data).
+         </p>
+         <p>Several options are available for creating the spatial surrogate and biogenic land use inputs.</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The MIMS Spatial Allocator can create surrogates and prepare BELD3 inputs files for any modeling grid.</p>
+               </li>
+               <li>
+                  <p>Several national surrogate data sets are available online at EPA&#8217;s <a href="http://www.epa.gov/ttn/chief/emch/spatial/" target="_top">Clearinghouse for Inventories and Emissions Factors</a>. These data sets are at 36-, 12-, and 4-km resolutions.
+                  </p>
+               </li>
+               <li>
+                  <p>The gridding surrogates and land use data can be prepared using a GIS program.</p>
+               </li>
+            </ul>
+         </div>
+         <p>The directories where the spatial allocation files should be stored are listed in <a href="ch08.html#tbl_input_spatial_files" title="Table&nbsp;8.3.&nbsp;Spatial Allocation Input File Locations">Table&nbsp;8.3, &#8220;Spatial Allocation Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_srgdesc"></a>8.4.1.&nbsp;<code class="envar">SRGDESC</code>: Surrogate Designation, Description and Surrogate profile filename.
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief
+               description of the code number and the Area and Mobile spatial surrogate file in which surrogate profile can be found.  This
+               file is located in <code class="envar">SRGPRO_PATH</code>. See <a href="ch06s04s03.html#fig_programs_grdmat" title="Figure&nbsp;6.4.&nbsp;Grdmat input and output files">Figure&nbsp;6.4, &#8220;<span>Grdmat</span> input and output files&#8221;</a>.  The format of the <code class="envar">SRGDESC</code> file is shown in <a href="ch08s04.html#tbl_input_srgdesc" title="Table&nbsp;8.37.&nbsp;Format for SRGDESC">Table&nbsp;8.37, &#8220;Format for <code class="envar">SRGDESC</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_srgdesc"></a><p class="title"><b>Table&nbsp;8.37.&nbsp;Format for <code class="envar">SRGDESC</code></b></p>
+               <table summary="Format for SRGDESC" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>A</td>
+                        <td>#GRID</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Grid name</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>X origin in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>D</td>
+                        <td>Y origin in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>E</td>
+                        <td>X direction cell length in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>F</td>
+                        <td>Y direction cell length in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>G</td>
+                        <td>Number of columns</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>H</td>
+                        <td>Number of rows</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>I</td>
+                        <td>Number of boundary cells</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>J</td>
+                        <td>
+                           <p>Projection types:</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact>
+                                 <li>Latitude-Longitude: &#8220;<span class="quote">LAT-LON</span>&#8221; or &#8220;<span class="quote">LATGRD3</span>&#8221;
+                                 </li>
+                                 <li>Lambert Conformal: &#8220;<span class="quote">LAMBERT</span>&#8221; or &#8220;<span class="quote">LAMGRD3</span>&#8221;
+                                 </li>
+                                 <li>Polar Stereographic: &#8220;<span class="quote">POLAR</span>&#8221; or &#8220;<span class="quote">POLGRD3</span>&#8221;
+                                 </li>
+                                 <li>UTM: &#8220;<span class="quote">UTM</span>&#8221; or &#8220;<span class="quote">UTMGRD3</span>&#8221;
+                                 </li>
+                              </ul>
+                           </div>
+                           
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>K</td>
+                        <td>Projection units</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>L</td>
+                        <td>Projection alpha value</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>M</td>
+                        <td>Projection beta value</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>N</td>
+                        <td>Projection gamma value</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>O</td>
+                        <td>X-direction projection center in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>P</td>
+                        <td>Y-direction projection center in units of the projection</td>
+                     </tr>
+                     <tr>
+                        <td>2+</td>
+                        <td>A</td>
+                        <td>Region of surrogate i.e. USA, MEX, or CAN. (ASCII) (not used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Surrogate code number (Integer)(required)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>C</td>
+                        <td>Surrogate Description (ASCII 80 characters in quotes) (required)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>D</td>
+                        <td>Surrogate file name (ASCII 80 characters) (required) located in <code class="envar">SRGPRO_PATH</code></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s03s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s04s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.3.4.&nbsp;<code class="envar">PROCDATES</code>: Procdates date list&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.4.2.&nbsp;Area and Mobile Spatial Surrogates Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

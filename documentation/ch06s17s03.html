@@ -1,0 +1,445 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.17.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s17.html" title="6.17.&nbsp;Tmpbeis3">
+      <link rel="prev" href="ch06s17s02.html" title="6.17.2.&nbsp;Processing Order">
+      <link rel="next" href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.17.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s17s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.17.&nbsp;<span><strong class="command">Tmpbeis3</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e32345"></a>6.17.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s17s03.html#d0e32410">6.17.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s17s03.html#d0e32513">6.17.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s17s03.html#d0e32804">6.17.3.3. Output Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s17s03.html#d0e32855">6.17.3.4. Processing Multiple Days with BEIS3</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_tmpbeis3"></a><p class="title"><b>Figure&nbsp;6.26.&nbsp;<span>Tmpbeis3</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\tmpbeis3_html.jpg" alt="Tmpbeis3 input and output files"></div>
+         </div>
+         <p><a href="ch06s17s03.html#fig_programs_tmpbeis3" title="Figure&nbsp;6.26.&nbsp;Tmpbeis3 input and output files">Figure&nbsp;6.26, &#8220;<span>Tmpbeis3</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Tmpbeis3</strong></span> program. The input files include the gridded, normalized biogenic emissions from <span><strong class="command">Normbeis3</strong></span> (<code class="envar">B3GRD</code>) and, if <code class="envar">BIOSW_YN</code> = Y, then a gridded, seasonal switch file output from <span><strong class="command">Metscan</strong></span> is required (<code class="envar">BIOSEASON</code>). The biogenic speciation profiles are read from the <code class="envar">GSPRO</code> file and the <code class="envar">GRID_CRO_2D</code> contains the latitude and longitute for each grid cell. <span><strong class="command">Tmpbeis3</strong></span> reads surface pressure and radiation/cloud data from <code class="envar">MET_FILE1</code> and optionally from <code class="envar">MET_FILE2</code> if <code class="envar">BIOMET_SAME</code> = N.
+         </p>
+         <p><span><strong class="command">Tmpbeis3</strong></span> outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<code class="envar">B3GTS_L</code>) and tons/hour (<code class="envar">B3GTS_S</code>). The program also outputs an execution log file (<code class="envar">LOGFILE</code>).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e32410"></a>6.17.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">B3GRD</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded, normalized biogenic emissions, output from <span><strong class="command">Normbeis3</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BIOSEASON</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded seasonal switch file containing daily data, with &#8220;<span class="quote">0</span>&#8221; meaning use winter normalized emissions and &#8220;<span class="quote">1</span>&#8221; meaning use the summer normalized emissions, produced by <span><strong class="command">Metscan</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GSPRO</code></td>
+                        <td>ASCII</td>
+                        <td>Speciation profiles file (<span class="bold"><strong>use &#8220;<span class="quote">BV309</span>&#8221; for CB04 speciation profile or &#8220;<span class="quote">B10C5</span>&#8221; for CB05 speciation profile.</strong></span>)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRID_CRO_2D</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Meteorology file containing latitude and longitude coordinates for each grid cell</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MET_FILE1</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Meteorology file containing temperature and surface pressure data and possibly radiation/cloud data as well (see <code class="envar">BIOMET_SAME</code> environment variable)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MET_FILE2</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>Meteorology file containing radiation/cloud data if not in <code class="envar">MET_FILE1</code></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SOILINP</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded soil restart file ( use if <code class="envar">INITIAL_RUN = N</code>)
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e32513"></a>6.17.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">BEIS_VERSION</code>: [default: 3.60]
+                     </p>
+                     <p>Specifies which version of BEIS3 to use.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>3.60: Use BEIS version 3.60.</p>
+                           </li>
+                           <li>
+                              <p>3.14: Use BEIS version 3.14.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">BG_CLOUD_TYPE</code>: [default: 1]
+                     </p>
+                     <p>Specifies which meteorological data to use.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>1: Use RGND or RSD (solar radiation reaching the ground) from MM5 to calculate PAR. No other options are supported at this
+                                 time.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">BIOG_SPRO</code>: [default: BV310]
+                     </p>
+                     <p>Specifies the speciation profile for biogenic emissions from GSPRO.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>B3V10: Use BEIS version 3.60.</p>
+                           </li>
+                           <li>
+                              <p>BV313: Use BEIS version 3.14.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">BIOMET_SAME</code>: [default: N]
+                     </p>
+                     <p>Defines whether the radiation/cloud data are in the same file as the temperature data (<code class="envar">MET_FILE1</code>) or in a different file (<code class="envar">MET_FILE2</code>).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">BIOSW_YN</code>: [default: Y]
+                     </p>
+                     <p>Indicates whether to use a gridded seasonal switch file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use gridded seasonal switch file <code class="envar">BIOSEASON</code></p>
+                           </li>
+                           <li>
+                              <p>N: Use environment variable <code class="envar">SUMMER_YN</code> to determine season
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">INITIAL_RUN</code>: [default: N]
+                     </p>
+                     <p>Indicates whether a particular day is the first day in a sequence of simulations.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use for the first day in a sequence of simulations. Use if the <code class="envar">SOILINP</code> file does not yet exist (i.e., the soil NO calculations will not depend on the previous day&#8217;s rainfall).
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Use for subsequent days in a sequence of simulations. Use if the <code class="envar">SOILINP</code> file exists.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Note that BEIS3 will create a <code class="envar">SOILINP</code> file for days subsequent to the first day in a sequence of simulations.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">ISLTYP_VAR</code>: [default: SLTYP]
+                     </p>
+                     <p>Specifies the soil type variable name used if <code class="envar">PX_VERSION = Y.</code></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">LAI_VAR</code>: [default: LAI]
+                     </p>
+                     <p>Specifies the variable name for the leaf area index from the me model (e.g. WRF) used for the leaf temperature algorithm (Only
+                        for BEIS version 3.60)
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">OUTZONE</code>: See description in <a href="ch06s16s03.html#sect_programs_temporal_envar" title="6.16.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.16.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">OUT_UNITS</code>: [default: 1]
+                     </p>
+                     <p>Specifies units for the output variables.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>1: moles per hour.</p>
+                           </li>
+                           <li>
+                              <p>2: moles per second.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">PRES_VAR</code>: [default: PRSFC]
+                     </p>
+                     <p>Specifies the variable name for surface pressure data to extract from <code class="envar">MET_FILE1</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PX_VERSION</code>: [default: N]
+                     </p>
+                     <p>Indicates whether the Pleim-Xiu land surface model was used in the MM5 simulations.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use if the Pleim-Xiu land surface model was used in the MM5 simulations. Indicates that <code class="envar">MET_FILE1</code> contains soil temperature, soil moisture and soil type fields that can be used, along with rainfall data, for NO soil emission
+                                 calculations in <span><strong class="command">Tmpbeis3</strong></span>.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Use if the Pleim-Xiu land surface model was not used in the MM5 simulations. Indicates that <span><strong class="command">Tmpbeis3</strong></span> will calculate NO soil emissions using only rainfall data.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">Q2_VAR</code>: [default: Q2]
+                     </p>
+                     <p>Specifies the variable name for the two meter water vapor mixing ratio (kg/kg) used for the leaf temperature algorithm (Only
+                        for BEIS version 3.60).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RAD_VAR</code>: [default: RGRND]
+                     </p>
+                     <p>Specifies the variable name for radiation/cloud data to extract from either <code class="envar">MET_FILE1</code> or optional <code class="envar">MET_FILE2</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RADYNI_VAR</code>: [default: RADYNI]
+                     </p>
+                     <p>Specifies the variable name for the aerodynamic resistance variable (s/m) used for the leaf temperature algorithm (Only for
+                        BEIS version 3.60).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RGRND_VAR</code>: [default: RGRND]
+                     </p>
+                     <p>Specifies the variable name for the solar radiation reaching the ground used for the leaf temperature algorithm (Only for
+                        BEIS version 3.60).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RSTOMI_VAR</code>: [default: RSTOMI]
+                     </p>
+                     <p>Specifies the variable name for the inverse of the stomatal resistance variable (m/s) used for the leaf temperature algorithm
+                        (Only for BEIS version 3.60).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RC_VAR</code>: [default: RC]
+                     </p>
+                     <p>Specifies the convective rainfall variable name used in <code class="envar">MET_FILE1</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RN_VAR</code>: [default: RN]
+                     </p>
+                     <p>Specifies the non-convective rainfall variable name used in <code class="envar">MET_FILE1</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SOILM_VAR</code>: [default: SOIM1]
+                     </p>
+                     <p>Specifies the soil moisture variable name used if <code class="envar">PX_VERSION = Y</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SOILT_VAR</code>: [default: SOIT1]
+                     </p>
+                     <p>Specifies the soil temperature variable name used if <code class="envar">PX_VERSION = Y</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SUMMER_YN</code>: [default: Y]
+                     </p>
+                     <p>Indicates whether summer or winter normalized emissions should be used; only used when <code class="envar">BIOSW_YN</code> is N.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use summer normalized emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Use winter normalized emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">TEMPG_VAR</code>: [default: TEMPG]
+                     </p>
+                     <p>Specifies the skin temperature at the ground level (K) used for the leaf temperature algorithm (Only for BEIS version 3.60).</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">TMPR_VAR</code>: [default: TA]
+                     </p>
+                     <p>Specifies the variable name for temperature to extract from <code class="envar">MET_FILE1</code>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USTAR_VAR</code>: [default: USTAR]
+                     </p>
+                     <p>Specifies the variable name for the surface friction velocity (m/s) used for the leaf temperature algorithm (Only for BEIS
+                        version 3.60).
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e32804"></a>6.17.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">B3GTS_L</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded, speciated, hourly biogenic emissions, in moles/hour</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">B3GTS_S</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded, speciated, hourly biogenic emissions, in tons/hour</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SOILOUT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded soil restart file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Tmpbeis3</strong></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e32855"></a>6.17.3.4.&nbsp;Processing Multiple Days with BEIS3
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The user must point to the <code class="envar">SOILOUT</code> file from one day&#8217;s simulation as the <code class="envar">SOILINP</code> file for the next day. The user must also decide whether to write over <code class="envar">SOILOUT</code> files from previous days or create a uniquely named <code class="envar">SOILOUT</code> file for each day. The latter approach is recommended if the user wishes to retain the capability to restart simulations
+               in the middle of a sequence of simulations.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s17s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s17.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.17.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

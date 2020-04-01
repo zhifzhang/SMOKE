@@ -1,0 +1,80 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.18.&nbsp;Import day-specific and hour-specific data</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s17.html" title="2.9.17.&nbsp;Report results of import step">
+      <link rel="next" href="ch02s09s19.html" title="2.9.19.&nbsp;Processing hour-specific CEM data">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.18.&nbsp;Import day-specific and hour-specific data</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s17.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s19.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e4641"></a>2.9.18.&nbsp;Import day-specific and hour-specific data
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Another function of <span><strong class="command">Smkinven</strong></span> that only applies to point sources is importing day- and hour-specific data. It can read three input ASCII formats:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><span class="bold"><strong>CEM data format:</strong></span> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed
+                     in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data
+                     are released.
+                  </p>
+               </li>
+               <li>
+                  <p><span class="bold"><strong>FF10 format:</strong></span>The FF10 day- and hour-specific format can be input to SMOKE using either the FF10 annual or average-day inventories.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>In addition to reading the files, <span><strong class="command">Smkinven</strong></span> ensures that the records listed in day- and hour-specific files match records provided in the annual inventory inputs. This
+            is necessary because SMOKE builds its list of all point sources based on the annual and/or average-day inventory files, and
+            these are the only sources that will be listed in the SMOKE intermediate inventory file. <span><strong class="command">Smkinven</strong></span> requires that the year associated with the date of the day-specific and hour-specific emissions is the same as the base year.
+            <span><strong class="command">Smkinven</strong></span> generates an error message when it cannot match a day- or hour-specific source with an inventory source. Please refer to
+            <a href="ch06s13.html" title="6.13.&nbsp;Smkinven">Section&nbsp;6.13, &#8220;<span><strong class="command">Smkinven</strong></span>&#8221;</a> for more information about how <span><strong class="command">Smkinven</strong></span> can be used to import these data.
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span> also can process the hourly CEM data in a more sophisticated way. Hourly heat input from the CEM data are used to allocate
+            annual emissons to hourly emission data. First of all, the utility program <span><strong class="command">CEMScan</strong></span> must be run before <span><strong class="command">Smkinven</strong></span>, see more information at (<a href="ch05s03s04.html" title="5.3.4.&nbsp;CEMScan">Section&nbsp;5.3.4, &#8220;<span><strong class="command">CEMScan</strong></span>&#8221;</a>). 
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s17.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s19.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.17.&nbsp;Report results of import step&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.19.&nbsp;Processing hour-specific CEM data</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,125 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>9.8.3.&nbsp;SMOKE_OUTFILE(=METMOVES)</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch09s08.html" title="9.8.&nbsp;Met4moves">
+      <link rel="prev" href="ch09s08s02.html" title="9.8.2.&nbsp;MOVES_RH_OUTFILE">
+      <link rel="next" href="ch09s09.html" title="9.9.&nbsp;Movesmrg">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">9.8.3.&nbsp;<code class="envar">SMOKE_OUTFILE(=METMOVES)</code></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch09s08s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">9.8.&nbsp;<span><strong class="command">Met4moves</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch09s09.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_intmed_smoke_output"></a>9.8.3.&nbsp;<code class="envar">SMOKE_OUTFILE(=METMOVES)</code></h3>
+               </div>
+            </div>
+         </div>
+         <p>Type: I/O API NetCDF - adapted gridded format</p>
+         <p>Used by: <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Movesmrg</strong></span></a> (if RPP_MODE=Y).
+         </p>
+         <p>The output file created by <span><strong class="command">Met4moves</strong></span> program for use by <span><strong class="command">Movesmrg</strong></span>. It contains gridded daily min/max temperatures for every inventory county.  <span><strong class="command">Met4moves</strong></span> adjusts the native MCIP time zone (GMT) to local time in order to properly use the SMOKE-ready lookup tables, which are given
+            in local time.
+         </p>
+         <p>Type: I/O API NetCDF - adapted gridded format</p>
+         <p>Used by: <span><strong class="command">Smkmerge</strong></span> and <span><strong class="command">Smkreport</strong></span></p>
+         <div class="table"><a name="d0e54596"></a><p class="title"><b>Table&nbsp;9.22.&nbsp;I/O API Header for <code class="envar">SMOKE_OUTFILE</code></b></p>
+            <table summary="I/O API Header for SMOKE_OUTFILE" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>I/O API Header variable</th>
+                     <th>Meaning</th>
+                     <th>Set by...</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>NROWS3D</td>
+                     <td>Number of sources</td>
+                     <td>Determined by <code class="envar">MOBL</code> file
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>NVARS3D</td>
+                     <td>Number of temperature variables</td>
+                     <td>Determined by <code class="envar">MOBL</code> file
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="table"><a name="d0e54634"></a><p class="title"><b>Table&nbsp;9.23.&nbsp;Variables in <code class="envar">SMOKE_OUTFILE</code></b></p>
+            <table summary="Variables in SMOKE_OUTFILE" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Variable Name</th>
+                     <th>Type</th>
+                     <th>Units</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>MINTEMP</td>
+                     <td>Real</td>
+                     <td>Fahrenheit</td>
+                     <td>Daily minimum temperature</td>
+                  </tr>
+                  <tr>
+                     <td>MAXTEMP</td>
+                     <td>Real</td>
+                     <td>Fahrenheit</td>
+                     <td>Daily maximum temperature</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch09s08s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch09s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch09s09.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">9.8.2.&nbsp;<code class="envar">MOVES_RH_OUTFILE</code>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;9.9.&nbsp;<span><strong class="command">Movesmrg</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,324 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.4.2.&nbsp;Example reports</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s04.html" title="7.4.&nbsp;Reports Created by Smkreport">
+      <link rel="prev" href="ch07s04.html" title="7.4.&nbsp;Reports Created by Smkreport">
+      <link rel="next" href="ch07s05.html" title="7.5.&nbsp;Quality Assurance Methods">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.4.2.&nbsp;Example reports</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.4.&nbsp;Reports Created by <span><strong class="command">Smkreport</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e35217"></a>7.4.2.&nbsp;Example reports
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35225">7.4.2.1. Example 1</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35230">7.4.2.2. Example 2</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35235">7.4.2.3. Example 3</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35240">7.4.2.4. Example 4</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35245">7.4.2.5. Example 5</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35252">7.4.2.6. Example 6</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35257">7.4.2.7. Example 7</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35262">7.4.2.8. Example 8</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35267">7.4.2.9. Example 9</a></span></dt>
+               <dt><span class="section"><a href="ch07s04s02.html#d0e35272">7.4.2.10. Example 10</a></span></dt>
+            </dl>
+         </div>
+         <p>Given below are just a few examples of the many types of reports <span><strong class="command">Smkreport</strong></span> can generate. Note that no actual emission data values are given in these examples (and sometimes the emission values are
+            not even listed). Also, no example is given with two reports in a single file. When we created these examples, we pretended
+            that the inventory used to generate the reports had only CO and NOx available. Also, we have not provided the entire reports,
+            but rather a sampling of what each report looks like, without showing all states, SCCs, etc.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35225"></a>7.4.2.1.&nbsp;Example 1
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">Country-total point-source inventory emissions, with country names
+1996 Inventory
+No gridding
+
+Co/St/Cy, Country Name, CO       , NOX
+        ,             , [tons/yr], [tons/yr]
+--------------------------------------------
+  000000, US          , 602390.4 , 302123.1
+  100000, Canada      , 312233.3 , 197158.9
+  200000, Mexico      , 809822.1 , 289321.3</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35230"></a>7.4.2.2.&nbsp;Example 2
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">State-total point-source emissions, with state names
+1996 Inventory
+No gridding
+
+Co/St/Cy, State Name    , CO        , NOX   
+        ,               , [tons/yr] , [tons/yr]
+------------------------------------------------
+  010000, Alabama       ,    2390.4 ,    2123.1 
+  037000, North Carolina,    5233.3 ,    2400.9 
+  045000, South Carolina,    3822.1 ,    1321.3</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35235"></a>7.4.2.3.&nbsp;Example 3
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">County-total area-source emissions, with state and county names
+1996 Inventory
+No gridding
+
+Co/St/Cy, State Name    , County Name , CO        , NOX       
+        ,               ,             , [tons/yr] , [tons/yr] 
+--------------------------------------------------------------
+  037001, North Carolina, Alamance Co , 0.2344E+03, 0.1235E+03
+  037003, North Carolina, Alexander Co, 0.1354E+03, 0.9909E+02
+  037005, North Carolina, Alleghany Co, 0.9807E+02, 0.7897E+02
+  037007, North Carolina, Anson Co    , 0.8734E+03, 0.9807E+02
+  037009, North Carolina, Ashe Co     , 0.1140E+03, 0.9871E+02</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35240"></a>7.4.2.4.&nbsp;Example 4
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">Hourly area-source emissions by county for first 3 counties in NC
+1996 Inventory
+No gridding
+July 1, 1996 at 0 GMT to July 7, 1996 at 23 GMT
+
+Day       , Hour, Co/St/Cy, CO        , NOX      
+          ,     ,         , [tons/hr] , [tons/hr]
+-------------------------------------------------
+07/01/1996,    0,   037001,     0.1234,   0.5678 
+07/01/1996,    0,   037003,     0.1247,   0.5725 
+07/01/1996,    0,   037005,     0.1293,   0.5548 
+07/01/1996,    1,   037001,     etc. 
+07/01/1996,    1,   037003,      
+07/01/1996,    1,   037005,      
+07/01/1996,    2,   037001,      
+07/01/1996,    2,   037003,      
+07/01/1996,    2,   037005,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35245"></a>7.4.2.5.&nbsp;Example 5
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>In this example, the data are sorted by the first three columns (the BY settings) from left to right. The x-cell cycles the
+               slowest, followed by the y-cell, and then by the county code.
+            </p><pre class="programlisting">Grid-cell inventory area-source emissions by county, daily average
+1996 Inventory
+Grid name NC36_03X03
+
+X cell, Y cell, Co/St/Cy, CO      , NOX
+      ,       ,         , [kg/day], [kg/day]
+--------------------------------------------
+     1,      1,   037001, 0.123556, 0.0789112
+     1,      1,   037003, etc.
+     1,      2,   037001, 
+     1,      2,   037003, 
+     2,      1,   037001,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35252"></a>7.4.2.6.&nbsp;Example 6
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">SCC-total mobile-source emissions by day from hourly data
+1996 Inventory
+No gridding
+July 1, 1996 at 0 GMT to July 7, 1996 at 23 GMT
+
+Date      , SCC       , CO        , NOX
+          ,           , [tons/day], [tons/day]
+----------------------------------------------
+07/01/1996, 2201001110,    123.321,    456.654
+07/01/1996, 2201001130,    etc.
+07/01/1996, 2201001150, 
+07/01/1996, 2201001170, 
+07/01/1996, 2201001190, 
+07/01/1996, 2201001210, 
+07/01/1996, 2201001230,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35257"></a>7.4.2.7.&nbsp;Example 7
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">SCC-total mobile-source daily-total emissions by state (no state names)
+North Carolina and South Carolina
+1996 Inventory
+No gridding
+July 1, 1996 at 0 GMT to July 7, 1996 at 23 GMT
+
+Date      , Co/St/Cy, SCC       , CO        , NOX
+          ,         ,           , [tons/day], [tons/day]
+--------------------------------------------------------
+07/01/1996,    37000, 2201001110,    123.321,    456.654
+07/01/1996,    37000, 2201001130,    etc.
+07/01/1996,    37000, 2201001150, 
+07/01/1996,    37000, 2201001170, 
+07/01/1996,    37000, 2201001190, 
+07/01/1996,    37000, 2201001210, 
+07/01/1996,    37000, 2201001230, 
+07/01/1996,    45000, 2201001110, 
+07/01/1996,    45000, 2201001130, 
+07/01/1996,    45000, 2201001150, 
+07/01/1996,    45000, 2201001170, 
+07/01/1996,    45000, 2201001190, 
+07/01/1996,    45000, 2201001210, 
+07/01/1996,    45000, 2201001230,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35262"></a>7.4.2.8.&nbsp;Example 8
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">Elevated hourly emissions by grid cell and point source
+Only 2 point sources in inventory (wouldn&#8217;t that be nice?)
+1996 Inventory
+Grid name NC36_03X03
+July 1, 1996 at 0 GMT to July 7, 1996 at 23 GMT
+
+Date      , Hour, X cell, Y cell, Source ID, CO        , NOX
+          ,         ,           ,          , [tons/day], [tons/day]
+-------------------------------------------------------------------
+07/01/1996,    0,      1,      1,         1,    123.321,    456.654
+07/01/1996,    0,      1,      1,         2,     12.345,     56.789
+07/01/1996,    0,      1,      2,         1,    123.321,    456.654
+07/01/1996,    0,      1,      2,         2,     12.345,     56.789
+07/01/1996,    0,      1,      3,         1,    etc.
+07/01/1996,    0,      1,      3,         2,
+07/01/1996,    0,      2,      1,         1,
+07/01/1996,    0,      2,      1,         2,
+07/01/1996,    0,      2,      2,         1,
+07/01/1996,    0,      2,      2,         2,
+07/01/1996,    0,      2,      3,         1,
+07/01/1996,    0,      2,      3,         2,
+07/01/1996,    0,      3,      1,         1,
+07/01/1996,    0,      3,      1,         2,
+07/01/1996,    0,      3,      2,         1,
+07/01/1996,    0,      3,      2,         2,
+07/01/1996,    0,      3,      3,         1,
+07/01/1996,    0,      3,      3,         2,
+07/01/1996,    1,      1,      1,         1,
+07/01/1996,    1,      1,      1,         2,
+07/01/1996,    1,      1,      2,         1,
+07/01/1996,    1,      1,      2,         2,
+07/01/1996,    1,      1,      3,         1,
+07/01/1996,    1,      1,      3,         2,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35267"></a>7.4.2.9.&nbsp;Example 9
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">Breweries and Wineries SCC-total area-source emissions for a subgrid
+Grid name: NC36_24X24
+Subgrid cells selected:
+	(1,1) TO (4,4)
+	(6,6) TO (9,9)
+
+X cell, Y cell, SCC       , CO        , NOX
+      ,       ,           , [tons/day], [tons/day]
+--------------------------------------------------
+     1,      1, 2302070001, 0.1234E-03, 0.4567E-04
+     1,      1, 2302070005, etc.
+     1,      2, 2302070001, 
+     1,      2, 2302070005, 
+     1,      3, 2302070001, 
+     1,      3, 2302070005, 
+     1,      4, 2302070001, 
+     1,      4, 2302070005, 
+     2,      1, 2302070001, 
+     2,      1, 2302070005,</pre></div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e35272"></a>7.4.2.10.&nbsp;Example 10
+                     </h4>
+                  </div>
+               </div>
+            </div><pre class="programlisting">Grid-cell-normalized area-source daily-total speciated emissions for NC
+Grid name: NC36_24X24
+Cell-area-normalized emissions using cell size 36000 m X 36000 m
+July 1, 1996 at 0 GMT to July 7, 1996 at 23 GMT
+
+Date      , Co/St/Cy, State         , CO            , NO      , NO2
+          ,         ,               , [g/day*m^2], [g/day*m^2], [g/day*m^2]
+---------------------------------------------------------------------------
+07/01/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/02/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/03/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/04/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/05/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/06/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234
+07/07/1996,    37000, North Carolina,    112.3456,     23.3456,      1.1234</pre></div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.4.&nbsp;Reports Created by <span><strong class="command">Smkreport</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.5.&nbsp;Quality Assurance Methods</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

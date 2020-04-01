@@ -1,0 +1,208 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.3.&nbsp;BlueSky2Inv</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s02.html" title="5.3.2.&nbsp;Aggwndw">
+      <link rel="next" href="ch05s03s04.html" title="5.3.4.&nbsp;CEMScan">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.3.&nbsp;<span><strong class="command">BlueSky2Inv</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_bluesky2inv"></a>5.3.3.&nbsp;<span><strong class="command">BlueSky2Inv</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s03.html#d0e18871">5.3.3.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s03.html#d0e18878">5.3.3.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s03.html#d0e18888">5.3.3.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18871"></a>5.3.3.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">BlueSky2Inv</strong></span> converts output files from the BlueSky fire modeling framework into an annual IDA-formatted inventory and an hourly emissions
+               inventory.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18878"></a>5.3.3.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">BlueSky2Inv</strong></span> is used to create inventories from BlueSky output for input into <span><strong class="command">Smkinven</strong></span>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18888"></a>5.3.3.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s03.html#d0e18891">5.3.3.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s03.html#d0e18924">5.3.3.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s03.html#d0e18948">5.3.3.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18891"></a>5.3.3.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">COSTCY</code></td>
+                           <td>ASCII</td>
+                           <td>Country, state, and county codes file; used to assign time zones to each source based on the source&#8217;s state and county codes</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">FILELIST</code></td>
+                           <td>ASCII</td>
+                           <td>List of BlueSky output files including path and filename</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18924"></a>5.3.3.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">G_STDATE</code>: [default: none]
+                        </p>
+                        <p>Starting date of data (YYYYDDD); used to set the inventory year in the annual inventory. <code class="envar">G_STDATE</code> is also used to create default entries in the daily inventory file for each source.
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">VARLIST</code>: [default: none]
+                        </p>
+                        <p>Selects the variables that will be output in the annual and daily inventories. Valid values are AREA, HFLUX, PM2_5, PM10,
+                           PM, PMC, CO, CO2, CH4, NMHC, and TOG. The values for the variable should be formatted as follows:
+                        </p>
+                        <p><strong class="userinput"><code>setenv VARLIST "AREA, HFLUX, PM2_5, PMC, CO, TOG"</code></strong></p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18948"></a>5.3.3.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">PTDAY</code></td>
+                           <td>ASCII</td>
+                           <td>Daily emissions inventory</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">PTINV</code></td>
+                           <td>ASCII</td>
+                           <td>Annual IDA-formatted inventory</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.2.&nbsp;<span><strong class="command">Aggwndw</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.4.&nbsp;<span><strong class="command">CEMScan</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,95 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.6.&nbsp;Modeling parameters</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s05s03.html" title="2.5.3.&nbsp;Model-ready files">
+      <link rel="next" href="ch02s06s02.html" title="2.6.2.&nbsp;Base year and past/future years">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.6.&nbsp;Modeling parameters</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s05s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s06s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="d0e1731"></a>2.6.&nbsp;Modeling parameters
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s06.html#d0e1747">2.6.1. Map projections and model grids</a></span></dt>
+               <dt><span class="section"><a href="ch02s06s02.html">2.6.2. Base year and past/future years</a></span></dt>
+               <dt><span class="section"><a href="ch02s06s03.html">2.6.3. Modeling episodes</a></span></dt>
+               <dt><span class="section"><a href="ch02s06s04.html">2.6.4. Chemical mechanisms</a></span></dt>
+               <dt><span class="section"><a href="ch02s06s05.html">2.6.5. Layer structures</a></span></dt>
+            </dl>
+         </div>
+         <p>Emissions modeling requires information about the subsequent air quality modeling that will be done. For example, to produce
+            appropriate model-ready files using SMOKE, you must know which AQM will be used, the model grid and map projection, the episode
+            dates, and the chemical mechanism to be used. In this manual, we refer to these settings collectively as &#8220;<span class="quote">modeling parameters</span>&#8221;. In this section, we provide information on what these modeling parameters are and SMOKE&#8217;s capabilities to support them.
+         </p>
+         <p>SMOKE reads in the modeling parameters from both script settings (environment variables) and input files. In the subsections
+            below, we provide the relevant settings and files that control the modeling parameters. More information about how to configure
+            your scripts and files to change these parameters can be found in <a href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">Section&nbsp;4.4, &#8220;How to use SMOKE&#8221;</a>; how the settings affect the programs is described in <a href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">Chapter&nbsp;5, <i>SMOKE Utility Tools</i></a> and <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e1747"></a>2.6.1.&nbsp;Map projections and model grids
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>A map projection is the mathematical representation of the spherical surface of the earth on a 2-D plane. SMOKE supports Lambert
+               conformal, lat-lon, UTM, and polar stereographic map projections. There are many different settings that you may use to define
+               your Lambert conformal, UTM, and polar stereographic projections, to make these projections match the one being used by your
+               meteorology model and AQM. (Lat-lon is a fixed projection and cannot be changed.)
+            </p>
+            <p>A model grid is a two-dimensional region overlaid on a map projection. It is defined by the starting <span class="emphasis"><em>x-y</em></span> coordinates, the number of grid cells in each direction, and the physical size of the grid cells. <a href="ch02s06.html#fig_concepts_grid" title="Figure&nbsp;2.2.&nbsp;Example model grid">Figure&nbsp;2.2, &#8220;Example model grid&#8221;</a> shows an example of a model grid that includes most of the eastern U.S. This example has  81 grid cells in the <span class="emphasis"><em>x</em></span>-direction, 75 grid cells in the <span class="emphasis"><em>y</em></span>-direction, and each grid cell is 36 by 36 kilometers. Each set of 10 cells by 10 cells (counting from the starting coordinates)
+               is enclosed in black grid lines.
+            </p>
+            <div class="figure"><a name="fig_concepts_grid"></a><p class="title"><b>Figure&nbsp;2.2.&nbsp;Example model grid</b></p>
+               <div class="mediaobject"><img src="images\concepts\grid_html.jpg" alt="Example model grid"></div>
+            </div>
+            <p>The model grid is set in SMOKE using the <code class="envar">IOAPI_GRIDNAME_1</code> setting to select a grid and map projection from among those defined in the <code class="envar">GRIDDESC</code> input file. The name of the grid set with the <code class="envar">IOAPI_GRIDNAME_1</code> setting must match a grid name in the <code class="envar">GRIDDESC</code> file to allow SMOKE to obtain the grid and map projection parameters from the <code class="envar">GRIDDESC</code> file.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s05s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s06s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.5.3.&nbsp;Model-ready files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.6.2.&nbsp;Base year and past/future years</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

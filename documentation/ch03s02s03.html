@@ -1,0 +1,315 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.3.&nbsp;Locations of input files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="prev" href="ch03s02s02.html" title="3.2.2.&nbsp;The basic SMOKE directories">
+      <link rel="next" href="ch03s02s04.html" title="3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.3.&nbsp;Locations of input files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">3.2.&nbsp;Directory structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_dirs_location_input_files"></a>3.2.3.&nbsp;Locations of input files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Input directories, which contain SMOKE input files, are one of the subdirectory types that make up the <code class="envar">$SMKDAT</code> directory shown in <a href="ch03s02s02.html#fig_dirs_basic_dirs" title="Figure&nbsp;3.1.&nbsp;Basic SMOKE directories: the first three levels of the directory structure">Figure&nbsp;3.1, &#8220;Basic SMOKE directories: the first three levels of the directory structure&#8221;</a> as <code class="filename"><code class="envar">$SMK_HOME</code>/data</code>. In this section, we provide the structure of these input directories.
+         </p>
+         <p><a href="ch03s02s03.html#fig_dirs_input_dirs" title="Figure&nbsp;3.3.&nbsp;SMOKE input files directory structure">Figure&nbsp;3.3, &#8220;SMOKE input files directory structure&#8221;</a> shows all of the input directories that stem from <code class="envar">$SMKDAT</code>. In the diagram, note how some paths depend on environment variables set in the Assigns file. For example, the <code class="envar">INVID</code> environment variable listed in <a href="ch03s02.html#sect_dirs_example_assigns" title="3.2.1.&nbsp;Example Assigns file">Section&nbsp;3.2.1, &#8220;Example Assigns file&#8221;</a> is defined by the user (as we will describe in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>) to label the inventory name. This variable is used to build the name of the <code class="envar">INVDIR</code> directory as follows:
+         </p>
+         <p><code class="envar">INVDIR</code> = <code class="filename"><code class="envar">$SMKDAT</code>/inventory/<code class="envar">$INVID</code></code></p>
+         <p>So, if a user decided to label the inventory &#8220;<span class="quote">nei99</span>&#8221;, then the Assigns file would have <code class="envar">INVID</code> = nei99 and the <code class="envar">INVDIR</code> directory would be <code class="filename"><code class="envar">$SMKDAT</code>/inventory/nei99</code>. Another example of this in the figure is the <code class="envar">SMK_M6PATH</code> directory. The full path depends upon the setting of the <code class="envar">MSCEN</code> variable; if <code class="envar">MSCEN</code> is set to &#8220;<span class="quote">case1</span>&#8221;, then <code class="envar">SMK_M6PATH</code> would be <code class="filename"><code class="envar">$SMKDAT</code>/run_case1/static/m6</code>.
+         </p>
+         <p>In some cases, we do not have environment variables associated with a directory name. One example is the <code class="filename"><code class="envar">$SMKDAT</code>/inventory</code> directory. In these cases, we did not assign variables simply because they were not very useful and we have to limit the
+            number of SMOKE environment variables. Most operating systems have a limit on the number of environment variables (usually
+            256), so when the variables were not really useful we did not assign them. If desired, you can add environment variables to
+            the Assigns file and/or the <code class="filename">set_dirs.scr</code> helper script.
+         </p>
+         <div class="figure"><a name="fig_dirs_input_dirs"></a><p class="title"><b>Figure&nbsp;3.3.&nbsp;SMOKE input files directory structure</b></p>
+            <div class="mediaobject"><img src="images\dirs\input_dirs_html.jpg" alt="SMOKE input files directory structure"></div>
+         </div>
+         <p>In the list below, we describe the purpose of each of these directories, along with the file names and in some cases file
+            descriptions for those files that you may need to change. You can refer to <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a> for more information about each of these files (look under the logical file names). <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a> provides step-by-step instructions on how to create and install each of the files listed.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><code class="filename">ge_dat</code>: This directory contains the cross-reference files, profile files, spatial surrogates, and other files that are likely to
+                     be shared among multiple cases of processing inventories with SMOKE. The logical file names for files included in this directory
+                     are listed here; many physical files could be available in the <code class="filename">ge_dat</code> directory for each file type. For example, you may have dozens of surrogate files for different modeling grids and several
+                     speciation profiles for different model-mechanism combinations. More detailed descriptions of these files are in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>; descriptions of the example files provide with SMOKE are in <a href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">Section&nbsp;4.2, &#8220;Test case descriptions&#8221;</a>.
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle">
+                        <li>
+                           <p><code class="envar">BGPRO</code>: The spatial surrogates file biogenics (for computing county-total emissions with <span><strong class="command">Smkmerge</strong></span>).
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">SRGPRO_PATH</code>: The location of the spatial surrogates file for nonpoint (stationary area)/nonroad and on-road mobile sources.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">AGREF</code>, <code class="envar">MGREF</code>: The spatial cross-reference files for nonpoint (stationary area)/nonroad and on-road mobile sources. These two logical file
+                              names can all reference the same physical file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">ATPRO</code>, <code class="envar">MTPRO</code>, <code class="envar">PTPRO</code>: The temporal profiles files for nonpoint (stationary area)/nonroad, on-road mobile, and point sources. These three logical
+                              file names can all reference the same physical file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">ATREF</code>, <code class="envar">MTREF</code>, <code class="envar">PTREF</code>: The temporal cross-reference files for nonpoint (stationary area)/nonroad, on-road mobile, and point sources. These three
+                              logical file names can all reference the same physical file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">B3FAC</code>: The BEIS3.14 normalized emission factors.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">B360FAC</code>: The BEIS3.60 normalized emission factors.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">BIOSEASON</code>: I/O API file indicating which grid cells in a domain are winter and which are summer for biogenics modeling purposes, for
+                              each day of the year or episode.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">COSTCY</code>: The country, state, and county information file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">GRIDDESC</code>: The grid definitions file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">SRGDESC</code>: The surrogate definitions/description file.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">GSREF</code>, <code class="envar">GSPRO</code>, <code class="envar">GSCNV</code>: The chemical speciation cross-reference file, speciation profiles file, and pollutant-to-pollutant conversion file (e.g.,
+                              VOC-to-TOG factors), respectively.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">HOLIDAYS</code>: The dates that SMOKE should process as holidays and the day of the week to use for each date instead of its actual day of
+                              the week (the substitute is usually a Saturday or Sunday).
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">PROCDATES</code>: The sequential/non-sequential user-specified dates that SMOKE should process. 
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">PSTK</code>: The point-source replacement stack parameters.
+                           </p>
+                        </li>
+                        <li>
+                           <p><code class="envar">SCCDESC</code>, <code class="envar">SRGDESC</code>, <code class="envar">ORISDESC</code>, <code class="envar">SICDESC</code>, <code class="envar">MACTDESC</code>, <code class="envar">NAICSDESC</code>: The descriptions of each known SCC, surrogate code, ORIS ID, SIC code, MACT code, and NAICS code.
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p><code class="filename">inventory</code>: The location of all inventory files for each inventory case (as defined by the <code class="envar">$INVID</code> environment variable in an Assigns file), land use data, and other data.
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="circle">
+                        <li>
+                           <p><code class="filename"><code class="envar">$INVID</code></code>: This directory name depends on the name given to the inventory in the Assigns file. (This is the case for any directory
+                              name in the figure that is preceded with &#8220;<span class="quote">$</span>&#8221; to indicate that it is an environment variable.) The files in the subdirectories are specific to your inventory files and
+                              modeling case. This directory contains subdirectories for each of the major source categories by default:
+                           </p>
+                           <div class="itemizedlist">
+                              <ul type="disc">
+                                 <li>
+                                    <p><code class="filename">area</code>: Contains the nonpoint or stationary area inventories. Optionally, it may contain nonroad mobile inventories. Can include
+                                       <span class="emphasis"><em>any</em></span> inventory that will be processed as a SMOKE area source (e.g. criteria, particulates, and/or toxics inventories). Files should
+                                       include:
+                                    </p>
+                                    <div class="itemizedlist">
+                                       <ul type="circle">
+                                          <li>
+                                             <p><code class="envar">ARINV</code> (raw area-source inventory file). If this is a list file, the files listed within it should also be included in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">ARDAY</code> (raw day-specific area-source inventory file). If this optional file is a list file, the files listed within it should also
+                                                be included in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">ARHOUR</code> (raw hour-specific area-source inventory file). If this optional file is a list file, the files listed within it should also
+                                                be included in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">GCNTL</code> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme
+                                                for these files is described in the default SMOKE scripts.
+                                             </p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <p><code class="filename">biog</code>: Contains the gridded BELD3 and/or BELD4 land use data. These files are listed in the Assigns files as <code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, and <code class="envar">BELD3_TOT</code> for BEIS3.14. This directory could optionally contain the gridded BELD4 land use data if proceessing using BEIS3.60); this
+                                       file is listed in the Assigns file as <code class="envar">BELD4</code>.
+                                    </p>
+                                 </li>
+                                 <li>
+                                    <p><code class="filename">mobile (MOVES)</code>: Contains the on-road mobile inventory and other on-road mobile-specific input files. Files should include:
+                                    </p>
+                                    <div class="itemizedlist">
+                                       <ul type="circle">
+                                          <li>
+                                             <p><code class="envar">GCNTL</code> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme
+                                                for these files is described in the default SMOKE scripts.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">MBINV</code> (raw on-road mobile-source inventory file). This is a FF10 activity inventory format for VMT, SPEED and VPOP inventory data.
+                                                EAA - put in a link to input file description..  If this is a list file, the files listed within it should also be included
+                                                in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">MCXREF</code> (mobile-source county cross-reference). For MOVES modeling only, contains the representative county assignments (see <a href="ch02s08s04.html#sect_concepts_reference_counties_moves" title="2.8.4.6.&nbsp;Representative Counties">Section&nbsp;2.8.4.6, &#8220;Representative Counties&#8221;</a> for an explanation of representative counties).
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">MEPROC</code> (mobile-source processing file). For MOVES modeling only, contains the pollutants to be modeled by MOVES by the emission
+                                                processes (e.g., exhaust, evaporative, break and tire wear).
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">SPDPRO</code> (speed profiles file). For MOVES modeling only, contains the optional weekday/weekend hour-specific speed profiles for use
+                                                of MOVES on-roadway emission rates.
+                                             </p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <p><code class="filename">point</code>: Contains the point-source inventory and other point-specific input files. Files should include:
+                                    </p>
+                                    <div class="itemizedlist">
+                                       <ul type="circle">
+                                          <li>
+                                             <p><code class="envar">CEMSUM</code> (CEM summary file). When processing CEM data, this file contains a summary of a year&#8217;s worth of CEM data and is produced
+                                                by <span><strong class="command">CEMScan</strong></span>.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">GCNTL</code> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme
+                                                for these files is described in the default SMOKE scripts.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">PELVCONFIG</code> (elevated-source selection configuration file). When using the <span><strong class="command">Elevpoint</strong></span> program to select elevated and PinG sources, this file is required to specify the selection criteria.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">PTDAY</code> (raw day-specific point-source inventory file). If this optional file is a list file, which is typically the case, the files
+                                                listed within it should also be included in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">PTHOUR</code> (raw hour-specific point-source inventory file). If this optional file is a list file, which is typically the case, the files
+                                                listed within it should also be included in this directory.
+                                             </p>
+                                          </li>
+                                          <li>
+                                             <p><code class="envar">PTINV</code> (raw point-source inventory file). If this is a list file, the files listed within it should also be included in this directory.
+                                             </p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li>
+                           <p><code class="filename">other</code>: Contains files that are associated with the various inventories, but which may be shared by more than one source category.
+                              These files are:
+                           </p>
+                           <div class="itemizedlist">
+                              <ul type="disc">
+                                 <li>
+                                    <p><code class="envar">ARTOPNT</code> (area-to-point file). Contains the area-to-point assignments by SCC with the point locations for each county in which a SMOKE
+                                       area source will be assigned to point locations.
+                                    </p>
+                                 </li>
+                                 <li>
+                                    <p><code class="envar">INVTABLE</code> (inventory table file). Contains a list of the valid inventory pollutants and whether or not emissions associated with each
+                                       pollutant should be kept when reading the inventory files, among other purposes.
+                                    </p>
+                                 </li>
+                                 <li>
+                                    <p><code class="envar">NHAPEXCLUDE</code> (non-HAP exclusions file). Contains the SCCs that will be excluded from a NONHAPVOC or NONHAPTOG calculation when integrating
+                                       toxics and criteria inventories.
+                                    </p>
+                                 </li>
+                                 <li>
+                                    <p><code class="envar">REPCONFIG</code> (report configuration file). Contains instructions used by <span><strong class="command">Smkreport</strong></span> to configure reports. The SMOKE installation includes only the <code class="envar">REPCONFIG</code> files for the default reports included with the SMOKE default scripts.
+                                    </p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p><code class="filename">met/run_<code class="envar">$METSCEN</code></code>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-roadway and off-network
+                     mobile sources with MOVES using gridded, hourly meteorology data; or (3) point sources for the CMAQ model. Meteorology data
+                     are required in all of these cases. SMOKE can use output files from CMAQ&#8217;s MCIP and MCIP2 meteorology processors or from the
+                     Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the
+                     same meteorology data in the different file formats. See <a href="ch08s08.html" title="8.8.&nbsp;Meteorology Files">Section&nbsp;8.8, &#8220;Meteorology Files&#8221;</a> for more information about the meteorology data needed by SMOKE.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.2.&nbsp;The basic SMOKE directories&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

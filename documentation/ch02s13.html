@@ -1,0 +1,133 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.13.&nbsp;Growth processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s12s03.html" title="2.12.3.&nbsp;Creating the spatial allocation intermediate files">
+      <link rel="next" href="ch02s13s02.html" title="2.13.2.&nbsp;Reporting on the factors assigned to each source in the inventory">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.13.&nbsp;Growth processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s12s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s13s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_growth_processing"></a>2.13.&nbsp;Growth processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s13.html#d0e6164">2.13.1. Assigning growth factors</a></span></dt>
+               <dt><span class="section"><a href="ch02s13s02.html">2.13.2. Reporting on the factors assigned to each source in the inventory</a></span></dt>
+               <dt><span class="section"><a href="ch02s13s03.html">2.13.3. Creating the growth matrix</a></span></dt>
+               <dt><span class="section"><a href="ch02s13s04.html">2.13.4. Applying the growth matrix</a></span></dt>
+               <dt><span class="section"><a href="ch02s13s05.html">2.13.5. Creating a grown inventory file</a></span></dt>
+            </dl>
+         </div>
+         <p>Growth processing creates emission data sets for years other than a year for which an emissions inventory is available. For
+            example, if an inventory is available for 1996, but the modeling effort involves predicting ozone levels in 2007, then the
+            emissions inventory must be grown to the year 2007. Previous versions of this document used the term &#8220;<span class="quote">projection</span>&#8221; for this function; in this version, however, &#8220;<span class="quote">projection</span>&#8221; refers to both growth of emissions (which is covered in this subsection) and control of emissions (addressed in <a href="ch02s14.html" title="2.14.&nbsp;Control processing">Section&nbsp;2.14, &#8220;Control processing&#8221;</a>). The <span><strong class="command">Cntlmat</strong></span> program performs both growth and control functions. For growth processing, <span><strong class="command">Cntlmat</strong></span> creates a growth matrix that contains the growth factors for each source and pollutant in the inventory. The <span><strong class="command">Grwinven</strong></span> program then combines the growth matrix with the emission inventory to create a grown emission inventory.
+         </p>
+         <p>If no new sources are being added when moving from the inventory year to the future year, then <span><strong class="command">Grwinven</strong></span> can be used with the base case inventory and the growth matrix based on it. If new sources must be added, then the data structuring
+            step (performed by <span><strong class="command">Smkinven</strong></span>) must be rerun for the new number of sources, followed by running <span><strong class="command">Cntlmat</strong></span> to create the growth matrix; then <span><strong class="command">Grwinven</strong></span> applies the matrix to the new inventory file. Alternatively, users may elect to prepare a future-year inventory outside of
+            SMOKE and import it directly with <span><strong class="command">Smkinven</strong></span>, which skips the <span><strong class="command">Cntlmat</strong></span> and <span><strong class="command">Grwinven</strong></span> steps.
+         </p>
+         <p><a href="ch02s13.html#fig_concepts_growth_processing" title="Figure&nbsp;2.25.&nbsp;Relationship between inventory sources and growth matrix">Figure&nbsp;2.25, &#8220;Relationship between inventory sources and growth matrix&#8221;</a> shows the relationship between the inventory and the growth matrix created by <span><strong class="command">Cntlmat</strong></span>, which consists of columns for each pollutant being grown from one year to another. The entries in the matrix are the growth
+            factors needed to grow the inventory to a future or past year; note that these entries can be greater than, equal to, or less
+            than 1 depending on if the emissions should increase, stay the same, or decrease after the inventory is grown. If the growth
+            factors are the same for every pollutant in the inventory, then only one column, called &#8220;<span class="quote">pfac</span>&#8221;, is included in the growth matrix, rather than using duplicate columns for every pollutant. The growth matrix depends only
+            upon the growth factors and the inventory, so it is therefore independent of other factor-based operations for emissions processing;
+            however, growth of the inventory (using the <span><strong class="command">Grwinven</strong></span> program) must occur before the temporal allocation step when creating model-ready emissions using inventories grown with
+            SMOKE.
+         </p>
+         <div class="figure"><a name="fig_concepts_growth_processing"></a><p class="title"><b>Figure&nbsp;2.25.&nbsp;Relationship between inventory sources and growth matrix</b></p>
+            <div class="mediaobject"><img src="images\concepts\growth_processing_html.jpg" alt="Relationship between inventory sources and growth matrix"></div>
+         </div>
+         <p><span><strong class="command">Grwinven</strong></span> combines the intermediate inventory files with one or more growth matrices to create a new intermediate inventory file with
+            the same structure as the original file but with a future (or past) year stored in the header of this file.
+         </p>
+         <p>In growth processing, the <span><strong class="command">Cntlmat</strong></span> program addresses the following emissions processing needs when creating the growth matrix:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Assigning growth factors</p>
+               </li>
+               <li>
+                  <p>Reporting on the factors assigned to each source in the inventory</p>
+               </li>
+               <li>
+                  <p>Creating the growth matrix</p>
+               </li>
+            </ol>
+         </div>
+         <p>The <span><strong class="command">Grwinven</strong></span> program addresses the remaining needs to create a grown inventory:
+         </p>
+         <div class="orderedlist">
+            <ol start="4" type="1">
+               <li>
+                  <p>Applying the growth matrix</p>
+               </li>
+               <li>
+                  <p>Creating a grown inventory file</p>
+               </li>
+            </ol>
+         </div>
+         <p>Each of the issues in the list above is addressed in the following subsections, in the order in which they appear in the list.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6164"></a>2.13.1.&nbsp;Assigning growth factors
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Cntlmat</strong></span> program assigns growth factors using a cross-reference approach similar to the approaches used for chemical speciation and
+               gridding. <span><strong class="command">Cntlmat</strong></span> reads the information about the growth factors from the /PROJECTION/ packet in the control input file (<code class="envar">GCNTL</code>). As described in detail in <a href="ch06s02.html" title="6.2.&nbsp;Cntlmat">Section&nbsp;6.2, &#8220;<span><strong class="command">Cntlmat</strong></span>&#8221;</a>, <code class="envar">GCNTL</code> can assign growth factors by state/county FIPS code, SCC, SIC, MACT, pollutant, and various combinations of these. The most
+               specific entry is selected by <span><strong class="command">Cntlmat</strong></span> based on the hierarchy described in <a href="ch06s02.html" title="6.2.&nbsp;Cntlmat">Section&nbsp;6.2, &#8220;<span><strong class="command">Cntlmat</strong></span>&#8221;</a>. Since the /PROJECTION/ packet includes both the cross-referencing information and the growth factors, there is no need for
+               a profile file (like those used for chemical speciation). The growth factors may include both positive growth (factors greater
+               than 1) or negative growth (factors less than 1) or no growth (factors equal to 1).
+            </p>
+            <p>The /REACTIVITY/ packet can also be used to grow emissions to a future or past year, but a different approach is used that
+               includes a &#8220;<span class="quote">phase-in</span>&#8221; period and other differences. We describe this packet in <a href="ch02s14.html" title="2.14.&nbsp;Control processing">Section&nbsp;2.14, &#8220;Control processing&#8221;</a>.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s12s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s13s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.12.3.&nbsp;Creating the spatial allocation intermediate files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.13.2.&nbsp;Reporting on the factors assigned to each source in the inventory</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

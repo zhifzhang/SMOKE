@@ -1,0 +1,60 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.2.2.&nbsp;Processing Order</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s02.html" title="7.2.&nbsp;Smkreport Program">
+      <link rel="prev" href="ch07s02.html" title="7.2.&nbsp;Smkreport Program">
+      <link rel="next" href="ch07s02s03.html" title="7.2.3.&nbsp;Files and Environment Variables">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.2.2.&nbsp;Processing Order</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.2.&nbsp;<span><strong class="command">Smkreport</strong></span> Program
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e32993"></a>7.2.2.&nbsp;Processing Order
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p><span><strong class="command">Smkreport</strong></span> can only be used after <span class="emphasis"><em>at least</em></span> <span><strong class="command">Smkinven</strong></span> (for inventory import) has been run. Depending on the reporting options selected in the <code class="envar">REPCONFIG</code> input file, other processing steps may need to have been run. For example, to create a report of county total emissions after
+            gridding, the <span><strong class="command">Grdmat</strong></span> (for spatial allocation) program must have been run already to create the gridding matrix. <span><strong class="command">Smkreport</strong></span> can use output files from the following programs: <span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Temporal</strong></span> (for temporal allocation), <span><strong class="command">Spcmat</strong></span> (for chemical speciation), <span><strong class="command">Grdmat</strong></span>, <span><strong class="command">Elevpoint</strong></span> (for elevated source selection), <span><strong class="command">Laypoint</strong></span> (for plume rise calculations), and <span><strong class="command">Cntlmat</strong></span>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.2.&nbsp;<span><strong class="command">Smkreport</strong></span> Program&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.2.3.&nbsp;Files and Environment Variables</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

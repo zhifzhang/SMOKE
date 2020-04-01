@@ -1,0 +1,145 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file </title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">
+      <link rel="prev" href="ch08s05s02.html" title="8.5.2.&nbsp;GSPRO: Speciation profile file">
+      <link rel="next" href="ch08s05s04.html" title="8.5.4.&nbsp;GSREF: Speciation cross-reference file">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.5.3.&nbsp;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file 
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s05s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.5.&nbsp;Chemical speciation</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s05s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_gspro_combo"></a>8.5.3.&nbsp;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file 
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>When the special keyword &#8220;<span class="quote"><code class="envar">COMBO</code></span>&#8221; is used as a speciation profile code in the <a href="ch08s05s04.html" title="8.5.4.&nbsp;GSREF: Speciation cross-reference file">Section&nbsp;8.5.4, &#8220;<code class="envar">GSREF</code>: Speciation cross-reference file&#8221;</a>, all sources matching the cross-reference entry should use a combination speciation profile. The combination speciation profiles
+            file (<code class="envar">GSPRO_COMBO</code>) contains a combination of multiple speciation profiles that combine multiple speciation profiles with a weight for each
+            profile to support a mixture of fuel profiles to specific counties, when users have information to provide about market penetration
+            of each fuel and have speciation profiles for each of these fuels available. The format of the <code class="envar">GSPRO_COMBO</code> file is shown in <a href="ch08s05s03.html#tbl_input_gspro_combo" title="Table&nbsp;8.42.&nbsp;Format for GSPRO_COMBO">Table&nbsp;8.42, &#8220;Format for <code class="envar">GSPRO_COMBO</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_gspro_combo"></a><p class="title"><b>Table&nbsp;8.42.&nbsp;Format for <code class="envar">GSPRO_COMBO</code></b></p>
+            <table summary="Format for GSPRO_COMBO" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Position</th>
+                     <th>Name</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>A</td>
+                     <td>POLID</td>
+                     <td>Pollutant ID (Char 16) (required, should be MODE__POLLUTANT for entries that are mode-pollutant combinations).</td>
+                  </tr>
+                  <tr>
+                     <td>B</td>
+                     <td>FIPS</td>
+                     <td>FIPS code for country, state and county (Char(5)) (required)</td>
+                  </tr>
+                  <tr>
+                     <td>C</td>
+                     <td>PERIOD</td>
+                     <td>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script for data that are not
+                        period specific, use 1 as default.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>D</td>
+                     <td>NPROF</td>
+                     <td> Number of profiles in the combination (integer) (required). Values less than or equal to 0 will cause record to be skipped.
+                        The maximum number of profiles allowed is 10.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>E</td>
+                     <td>PROF[1]</td>
+                     <td>First speciation profile code (Char 5 ) (requied). Must match profile code in <code class="envar">GSPRO</code> file for pollutant ID. 
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>F</td>
+                     <td>FRAC[1]</td>
+                     <td>Fraction of the first speciation profile code to be used in combination (Real) (required)</td>
+                  </tr>
+                  <tr>
+                     <td>G</td>
+                     <td>PROF[2]</td>
+                     <td>Second speciation profile code (Char 5 ) (requied). See note on PROF[1]. </td>
+                  </tr>
+                  <tr>
+                     <td>H</td>
+                     <td>FRAC[2]</td>
+                     <td>Fraction of the second speciation profile code to be used in combination (Real)</td>
+                  </tr>
+                  <tr>
+                     <td>I,K,etc</td>
+                     <td>PROF[NPROF]</td>
+                     <td>Third through NPROF speciation profile codes (Char 5 ) (requied). See note on PROF[1] </td>
+                  </tr>
+                  <tr>
+                     <td>J,L,etc</td>
+                     <td>FRAC[NPROF]</td>
+                     <td>Fraction of the third through NPROF speciation profile code to be used in combination (Real)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p> An example of a two-entry <code class="envar">GSPRO_COMBO</code> file is as follows:
+         </p>
+         <p><code class="envar"> EXH__VOC   001001   1   3   8170   0.50   8171   0.20   8172   0.30</code></p>
+         <p><code class="envar"> EVP__VOC   001001   1   3   8174   0.50   8175   0.20   8176   0.30</code></p>
+         <p>This file would do the following:</p>
+         <p>For county 01001 in period=1 (e.g., <code class="envar">SPCMAT_PERIOD</code> set to 1 ), Exhaust mode VOC would use 3 profiles ( 50% profile 8170, 20% profile 8171, and 30% profile 8172).
+         </p>
+         <p>For county 01001 in period=1 (e.g., <code class="envar">SPCMAT_PERIOD</code> set to 1 ), Evaporative mode VOC would use 3 profiles ( 50% profile 8174, 20% profile 8175, and 30% profile 8176).
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s05s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s05s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.5.2.&nbsp;<code class="envar">GSPRO</code>: Speciation profile file&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.5.4.&nbsp;<code class="envar">GSREF</code>: Speciation cross-reference file
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,215 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.9.&nbsp;Layalloc</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s08.html" title="5.3.8.&nbsp;Invsplit">
+      <link rel="next" href="ch05s03s10.html" title="5.3.10.&nbsp;Metcombine">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.9.&nbsp;<span><strong class="command">Layalloc</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s10.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_layalloc"></a>5.3.9.&nbsp;<span><strong class="command">Layalloc</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s09.html#d0e20328">5.3.9.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s09.html#d0e20349">5.3.9.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s09.html#d0e20363">5.3.9.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20328"></a>5.3.9.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Layalloc</strong></span> program calculates 3-D emissions from a 2-D pre-gridded emissions file. <span><strong class="command">Layalloc</strong></span> is used to reallocate single layer 2-D surface layer emissions into multiple model layers. This approach is useful for processing
+               pre-gridded or industrial area source inventories that do not contain stack information for plume rise treatment but represent
+               elevated sources.
+            </p>
+            <p><span><strong class="command">Layalloc</strong></span> reads in a gridded 2-D pre-gridded emissions file (either output from the <span><strong class="command">Smkmerge</strong></span> program or from a pregridded global emission inventory (EDGAR/RCP/HTAP)) and redistributes the emissions into multiple model
+               layers based on a user-defined vertical profile. The vertical profiles that are input to <span><strong class="command">Layalloc</strong></span> consist of a layer bottom height, layer top height, and the fraction of emissions to allocate to the layer. SMOKE willl interpolate
+               from the layer heights (in meters) to the model layers (in sigma-pressure). This approach assumes that the vertical factors
+               are uniformly applied over all horizontal grid cells. The resulting hourly, gridded, speciated 3-D emissions data are output
+               to a new I/O API file with the same temporal resolution and the same model species as the original 2-D emissions file.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20349"></a>5.3.9.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This optional program can be run after <span><strong class="command">Smkmerge</strong></span> and before either <span><strong class="command">Mrggrid</strong></span> (if it is being used to merge several <span><strong class="command">Smkmerge</strong></span> output files together) or the AQM of interest.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20363"></a>5.3.9.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s09.html#d0e20366">5.3.9.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s09.html#d0e20441">5.3.9.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s09.html#d0e20446">5.3.9.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20366"></a>5.3.9.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">INFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>2-D hourly, gridded, speciated inputs from <span><strong class="command">Smkmerge</strong></span>. <code class="envar">INFILE</code> should be set to logical file name <code class="envar">AGTS_[L|S]</code>, <code class="envar">BGTS_[L|S]</code>, <code class="envar">MGTS_[L|S]</code>, <code class="envar">PGTS_[L|S]</code>, or <code class="envar">EGTS_[L|S]</code>, which are the output files from <span><strong class="command">Smkmerge</strong></span>.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">MET_CRO_3D</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Meteorology file contains a variable &#8220;<span class="quote">ZF</span>&#8221; which is full-layer height above ground (m)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LAYER_FRACTION</code></td>
+                           <td>ASCII</td>
+                           <td>
+                              <p>File that lists the layer top and bottom heights in meter(s) along with a percentage factor. For example, the following <code class="envar">LAYER_FRACTION</code> file sample would distribute 2-D emissions into multiple model layers based upon five user-defined layers.
+                              </p>
+                              
+                              <pre class="programlisting">No., Bottom Ht(m), Top Ht(m), Fraction
+1,         0,        100,        0.60
+2,       100,        200,        0.20
+3,       200,        400,        0.10
+4,       400,        600,        0.07
+5,       600,       1000,        0.03</pre></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20441"></a>5.3.9.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>None</p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20446"></a>5.3.9.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Layalloc</strong></span></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>3-D hourly, gridded, speciated emissions, adjusted based on <code class="envar">LAYER_FRACTION</code>.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s10.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.8.&nbsp;<span><strong class="command">Invsplit</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.10.&nbsp;<span><strong class="command">Metcombine</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

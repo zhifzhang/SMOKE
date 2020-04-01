@@ -1,0 +1,814 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.2.4.&nbsp;ARINV: Area-source annual or average-day emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s02.html" title="8.2.&nbsp;Inventory Files">
+      <link rel="prev" href="ch08s02s03.html" title="8.2.3.&nbsp;ARHOUR: Area source hour-specific emissions">
+      <link rel="next" href="ch08s02s05.html" title="8.2.5.&nbsp;MBINV: Mobile-source activity and emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.2.4.&nbsp;<code class="envar">ARINV</code>: Area-source annual or average-day emissions
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.2.&nbsp;Inventory Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s02s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_arinv"></a>8.2.4.&nbsp;<code class="envar">ARINV</code>: Area-source annual or average-day emissions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s02s04.html#d0e37851">8.2.4.1. FF10 Format</a></span></dt>
+               <dt><span class="section"><a href="ch08s02s04.html#d0e38149">8.2.4.2. ORL Formats</a></span></dt>
+            </dl>
+         </div>
+         <p>The <code class="envar">ARINV</code> file is the input area source inventory file for annual or average-day data. This file can be in FF10 or ORL Formats.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e37851"></a>8.2.4.1.&nbsp;FF10 Format
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This FF10 format uses the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>.
+            </p>
+            <p>For area nonpoint, nonroad and onroad mobile sources annual or monthly inventory data the user specifies the data provided
+               using this command in the header: FF10_[NONPOINT|NONROAD|ONROAD]
+            </p>
+            <p>Sample header records for nonpoint mobile sources:</p><pre class="programlisting">
+#FORMAT   FF10_NONPOINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonpoint Source Inventory
+#DESC     FF10 Nonpoint format</pre><p>Sample header records for nonroad mobile sources:</p><pre class="programlisting">
+#FORMAT   FF10_NONROAD
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonroad Source Inventory
+#DESC     FF10 Nonroad format</pre><p>Sample header records for onroad mobile sources:</p><pre class="programlisting">
+#FORMAT   FF10_ONROAD
+#COUNTRY  US
+#YEAR     2005
+#DESC     Onroad Mobile Source Inventory
+#DESC     FF10 Onroad format</pre><p>The FF10 format for area nonpoint, nonroad and onroad mobiles sources is list-directed and shown in <a href="ch08s02s04.html#tbl_input_arinv_ff10" title="Table&nbsp;8.15.&nbsp;FF10 Format for ARINV">Table&nbsp;8.15, &#8220;FF10 Format for <code class="envar">ARINV</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_arinv_ff10"></a><p class="title"><b>Table&nbsp;8.15.&nbsp;FF10 Format for <code class="envar">ARINV</code></b></p>
+               <table summary="FF10 Format for ARINV" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>COUNTRY</td>
+                        <td>Char(3)</td>
+                        <td>Country code; default to "US" (required)</td>
+                     </tr>
+                     <tr>
+                        <td>2</td>
+                        <td>FIPS</td>
+                        <td>Char(5)</td>
+                        <td>FIPS code for state and county (required)</td>
+                     </tr>
+                     <tr>
+                        <td>3</td>
+                        <td>TRIBAL CODE</td>
+                        <td>Char(3)</td>
+                        <td>Tribal code (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>4</td>
+                        <td>CENSUS_TRACT</td>
+                        <td>Char</td>
+                        <td>Census tract ID (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>5</td>
+                        <td>SHAPE_ID</td>
+                        <td>Char</td>
+                        <td>Shape Identification (optional; recommended)</td>
+                     </tr>
+                     <tr>
+                        <td>6</td>
+                        <td>SCC</td>
+                        <td>Char(20)</td>
+                        <td>SCC (required)</td>
+                     </tr>
+                     <tr>
+                        <td>7</td>
+                        <td>EMIS_TYPE</td>
+                        <td>Char(3)</td>
+                        <td>Emissions type [ex: EXH, EVP, and so on] (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>8</td>
+                        <td>POLID</td>
+                        <td>Char(16)</td>
+                        <td>Pollutant Code (required)</td>
+                     </tr>
+                     <tr>
+                        <td>9</td>
+                        <td>ANN_VALUE</td>
+                        <td>Real</td>
+                        <td>Annual emissions (short tons/year) (required if <code class="envar">SMKINVEN_MONTH</code> is set to 0)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>ANN_PCT_RED</td>
+                        <td>Real</td>
+                        <td>Percentage Control Measure Reduction Efficiency (optional)</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>CONTROL_IDS</td>
+                        <td>Char</td>
+                        <td>Control Measure Code (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>CONTROL_MEASURES</td>
+                        <td>Char</td>
+                        <td>Control Measure Values (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>CURRENT_COST</td>
+                        <td>Real</td>
+                        <td>Control Cost (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>14</td>
+                        <td>CUMULATIVE_COST</td>
+                        <td>Real</td>
+                        <td>Cumulative Cost (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>PROJECTION_FACTOR</td>
+                        <td>Real</td>
+                        <td>Projection factor (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>REG_CODES</td>
+                        <td>Char</td>
+                        <td>Regulatory Code (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>17</td>
+                        <td>CALC_METHOD</td>
+                        <td>Char</td>
+                        <td>Emission Calculation Method Code (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>18</td>
+                        <td>CALC_YEAR</td>
+                        <td>Int</td>
+                        <td>Emission Calculation Data Year (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>19</td>
+                        <td>DATE_UPDATED</td>
+                        <td>Int</td>
+                        <td>Last time updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>20</td>
+                        <td>DATA_SET_ID</td>
+                        <td>Int</td>
+                        <td>Data set identifier (optional; not currently used by SMOKE)</td>
+                     </tr>
+                     <tr>
+                        <td>21</td>
+                        <td>JAN_VALUE</td>
+                        <td>Real</td>
+                        <td>Filled in only if data were provided for January in unit of short tons/month (required if <code class="envar">SMKINVEN_MONTH</code> is set to 1)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                     </tr>
+                     <tr>
+                        <td>32</td>
+                        <td>DEC_VALUE</td>
+                        <td>Real</td>
+                        <td>Filled in only if data were provided for December in unit of short tons/month (required if <code class="envar">SMKINVEN_MONTH</code> is set to 12)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>33</td>
+                        <td>JAN_PCTRED</td>
+                        <td>Real</td>
+                        <td>Month-specific percent reduction. Filled in only if data were provided for January in unit of % (optional; not currently used
+                           by SMOKE)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                     </tr>
+                     <tr>
+                        <td>44</td>
+                        <td>DEC_PCTRED</td>
+                        <td>Real</td>
+                        <td>Month-specific percent reduction. Filled in only if data were provided for December in unit of % (optional; not currently
+                           used by SMOKE)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>45</td>
+                        <td>COMMENT</td>
+                        <td>Char</td>
+                        <td>Optional; not currently used by SMOKE</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e38149"></a>8.2.4.2.&nbsp;ORL Formats
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08s02s04.html#d0e38156">8.2.4.2.1. ORL Nonpoint Format</a></span></dt>
+                  <dt><span class="section"><a href="ch08s02s04.html#d0e38531">8.2.4.2.2. ORL Nonroad Format</a></span></dt>
+               </dl>
+            </div>
+            <p>Because area sources encompass both nonpoint and nonroad mobile sources, two different ORL formats are available depending
+               on source type. Both formats use the header described in <a href="ch08s02.html#sect_input_inventory_header" title="8.2.1.4.&nbsp;Header records">Section&nbsp;8.2.1.4, &#8220;Header records&#8221;</a>. Sample header records for nonpoint sources are shown below:
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e38156"></a>8.2.4.2.1.&nbsp;ORL Nonpoint Format
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The ORL nonpoint format is list-directed and shown in <a href="ch08s02s04.html#tbl_input_arinv_orl_nonpoint" title="Table&nbsp;8.16.&nbsp;ORL Nonpoint Format for ARINV">Table&nbsp;8.16, &#8220;ORL Nonpoint Format for <code class="envar">ARINV</code>&#8221;</a>.
+               </p><pre class="programlisting">#ORL NONPOINT
+#TYPE     Nonpoint Source Toxics Inventory
+#COUNTRY  US
+#YEAR     1999
+#DESC     Draft 1999 version 2.0</pre><div class="table"><a name="tbl_input_arinv_orl_nonpoint"></a><p class="title"><b>Table&nbsp;8.16.&nbsp;ORL Nonpoint Format for <code class="envar">ARINV</code></b></p>
+                  <table summary="ORL Nonpoint Format for ARINV" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Name</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>FIPS</td>
+                           <td>Char(5)</td>
+                           <td>FIPS code for state and county (required)</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>SCC</td>
+                           <td>Char(20)</td>
+                           <td>Source Classification Code (required)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>SIC</td>
+                           <td>Char(20)</td>
+                           <td>Standard Industrial Code (recommended)</td>
+                        </tr>
+                        <tr>
+                           <td>4</td>
+                           <td>MACT</td>
+                           <td>Char(6)</td>
+                           <td>Maximum Available Control Technology Code (6 characters maximum) (recommended)</td>
+                        </tr>
+                        <tr>
+                           <td>5</td>
+                           <td>SRCTYPE</td>
+                           <td>Char(2)</td>
+                           <td>
+                              <p>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc">
+                                    <li>01 = major</li>
+                                    <li>02 = Section 12 area source</li>
+                                    <li>03 = nonroad</li>
+                                    <li>04 = onroad</li>
+                                 </ul>
+                              </div>
+                              
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>6</td>
+                           <td>NAICS</td>
+                           <td>Char(6)</td>
+                           <td>North American Industrial Classification System Code (6 characters maximum) (optional)</td>
+                        </tr>
+                        <tr>
+                           <td>7</td>
+                           <td>POLID</td>
+                           <td>Char(16)</td>
+                           <td>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</td>
+                        </tr>
+                        <tr>
+                           <td>8</td>
+                           <td>ANN_EMIS</td>
+                           <td>Real</td>
+                           <td>Annual emissions (short tons/year) (required)</td>
+                        </tr>
+                        <tr>
+                           <td>9</td>
+                           <td>AVD_EMIS</td>
+                           <td>Real</td>
+                           <td>Average-day emissions (short tons/average day) (optional)</td>
+                        </tr>
+                        <tr>
+                           <td>10</td>
+                           <td>CEFF</td>
+                           <td>Real</td>
+                           <td>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</td>
+                        </tr>
+                        <tr>
+                           <td>11</td>
+                           <td>REFF</td>
+                           <td>Real</td>
+                           <td>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</td>
+                        </tr>
+                        <tr>
+                           <td>12</td>
+                           <td>RPEN</td>
+                           <td>Real</td>
+                           <td>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</td>
+                        </tr>
+                        <tr>
+                           <td>13</td>
+                           <td>PRIMARY_DEVICE_TYPE_CODE</td>
+                           <td>Char</td>
+                           <td>Primary Control Equipment Code (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>14</td>
+                           <td>SECONDARY_DEVICE_TYPE_CODE</td>
+                           <td>Char</td>
+                           <td>Secondary Control Equipment Code (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>15</td>
+                           <td>DATA_SOURCE</td>
+                           <td>Char</td>
+                           <td>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>16</td>
+                           <td>YEAR</td>
+                           <td>Char</td>
+                           <td>Year of the emissions (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>17</td>
+                           <td>TRIBAL_CODE</td>
+                           <td>Char(3)</td>
+                           <td>Indicates the particular tribe that submitted the data (optional; recommended)</td>
+                        </tr>
+                        <tr>
+                           <td>18</td>
+                           <td>MACT_FLAG</td>
+                           <td>Char</td>
+                           <td>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently
+                              used by SMOKE)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>19</td>
+                           <td>PROCESS_MACT_COMPLIANCE_STATUS</td>
+                           <td>Char</td>
+                           <td>Indicate the relationship of the MACT rule and the particular source  (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>20</td>
+                           <td>START_DATE</td>
+                           <td>Char(8)</td>
+                           <td>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles
+                              for specific sources (8 characters maximum) (optional; not currently used by SMOKE)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>21</td>
+                           <td>END_DATE</td>
+                           <td>Char(8)</td>
+                           <td>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for
+                              specific sources (8 characters maximum) (optional; not currently used by SMOKE)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>22</td>
+                           <td>WINTER_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in winter (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>23</td>
+                           <td>SPRING_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in spring (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>24</td>
+                           <td>SUMMER_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in summer(optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>25</td>
+                           <td>FALL_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in fall (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>26</td>
+                           <td>ANNUAL_AVG_DAYS_PER_WEEK</td>
+                           <td>Real</td>
+                           <td>Annual average days of operation per week (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>27</td>
+                           <td>ANNUAL_AVG_WEEKS_PER_YEAR</td>
+                           <td>Real</td>
+                           <td>Annual average weeks of operation per year (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>28</td>
+                           <td>ANNUAL_AVG_HOURS_PER_DAY</td>
+                           <td>Real</td>
+                           <td>Annual average hours of operation per day (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>29</td>
+                           <td>ANNUAL_AVG_HOURS_PER_YEAR</td>
+                           <td>Real</td>
+                           <td>Annual average hours of operation per year (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>30</td>
+                           <td>PERIOD_DAYS_PER_WEEK</td>
+                           <td>Real</td>
+                           <td>Days per week operating during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>31</td>
+                           <td>PERIOD_WEEKS_PER_PERIOD</td>
+                           <td>Real</td>
+                           <td>Weeks per period operating during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>32</td>
+                           <td>PERIOD_HOURS_PER_DAY</td>
+                           <td>Real</td>
+                           <td>Hours of operation per day during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>33</td>
+                           <td>PERIOD_HOURS_PER_PERIOD</td>
+                           <td>Real</td>
+                           <td>Hours of operation per period during the period(optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>34</td>
+                           <td>CONTROL_MEASURES</td>
+                           <td>Char</td>
+                           <td>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>35</td>
+                           <td>PCT_REDUCTION</td>
+                           <td>Char</td>
+                           <td>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>36</td>
+                           <td>CURRENT_COST</td>
+                           <td>Char</td>
+                           <td>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>37</td>
+                           <td>CUMULATIVE_COST</td>
+                           <td>Char</td>
+                           <td>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e38531"></a>8.2.4.2.2.&nbsp;ORL Nonroad Format
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The ORL nonroad format is list-directed and shown in <a href="ch08s02s04.html#tbl_input_arinv_orl_nonroad" title="Table&nbsp;8.17.&nbsp;ORL Nonroad Format for ARINV">Table&nbsp;8.17, &#8220;ORL Nonroad Format for <code class="envar">ARINV</code>&#8221;</a>.
+               </p><pre class="programlisting">#ORL
+#TYPE     Nonroad Source Toxics Inventory
+#COUNTRY  US
+#YEAR     1999
+#DESC     Draft 1999 version 2.0</pre><div class="table"><a name="tbl_input_arinv_orl_nonroad"></a><p class="title"><b>Table&nbsp;8.17.&nbsp;ORL Nonroad Format for <code class="envar">ARINV</code></b></p>
+                  <table summary="ORL Nonroad Format for ARINV" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Name</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>FIPS</td>
+                           <td>Char(5)</td>
+                           <td>FIPS code for state and county (required)</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>SCC</td>
+                           <td>Char(20)</td>
+                           <td>Source Classification Code (required)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>POLID</td>
+                           <td>Char(16)</td>
+                           <td>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</td>
+                        </tr>
+                        <tr>
+                           <td>4</td>
+                           <td>ANN_EMIS</td>
+                           <td>Real</td>
+                           <td>Annual emissions (short tons/year) (required)</td>
+                        </tr>
+                        <tr>
+                           <td>5</td>
+                           <td>AVD_EMIS</td>
+                           <td>Real</td>
+                           <td>Average-day emissions (short tons/average day) (optional)</td>
+                        </tr>
+                        <tr>
+                           <td>6</td>
+                           <td>CEFF</td>
+                           <td>Real</td>
+                           <td>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</td>
+                        </tr>
+                        <tr>
+                           <td>7</td>
+                           <td>REFF</td>
+                           <td>Real</td>
+                           <td>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</td>
+                        </tr>
+                        <tr>
+                           <td>8</td>
+                           <td>RPEN</td>
+                           <td>Real</td>
+                           <td>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</td>
+                        </tr>
+                        <tr>
+                           <td>9</td>
+                           <td>SRCTYPE</td>
+                           <td>Char(2)</td>
+                           <td>
+                              <p>Source type ; used by SMOKE in determining applicable MACT-based controls (required)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc">
+                                    <li>01 = major</li>
+                                    <li>02 = Section 12 area source</li>
+                                    <li>03 = nonroad</li>
+                                    <li>04 = onroad</li>
+                                 </ul>
+                              </div>
+                              
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>10</td>
+                           <td>DATA_SOURCE</td>
+                           <td>Char</td>
+                           <td>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>11</td>
+                           <td>YEAR</td>
+                           <td>Char</td>
+                           <td>Year of the emissions (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>12</td>
+                           <td>TRIBAL_CODE</td>
+                           <td>Char(3)</td>
+                           <td>Indicates the particular tribe that submitted the data (optional; recommended)</td>
+                        </tr>
+                        <tr>
+                           <td>13</td>
+                           <td>START_DATE</td>
+                           <td>Char(8)</td>
+                           <td>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles
+                              for specific sources (optional; not currently used by SMOKE)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>14</td>
+                           <td>END_DATE</td>
+                           <td>Char(8)</td>
+                           <td>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for
+                              specific sources (optional; not currently used by SMOKE)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>15</td>
+                           <td>WINTER_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in winter (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>16</td>
+                           <td>SPRING_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in spring (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>17</td>
+                           <td>SUMMER_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in summer(optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>18</td>
+                           <td>FALL_THROUGHPUT_PCT</td>
+                           <td>Real</td>
+                           <td>Percentage throughout in fall (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>19</td>
+                           <td>ANNUAL_AVG_DAYS_PER_WEEK</td>
+                           <td>Real</td>
+                           <td>Annual average days of operation per week (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>20</td>
+                           <td>ANNUAL_AVG_WEEKS_PER_YEAR</td>
+                           <td>Real</td>
+                           <td>Annual average weeks of operation per year (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>21</td>
+                           <td>ANNUAL_AVG_HOURS_PER_DAY</td>
+                           <td>Real</td>
+                           <td>Annual average hours of operation per day (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>22</td>
+                           <td>ANNUAL_AVG_HOURS_PER_YEAR</td>
+                           <td>Real</td>
+                           <td>Annual average hours of operation per year (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>23</td>
+                           <td>PERIOD_DAYS_PER_WEEK</td>
+                           <td>Real</td>
+                           <td>Days per week operating during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>24</td>
+                           <td>PERIOD_WEEKS_PER_PERIOD</td>
+                           <td>Real</td>
+                           <td>Weeks per period operating during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>25</td>
+                           <td>PERIOD_HOURS_PER_DAY</td>
+                           <td>Real</td>
+                           <td>Hours of operation per day during the period (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>26</td>
+                           <td>PERIOD_HOURS_PER_PERIOD</td>
+                           <td>Real</td>
+                           <td>Hours of operation per period during the period(optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>27</td>
+                           <td>CONTROL_MEASURES</td>
+                           <td>Char</td>
+                           <td>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>28</td>
+                           <td>PCT_REDUCTION</td>
+                           <td>Char</td>
+                           <td>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>29</td>
+                           <td>CURRENT_COST</td>
+                           <td>Char</td>
+                           <td>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</td>
+                        </tr>
+                        <tr>
+                           <td>30</td>
+                           <td>CUMULATIVE_COST</td>
+                           <td>Char</td>
+                           <td>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s02s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.3.&nbsp;<code class="envar">ARHOUR</code>: Area source hour-specific emissions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.2.5.&nbsp;<code class="envar">MBINV</code>: Mobile-source activity and emissions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

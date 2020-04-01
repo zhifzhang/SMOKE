@@ -1,0 +1,145 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.6.&nbsp;Change which programs are run</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s05.html" title="4.4.5.&nbsp;Changing output and intermediate directory names">
+      <link rel="next" href="ch04s04s07.html" title="4.4.7.&nbsp;Set up country codes, state codes, or county codes">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.6.&nbsp;Change which programs are run</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_change_programs"></a>4.4.6.&nbsp;Change which programs are run
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The example SMOKE scripts each have several <code class="envar">RUN_&lt;Program&gt;</code> settings, where the program names fill in the <code class="envar">&lt;Program&gt;</code> placeholder. For example, the <code class="envar">RUN_&lt;Program&gt;</code> setting that controls the <span><strong class="command">Smkinven</strong></span> program is <code class="envar">RUN_SMKINVEN</code>. In the scripts, each <code class="envar">RUN_&lt;Program&gt;</code> setting can be set to either Y for &#8220;<span class="quote">yes</span>&#8221; and N for &#8220;<span class="quote">no</span>&#8221;. When a <code class="envar">RUN_&lt;Program&gt;</code> setting is set to Y, the script will try to run the program associated with the <code class="envar">RUN_&lt;Program&gt;</code> setting. For example, when <code class="envar">RUN_SMKINVEN</code> is set to Y in the script, running the script will cause the <span><strong class="command">Smkinven</strong></span> program to run.
+         </p>
+         <p><a href="ch04s04s06.html#tbl_scripts_run_programs" title="Table&nbsp;4.3.&nbsp;List of RUN_<Program&gt; settings and situations to set to Y">Table&nbsp;4.3, &#8220;List of <code class="envar">RUN_&lt;Program&gt;</code> settings and situations to set to Y&#8221;</a> is the full list of <code class="envar">RUN_&lt;Program&gt;</code> settings available and the situations in which each needs to be run.
+         </p>
+         <div class="table"><a name="tbl_scripts_run_programs"></a><p class="title"><b>Table&nbsp;4.3.&nbsp;List of <code class="envar">RUN_&lt;Program&gt;</code> settings and situations to set to Y</b></p>
+            <table summary="List of RUN_<Program&gt; settings and situations to set to Y" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th align="center">Setting</th>
+                     <th align="center">Reasons to set to Y to run program</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td><code class="envar">RUN_SMKINVEN</code></td>
+                     <td>Import raw inventory data and create SMOKE intermediate inventory file for area, nonroad mobile, on-road mobile, or point
+                        sources
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_SPCMAT</code></td>
+                     <td>Compute speciation factors and create speciation matrix for area, nonroad mobile, on-road mobile, point sources.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_GRDMAT</code></td>
+                     <td>Compute gridding factors and create gridding matrix for area, nonroad mobile, on-road mobile, or point sources.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_CNTLMAT</code></td>
+                     <td>Compute growth factors and create growth matrix for area, nonroad mobile, on-road mobile, or point sources. Compute control
+                        factors and create multiplicative control and/or reactivity control matrices for area, nonroad mobile, on-road mobile, or
+                        point sources.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_GRWINVEN</code></td>
+                     <td>Calculate grown and/or controlled inventory and create SMOKE intermediate inventory files for area, nonroad mobile, on-road
+                        mobile, or point sources. Required when using SMOKE to create future-year inventories.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_TEMPORAL</code></td>
+                     <td>Calculate hourly emissions and create intermediate hourly emissions file for area, nonroad mobile, on-road mobile, or point
+                        sources.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_ELEVPOINT</code></td>
+                     <td>Select elevated and PinG point sources.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_LAYPOINT</code></td>
+                     <td>Calculate plume rise for CMAQ for any point sources. Calculate plume rise for UAM or CAM<sub>X</sub> for explicit plume-rise sources (i.e., those sources with precomputed plume rise).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_MOVESMRG</code></td>
+                     <td>Create 3-d model-ready emissions by merging MOVES RPD, RPP and RPV Look-up tables with Spcmat and Grdmat for mobile sources.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_SMKMERGE</code></td>
+                     <td>Create 3-d model-ready emissions for point sources or all source categories together for CMAQ. Create 2-d gridded, hourly,
+                        speciated emissions for area sources, nonroad mobile sources, on-road mobile sources, point sources, and/or all sources combined
+                        in I/O API format. Convert units of biogenic outputs from <span><strong class="command">Tmpbio</strong></span> from moles/hr to moles/s for CMAQ. Create ASCII elevated point source file for UAM or CAM<sub>X</sub>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_SMK2EMIS</code></td>
+                     <td>Convert 2-d merged I/O API file with all low-level emissions from <span><strong class="command">Smkmerge</strong></span> to binary input format for UAM or CAM<sub>X</sub>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_SMKREPORT</code></td>
+                     <td>Create default and/or custom reports of processed emissions.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_NORMBEIS3</code></td>
+                     <td>Import gridded BELD3 landuse for use in creating BEIS3 emissions.</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">RUN_TMPBEIS3</code></td>
+                     <td>Calculate BEIS3 emissions in gridded, hourly, speciated I/O API format.</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.5.&nbsp;Changing output and intermediate directory names&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.7.&nbsp;Set up country codes, state codes, or county codes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

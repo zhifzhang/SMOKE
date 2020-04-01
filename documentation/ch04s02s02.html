@@ -1,0 +1,143 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.2.2.&nbsp;Script descriptions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">
+      <link rel="prev" href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">
+      <link rel="next" href="ch04s02s03.html" title="4.2.3.&nbsp;Example script files and their purposes">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.2.2.&nbsp;Script descriptions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.2.&nbsp;Test case descriptions</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s02s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_script_descriptions"></a>4.2.2.&nbsp;Script descriptions
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s02s02.html#d0e10367">4.2.2.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch04s02s02.html#sect_scripts_assigns_files">4.2.2.2. Assigns files</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e10367"></a>4.2.2.1.&nbsp;Overview
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Running SMOKE from scripts provides a flexible approach to running SMOKE. We recommend that new users start with the standard
+               configuration of scripts and directories provided with the default installation. This configuration uses the directory structures
+               described in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a> and a separate run script for each source category, as we will get to soon. In <a href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">Section&nbsp;4.4, &#8220;How to use SMOKE&#8221;</a>, we provide all of the information you need to know to adapt the test case configuration to your modeling case. If you ever
+               want to move beyond using the default configuration, we do not describe how to do that in detail. In fact, we could not describe
+               this, because there are an infinite number of ways to arrange the directories and scripting for SMOKE; however, we have provided
+               some information about what do to in <a href="ch03s03.html" title="3.3.&nbsp;How to change the default directory structure">Section&nbsp;3.3, &#8220;How to change the default directory structure&#8221;</a>.
+            </p>
+            <p>Running SMOKE using scripts involves many scripts working together. This can be confusing for new users, but we have made
+               efforts to make using the scripts easier and more robust with this version of SMOKE.
+            </p>
+            <p>All SMOKE scripts can be found in the <code class="filename"><code class="envar">$SMKROOT</code>/scripts/run</code> directory, or simply the <code class="filename"><code class="envar">$SCRIPTS</code>/run</code> directory (after having invoked the Assigns file).
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_scripts_assigns_files"></a>4.2.2.2.&nbsp;Assigns files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The assigns files are located in <code class="filename"><code class="envar">$SMKROOT</code>/assigns</code>. The nctox case assigns file is called <code class="filename">ASSIGNS.nctox.cmaq.cb05_soa.us12-nc</code>. One Assigns file is provided for the nctox case, and you can create your own files by copying it to a new name and changing
+               it. At least one Assigns file must come with each preconfigured run (such as the nctox case) for SMOKE.
+            </p>
+            <p>The Assigns files are divided into three major sections. The first section contains environment variables for controlling
+               the setup of a case, such as the dates being modeled, the name of the grid, and the name of the chemical mechanism. The second
+               section lists all of the input files in SMOKE (by source category) and users can change these adapt the Assigns files to their
+               cases by changing the input files. The third section calls helper scripts to create input and output directories and configure
+               the compiler environment variables. It is wise to copy an existing Assigns files to new files and modify the new files, so
+               that you do not lose the default configuration.
+            </p>
+            <p>In addition, there are a number of helper scripts used by the Assigns files. Unless users are changing the way SMOKE behaves
+               when running from scripts, it should not be necessary to change these scripts. Changing them could result in behavior different
+               from what is documented in this chapter. The helper scripts and their purposes are:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">check_settings.scr</code>: Set all environment variables used in Assigns file to default values if they are not already defined by a calling script
+                        (e.g., when invoking the Assigns file from the UNIX prompt instead of a script).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">set_case.scr</code>: Set the environment variables that control output file names (<code class="envar">ABASE</code>, <code class="envar">BBASE</code>, <code class="envar">MBASE</code>, <code class="envar">PBASE</code>, <code class="envar">EBASE</code>, <code class="envar">ASCEN</code>, <code class="envar">BSCEN</code>, <code class="envar">MSCEN</code>, <code class="envar">PSCEN</code>, and <code class="envar">ESCEN</code>). See also the <code class="envar">SMK_FUTURE_YN</code>, <code class="envar">FYEAR</code>, <code class="envar">SMK_CONTROL_YN</code>, and <code class="envar">CNTLCASE</code> script settings in <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="filename">set_dirs.scr</code>: Set the SMOKE directory structure
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">setmerge_files.scr</code>: Set <span><strong class="command">Smkmerge</strong></span> output file names, depending on run script settings
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">smk_mkdir</code>: Create input and output directories
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">smk_rmfiles.scr</code>: Remove SMOKE intermediate and output files
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">sysflags</code>: Set the compiler options needed for compiling SMOKE
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">unset.scr</code>: Unset environment variables that do not need to be defined after the Assigns file has been run
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s02s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.2.&nbsp;Test case descriptions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.2.3.&nbsp;Example script files and their purposes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

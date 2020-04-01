@@ -1,0 +1,65 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.11.3.&nbsp;Checking the consistency of the speciation profiles with the inventory table</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s11.html" title="2.11.&nbsp;Chemical speciation processing">
+      <link rel="prev" href="ch02s11s02.html" title="2.11.2.&nbsp;Pollutant-to-pollutant conversions">
+      <link rel="next" href="ch02s11s04.html" title="2.11.4.&nbsp;Setting the order of the output species">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.11.3.&nbsp;Checking the consistency of the speciation profiles with the inventory table</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s11s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.11.&nbsp;Chemical speciation processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s11s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e5680"></a>2.11.3.&nbsp;Checking the consistency of the speciation profiles with the inventory table
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Spcmat</strong></span> program checks to be sure that the two definitions of the NONHAPVOC pollutant - one from the speciation profiles (<code class="envar">GSPRO</code>) file and the other from the inventory table (<code class="envar">INVTABLE</code>) file - are consistent. When you are modeling with both criteria and toxics inventories and using toxics VOC (i.e., &#8220;<span class="quote">integrating</span>&#8221; toxics VOC), you must ensure that the definition of toxics VOC used in the <code class="envar">INVTABLE</code> file is consistent with the definition in the <code class="envar">GSPRO</code> file. <span><strong class="command">Spcmat</strong></span> cannot assure that these files are consistent with each other, but does ensure that the information provided by the user
+            is consistent; it is up to you to make sure that the information provided is correct and consistent with what is actually
+            in the files.
+         </p>
+         <p>These files need to be consistent because the same pollutants that SMOKE subtracts out of the VOC to create NONHAPVOC must
+            also be removed when the speciation profiles are being computed. This assures that there will be no double-counting of mass
+            when calculating model species from both toxics VOC and from the criteria aggregated VOC value. The <code class="envar">GSPRO</code> file format includes a header that allows you to define the toxics VOC that were removed when creating the NONHAPVOC speciation
+            profiles. This is intended to help you ensure that the NONHAPVOC definition in the <code class="envar">GSPRO</code> file is consistent with the inventory table file. One important detail of how this is implemented is that <span><strong class="command">Spcmat</strong></span> will not include inventory pollutants that are not actually in the inventory in the consistency check, even if the pollutant
+            is listed in the NONHAPVOC definition in the <code class="envar">GSPRO</code> file.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s11s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s11.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s11s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.11.2.&nbsp;Pollutant-to-pollutant conversions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.11.4.&nbsp;Setting the order of the output species</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

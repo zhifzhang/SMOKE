@@ -1,0 +1,167 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.5.2.&nbsp;GSPRO: Speciation profile file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">
+      <link rel="prev" href="ch08s05.html" title="8.5.&nbsp;Chemical speciation">
+      <link rel="next" href="ch08s05s03.html" title="8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file ">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.5.2.&nbsp;<code class="envar">GSPRO</code>: Speciation profile file
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.5.&nbsp;Chemical speciation</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s05s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_gspro"></a>8.5.2.&nbsp;<code class="envar">GSPRO</code>: Speciation profile file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The speciation profile file, <code class="envar">GSPRO</code>, contains the factors that are used to separate aggregated inventory pollutant emissions totals into emissions of model species
+            required by the AQM. In traditional ozone air quality modeling, this file contained split factors only for VOC. In SMOKE,
+            all inventory pollutants need to be represented in this file, even if it is only to indicate that a pollutant is not split
+            into any model species (e.g., CO emissions would have a &#8220;<span class="quote">split factor</span>&#8221; of 1.0). The format of the <code class="envar">GSPRO</code> file is shown in <a href="ch08s05s02.html#tbl_input_gspro" title="Table&nbsp;8.41.&nbsp;Format for GSPRO">Table&nbsp;8.41, &#8220;Format for <code class="envar">GSPRO</code>&#8221;</a>.
+         </p>
+         <p> For support of combining criteria and toxic VOC using the NONHAPVOC calculation feature of SMOKE, the GSPRO file (starting
+            in version 2.3 of SMOKE)  includes a special header that defines the meaning of NONHAPVOC. This is the new #NHAP header, described
+            below.  This header keyword will be treated as a comment line by previous versions of SMOKE. The header lines define NONHAPVOC
+            (and/or NONHAPTOG) by listing all of the VOC compounds that were assumed to be removed from VOC (or TOG) when the speciation
+            profile factors for NONHAPVOC (or NONHAPTOG) were calculated. When using this file, Spcmat compares this list with the list
+            from the Inventory Table ("VOC or TOG Component" field = V or T and "Explicit in Mechanism = "N").  This new header is included
+            in this file so that the file is self-describing with respect to the definition of NONHAPVOC and NONHAPTOG.
+         </p>
+         <p> The format supports header lines (using a # symbol in position 1 of any line) in any part of the file.</p>
+         <div class="table"><a name="tbl_input_gspro"></a><p class="title"><b>Table&nbsp;8.41.&nbsp;Format for <code class="envar">GSPRO</code></b></p>
+            <table summary="Format for GSPRO" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description (all fields are required)</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>#NHAP (optional header lines to be included only for NONHAPVOC processing approach in SMOKE. Skip to Line 2 for all other
+                        cases)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>Pollutant name (either NONHAPVOC or NONHAPTOG)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Toxics name of compound(s) subtracted from VOC or TOG to calculate NONHAPVOC or NONHAPTOG (must match "Inventory Data Name"
+                        column from Inventory Table (<code class="envar">INVTABLE</code>)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>2+</td>
+                     <td>A</td>
+                     <td>Speciation profile number (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>Pollutant ID (name) (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Species ID (name) (Character)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>D</td>
+                     <td>Split factor (Real)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>E</td>
+                     <td>Divisor (Real)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>F</td>
+                     <td>Mass Fraction (Real)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p>The columns are used by SMOKE as follows:</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The speciation profile number is matched with the number in the <code class="envar">GSREF</code> file. This &#8220;<span class="quote">number</span>&#8221; is treated as a character string, so leading zeros must be the same in both the <code class="envar">GSPRO</code> and <code class="envar">GSREF</code> files.
+                  </p>
+               </li>
+               <li>
+                  <p>The pollutant ID must match the pollutant names in the SMOKE inventory file (<code class="envar">AREA</code>, <code class="envar">MOBL</code>, or <code class="envar">PNTS</code>). These names are set by the #POLID or #DATA headers in the <span><strong class="command">Smkinven</strong></span> input files.
+                  </p>
+               </li>
+               <li>
+                  <p>The species IDs are the names of the model species needed by the AQM for which SMOKE is being used. These depend on the requirements
+                     of that model. The example SMOKE inputs will not be correct for all AQMs.
+                  </p>
+               </li>
+               <li>
+                  <p>The split factor is the numerator in the factor computed for the mole-based speciation matrix.</p>
+               </li>
+               <li>
+                  <p>The divisor is the denominator in the factor computed for the mole-based speciation matrix.</p>
+               </li>
+               <li>
+                  <p>The mass fraction is the value put in the mass-based speciation matrix. The ratio of the mass fraction and the split factor
+                     is the average molecular weight for the species and profile, if the divisor is 1.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s05s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.5.&nbsp;Chemical speciation&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.5.3.&nbsp;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file 
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

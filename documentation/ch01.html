@@ -1,0 +1,110 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Chapter&nbsp;1.&nbsp;Introduction</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="next" href="ch01s02.html" title="1.2.&nbsp;SMOKE Users">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Chapter&nbsp;1.&nbsp;Introduction</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="ch_introduction"></a>Chapter&nbsp;1.&nbsp;Introduction
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch01.html#d0e62">1.1. Synopsis of SMOKE</a></span></dt>
+               <dt><span class="section"><a href="ch01s02.html">1.2. SMOKE Users</a></span></dt>
+               <dt><span class="section"><a href="ch01s03.html">1.3. How to Use this Manual</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both"><a name="d0e62"></a>1.1.&nbsp;Synopsis of SMOKE
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <p>The environmental community has developed advanced numerical air quality models (AQMs) to understand the interactions among
+               meteorology, emissions (both manmade and biogenic), and pollutant chemistry and dynamics. Emissions data from emissions models
+               and regulatory inventories are one of the most important inputs for these air quality models. Scientists use air quality modeling
+               for a number of purposes: for state and federal implementation plan development, for research on improved modeling methods,
+               and most recently for air quality forecasting. In all of these cases, the trend has been to model larger regions, at a finer
+               grid resolution, with more emissions sources, and for more purposes (e.g., ozone, particulates, toxics). These needs require
+               a computationally efficient, user-friendly, and flexible emissions data processing system.
+            </p>
+            <p>The MCNC Environmental Modeling Center (EMC) created the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System to
+               allow emissions data processing methods to integrate high-performance-computing (HPC) sparse-matrix algorithms. The SMOKE
+               system is a significant addition to the available resources for decision-making about emissions controls for both urban and
+               regional applications. It provides a mechanism for preparing specialized inputs for air quality modeling research, and it
+               makes air quality forecasting possible. The SMOKE system continues to develop and improve at the University of North Carolina
+               at Chapel Hill&#8217;s Institute for the Environment (IE).
+            </p>
+            <p>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality
+               modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection
+               Agency (EPA). The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected
+               chemical mechanisms (described in more detail in <a href="ch02s11.html" title="2.11.&nbsp;Chemical speciation processing">Section&nbsp;2.11, &#8220;Chemical speciation processing&#8221;</a>) and (2) emissions processing for reactivity assessments (described in <a href="ch02s14s03.html" title="2.14.3.&nbsp;Creating the reactivity control matrix">Section&nbsp;2.14.3, &#8220;Creating the reactivity control matrix&#8221;</a>). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to
+               support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include
+               all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE v2.1,
+               released in 2004, included updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing
+               on-road mobile sources with MOBILE6, and support for polar stereographic output grids. In 2009, SMOKE v2.6 enhanced the processing
+               of fire data, streamlined the processing for CAMx and UAM models, and added a new approach to processing CEM data. Version
+               2.7, SMOKE was enhanced to support processing the MOVES (MOter Vehicle Emission Simulator) emission rates output through the
+               SMOKE system to model on-roadway and off-network mobile sources. As of version 4.0 SMOKE is enhanced to support hemispheric
+               modeling by enabling the processing of global gridded emission inventories, such as EDGAR, for input to chemistry-tranport
+               models.
+            </p>
+            <p>SMOKE can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<sub>x</sub>), volatile organic compounds (VOC), ammonia (NH<sub>3</sub>), sulfur dioxide (SO<sub>2</sub>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<sub>2.5</sub>) and PM less than 10 microns (PM<sub>10</sub>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no
+               limitation regarding the number or types of pollutants it can process.
+            </p>
+            <p>The purpose of SMOKE (or any emissions processor) is to convert the resolution of the emission inventory data to the resolution
+               needed by an air quality model. Emission inventories are typically available with an annual-total emissions value for each
+               emissions source, or perhaps with an average-day emissions value. The AQMs, however, typically require emissions data on an
+               hourly basis, for each model grid cell (and perhaps model layer), and for each model species. (Refer to <a href="go01.html" title="Appendix A. Glossary">Appendix A. Glossary</a> for definitions of these terms.) Consequently, emissions processing involves transforming an emission inventory through temporal
+               allocation, chemical speciation, and spatial allocation, to achieve the input requirements of the AQM.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">SMOKE v4.7 User&#8217;s Manual&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;1.2.&nbsp;SMOKE Users</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

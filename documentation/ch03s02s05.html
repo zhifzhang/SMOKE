@@ -1,0 +1,202 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="prev" href="ch03s02s04.html" title="3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases">
+      <link rel="next" href="ch03s02s06.html" title="3.2.6.&nbsp;Locations of reports">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">3.2.&nbsp;Directory structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_dirs_location_output_files"></a>3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch03s02s05.html#sect_dirs_location_output_base">3.2.5.1. Configuration for base case</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s05.html#d0e9814">3.2.5.2. Configuration for growth and/or control case</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_dirs_location_output_base"></a>3.2.5.1.&nbsp;Configuration for base case
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>, <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>, and <a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a> show the locations of the output files as well as the intermediate files. The output files go to the subdirectory of the
+               <code class="filename">data/run_<code class="envar">$ESCEN</code></code> directory called <code class="filename">output</code>. This output directory has two subdirectories: the first is set by the <code class="envar">$SPC</code> environment variable from the Assigns file that sets the model and chemical mechanism being used for a SMOKE run; the second
+               is named <code class="filename">merge</code>. There can be just one set of these subdirectories (as in the basic configuration shown in <a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>) or multiple sets (as in the advanced configuration shown in <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>).
+            </p>
+            <p>The <code class="envar">$SPC</code> subdirectory contains the category-specific model ready files, such as the model-ready files for nonpoint (stationary area)
+               only, nonroad mobile only, etc. The <code class="filename">merge</code> subdirectory contains the final model-ready files. The following list provides the logical names and descriptions of each
+               of the files in the basic configuration case.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>/output/merge</code>:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><span class="bold"><strong>For CMAQ:</strong></span></p>
+                              <p><code class="envar">EGTS3D_L</code>: CMAQ 3-D hourly, gridded, speciated emissions file, excluding PinG emissions (from the <span><strong class="command">Smkmerge</strong></span> program).
+                              </p>
+                           </li>
+                           <li>
+                              <p><span class="bold"><strong>For CMAQ only:</strong></span></p>
+                              <p><code class="envar">PINGTS_L</code>: Optional file that includes the hourly emissions for PinG stacks (or grouped stacks) for each hour (from <span><strong class="command">Smkmerge</strong></span>).
+                              </p>
+                              <p><code class="envar">STACK_GROUPS</code>: Optional file that identifies PinG stacks (or grouped stacks), their locations, and stack parameters (from the <span><strong class="command">Elevpoint</strong></span> program).
+                              </p>
+                           </li>
+                           <li>
+                              <p><span class="bold"><strong>For UAM or CAM<sub>X</sub>:</strong></span></p>
+                              <p><code class="envar">EGTS_L</code>: I/O API version of the 2-D merged low-level, hourly, gridded, speciated emissions file (from <span><strong class="command">Smkmerge</strong></span>).
+                              </p>
+                              <p><code class="envar">EGTS_UAM</code>: Fortran binary 2-D merged low-level hourly, gridded, speciated emissions file (from the <span><strong class="command">Smk2emis</strong></span> program).
+                              </p>
+                              <p><code class="envar">ELEVTS_L</code>: ASCII elevated-point-source stack parameters and hourly, speciated emissions (from <span><strong class="command">Smkmerge</strong></span>).
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>/output/<code class="envar">$SPC</code></code>:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p><code class="envar">AGTS_L</code> and <code class="envar">AGTS_S</code>: Nonpoint (stationary area) and optionally nonroad mobile-source hourly, gridded, speciated emissions (from the <span><strong class="command">Smkmerge</strong></span> program).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">B3GTS_L</code> and <code class="envar">B3GTS_S</code>: Biogenic hourly, gridded, speciated emissions in moles/hour and tons/hour (from the <span><strong class="command">Tmpbeis3</strong></span> program).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">B3GTS_L_O</code> and <code class="envar">B3GTS_S_O</code>: <span><strong class="command">Tmpbeis3</strong></span> output with the correct units needed by the AQM (from the <span><strong class="command">Smkmerge</strong></span> program).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">MGTS_L</code> and <code class="envar">MGTS_S</code>: On-road mobile-source hourly, gridded, speciated emissions (from <span><strong class="command">Smkmerge</strong></span>).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">NGTS_L</code> and <code class="envar">NGTS_S</code>: Nonroad mobile-source hourly, gridded, speciated emissions in moles/hour and grams/hour (these files are written by <span><strong class="command">Smkmerge</strong></span> as an <code class="envar">AGTS_L</code> or <code class="envar">AGTS_S</code> file, with the scripts changing the files to the <code class="envar">NGTS</code> name).
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PGTS_L</code> and <code class="envar">PGTS_S</code>: Point-surce hourly, gridded, speciated emissions (from <span><strong class="command">Smkmerge</strong></span>). This file would be created when modeling for UAM or CAM<sub>X</sub>, which need the low-level point sources but not the 3-D point sources. This file would not include the elevated-point-source
+                                 emissions if it were created using the <code class="envar">SMK_ASCIIELEV_YN</code> = Y setting.
+                              </p>
+                           </li>
+                           <li>
+                              <p><code class="envar">PGTS3D_L</code> and <code class="envar">PGTS3D_S</code>: Point-source 3-D, hourly, gridded, speciated emissions (from <span><strong class="command">Smkmerge</strong></span>). This file would be created for CMAQ only, using the elevated layer fraction, which requires the option <code class="envar">MRG_LAYERS_YN</code> = Y.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e9814"></a>3.2.5.2.&nbsp;Configuration for growth and/or control case
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The output file locations for the growth and control cases follow the same paradigm described in <a href="ch03s02s04.html#sect_dirs_location_intmed_growth" title="3.2.4.3.&nbsp;Configuration for growth and/or control case">Section&nbsp;3.2.4.3, &#8220;Configuration for growth and/or control case&#8221;</a> for the intermediate files. The <code class="envar">$fyr2</code> and/or <code class="envar">$CNTLCASE</code> environment variable values are inserted into the directory structure, as shown in <a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a>. The output directories are then reset as follows:
+            </p>
+            <p>Future/past-year case (no controls):</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code>/output/merge</code>: Final model-ready output files. The files are the same as those in the base case, but with future-year emissions; see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code>/output/<code class="envar">$SPC</code></code>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <code class="envar">$ASCEN</code>, <code class="envar">$MSCEN</code>, or <code class="envar">$PSCEN</code> values could be different from the <code class="envar">$ESCEN</code> value, resulting in separate directories (as shown in <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>, but with the <code class="envar">$fyr2</code> field included in the path name. The files are the same as those in the base case, but with future-year emissions; see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Control case (no growth):</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$CNTLCASE</code>/output/merge</code>: Final model-ready output files. The files are the same as those in the base case, but with controlled emissions; see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$CNTLCASE</code>/output/<code class="envar">$SPC</code></code>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <code class="envar">$ASCEN</code>, <code class="envar">$MSCEN</code>, or <code class="envar">$PSCEN</code> values could be different from the <code class="envar">$ESCEN</code> value, resulting in separate directories (as shown in <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>, but with the <code class="envar">$CNTLCASE</code> field included in the path name. The files are the same as those in the base case, but with controlled emissions; see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>Future/past-year and control case:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code>_<code class="envar">$CNTLCASE</code>/output/merge</code>: Final model-ready output files. The files are the same as those in the base case, but with future-year, controlled emissions;
+                        see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="filename">run_<code class="envar">$ESCEN</code>_<code class="envar">$fyr2</code>_<code class="envar">$CNTLCASE</code>/output/<code class="envar">$SPC</code></code>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <code class="envar">$ASCEN</code>, <code class="envar">$MSCEN</code>, or <code class="envar">$PSCEN</code> values could be different from the <code class="envar">$ESCEN</code> value, resulting in separate directories (as shown in <a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a>, but with the <code class="envar">$fyr2</code> and <code class="envar">$CNTLCASE</code> fields included in the path name. The files are the same as those in the base case, but with future-year, controlled emissions;
+                        see <a href="ch03s02s05.html#sect_dirs_location_output_base" title="3.2.5.1.&nbsp;Configuration for base case">Section&nbsp;3.2.5.1, &#8220;Configuration for base case&#8221;</a> for more information.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.4.&nbsp;Locations of intermediate files for base and growth/control cases&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.6.&nbsp;Locations of reports</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

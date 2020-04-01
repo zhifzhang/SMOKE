@@ -1,0 +1,250 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s03.html" title="8.3.&nbsp;Temporal Allocation Files">
+      <link rel="prev" href="ch08s03.html" title="8.3.&nbsp;Temporal Allocation Files">
+      <link rel="next" href="ch08s03s03.html" title="8.3.3.&nbsp;HOLIDAYS: Holidays date list">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.3.2.&nbsp;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.3.&nbsp;Temporal Allocation Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_amptref"></a>8.3.2.&nbsp;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <code class="envar">ATREF</code>, <code class="envar">MTREF</code>, and <code class="envar">PTREF</code> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources.
+            If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than
+            for area, and more fields are used for point than for mobile. <a href="ch06s16.html" title="6.16.&nbsp;Temporal">Section&nbsp;6.16, &#8220;<span><strong class="command">Temporal</strong></span>&#8221;</a> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <span class="remark">If a field is blank, it must be set to -9.</span></p>
+         <p>Between weekly and daily temporal profiles, daily Profiles will take precedence weekly profiles. Within hourly diurnal profiles,
+            the processing occurs as follows (1) day-to-hour hourly profiles (i.e., Monday,,,,,Sunday), (2) Weekday/Weekend hourly profiles,
+            and (3) All days (Monday-Sunday) hourly profiles. However, date-specific houlry temporal profiles from <a href="ch08s03.html#sect_input_tpro_hourly_ncf" title="8.3.1.5.&nbsp;[A|M|P]TPRO_HOURLY_NCF: Hourly Temporal Profiles"><code class="envar">[A|M|P]TPRO_HOURLY_NCF</code></a> input file will take precedence any types of temporal profiles. This date-specific hourly temporal profiles NetCDF input
+            file contains annual total (<code class="envar">ANNTOT</code>), monthly total (<code class="envar">MONTOT</code>), daily total (<code class="envar">DAYTOT</code>) and hourly total (<code class="envar">HRLTOT</code>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data
+            (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total
+            to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from
+            monthly total inventory.
+         </p>
+         <p>Within the <span><strong class="command">Temporal</strong></span> program, the processing occurs as follows:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Temporal profiles are assigned for all sources.</p>
+               </li>
+               <li>
+                  <p>Monthly (year-to-month) temporal profiles can be applied.</p>
+               </li>
+               <li>
+                  <p>Daily (month-to-day) temporal profiles can be applied.</p>
+               </li>
+               <li>
+                  <p>Weekly (month-to-weekly) temporal profiles can be applied.</p>
+               </li>
+               <li>
+                  <p>Day-of-week specific hourly diurnal temporal profiles (Monday,,,Sunday, Weekday, Weekend, or All days) are applied.</p>
+               </li>
+               <li>
+                  <p>Date-specific hourly diurnal temporal profiles (year-to-hour, month-to-hour or day-to-hour) can be applied.</p>
+               </li>
+               <li>
+                  <p>Day-specific emissions or activities are read in and used to overwrite daily emissions for the appropriate sources</p>
+               </li>
+               <li>
+                  <p>Hour-specific emissions or activities are read in and used to overwrite hourly emissions for the appropriate sources.</p>
+               </li>
+            </ul>
+         </div>
+         <p>NOTE: Date-specific houlry diurnal temporal profiles require FIPS and SCC specific entries in <code class="envar">[A|M|P]TREF</code> input file.
+         </p>
+         <p>The pollutant field allows the user to assign a different temporal profile for each pollutant associated with a given source.
+            This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you
+            can put a &#8220;<span class="quote">-9</span>&#8221; in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.
+         </p>
+         <p>The country/state/county code is defined as follows:</p>
+         <table class="simplelist" border="0" summary="Simple list">
+            <tr>
+               <td>000000 = applies to all counties, states, and counties</td>
+            </tr>
+            <tr>
+               <td>Y00000 = applies to all states and counties in country Y</td>
+            </tr>
+            <tr>
+               <td>YSS000 = applies to all counties in state SS and country Y</td>
+            </tr>
+            <tr>
+               <td>YSSCCC = applies to county CCC in state SS and country Y</td>
+            </tr>
+         </table>
+         <div class="table"><a name="tbl_input_amptref"></a><p class="title"><b>Table&nbsp;8.34.&nbsp;Format for <code class="envar">[A|M|P]TREF</code></b></p>
+            <table summary="Format for [A|M|P]TREF" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>20-digit SCC, or 10-digit SCC or zeros filling the remaining digits (Character) (optional; put zero for entry that is not
+                        SCC-specific)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>Country/state/county code (6-digit Character in format YSSCCC) (optional)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>C</td>
+                     <td>Facility ID (for ORL, this is Plant ID) (Character(15)) (optional; point source only, leave blank for not facility-specific)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>D</td>
+                     <td>Unit ID (for ORL, this is point ID) (Character(15)) (optional: point source only )</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>E</td>
+                     <td>Release Point (for ORL, this is stack ID) (Character(15)) (optional: point source only)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>F</td>
+                     <td>Process ID (for ORL, this is segment ID) (Character(15)) (optional: point source only)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>G</td>
+                     <td>Pollutant name (Character) (optional; put zero if not pollutant-dependent)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>H</td>
+                     <td>
+                        
+                        <table class="simplelist" border="0" summary="Simple list">
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">HOURLY</code></strong></span></span>&#8221;: Date-specific hourly diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly_ncf" title="Table&nbsp;8.33.&nbsp;Format for ATPRO_HOURLY_NCF, MTPRO_HOURLY_NCF, and PTPRO_HOURLY_NCF"><code class="envar">[A|M|P]TPRO_HOURLY_NCF</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">MONTHLY</code></strong></span></span>&#8221;: Year to month temporal profile from <a href="ch08s03.html#sect_input_tpro_monthly" title="8.3.1.1.&nbsp;[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles"><code class="envar">[A|M|P]TPRO_MONTHLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">DAILY</code></strong></span></span>&#8221;: Year to day temporal profile from <a href="ch08s03.html#tbl_input_tpro_daily" title="Table&nbsp;8.30.&nbsp;Format for ATPRO_DAILY, MTPRO_DAILY, and PTPRO_DAILY"><code class="envar">[A|M|P]TPRO_DAILY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">WEEKLY</code></strong></span></span>&#8221;: Month to week temporal profile from <a href="ch08s03.html#tbl_input_tpro_weekly" title="Table&nbsp;8.31.&nbsp;Format for ATPRO_WEEKLY, MTPRO_WEEKLY, and PTPRO_WEEKLY"><code class="envar">[A|M|P]TPRO_WEEKLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">MONDAY</code></strong></span></span>&#8221;: Monday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">TUESDAY</code></strong></span></span>&#8221;: Tuesday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">WEDNESDAY</code></strong></span></span>&#8221;: Wendesday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">THURSDAY</code></strong></span></span>&#8221;: Thursday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">FRIDAY</code></strong></span></span>&#8221;: Friday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">SATURDAY</code></strong></span></span>&#8221;: Saturday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">SUNDAY</code></strong></span></span>&#8221;: Sunday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">WEEKDAY</code></strong></span></span>&#8221;: Weekday diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">WEEKEND</code></strong></span></span>&#8221;: Weekend diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>&#8220;<span class="quote"><span><strong class="command"><code class="envar">ALLDAY</code></strong></span></span>&#8221;: All days diurnal temporal profile from <a href="ch08s03.html#tbl_input_tpro_hourly" title="Table&nbsp;8.32.&nbsp;Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY"><code class="envar">[A|M|P]TPRO_HOURLY</code></a>.
+                              </td>
+                           </tr>
+                        </table>
+                        
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>I</td>
+                     <td>Temporal Profile ID (Characters) (required)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>J</td>
+                     <td>Comments (Characters) (optional; must be double quoted)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.3.&nbsp;Temporal Allocation Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.3.3.&nbsp;<code class="envar">HOLIDAYS</code>: Holidays date list
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

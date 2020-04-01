@@ -1,0 +1,369 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.5.4.&nbsp;Reviewing and customizing reports created by Smkreport</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s05.html" title="7.5.&nbsp;Quality Assurance Methods">
+      <link rel="prev" href="ch07s05s03.html" title="7.5.3.&nbsp;Reviewing reports created by SMOKE core programs">
+      <link rel="next" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.5.4.&nbsp;Reviewing and customizing reports created by <span><strong class="command">Smkreport</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s05s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.5.&nbsp;Quality Assurance Methods</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_methods_smkreport"></a>7.5.4.&nbsp;Reviewing and customizing reports created by <span><strong class="command">Smkreport</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s05s04.html#sect_qa_methods_smkreport_area">7.5.4.1. Area, nonroad mobile, and precomputed emissions for on-road mobile sources</a></span></dt>
+               <dt><span class="section"><a href="ch07s05s04.html#sect_qa_methods_smkreport_point">7.5.4.2. Point sources</a></span></dt>
+               <dt><span class="section"><a href="ch07s05s04.html#sect_qa_methods_smkreport_mobile">7.5.4.3. On-road mobile sources using MOBILE6</a></span></dt>
+            </dl>
+         </div>
+         <p>This section provides some ideas on things to check after SMOKE has been run to a successful completion (and after the other
+            QA steps described above have been completed). The review steps listed here will help ensure that SMOKE is working properly.
+            However, these recommendations will not enable you to identify any missing sources (the source exists but was not included
+            in the inventory) or wrong emissions sources (the source is in the inventory, but the emissions are completely incorrect),
+            so it is up to you to understand your emission inventory and make sure that it is representative of the emissions for the
+            regions and years of interest.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_qa_methods_smkreport_area"></a>7.5.4.1.&nbsp;Area, nonroad mobile, and precomputed emissions for on-road mobile sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following checks should be performed to ensure that the area-source and nonroad mobile-source processing was done properly:</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Compare state and/or county totals among the following processing steps:</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Inventory import</p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation</p>
+                           </li>
+                           <li>
+                              <p>Temporal allocation for key days (e.g., weekday, Saturday, and Sunday)</p>
+                           </li>
+                           <li>
+                              <p>Chemical speciation (e.g., add up NO/NO<sub>2</sub> and VOC species using the SELECT DATA instruction in <span><strong class="command">Smkreport</strong></span> with the S- prefix)
+                              </p>
+                           </li>
+                           <li>
+                              <p>Final merge</p>
+                           </li>
+                           <li>
+                              <p>Make comparisons for multiple grid resolutions, if applicable.</p>
+                           </li>
+                        </ol>
+                     </div>
+                     <p>The differences and similarities revealed at each stage should be these:</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Import totals (after <span><strong class="command">Smkinven</strong></span> processing) should be the same as inventory totals outside of SMOKE (if available).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation totals should be the same as the import totals for all states/counties except those on a grid boundary.
+                                 Comparing totals after spatial allocation among multiple grids should reveal that the emissions totals are the same in all
+                                 grids for states/counties that are completely within the grids.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Temporal allocation should be different for weekdays, Saturday, and Sunday, and different from the average-weekday or average
+                                 annual value represented by the import totals. The differences should be in the correct direction: generally, area sources
+                                 are higher on weekends because of lawn/garden emissions. If you are using an average-day inventory (not an annual inventory),
+                                 confirm that monthly adjustments have not been made. Check that any holiday days have been processed as directed based on
+                                 the <code class="envar">HOLIDAYS</code> files (e.g., that weekday holidays have been processed as Sundays).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Chemical speciation should match total mass before and after (again, the <span><strong class="command">Smkreport</strong></span> SELECT DATA option with the S- prefix is helpful here).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Final merged files should match between the <span><strong class="command">Smkmerge</strong></span> and <span><strong class="command">Smkreport</strong></span> reports.
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create report of temporal allocation factors used, by SCC.  Review profiles assigned to SCCs representing the top 50%-80%
+                        of key area/nonroad pollutants for your inventory.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create report of spatial surrogates used, by SCC. Review spatial surrogates assigned to SCCs representing the top 50%-80%
+                        of key area/nonroad pollutants for your inventory.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create report of speciation profiles used, by SCC.  Review speciation profiles assigned to SCCs representing the top 50%-80%
+                        of key area/nonroad pollutants for your inventory.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create reports by state/SCC for key states in your domain (the SELECT REGION statement in <span><strong class="command">Smkreport</strong></span> can be used to isolate certain states for this report). Review these reports to ensure that the totals are consistent with
+                        expectations. Compare and contrast emissions by SCC among states.  Include per-capita reports as well as total emissions reports,
+                        and review these to determine if per-capita emissions differences make sense from state to state; this approach can often
+                        identify outliers in inventories (caused by improper units, double counting, or out-of-date inventory creation approach).
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create spatial plots (e.g., using VERDI) of average-day emissions for each day (these daily-total emissions can be created
+                        by running <span><strong class="command">Smkmerge</strong></span> with <code class="envar">MRG_TEMPORAL</code> set to N). Daily-total plots can also be created from the model-ready plots using the I/O API utility <span><strong class="command">m3tproc</strong></span>. Do for all grids (if applicable) and compare.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create temporal profile plots (e.g., using VERDI) of hourly, gridded data over the entire episode. Look for consistent patterns
+                        on consistent days (e.g., all non-holiday weekdays in a single month should have the same value). Do for all grids (if applicable)
+                        and compare. Check for holidays and ensure these were processed as Sundays.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_qa_methods_smkreport_point"></a>7.5.4.2.&nbsp;Point sources
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following checks should be performed to ensure that the point-sources processing was done properly:</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Compare state and/or county totals at the following processing steps for all grids:</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Inventory import</p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation</p>
+                           </li>
+                           <li>
+                              <p>Temporal allocation for weekday, Saturday, and Sunday</p>
+                           </li>
+                           <li>
+                              <p>Chemical speciation (e.g., add up NO/NO<sub>2</sub> and VOC species using the SELECT DATA instruction in <span><strong class="command">Smkreport</strong></span> with the S- prefix)
+                              </p>
+                           </li>
+                           <li>
+                              <p>Layer fractions</p>
+                           </li>
+                           <li>
+                              <p>Final merge</p>
+                           </li>
+                        </ol>
+                     </div>
+                     <p>The differences and similarities revealed at each stage should be these:</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Import totals (after <span><strong class="command">Smkinven</strong></span> processing) should be the same as inventory totals outside of SMOKE (if available)
+                              </p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation should be the same as the import totals for all states/counties except those on a grid boundary. Comparing
+                                 totals after spatial allocation among multiple grids should reveal that the emissions totals are the same in all grids for
+                                 states/counties that are completely within the grids.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Temporal allocation may or may not be different for weekdays, Saturday, and Sunday, and different from the average-weekday
+                                 or average annual value represented by the import totals. The differences should be in the correct direction: generally, many
+                                 of the electric generating facilities (major emissions sources) are the same for all days of the week because the power plants
+                                 never shut down and their emissions do not depend much on the day of the week. Emissions for major manufacturing plants will
+                                 often be closed completely on weekends and have no emissions. If using an average-day inventory (not an annual inventory),
+                                 confirm that monthly adjustments have not been made. Check that any holiday days have been processed as directed based on
+                                 the <code class="envar">HOLIDAYS</code> files (e.g., that weekday holidays have been processed as Sundays).
+                              </p>
+                              <p>If using day-specific or hour-specific inventory data, then it will be harder to compare the inventory totals before input
+                                 to SMOKE to the emissions totals after temporal processing. This is because part of a state/county total when using hour-day-
+                                 or hour-specific data include these data and part do not, but the inventory totals are often available only for the annual
+                                 and/or average-day emissions values. This limitation can be rectified by calculating the emissions totals for the day- and
+                                 hour-specific data outside of SMOKE, and analyzing these sources by SCC instead of only by state/county to separate the analysis
+                                 of the annual and/or average-day emissions from the analysis of the day- and/or hour-specific emissions.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Chemical speciation should match total mass before and after (again, the <span><strong class="command">Smkreport</strong></span> SELECT DATA option with the S- prefix is helpful here).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Emissions totals should match before and after layer fractions for all grids. Note that the layer fractions will be different
+                                 across grids for sources that are in multiple grids because the meteorology data are different.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Final merged files should match between the <span><strong class="command">Smkmerge</strong></span> and <span><strong class="command">Smkreport</strong></span> reports.
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create report of temporal allocation factors used, by SCC.  Review profiles assigned to SCCs representing the top 50%-80%
+                        of key point-source pollutants for your inventory.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create report of speciation profiles used, by SCC.  Review speciation profiles assigned to SCCs representing the top 50%-80%
+                        of key point-source pollutants for your inventory.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create reports by state/plant for key states. These should include the grid cell in which the plant is located, which should
+                        be reviewed for correctness. A GIS analysis approach could be helpful for this step, to match the grid cells in the report
+                        with an independent assessment of the state/county. Major sources should be reviewed for correct emissions and correct locations.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create reports with layer fractions for all major power plants in key states. Include grid cell in which the plant is located.
+                        Perform a reality-check on the plume rise; large power plants should have high plume rise, but the plumes should still be
+                        well distributed throughout the model layers.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create the spatial and temporal profile plots discussed in items 6 and 7 above for area/nonroad processing, except for the
+                        spatial plots you need to first condense the I/O API model-ready files to 2-D instead of 3-D files. The I/O API utility <span><strong class="command">vertot</strong></span> can be used to sum layers from 3-D files to 2-D files.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_qa_methods_smkreport_mobile"></a>7.5.4.3.&nbsp;On-road mobile sources using MOBILE6
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following checks should be performed to ensure that the on-road mobile-source processing was done properly:</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>Compare state and/or county totals at the following processing steps for all grids (if applicable):</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Inventory import (VMT only)</p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation (VMT only)</p>
+                           </li>
+                           <li>
+                              <p>Compare emissions among all days by states. Compare sample weekday emissions daily-totals with average-day VMT to see if sources
+                                 with high VMT have high emissions. Calculate ratios between VMT and emissions and look for outliers.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Compare temporalized daily-totals with speciation/temporalized daily-totals of mass emissions</p>
+                           </li>
+                           <li>
+                              <p>Final merge</p>
+                           </li>
+                        </ol>
+                     </div>
+                     <p>The differences and similarities revealed at each stage should be these:</p>
+                     <div class="orderedlist">
+                        <ol type="a">
+                           <li>
+                              <p>Import totals (after <span><strong class="command">Smkinven</strong></span> processing) should be the same as inventory totals outside of SMOKE (if available)
+                              </p>
+                           </li>
+                           <li>
+                              <p>Spatial allocation should be the same as the import totals for all states/counties except those on a grid boundary. Comparing
+                                 totals after spatial allocation among multiple grids should reveal that the emissions totals are the same in all grids for
+                                 states/counties that are completely within the grids.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Temporal allocation should be different for weekdays, Saturday, and Sunday (note: no average-day values are available for
+                                 on-road mobile-source processing using MOBILE6). The differences should be in the correct direction: generally, mobile sources
+                                 are lower on weekends. Check any holidays to ensure that Sunday emissions were used.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Chemical speciation should match total mass before and after (the SELECT DATA statement in <span><strong class="command">Smkreport</strong></span> with the S- prefix can be helpful here).
+                              </p>
+                           </li>
+                           <li>
+                              <p>Final merged files emissions totals from <span><strong class="command">Smkmerge</strong></span> should match the temporal/speciated emissions reports from <span><strong class="command">Smkreport</strong></span>.
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Create report of temporal allocation factors used, by SCC; review assignments.</p>
+                  </li>
+                  <li>
+                     <p>Create report of speciation profiles used, by SCC; review assignments.</p>
+                  </li>
+                  <li>
+                     <p>Create reports by state/SCC for key states. Review these for major sources (e.g., gasoline fueled automobiles on interstates,
+                        heavy duty diesel vehicles) and to compare contributions among states to see if these make sense.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Create the spatial and temporal profile plots discussed in items 6 and 7 above for area/nonroad processing (<a href="ch07s05s04.html#sect_qa_methods_smkreport_area" title="7.5.4.1.&nbsp;Area, nonroad mobile, and precomputed emissions for on-road mobile sources">Section&nbsp;7.5.4.1, &#8220;Area, nonroad mobile, and precomputed emissions for on-road mobile sources&#8221;</a>).
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s05s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s05.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.5.3.&nbsp;Reviewing reports created by SMOKE core programs&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;8.&nbsp;SMOKE Input Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

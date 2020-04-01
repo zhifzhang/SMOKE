@@ -1,0 +1,776 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.6.&nbsp;Growth and Controls Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s05s05.html" title="8.5.5.&nbsp;GSTAG: Speciation tagging cross-reference file ">
+      <link rel="next" href="ch08s07.html" title="8.7.&nbsp;Special Merging Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.6.&nbsp;Growth and Controls Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s05s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_growth"></a>8.6.&nbsp;Growth and Controls Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl">8.6.1. <code class="envar">GCNTL</code>: Files for controls and/or past- and future-year growth</a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the growth and controls files should be stored are listed in <a href="ch08.html#tbl_input_projection_files" title="Table&nbsp;8.5.&nbsp;Growth and Controls Input File Locations">Table&nbsp;8.5, &#8220;Growth and Controls Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_gcntl"></a>8.6.1.&nbsp;<code class="envar">GCNTL</code>: Files for controls and/or past- and future-year growth
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_allowable">8.6.1.1. /ALLOWABLE/ Packet</a></span></dt>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_control">8.6.1.2. /CONTROL/ Packet</a></span></dt>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_ctg">8.6.1.3. /CTG/ Packet</a></span></dt>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_mact">8.6.1.4. /MACT/ Packet</a></span></dt>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_projection">8.6.1.5. /PROJECTION/ Packet</a></span></dt>
+                  <dt><span class="section"><a href="ch08s06.html#sect_input_gcntl_reactivity">8.6.1.6. /REACTIVITY/ Packet</a></span></dt>
+               </dl>
+            </div>
+            <p>SMOKE uses growth and control packets to get the information needed for growth and control of emissions. A packet is a group
+               of inputs used to apply specific types of controls. A single control file containing a series of packets can be shared by
+               area, mobile, and point sources and the packets that do not apply to a given source category will be ignored. The following
+               packets are recognized by the SMOKE control programs:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>/ALLOWABLE/ contains county-specific, SIC-specific, SCC-specific controls, caps, and replacement emissions. Contributes to
+                        the multiplicative control matrix. <a href="ch08s06.html#sect_input_gcntl_allowable" title="8.6.1.1.&nbsp;/ALLOWABLE/ Packet">Section&nbsp;8.6.1.1, &#8220;/ALLOWABLE/ Packet&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>/CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration. Contributes to the multiplicative
+                        control matrix. <a href="ch08s06.html#sect_input_gcntl_control" title="8.6.1.2.&nbsp;/CONTROL/ Packet">Section&nbsp;8.6.1.2, &#8220;/CONTROL/ Packet&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>/CTG/ contains settings for CTG, MACT, and RACT controls. Contributes to the multiplicative control matrix. <a href="ch08s06.html#sect_input_gcntl_ctg" title="8.6.1.3.&nbsp;/CTG/ Packet">Section&nbsp;8.6.1.3, &#8220;/CTG/ Packet&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>/MACT/ contains settings to support the primary MACT controls needed for toxics processing. Contributes to the multiplicative
+                        control matrix. <a href="ch08s06.html#sect_input_gcntl_mact" title="8.6.1.4.&nbsp;/MACT/ Packet">Section&nbsp;8.6.1.4, &#8220;/MACT/ Packet&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>/PROJECTION/ contains settings to permit growth of emission values into the past or future. Creates a growth matrix for each
+                        pollutant and/or activity. <a href="ch08s06.html#sect_input_gcntl_projection" title="8.6.1.5.&nbsp;/PROJECTION/ Packet">Section&nbsp;8.6.1.5, &#8220;/PROJECTION/ Packet&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p>/REACTIVITY/ contains settings needed for reactivity-based controls. Creates the reactivity control matrix. <a href="ch08s06.html#sect_input_gcntl_reactivity" title="8.6.1.6.&nbsp;/REACTIVITY/ Packet">Section&nbsp;8.6.1.6, &#8220;/REACTIVITY/ Packet&#8221;</a></p>
+                  </li>
+               </ul>
+            </div>
+            <p>The formats for these packets are described in the section below.  All of the packets are list-directed.</p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_allowable"></a>8.6.1.1.&nbsp;/ALLOWABLE/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /ALLOWABLE/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_allowable" title="Table&nbsp;8.46.&nbsp;Format for /ALLOWABLE/ packet in GCNTL">Table&nbsp;8.46, &#8220;Format for /ALLOWABLE/ packet in <code class="envar">GCNTL</code>&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_allowable"></a><p class="title"><b>Table&nbsp;8.46.&nbsp;Format for /ALLOWABLE/ packet in <code class="envar">GCNTL</code></b></p>
+                  <table summary="Format for /ALLOWABLE/ packet in GCNTL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/ALLOWABLE/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Country/State/County code or Country/state code with zero for county, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>8 or 10-digit SCC, (20 digit maximum) or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Pollutant ID, or -9 if not a pollutant-specific control; in most cases, the cap or replacement value will be a pollutant-specific
+                              value, and that pollutant name needs to be placed in this column (Character)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Control factor (Real) (no longer used by SMOKE, enter -9 as placeholder)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>Allowable emissions cap value [short tons/day] (Real) (required if no &#8220;<span class="quote">replace</span>&#8221; emissions are given)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Allowable emissions replacement value [short tons/day] (Real) (required if no &#8220;<span class="quote">cap</span>&#8221; emissions are given)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>SIC for point sources or -9 if not needed (Character(20)) (not supported by SMOKE at this time) </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>I</td>
+                           <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>J</td>
+                           <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>K</td>
+                           <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>L</td>
+                           <td>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>M</td>
+                           <td>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_control"></a>8.6.1.2.&nbsp;/CONTROL/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /CONTROL/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_control" title="Table&nbsp;8.47.&nbsp;Format for /CONTROL/ packet in GCNTL">Table&nbsp;8.47, &#8220;Format for /CONTROL/ packet in <code class="envar">GCNTL</code>&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_control"></a><p class="title"><b>Table&nbsp;8.47.&nbsp;Format for /CONTROL/ packet in <code class="envar">GCNTL</code></b></p>
+                  <table summary="Format for /CONTROL/ packet in GCNTL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/CONTROL/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Country/State/County code or Country/state code with zero for county, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>8 or 10-digit SCC (20 digit maximum), or pieces of  SCC with remaining digits filled in with zeros, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Pollutant ID, or -9 if not a pollutant-specific control (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Primary control equipment code (PCEC); -9 or zero applies to all equipment (not yet supported)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>Control efficiency (value should be a percent; e.g., enter 90 for a 90% control efficiency) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Rule effectiveness (value should be a percent; e.g., enter 50 for a 50% rule effectiveness) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>Rule penetration rate (value should be a percent; e.g., enter 80 for a 80% rule penetration) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Standard Industrial Category (SIC), optional (20-digit Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>I</td>
+                           <td>Maximum Achievable Control Technology (MACT) code, optional (6-character string)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>J</td>
+                           <td>
+                              <p>Application control flag (Character)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc" compact>
+                                    <li>Y = control should be applied to inventory</li>
+                                    <li>N = control will not be used</li>
+                                 </ul>
+                              </div>
+                              
+                              
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>K</td>
+                           <td>
+                              <p>Replacement flag (Character)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc" compact>
+                                    <li>A = control is applied in addition to controls from /MACT/ packet</li>
+                                    <li>R = control replaces controls from /MACT/ packet</li>
+                                 </ul>
+                              </div>
+                              
+                              
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>L</td>
+                           <td>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>M</td>
+                           <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>N</td>
+                           <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>O</td>
+                           <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>P</td>
+                           <td>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>Q</td>
+                           <td>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_ctg"></a>8.6.1.3.&nbsp;/CTG/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /CTG/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_ctg" title="Table&nbsp;8.48.&nbsp;Format for /CTG/ packet in GCNTL">Table&nbsp;8.48, &#8220;Format for /CTG/ packet in <code class="envar">GCNTL</code>&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_ctg"></a><p class="title"><b>Table&nbsp;8.48.&nbsp;Format for /CTG/ packet in <code class="envar">GCNTL</code></b></p>
+                  <table summary="Format for /CTG/ packet in GCNTL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/CTG/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Country/State/County code or Country/state code with zero for county, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>8 or 10-digit SCC (20 digit maximum), or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Pollutant ID, or -9 if not a pollutant-specific control; in most cases, the emissions cutoff value will be a pollutant-specific
+                              value, and that pollutant name needs to be placed in this column (Character)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Control technology control factor; value should be a fraction 0 to 1. (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>CTG emissions cutoff for application of CTG, MACT, or RACT factor (short tons/day) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>MACT control factor; value should be a fraction 0 to 1, or -9 if missing (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>RACT; value should be a fraction 0 to 1; or -9 if missing (Real)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_mact"></a>8.6.1.4.&nbsp;/MACT/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /MACT/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_mact" title="Table&nbsp;8.49.&nbsp;Format for /MACT/ packet in GCNTL">Table&nbsp;8.49, &#8220;Format for /MACT/ packet in <code class="envar">GCNTL</code>&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_mact"></a><p class="title"><b>Table&nbsp;8.49.&nbsp;Format for /MACT/ packet in <code class="envar">GCNTL</code></b></p>
+                  <table summary="Format for /MACT/ packet in GCNTL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/MACT/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Maximum Achievable Control Technology (MACT) code, optional (6-character string)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>up to 20-digit maximum, or 8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeroes or 0 (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>
+                              <p>Source type (2-character string)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc" compact>
+                                    <li>00 = both</li>
+                                    <li>01 = major</li>
+                                    <li>02 = CAA Section 12 area sources</li>
+                                    <li>03 = nonroad</li>
+                                    <li>04 = onroad</li>
+                                 </ul>
+                              </div>
+                              
+                              
+                              <p>The source type is only used to make a final determination about whether the entry applies for a source. If the record matches
+                                 the source otherwise (MACT or SCC matches) but the source type does not match, then the source receives no controls from this
+                                 entry.
+                              </p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>
+                              <p>Application control flag (Character)</p>
+                              
+                              
+                              <div class="itemizedlist">
+                                 <ul type="disc" compact>
+                                    <li>Y = control should be applied to inventory</li>
+                                    <li>N = control will not be used</li>
+                                 </ul>
+                              </div>
+                              
+                              
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>Pollutant ID, or -9 if not a pollutant-specific control (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Control efficiency of existing sources (value should be 0-100) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>Control efficiency of new sources (value should be 0-100) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Fraction of new and existing sources (value should be 0-100) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_projection"></a>8.6.1.5.&nbsp;/PROJECTION/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /PROJECTION/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_projection" title="Table&nbsp;8.50.&nbsp;Format for /PROJECTION/ packet in GCTNL">Table&nbsp;8.50, &#8220;Format for /PROJECTION/ packet in <code class="envar">GCTNL</code>&#8221;</a>. Note that if both the SCC and SIC is supplied in a given packet entry, the SCC will be used for source matching.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_projection"></a><p class="title"><b>Table&nbsp;8.50.&nbsp;Format for /PROJECTION/ packet in <code class="envar">GCTNL</code></b></p>
+                  <table summary="Format for /PROJECTION/ packet in GCTNL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/PROJECTION &lt;4-digit from year&gt; &lt;4-digit to year&gt;/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Country/State/County code, or Country/state code with zero for county, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>up to 20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Projection factor [enter number on fractional basis; e.g., enter 1.2 to increase emissions by 20%] (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Pollutant ID, or -9 if not a pollutant-specific entry</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>SIC, or 2-digit with remaining digits filled in with zeroes or blank for missing, optional (Character(20))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Maximum Achievable Control Technology code (MACT), optional (6-character string)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>I</td>
+                           <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>J</td>
+                           <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>K</td>
+                           <td>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>L</td>
+                           <td>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_gcntl_reactivity"></a>8.6.1.6.&nbsp;/REACTIVITY/ Packet
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The format of the /REACTIVITY/ packet is shown in <a href="ch08s06.html#tbl_input_gcntl_reactivity" title="Table&nbsp;8.51.&nbsp;Format for /REACTIVITY/ packet in GCNTL">Table&nbsp;8.51, &#8220;Format for /REACTIVITY/ packet in <code class="envar">GCNTL</code>&#8221;</a>.
+               </p>
+               <div class="table"><a name="tbl_input_gcntl_reactivity"></a><p class="title"><b>Table&nbsp;8.51.&nbsp;Format for /REACTIVITY/ packet in <code class="envar">GCNTL</code></b></p>
+                  <table summary="Format for /REACTIVITY/ packet in GCNTL" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Line</th>
+                           <th>Position</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1</td>
+                           <td>A</td>
+                           <td>/REACTIVITY &lt;4-digit base year&gt; &lt;4-digit future year&gt;/</td>
+                        </tr>
+                        <tr>
+                           <td>2+</td>
+                           <td>A</td>
+                           <td>Country/State/County code or Country/state code with zero for county, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>B</td>
+                           <td>20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>C</td>
+                           <td>Pollutant ID, required (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>D</td>
+                           <td>Replacement emissions for base year [short tons/day] (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>E</td>
+                           <td>Projection factor (or 0. for none; enter fractional value; e.g., 1.2 to increase emissions by 20%) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>F</td>
+                           <td>Future year 10-digit (up to a maximum of 20 digit) SCC code (or zero to set equal to base case) (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>G</td>
+                           <td>Speciation profile number (or zero to set equal to base case) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>H</td>
+                           <td>Market penetration of new speciation [fraction/year; e.g., enter 0.2 for 20% market penetration per year] (0. to 1.0) (Real)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>I</td>
+                           <td>SIC for point sources or -9 if not needed; not supported by SMOKE at this time (Character(20)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>J</td>
+                           <td>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>K</td>
+                           <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>L</td>
+                           <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>M</td>
+                           <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>N</td>
+                           <td>Characteristic 4 (blank for FF10 and ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td class="auto-generated">&nbsp;</td>
+                           <td>O</td>
+                           <td>Characteristic 5 (blank for FF10 and ORL inventory input format), optional (Character)</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>A</td>
+                           <td>/END/</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s05s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.5.5.&nbsp;<code class="envar">GSTAG</code>: Speciation tagging cross-reference file &nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.7.&nbsp;Special Merging Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

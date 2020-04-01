@@ -1,0 +1,93 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.5.&nbsp;The /SET LABEL/ packet</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03s04.html" title="7.3.4.&nbsp;The /DELIMITER/ packet">
+      <link rel="next" href="ch07s03s06.html" title="7.3.6.&nbsp;The /REPORT TIME/ packet">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.5.&nbsp;The /SET LABEL/ packet</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_set_label"></a>7.3.5.&nbsp;The /SET LABEL/ packet
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The /SET LABEL/ packet can be used to set a label to include on every row of every subsequent report defined in the <code class="envar">REPCONFIG</code> file. The label text can be either the text that appears in the packet, or the label can be defined by an environment variable.
+            This feature facilitates combining multiple reports from separate SMOKE runs into a single report more easily. For example,
+            if the packet is used to create state reports for all sectors run through SMOKE, then those state reports could be concatenated,
+            the file headers removed (except for the first header), and the individual sectors would be idenfified by the labels on the
+            rows.
+         </p>
+         <p>The syntax for the packet is as follows:</p>
+         <p>/SET LABEL/ &lt;label&gt;</p>
+         <p>where &lt;label&gt; is limited to 200 characters and is one of the following:</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>a string of text that will appear near the beginning of every data line of the report. The only invalid string is the word
+                     "OFF" in capital letters.
+                  </p>
+                  <p>Example: /SET LABEL/ NonEGU Point</p>
+                  <p>In this example, all subsequent reports will contain a new column called "Label" and every value in the entire report will
+                     be "NonEGU Point".
+                  </p>
+               </li>
+               <li>
+                  <p>an environment variable designated by &lt;label&gt; starting with a dollar sign.</p>
+                  <p>Example: /SET LABEL/ $RUN_ID</p>
+                  <p>In this example, <span><strong class="command">Smkreport</strong></span> will attempt to evaluate the environment variable <code class="envar">RUN_ID</code> from the shell running <span><strong class="command">Smkreport</strong></span>. If <code class="envar">RUN_ID</code> is a defined environment variable (e.g., the shell had set <code class="envar">RUN_ID</code> to "oarea"), then all subsequent reports will contain a new column called "Label" and every value in the entire report will
+                     be "oarea".
+                  </p>
+                  <p>If the environment variable is not defined, set to blank, or otherwise invalid, the instruction will behave like the /SET
+                     LABEL/ OFF case below.
+                  </p>
+               </li>
+               <li>
+                  <p>the word "OFF".</p>
+                  <p>Example: /SET LABEL/ OFF</p>
+                  <p>This syntax turns off use of the label in all subsequent reports until a new valid /SET LABEL/ packet is found.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.4.&nbsp;The /DELIMITER/ packet&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.6.&nbsp;The /REPORT TIME/ packet</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

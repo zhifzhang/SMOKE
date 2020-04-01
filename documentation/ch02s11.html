@@ -1,0 +1,158 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.11.&nbsp;Chemical speciation processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s10s08.html" title="2.10.8.&nbsp;Creating the intermediate files">
+      <link rel="next" href="ch02s11s02.html" title="2.11.2.&nbsp;Pollutant-to-pollutant conversions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.11.&nbsp;Chemical speciation processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s11s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_chemical_processing"></a>2.11.&nbsp;Chemical speciation processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s11.html#d0e5594">2.11.1. Splitting inventory pollutants into chemical species</a></span></dt>
+               <dt><span class="section"><a href="ch02s11s02.html">2.11.2. Pollutant-to-pollutant conversions</a></span></dt>
+               <dt><span class="section"><a href="ch02s11s03.html">2.11.3. Checking the consistency of the speciation profiles with the inventory table</a></span></dt>
+               <dt><span class="section"><a href="ch02s11s04.html">2.11.4. Setting the order of the output species</a></span></dt>
+               <dt><span class="section"><a href="ch02s11s05.html">2.11.5. Creating speciation intermediate files</a></span></dt>
+            </dl>
+         </div>
+         <p>An emission inventory is built and reported for a variety of pollutants, such as CO, NO<sub>x</sub>, VOC, PM<sub>10</sub>, and SO<sub>2</sub>. However, AQM chemical mechanisms (e.g., CB6) contain a simplified set of equations that use &#8220;<span class="quote">model species</span>&#8221; to represent atmospheric chemistry. Therefore, emissions processing requires speciation profiles to convert the emissions
+            in terms of pollutant values to the species used in the photochemical mechanism. The purpose of the chemical speciation processing
+            program <span><strong class="command">Spcmat</strong></span> is to produce matrices that contain the factors for converting the input emissions pollutants to the model species used in
+            the AQM. These species include organics, PM species, and toxics species.
+         </p>
+         <p>The speciation matrices that <span><strong class="command">Spcmat</strong></span> creates are used transform column vectors of inventory-pollutant emissions into column vectors of model-species emissions.
+            As shown in <a href="ch02s11.html#fig_concepts_chemical_processing" title="Figure&nbsp;2.21.&nbsp;Relationship of inventory sources to speciation matrix">Figure&nbsp;2.21, &#8220;Relationship of inventory sources to speciation matrix&#8221;</a>, the speciation matrix consists of columns for each required pollutant-to-species transformation and includes an entry for
+            each source. The entries are the factors needed to convert the inventory pollutants into the model species. Note that speciation
+            matrices depend only upon the chemical mechanism and the inventory, and they are therefore independent of the other factor-based
+            operations for emissions processing.
+         </p>
+         <div class="figure"><a name="fig_concepts_chemical_processing"></a><p class="title"><b>Figure&nbsp;2.21.&nbsp;Relationship of inventory sources to speciation matrix</b></p>
+            <div class="mediaobject"><img src="images\concepts\chemical_processing_html.jpg" alt="Relationship of inventory sources to speciation matrix"></div>
+         </div>
+         <p>Chemical speciation processing addresses the following issues during emissions processing:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Splitting inventory pollutants into chemical species</p>
+               </li>
+               <li>
+                  <p>Pollutant-to-pollutant conversions</p>
+               </li>
+               <li>
+                  <p>Checking the consistency of the speciation profiles with the inventory</p>
+               </li>
+               <li>
+                  <p>Setting the order of the output species</p>
+               </li>
+               <li>
+                  <p>Creating speciation intermediate files</p>
+               </li>
+            </ol>
+         </div>
+         <p>In the subsections below, we provide additional detail about each of these steps, in the order in which they are listed above.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5594"></a>2.11.1.&nbsp;Splitting inventory pollutants into chemical species
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE supports run-time, user-selected inventory pollutants and chemical mechanisms. Before running the chemical speciation
+               step, the only relevant information that SMOKE has is information about the inventory pollutants. After <span><strong class="command">Spcmat</strong></span> runs, SMOKE then has the instructions for supporting a specific chemical mechanism, and through the speciation matrices,
+               SMOKE will be able to generate model-ready emissions for the specific chemical mechanism set by the user. The inventory pollutants
+               relate to the chemical mechanism because certain pollutants are needed to create certain species, but the pollutants do not
+               dictate the chemical mechanism. As a SMOKE user, you must be aware of what pollutants are required to generate the model species
+               needed by a chemical mechanism, so that all needed model species are created.
+            </p>
+            <p>As we just mentioned, SMOKE learns of the species being created for a given run through the <span><strong class="command">Spcmat</strong></span> program. The chemical speciation profiles input file (<code class="envar">GSPRO</code>) is the data file that controls the chemical species SMOKE will create. It contains the chemical speciation profile code,
+               the pollutant-to-species relationships, and both mole-based and mass-based conversion factors. The format and contents of
+               this file are described in detail in <a href="ch08s05s02.html" title="8.5.2.&nbsp;GSPRO: Speciation profile file">Section&nbsp;8.5.2, &#8220;<code class="envar">GSPRO</code>: Speciation profile file&#8221;</a>. Several <code class="envar">GSPRO</code> files to support many chemical mechanisms are available for download; see <a href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">Section&nbsp;4.2, &#8220;Test case descriptions&#8221;</a> for more information. How to select an existing chemical mechanism or specify a new one, and how to ensure that the <code class="envar">GSPRO</code> file is consistent with other input files, are described in <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a>.
+            </p>
+            <p><span><strong class="command">Spcmat</strong></span> uses a cross-reference file to assign the chemical speciation profiles to the inventory sources and pollutants. The cross-reference
+               file can assign the profiles using a hierarchy that is based on the source characteristics; a detailed list of valid assignments
+               is given in <a href="ch06s15.html" title="6.15.&nbsp;Spcmat">Section&nbsp;6.15, &#8220;<span><strong class="command">Spcmat</strong></span>&#8221;</a>. All assignments are pollutant-specific, such that each pollutant for a source can (and often should) use a different speciation
+               profile. The cross-reference file can also assign a default profile, and some pollutants that have only one way of being speciated
+               (e.g., mapping the CO pollutant to the CO species) receive a default profile for every source. When <span><strong class="command">Spcmat</strong></span> makes default assignments, you can optionally choose to have warnings given for all of these assignments using the <code class="envar">REPORT_DEFAULTS</code> option. <span><strong class="command">Spcmat</strong></span> will also produce a warning about any inventory pollutants that are not assigned a speciation profile, because this will
+               result in the emissions for that pollutant being dropped by SMOKE.
+            </p>
+            <p><span><strong class="command">Spcmat</strong></span> creates two speciation matrices during each run: a mole-based matrix and a mass-based matrix. The speciation profile file
+               (<code class="envar">GSPRO</code>) has different factors for mass- and mole-based conversions. It is not trivial to convert between mass- and mole-based factors
+               for some chemical mechanisms like CB6, which use aggregates of chemical compounds or parts of compounds to define the model
+               species. One cannot simply use a molecular weight to convert accurately, because the molecular weight of the chemical species
+               is different for every speciation profile. This is because different proportions of chemical compounds are present in each
+               speciation profile, so even though the species are the same, their molecular weights are different from profile to profile.
+               This is why SMOKE has the two speciation matrices. The mole-based matrices are used to create the model-ready files, and the
+               mass-based matrices are used only to create the reports that require tons, kilograms, grams, or other mass units. One peculiarity
+               of the mole-based matrix is that particulate species emissions cannot be expressed in moles, so the units are still grams
+               in the mole-based matrices for particulate species.
+            </p>
+            <p>Chemical speciation has both similarities and differences from the aggregation and disaggregation that is performed during
+               inventory import (see <a href="ch02s09s07.html" title="2.9.7.&nbsp;Aggregate or disaggregate toxics emissions">Section&nbsp;2.9.7, &#8220;Aggregate or disaggregate toxics emissions&#8221;</a>). It is similar in that it involves separating one data value into more than one data value. For example, inventory disaggregation
+               can split Mercury &amp; Compounds (CAS=199) into elemental mercury, divalent gaseous mercury, and divalent particulate mercury
+               during inventory import of nonroad mobile sources. Similarly, NO<sub>x</sub> can be split into nitrogen oxide (NO) and nitrogen dioxide (NO<sub>2</sub>) during chemical speciation. Aggregation is also similar to speciation because it can map multiple pollutants or parts of
+               pollutants into the same chemical compound, just as speciation can map parts of the different pollutants (e.g., HGSUM and
+               HG) to the same model species (e.g., HG). On the other hand, the two concepts are different for three reasons. First, the
+               pollutants aggregated and disaggregated by <span><strong class="command">Smkinven</strong></span> are still considered by SMOKE to be pollutants, not species, to pass to later processing steps. Second, chemical speciation
+               allows multiple split factors to be used for the same pollutant-to-species conversion, whereas inventory aggregation/disaggregation
+               uses just one factor across the whole inventory for each pollutant-to-pollutant conversion. Third, chemical speciation also
+               converts the units of the pollutants (tons) to the units of the species (moles for gaseous species and grams for particulate
+               species).
+            </p>
+            <p>Speciation profiles do not necessarily conserve mass. For example, it is possible to input 100 tons of VOC into the <span><strong class="command">Spcmat</strong></span> program and have it output factors that will produce 70 tons of VOC-based species or 110 tons of VOC-based species. The reduced
+               mass occurs when some of the pollutant&#8217;s mass does not map to chemically reactive species in the inventory. In some cases,
+               the nonreactive (NR) species is included in the speciation profiles so that the speciation profiles do sum to 1. Increased
+               mass happens because some compounds that are part of VOC may have chemical reactivity associated with two model species. Since
+               this one part of the VOC is mapped to two model species, its mass appears to be double-counted when summing the model-species
+               mass. This is merely an artifact of how the model species are defined and implemented in the AQM, and the AQM is responsible
+               for accounting for such issues in its chemical mechanism.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s11s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.8.&nbsp;Creating the intermediate files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.11.2.&nbsp;Pollutant-to-pollutant conversions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,86 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.10.&nbsp;Mrggrid</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s09s03.html" title="6.9.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s10s02.html" title="6.10.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.10.&nbsp;<span><strong class="command">Mrggrid</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s09s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s10s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_mrggrid"></a>6.10.&nbsp;<span><strong class="command">Mrggrid</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s10.html#d0e26735">6.10.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s10s02.html">6.10.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s10s03.html">6.10.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e26735"></a>6.10.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> all
+            </p>
+            <p>The purpose of the <span><strong class="command">Mrggrid</strong></span> program is to combine gridded emission data files, which can be speciated or nonspeciated, and hourly or time-independent.
+               It can combine any number of 3-D emissions files with any number of 2-D emissions files. In fact, this program will work with
+               any I/O API NetCDF gridded files and need not be used only for emissions files. The program merges whatever data variables
+               are in the input files. These files can each have different sets of data variables; <span><strong class="command">Mrggrid</strong></span> will sum values only for each variable that is common to two or more files.
+            </p>
+            <p><span><strong class="command">Mrggrid</strong></span> checks several features of the input files to ensure that the data in these files are appropriate to be merged together.
+               All input files must have use the same time step. <span><strong class="command">Mrggrid</strong></span> compares the units of the variables with the same name and it creates an error message when the units are not identical.
+               It is not sufficient to have units that are the same in meaning but different in syntax. For example, although tons/hour and
+               tons/hr represent the same units, <span><strong class="command">Mrggrid</strong></span> will not recognize this because of the different syntax. The user must resolve unit discrepancies before running the program.
+               In addition, <span><strong class="command">Mrggrid</strong></span> compares the horizontal grid settings across all 2-D and 3-D files, and these settings must be identical in all respects
+               (e.g., number of cells, grid cell size, grid projection). Finally, <span><strong class="command">Mrggrid</strong></span> checks the layer structures across multiple 3-D files. The 3-D files can have a different number of layers, as long as any
+               layer common to two or more files has the same thickness in each of the files; <span><strong class="command">Mrggrid</strong></span> also checks the I/O API type of vertical structures and top height, and these must be identical across all 3-D files.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s09s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s10s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.9.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.10.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

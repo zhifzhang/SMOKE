@@ -1,0 +1,644 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.8.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s08.html" title="6.8.&nbsp;Movesmrg">
+      <link rel="prev" href="ch06s08s02.html" title="6.8.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s09.html" title="6.9.&nbsp;Mrgelev">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.8.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s08s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.8.&nbsp;<span><strong class="command">Movesmrg</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s09.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e25636"></a>6.8.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s08s03.html#d0e25763">6.8.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s08s03.html#d0e25952">6.8.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s08s03.html#d0e26402">6.8.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_movesmrg_mobile"></a><p class="title"><b>Figure&nbsp;6.8.&nbsp;<span>Movesmrg</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\movesmrg_mobile_html.jpg" alt="Movesmrg input and output files"></div>
+         </div>
+         <p><a href="ch06s08s03.html#fig_programs_movesmrg_mobile" title="Figure&nbsp;6.8.&nbsp;Movesmrg input and output files">Figure&nbsp;6.8, &#8220;<span>Movesmrg</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Movesmrg</strong></span> program. The input files are the country, state, and county codes file (<code class="envar">COSTCY</code>), the grid description file (<code class="envar">GRIDDESC</code>), the inventory data table (<code class="envar">INVTABLE</code>), the representative county fuel month file (<code class="envar">MFMREF</code>), the list of emission process and associated pollutants file (<code class="envar">MEPROC</code>), the representative county cross-reference file (<code class="envar">MCXREF</code>), the list of emission factors files by representative county file (<code class="envar">MRCLIST</code>), the meteorology files (<code class="envar">MET_CRO_2D</code>), the gridding matrix from <span><strong class="command">Grdmat</strong></span> (<code class="envar">MGMAT</code>), the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">MOBL</code>), the speciation matrix from <span><strong class="command">Spcmat</strong></span> (<code class="envar">MSMAT_L</code> or <code class="envar">MSMAT_S</code>), the <span><strong class="command">Met4moves</strong></span> output file for SMOKE (<code class="envar">METMOVES</code> <a href="ch09s08s03.html" title="9.8.3.&nbsp;SMOKE_OUTFILE(=METMOVES)"><code class="envar">=SMOKE_OUTFILE)</code></a>, the MOVES-based lookup tables (RPD, RPV, and RPP), and the daily hour VMT files from <span><strong class="command">Temporal</strong></span> (<code class="envar">MTMP_(day)</code>). Note that <code class="envar">MET_CRO_2D</code>, <code class="envar">METMOVES</code>, and <code class="envar">MTMP_(day)</code> are optional files that are included only in certain situations.
+         </p>
+         <p><span><strong class="command">Movesmrg</strong></span> outputs a model-ready emissions file <code class="envar">MGTS_L</code> or <code class="envar">MGTS_S</code>, a report file <code class="envar">REPMGTS_S</code>, and a log file <code class="envar">LOGFILE</code>.
+         </p>
+         <p>When using source apportionment (see <a href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">Section&nbsp;4.4.23, &#8220;Generating CMAQ-ready Source Apportionment Input Data Files&#8221;</a>), <span><strong class="command">Movesmrg</strong></span> will also read the source grouping file (<code class="envar">SOURCE_GROUPS</code>) and output the source group information <code class="envar">SRCGROUPS_OUT</code>, the emissions for each source group <code class="envar">SGINLNTS_L</code> or <code class="envar">SGINLNTS_S</code>, and a source group report file <code class="envar">SRCGRP_REPORT</code>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e25763"></a>6.8.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">COSTCY</code></td>
+                        <td>ASCII</td>
+                        <td>Country, state and county codes file</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                        <td>ASCII</td>
+                        <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                           when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> files are used)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s09s02.html#sect_input_cfpro" title="8.9.2.1.2.&nbsp;CFPRO: Mobile source control factor input file"><code class="envar">CFPRO</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Control factor file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRIDDESC</code></td>
+                        <td>ASCII</td>
+                        <td>Grid description file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVTABLE</code></td>
+                        <td>ASCII</td>
+                        <td>Inventory data table</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MFMREF</code></td>
+                        <td>ASCII</td>
+                        <td>Representative county fuel month file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MEPROC</code></td>
+                        <td>ASCII</td>
+                        <td>List of emission process and associated pollutants file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MCXREF</code></td>
+                        <td>ASCII</td>
+                        <td>Representative county cross-reference file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MRCLIST</code></td>
+                        <td>ASCII</td>
+                        <td>List of emission factors files (i.e., RPD, RPV and RPP Lookup tables) by representative county file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">METLIST</code></td>
+                        <td>ASCII</td>
+                        <td>List of MCIP meteorology files</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MGMAT</code></td>
+                        <td>ASCII</td>
+                        <td>Gridding matrix from <span><strong class="command">Grdmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MOBL</code></td>
+                        <td>ASCII</td>
+                        <td>Inventory file output from <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MSMAT_[L|S]</code></td>
+                        <td>ASCII</td>
+                        <td>Speciation matrix from <span><strong class="command">Spcmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">METMOVES</code> (<a href="ch09s08s03.html" title="9.8.3.&nbsp;SMOKE_OUTFILE(=METMOVES)"><code class="envar">=SMOKE_OUTFILE)</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Meteorology file from <span><strong class="command">Met4moves</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MTMP_{day}</code></td>
+                        <td>ASCII</td>
+                        <td>Daily hour VMT files from <span><strong class="command">Temporal</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s13.html" title="8.10.13.&nbsp;SOURCE_GROUPS: Source apportionment groups"><code class="envar">SOURCE_GROUPS</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Source apportionment groups</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s09s02.html#sect_input_spdist" title="8.9.2.1.7.&nbsp;SPDIST: Mobile average speed distribution profile input file"><code class="envar">SPDIST</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Weekday and weekend hour-specific 16-bins average speed distribution profiles</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s09s02.html#sect_input_spdpro" title="8.9.2.1.8.&nbsp;SPDPRO: Mobile hourly speed profile input file"><code class="envar">SPDPRO</code></a> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Weekday and weekend hourly speed profiles</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e25952"></a>6.8.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">APPLY_NOX_HUMIDITY_ADJ: </code>: [default: N]
+                     </p>
+                     <p> Allows <span><strong class="command">Movesmrg</strong></span> to apply NOx humidity correction to gridded hourly NOx emissions for RPD_MODE and RPH_MODE runs. If there is a header "HUMIDITY_ADJUSTED_NOX
+                        Y" listed in the MOVES lookup tables, it means that NOx emissions in those MOVES lookup tables are already adjusted and this
+                        flag will be overwritten to N. No NOx humidity correction will be applied. 
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Apply NOx humidity correction to non-NOx humidity correction applied MOVES lookup tables from RPD and RPH runs.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not apply NOx humidity correction.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MEMORY_OPTIMIZE_YN: </code>: [default: Y]
+                     </p>
+                     <p> Allows <span><strong class="command">Movesmrg</strong></span> to use less RAM memory. However, it will increase computational time of RPD_MODE and RPV_MODE runs. 
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Runs <span><strong class="command">Movesmrg</strong></span> in memory optimization mode.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Runs <span><strong class="command">Movesmrg</strong></span> faster mode using high capacity of RAM memory.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_BYDAY</code>: [default: blank]
+                     </p>
+                     <p> String code that specifies which source category is to use a by-day approach for the hourly input files. It must be set to
+                        "M" for a <span><strong class="command">Movesmrg</strong></span> to create an output file for each day.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_GRDOUT_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a gridded output file.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Read the gridding matrix produced by the <span><strong class="command">Grdmat</strong></span></p>
+                           </li>
+                           <li>
+                              <p>N: Do not read the gridding matrix.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_SPCOUT_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a speciated output file.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Read the gridding matrix produced by the <span><strong class="command">Spcmat</strong></span></p>
+                           </li>
+                           <li>
+                              <p>N: Do not read the gridding matrix.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPCNY_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a report of emission totals by county
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce the report by <span><strong class="command">Movesmrg</strong></span></p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPSTA_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a report of emission totals by state
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce the report by <span><strong class="command">Movesmrg</strong></span></p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPSCC_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a report of emission totals by SCC
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce the report by <span><strong class="command">Movesmrg</strong></span></p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_REPSRC_YN</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> produces a report of emission totals by source.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Produce the report by <span><strong class="command">Movesmrg</strong></span>. It will reset <code class="envar">MRG_REPCNY_YN</code> and <code class="envar">MRG_REPSCC_YN</code> to N to avoid to outputing duplicate information into the report.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not produce the report</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>If <code class="envar">MRG_GRDOUT_UNIT</code> [default: units]
+                     </p>
+                     <p>  String code that permits user to change the unit of the gridded output file.</p>
+                  </li>
+                  <li>
+                     <p>If <code class="envar">MRG_TOTOUT_UNIT</code> [default: units]
+                     </p>
+                     <p>  String code that permits user to change the unit of the state/county total report file.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MTMP_OUTPUT_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether <span><strong class="command">Temporal</strong></span> outputs the <span><strong class="command">Temporal</strong></span> intermediate output file from <a href="ch09s14.html" title="9.14.&nbsp;Temporal">Section&nbsp;9.14, &#8220;<span><strong class="command">Temporal</strong></span>&#8221;</a> for <span><strong class="command">Smkreport</strong></span> to create hourly emissions summary report based on hourly gridded emissions estimated by <span><strong class="command">Movesmrg</strong></span>.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Output Temporal intermediate output file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not output Temporal intermediate output file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">RPD_MODE:</code> [default: N] 
+                     </p>
+                     <p>Determines whether <span><strong class="command">Movesmrg</strong></span> processes rate-per-distance emissions.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process rate-per-distance emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not process rate-per-distance emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">RPH_MODE:</code> [default: N] 
+                     </p>
+                     <p>Determines whether <span><strong class="command">Movesmrg</strong></span> processes rate-per-hour emissions.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process rate-per-hour emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not process rate-per-hour emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">RPV_MODE</code>: [default: N] 
+                     </p>
+                     <p>Determines whether <span><strong class="command">Movesmrg</strong></span> processes rate-per-vehicle emissions.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process rate-per-vehicle emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not process rate-per-vehicle emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">RPP_MODE</code>: [default: N]
+                     </p>
+                     <p> Determines whether <span><strong class="command">Movesmrg</strong></span> processes rate-per-profile emissions.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process rate-per-profile emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not process rate-per-profile emissions</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_MVSPATH</code>: [default: blank]
+                     </p>
+                     <p>Defines the location of MOVES emission factors lookup tables.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: [default: blank]
+                     </p>
+                     <p>  Sets the types of source category. It must be set to "M" for <span><strong class="command">Movesmrg</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SRCGROUP_OUTPUT_YN</code>: [default: N]
+                     </p>
+                     <p>Indicates if source apportionment emissions should be output</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Group sources and output source apportionment files</p>
+                           </li>
+                           <li>
+                              <p>N: Do not perform any source apportionment processing</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">TEMP_BUFFER_BIN</code>: [default: 0.0]
+                     </p>
+                     <p>Defines the temperature buffer value (&deg;F). This value allows <span><strong class="command">Movesmrg</strong></span> to cover the outside of min/max temperature range in <code class="envar">SMOKE_OUTFILE</code> from <span><strong class="command">Met4moves</strong></span> for <span><strong class="command">Movesmrg</strong></span> RPP processing. If <code class="envar">TEMP_BUFFER_BIN</code> is set to 10.0, the original max temperature which is 90.0&deg;F will be treated as 100.0&deg;F, and minimum temperaure (=30&deg;F) will
+                        be treated as 20.0&deg;F internally in <span><strong class="command">Movesmrg</strong></span>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">TMPVNAME</code>: [default: TEMP2]
+                     </p>
+                     <p>  Name of temperature variable to read from the meteorology files for <span><strong class="command">Movesmrg</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_AVG_SPD_DIST</code>: [default: N]
+                     </p>
+                     <p> Allows the user to apply 16-speed bin average speed distribution profiles by region, SCC, day of week, and hour of day.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Apply 16-speed bin average speed distribution profiles.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not apply average speed distribution profiles.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_CONTROL_FACTORS</code>: [default: N]
+                     </p>
+                     <p> Allows the user to apply control factor by region, SCC, pollutant, and month.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Apply control factors to MOVES emission rates from MOVES lookup tables.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not apply control factor.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_EXP_CONTROL_FAC_YN</code>: [default: N]
+                     </p>
+                     <p> Allows the user to optionally apply pollutant/species-specific explict control factor by region, SCC, and month when <code class="envar">USE_CONTROL_FACTORS</code> is set to Y.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Apply pollutant/species-specific explicit control factors to MOVES emission rates from MOVES lookup tables.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not apply control factor.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                        country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_REF_CONTROL_FAC_YN</code>: [default: N]
+                     </p>
+                     <p> Allows the user to optionally apply reference-county-level control factor by SCC, and month when <code class="envar">USE_CONTROL_FACTORS</code> is set to Y.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Apply reference-county-level control factors to MOVES emission rates from MOVES lookup tables.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not apply control factor.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_HOURLY_SPEEDS</code>: [default: N]
+                     </p>
+                     <p>Determine whether processes weekday/weekend hourly speed profiles or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process weekday/weekend hourly speed profiles</p>
+                           </li>
+                           <li>
+                              <p>N: Do not process hourly speed profiles</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_SPCMAT_SPC_YN</code>: [default: N]
+                     </p>
+                     <p>Determine whether estimate air quality model species using chemical speciation profiles or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Estimate model species emissions using GSPRO input file</p>
+                           </li>
+                           <li>
+                              <p>N: Estimate model species emissions directly from MOVES emission rates lookup tables</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e26402"></a>6.8.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">MGTS[_S|_L]</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Model Ready Emissions File</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MTMP_INV</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Hourly emissions by source</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPMGTS[_S|_L]</code></td>
+                        <td>ASCII</td>
+                        <td>Report File</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Logfile</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SGINLNTS[_S|_L]</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SRCGROUPS_OUT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Source group information, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SRCGRP_REPORT</code></td>
+                        <td>ASCII</td>
+                        <td>Source group report file, produced if <code class="envar">SMK_SRCGROUP_OUTPUT_YN</code> is set to Y
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s08s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s09.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.8.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.9.&nbsp;<span><strong class="command">Mrgelev</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

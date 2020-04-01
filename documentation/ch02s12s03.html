@@ -1,0 +1,59 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.12.3.&nbsp;Creating the spatial allocation intermediate files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s12.html" title="2.12.&nbsp;Spatial processing">
+      <link rel="prev" href="ch02s12s02.html" title="2.12.2.&nbsp;Assigning sources to grid cells">
+      <link rel="next" href="ch02s13.html" title="2.13.&nbsp;Growth processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.12.3.&nbsp;Creating the spatial allocation intermediate files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s12s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.12.&nbsp;Spatial processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s13.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e6032"></a>2.12.3.&nbsp;Creating the spatial allocation intermediate files
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The last task for the spatial allocation processing is creating the gridding intermediate files. The <span><strong class="command">Grdmat</strong></span> program creates a gridding matrix (<code class="envar">AGMAT</code>, <code class="envar">MGMAT</code>, or <code class="envar">PGMAT</code>) and for on-road mobile sources an ungridding matrix (<code class="envar">MUMAT</code>). These matrices contain all of the factors needed to calculate gridded emissions from a source-based inventory. In addition,
+            the <span><strong class="command">Grdmat</strong></span> program writes a supplementary output file (<code class="envar">AGSUP</code> or <code class="envar">MGSUP</code>) that contains the spatial surrogates assigned for each source, indicates whether the assignment was a primary or a fallback,
+            and identifies area-to-point sources. The structures of the SMOKE intermediate files output by <span><strong class="command">Grdmat</strong></span> are provided in <a href="ch09s04.html" title="9.4.&nbsp;Grdmat">Section&nbsp;9.4, &#8220;<span><strong class="command">Grdmat</strong></span>&#8221;</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s12s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s12.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s13.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.12.2.&nbsp;Assigning sources to grid cells&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.13.&nbsp;Growth processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

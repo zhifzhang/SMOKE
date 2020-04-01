@@ -1,0 +1,87 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.17.&nbsp;Biogenic processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s16s03.html" title="2.16.3.&nbsp;SMOKE Model Processing">
+      <link rel="next" href="ch02s18.html" title="2.18.&nbsp;Creating model-ready emissions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.17.&nbsp;Biogenic processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s16s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s18.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_biogenic_processing"></a>2.17.&nbsp;Biogenic processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s17.html#d0e7476">2.17.1. BEIS3 processing</a></span></dt>
+            </dl>
+         </div>
+         <p>The SMOKE system uses a more advanced emissions modeling approach for biogenic processing than it uses for the other source
+            types. For biogenic emissions, the temporal processing is a true simulation model driven by ambient meteorology and other
+            data. SMOKE currently supports two methods for computing biogenic land use: BEIS2 and BEIS3. The overall processing performed
+            by both these models is quite different from the processing done for anthropogenic source categories. BEIS2 and BEIS3 start
+            with spatial allocation of land use data as the first processing step (which is the same as importing the raw inventory data
+            for anthropogenic sources). They next compute normalized emissions for each grid cell and land use category. The final step
+            is adjusting the normalized emissions based on gridded, hourly meteorology data and assigning the chemical species to output
+            a model-ready biogenic emissions file. The following two subsections provide more detail about the two biogenic models in
+            SMOKE and give references to additional detail elsewhere.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e7476"></a>2.17.1.&nbsp;BEIS3 processing
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The concepts in BEIS3 are similar to those in BEIS2, except the program <span><strong class="command">Normbeis3</strong></span> (instead of <span><strong class="command">Rawbio</strong></span>) reads gridded land use data from three files in I/O API input format (<code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, and <code class="envar">BELD3_TOT</code>). Most users rely on the BELD3 database to generate these gridded land use files, but other land use databases may be used,
+               provided the vegetation types and file formats are consistent with the <code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, and <code class="envar">BELD3_TOT</code> files. This database consists of high-resolution (1-km horizontal resolution) land use data for 230 land use types. <span><strong class="command">Normbeis3</strong></span> creates normalized biogenic emissions for both winter and summer. The <span><strong class="command">Tmpbeis3</strong></span> program reads the MCIP meteorology data and makes these adjustments; these include the effects of temperature and solar radiation.
+               The winter emission factors are to be used during the "winter" period, which is defined as being after the first date of freezing
+               ground temperature and before the last date of freezing ground temperature. The SMOKE <span><strong class="command">Metscan</strong></span> program can determine this time period and create a gridded file that indicates whether each grid cell is in a winter or
+               summer period for each day of the year. Using this file, which is optional, will cause <span><strong class="command">Tmpbeis3</strong></span> to read and use both the winter and summer normalized emissions files from <span><strong class="command">Normbeis3</strong></span>. Whether the winter or summer normalized emissions are used for a given grid cell and hour is set by the output from the
+               <span><strong class="command">Metscan</strong></span> program. Users can define the chemical species that are output from <span><strong class="command">Tmpbeis3</strong></span> using the speciation profile file, <code class="envar">GSPRO</code>. In this file, you can set an environment variable (<code class="envar">BIOG_SPRO</code>) that indicates which speciation profile code should be used for biogenic emissions. Note that this <code class="envar">GSPRO</code> file is different than the one used for BEIS2. More information on <span><strong class="command">Normbeis3</strong></span> and <span><strong class="command">Tmpbeis3</strong></span> is provided in <a href="ch06s12.html" title="6.12.&nbsp;Normbeis3">Section&nbsp;6.12, &#8220;<span><strong class="command">Normbeis3</strong></span>&#8221;</a> and <a href="ch06s17.html" title="6.17.&nbsp;Tmpbeis3">Section&nbsp;6.17, &#8220;<span><strong class="command">Tmpbeis3</strong></span>&#8221;</a>.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s16s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s18.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.16.3.&nbsp;SMOKE Model Processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.18.&nbsp;Creating model-ready emissions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

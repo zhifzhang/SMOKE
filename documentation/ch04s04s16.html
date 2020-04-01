@@ -1,0 +1,91 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.16.&nbsp;Change meteorology data</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s15.html" title="4.4.15.&nbsp;Use BEIS3">
+      <link rel="next" href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.16.&nbsp;Change meteorology data</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s15.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s17.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_change_meteorology"></a>4.4.16.&nbsp;Change meteorology data
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>To change the meteorology data, you must take the following steps:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Determine what format your air quality model will accept for meteorology data and convert data to I/O API format if needed.</p>
+                  <p>If you are modeling with CMAQ, then the data will be in the I/O API format created by MCIP or MCPL that SMOKE can accept.
+                     If you are modeling with UAM or CAM<sub>X</sub>, then you must check to see which meteorology format the model accepts. Some versions of these models can use the same I/O
+                     API format as for CMAQ, but some cannot.
+                  </p>
+                  <p>If your meteorology data are not in the correct format, then you will need to convert the data. There is currently no utility
+                     provided with SMOKE to convert the meteorology format needed by some versions of UAM and CAM<sub>X</sub> to SMOKE input format.
+                  </p>
+               </li>
+               <li>
+                  <p>Ensure required variables are included in meteorology data</p>
+               </li>
+               <li>
+                  <p>Ensure meteorology data cover the correct time period</p>
+               </li>
+               <li>
+                  <p>Ensure meteorology data are on the correct grid</p>
+                  <p>As described in <a href="ch04s04s09.html#sect_scripts_install_spatial_inputs" title="4.4.9.2.&nbsp;Installing or changing spatial input files">Section&nbsp;4.4.9.2, &#8220;Installing or changing spatial input files&#8221;</a> step 5, check that the meteorology grid and modeling grid are consistent.
+                  </p>
+               </li>
+               <li>
+                  <p>Install meteorology data</p>
+                  <p>The meteorology data should be installed in the <code class="filename"><code class="envar">$METDAT</code></code> directory, as explained in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>. The names of the files are up to you.
+                  </p>
+               </li>
+               <li>
+                  <p>Ensure that the meteorology data names match with the names in the Assigns file</p>
+                  <p>Edit the Assigns file and look for the <code class="envar">$METDAT</code> variable. Ensure that it is consistent with the actual location of the meteorology files. Also check the settings for <code class="envar">GRID_CRO_2D</code>, <code class="envar">GRID_CRO_3D</code>, <code class="envar">MET_CRO_2D</code>, <code class="envar">MET_CRO_3D</code>, and <code class="envar">MET_DOT_3D</code> and make sure that the naming scheme for these files is consistent with your file names.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s15.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s17.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.15.&nbsp;Use BEIS3&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.17.&nbsp;Plume Rise Calculation for Fires</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

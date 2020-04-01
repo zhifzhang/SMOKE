@@ -1,0 +1,129 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>9.11.3.&nbsp;PDAY, PHOUR, ARDAY, and ARHOUR</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch09s11.html" title="9.11.&nbsp;Smkinven">
+      <link rel="prev" href="ch09s11s02.html" title="9.11.2.&nbsp;ASRC, MSRC, and PSRC">
+      <link rel="next" href="ch09s12.html" title="9.12.&nbsp;Smkmerge">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">9.11.3.&nbsp;<code class="envar">PDAY</code>, <code class="envar">PHOUR</code>, <code class="envar">ARDAY</code>, and <code class="envar">ARHOUR</code></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch09s11s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">9.11.&nbsp;<span><strong class="command">Smkinven</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch09s12.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_intmed_pday"></a>9.11.3.&nbsp;<code class="envar">PDAY</code>, <code class="envar">PHOUR</code>, <code class="envar">ARDAY</code>, and <code class="envar">ARHOUR</code></h3>
+               </div>
+            </div>
+         </div>
+         <p>Type: I/O API NetCDF - adapted gridded format</p>
+         <p>Used by: <span><strong class="command">Laypoint</strong></span> and <span><strong class="command">Temporal</strong></span></p>
+         <div class="table"><a name="d0e55871"></a><p class="title"><b>Table&nbsp;9.29.&nbsp;I/O API Header for <code class="envar">PDAY</code>, <code class="envar">PHOUR</code>, <code class="envar">ARDAY</code>, and <code class="envar">ARHOUR</code></b></p>
+            <table summary="I/O API Header for PDAY, PHOUR, ARDAY, and ARHOUR" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>I/O API Header variable</th>
+                     <th>Meaning</th>
+                     <th>Set by...</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>NROWS3D</td>
+                     <td>Number of period-specific sources</td>
+                     <td><code class="envar">PTDAY</code> or <code class="envar">PTHOUR</code> or <code class="envar">ARDAY</code> or <code class="envar">ARHOUR</code> files read in by <span><strong class="command">Smkinven</strong></span></td>
+                  </tr>
+                  <tr>
+                     <td>NVARS3D</td>
+                     <td>Number of pollutants + 1</td>
+                     <td><code class="envar">PTDAY</code> or <code class="envar">PTHOUR</code> or <code class="envar">ARDAY</code> or <code class="envar">ARHOUR</code> files read in by <span><strong class="command">Smkinven</strong></span></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="table"><a name="d0e55938"></a><p class="title"><b>Table&nbsp;9.30.&nbsp;Variables in <code class="envar">PDAY</code>, <code class="envar">PHOUR</code>, <code class="envar">ARDAY</code>, and <code class="envar">ARHOUR</code></b></p>
+            <table summary="Variables in PDAY, PHOUR, ARDAY, and ARHOUR" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Variable Name</th>
+                     <th>Type</th>
+                     <th>Units</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>INDX&lt;D or H&gt;</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Source number</td>
+                  </tr>
+                  <tr>
+                     <td>Name of pollutant 1</td>
+                     <td>Real</td>
+                     <td>ton/h</td>
+                     <td>Period-specific emissions for pollutant 1</td>
+                  </tr>
+                  <tr>
+                     <td>...</td>
+                     <td>...</td>
+                     <td>...</td>
+                     <td>...</td>
+                  </tr>
+                  <tr>
+                     <td>Name of pollutant NVARS3D</td>
+                     <td>Real</td>
+                     <td>ton/h</td>
+                     <td>Period-specific emissions for pollutant NVARS3D</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch09s11s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch09s11.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch09s12.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">9.11.2.&nbsp;<code class="envar">ASRC</code>, <code class="envar">MSRC</code>, and <code class="envar">PSRC</code>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;9.12.&nbsp;<span><strong class="command">Smkmerge</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,88 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.3.&nbsp;Creating the reactivity control matrix</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="prev" href="ch02s14s02.html" title="2.14.2.&nbsp;Creating the multiplicative control matrix">
+      <link rel="next" href="ch02s14s04.html" title="2.14.4.&nbsp;Reporting on factors assigned to each source in the inventory">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.3.&nbsp;Creating the reactivity control matrix</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.14.&nbsp;Control processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s14s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_create_reactivity"></a>2.14.3.&nbsp;Creating the reactivity control matrix
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Reactivity controls have been included in SMOKE to allow users to examine what happens to the air quality modeling results
+            when the chemical mixture of the emissions is changed to reduce its ozone-forming potential. Examining the effect of reactivity
+            controls is known as &#8220;<span class="quote">reactivity assessment</span>&#8221;. The implementation of this type of control includes permitting users to reset the base-year emissions, reset the SCC, and
+            reset the chemical speciation profile. The controls can be applied to all sources that match an SCC or a specific facility
+            or process within a facility.
+         </p>
+         <p>Several issues are important when addressing emissions processing requirements for reactivity assessments. Reactivity assessment
+            involves replacing one compound in the inventory by another compound. This replacement can impact emission projections, the
+            total magnitude of the inventory pollutants, and the associated SCCs. The market penetration of the replacement compound may
+            vary in time and space, which affects the future-year emissions. Also, the replacement compound may be needed in much greater
+            or much smaller amounts, thereby affecting the total inventory emissions. Finally, if a different process is required in order
+            for a source to use the different compound, the SCC for that source may change.
+         </p>
+         <p>The scale of the reactivity assessment is important; it could be local, statewide, or national. A local case could involve
+            investigating reactivity for one source. A statewide case could be implementing a change in compound based on reactivity considerations
+            for a State Implementation Plan (SIP), and this would affect sources across the state. A national case could involve an EPA
+            investigation of the formulation of nationally distributed consumer products.
+         </p>
+         <p>In addition, exemptions from controls for certain sources must be permitted as part of an emissions control strategy. These
+            exemptions can occur when a reactivity assessment determines that certain compounds and/or processes do not significantly
+            affect pollution formation.
+         </p>
+         <p>To address these issues, SMOKE is able to target changes in a VOC for specific classes of VOC emissions, and address the spatial
+            and temporal considerations implied by market penetration issues. Furthermore, when replacement options are being investigated,
+            the correct replacement operations are facilitated by SMOKE. These operations include selecting sources, changing underlying
+            pollutant emissions, changing SCCs, correctly projecting future-year emissions based in part on market penetration issues,
+            and appropriately speciating emissions for the new compound.
+         </p>
+         <p>For a single run of <span><strong class="command">Cntlmat</strong></span>, reactivity controls can be applied to only one pollutant, typically a VOC pollutant. Therefore, if you have more than one
+            VOC pollutant in the inventory (e.g., a toxics VOC and a particulate pollutant), then separate reactivity matrices will need
+            to be created for each pollutant that receives reactivity controls, and these controls will need to be applied in separate
+            SMOKE runs (see <a href="ch02s14s07.html" title="2.14.7.&nbsp;Using Smkmerge to apply the multiplicative and/or reactivity control matrices">Section&nbsp;2.14.7, &#8220;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices&#8221;</a> for more information).
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s14s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.2.&nbsp;Creating the multiplicative control matrix&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.14.4.&nbsp;Reporting on factors assigned to each source in the inventory</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

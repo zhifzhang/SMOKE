@@ -1,0 +1,106 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.3.&nbsp;Emission inventories</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s02.html" title="2.2.&nbsp;Assigns file and environment variables">
+      <link rel="next" href="ch02s03s02.html" title="2.3.2.&nbsp;Inventory source categories">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.3.&nbsp;Emission inventories</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_emis_inv"></a>2.3.&nbsp;Emission inventories
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s03.html#sect_concepts_inv_data_types">2.3.1. Inventory data types</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s02.html">2.3.2. Inventory source categories</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s03.html">2.3.3. Inventory file formats</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s04.html">2.3.4. Country, state, and county codes</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s05.html">2.3.5. Source Classification Codes</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s06.html">2.3.6. Standard Industrial Classification codes</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s07.html">2.3.7. Geographical Code (GEOCODE_LEVEL[1-4]</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s08.html">2.3.8. Maximum Achievable Control Technology codes</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s09.html">2.3.9. Source types: major and section-112 area sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s03s10.html">2.3.10. Source types: nonroad and onroad mobile sources</a></span></dt>
+            </dl>
+         </div>
+         <p>Emission inventories are the key input files to SMOKE and emissions modeling. The data types that these inventories contain
+            are called inventory pollutants (e.g., carbon monoxide, ammonia, mercury). By itself, SMOKE does not require specific data
+            types in the inventory files it reads. However, the AQMs that SMOKE supports do require certain input data, called model species,
+            which in turn requires SMOKE to use certain inventory pollutants.
+         </p>
+         <p>In this section, we focus on the inventory files that SMOKE uses. <a href="ch02s03.html#sect_concepts_inv_data_types" title="2.3.1.&nbsp;Inventory data types">Section&nbsp;2.3.1, &#8220;Inventory data types&#8221;</a> describes the major inventory types useable by SMOKE. In <a href="ch02s03s02.html" title="2.3.2.&nbsp;Inventory source categories">Section&nbsp;2.3.2, &#8220;Inventory source categories&#8221;</a>, we describe the inventory source categories, and in <a href="ch02s03s03.html" title="2.3.3.&nbsp;Inventory file formats">Section&nbsp;2.3.3, &#8220;Inventory file formats&#8221;</a> we discuss the inventory file formats. The remaining sections describe the various codes used in specific inventory sources:
+            <a href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">Section&nbsp;2.3.4, &#8220;Country, state, and county codes&#8221;</a>, <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">Section&nbsp;2.3.5, &#8220;Source Classification Codes&#8221;</a>, <a href="ch02s03s06.html" title="2.3.6.&nbsp;Standard Industrial Classification codes">Section&nbsp;2.3.6, &#8220;Standard Industrial Classification codes&#8221;</a>, <a href="ch02s03s08.html" title="2.3.8.&nbsp;Maximum Achievable Control Technology codes">Section&nbsp;2.3.8, &#8220;Maximum Achievable Control Technology codes&#8221;</a>, <a href="ch02s03s09.html" title="2.3.9.&nbsp;Source types: major and section-112 area sources">Section&nbsp;2.3.9, &#8220;Source types: major and section-112 area sources&#8221;</a> and <a href="ch02s03s10.html" title="2.3.10.&nbsp;Source types: nonroad and onroad mobile sources">Section&nbsp;2.3.10, &#8220;Source types: nonroad and onroad mobile sources&#8221;</a>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_concepts_inv_data_types"></a>2.3.1.&nbsp;Inventory data types
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE processes criteria, particulate, toxics, and activity data inventories. Activity data will be discussed along with on-road
+               mobile sources in the next section. By criteria inventories, we mean inventories containing EPA&#8217;s criteria pollutants: carbon
+               monoxide (CO), nitrogen oxides (NO<sub>x</sub>), and volatile organic compounds (VOC) or total organic gases (TOG). Particulate inventories contain ammonia (NH<sub>3</sub>), sulfur dioxide (SO<sub>2</sub>), particulate matter (PM) of size 10 microns or less (PM<sub>10</sub>), and PM of size 2.5 microns or less (PM<sub>2.5</sub>).
+            </p>
+            <p>Additionally, SMOKE can process inventories with pre-speciated criteria and/or particulate emissions. For example, elemental
+               carbon of size 2.5 microns or less can be provided as input to SMOKE directly, instead of letting SMOKE&#8217;s speciation step
+               compute it from the PM<sub>2.5</sub> total emissions. To ensure that SMOKE correctly processes the data when you are using pre-speciated emissions, other input
+               files must be configured in specific ways, as explained in <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a>.
+            </p>
+            <p>The toxics inventories that SMOKE can process are data from the National Emission Inventory (NEI) for Hazardous Air Pollutants
+               (HAPs). This inventory contains hundreds of specific compounds representing the 188 HAPs defined by the Clear Air Act. The
+               original list of 189 HAPs and modifications representing the current list are available from the <a href="http://www.epa.gov/ttn/atw/orig189.html" target="_top">EPA&#8217;s web site</a>. The reason the inventory contains many more pollutants than 188 is because several on the list of 188 are pollutant groups,
+               such as polycyclic organic matter, cyanide compounds and numerous metal compounds including chromium compounds, cadmium compounds,
+               manganese compounds, and others. Note that because of these groups, specific compounds in the inventory in one inventory year
+               may not exactly match the compounds in another inventory year. For example, one may have lead oxide reported one year but
+               not in a subsequent year. However, those compounds not belonging to compound groups are likely to be in the inventory year
+               after year, particularly the common gaseous HAPs emitted by mobile sources such as benzene, 1,3-butadiene, acrolein, formaldehyde,
+               and acetaldehyde.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.2.&nbsp;Assigns file and environment variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.3.2.&nbsp;Inventory source categories</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

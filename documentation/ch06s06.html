@@ -1,0 +1,150 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.6.&nbsp;Laypoint</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s05s03.html" title="6.5.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s06s02.html" title="6.6.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.6.&nbsp;<span><strong class="command">Laypoint</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s05s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s06s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_laypoint"></a>6.6.&nbsp;<span><strong class="command">Laypoint</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s06.html#d0e24584">6.6.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s06s02.html">6.6.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s06s03.html">6.6.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e24584"></a>6.6.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch06s06.html#sect_programs_laypoint_plume_rise_fires">6.6.1.1. Plume rise calculation for fires</a></span></dt>
+               </dl>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> point
+            </p>
+            <p>The <span><strong class="command">Laypoint</strong></span> program uses the SMOKE point-source inventory file with gridded and hourly meteorology data to compute hourly plume rise
+               for all point sources. The plume rise is expressed in terms of layer fractions for each source.
+            </p>
+            <p><span><strong class="command">Laypoint</strong></span> is run only for the CMAQ styles of processing, in which all of the plume rise calculations are done prior to input to the
+               AQM. In <span><strong class="command">Laypoint</strong></span>, meteorological data are used to calculate the plume rise for all point sources. Then, the plume is distributed into the
+               vertical layers that the plume intersects based on the pressure in each layer. Only these fractions are stored (not the emissions
+               in each layer), until the SMOKE merge step (<span><strong class="command">Smkmerge</strong></span>). Therefore, the plume rise calculations do not need to be repeated for each control strategy or grid. The <span><strong class="command">Laypoint</strong></span> program calculates the plume rise for all days of each meteorological scenario.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_programs_laypoint_plume_rise_fires"></a>6.6.1.1.&nbsp;Plume rise calculation for fires
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Regardless whether the heat flux for wildfires is precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm
+                  ( http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf ) converts the heat flux (Q) to a bouyancy flux (F) for
+                  use in the plume rise calculation (Equation 1). Hourly heat flux (Q) can be estimated based upon daily area burned, fuel loading,
+                  material burned and a constant default heat content (8000 BTU/lb). See more detail information in <a href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">Section&nbsp;4.4.17, &#8220;Plume Rise Calculation for Fires&#8221;</a>.
+               </p>
+               <p>To account for a smoldering fraction of the fire emissions, fire plumes are distributed into both the model layers below the
+                  plume bottom and into the model layers between the plume top and bottom. The smoldering fraction of the total fire emissions
+                  is distributed into the model layer below the plume bottom. The remaining part of emissions are distributed into the model
+                  layers between the plume bottom and top.
+               </p>
+               <p>Equation 2 estimates the plume bouyant efficiency (BE) which is the portion of heat release from a fire that produces bouyancy,
+                  using the fire size in acres. The smoldering fraction (S<sub>fraction</sub>) of the fire plume is calculated from the BE (Equation 3). All the fire emissions are allocated to the model layers using
+                  a weighting based on the hourly sigma-pressure vertical coordinate. These equations are is used in <span><strong class="command">Laypoint</strong></span> when the variable <code class="envar">FIRE_PLUME_YN</code> is set to Y. More information about processing fire emissions is in <a href="ch04s04s17.html" title="4.4.17.&nbsp;Plume Rise Calculation for Fires">Section&nbsp;4.4.17, &#8220;Plume Rise Calculation for Fires&#8221;</a>.
+               </p>
+               <p> Fire-specific plume rise equations are following:</p>
+               <div class="orderedlist">
+                  <ol type="1">
+                     <li>
+                        <p>F = 0.00000258 x Q</p>
+                     </li>
+                     <li>
+                        <p>BE<sub>size</sub> = 0.0703 x ln( <span class="emphasis"><em>acres</em></span> ) + 0.3
+                        </p>
+                     </li>
+                     <li>
+                        <p>S<sub>fraction</sub> = 1 - BE<sub>size</sub></p>
+                     </li>
+                  </ol>
+               </div>
+               <p>where</p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        F = Bouyancy flux (m<sup>4</sup>/s<sup>3</sup>)
+                        
+                     </li>
+                     <li>
+                        Q = Heat flux for fires (BTU/hr)
+                        
+                     </li>
+                     <li>
+                        BE<sub>size</sub> = bouyanct efficiency
+                        
+                     </li>
+                     <li>
+                        acres = fire size in acres
+                        
+                     </li>
+                     <li>
+                        S<sub>fraction</sub> = smoldering fration
+                        
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s05s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s06s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.5.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.6.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

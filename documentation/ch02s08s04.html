@@ -1,0 +1,1137 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.8.4.&nbsp;Mobile-source processing using MOVES</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">
+      <link rel="prev" href="ch02s08s03.html" title="2.8.3.&nbsp;Biogenic-source processing">
+      <link rel="next" href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.8.4.&nbsp;Mobile-source processing using MOVES</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s08s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s08s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_mobile_source_processing_moves"></a>2.8.4.&nbsp;Mobile-source processing using MOVES
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s08s04.html#sect_concepts_onroad_sccs">2.8.4.1. Special approach for on-road mobile MOVES SCCs</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#d0e2551">2.8.4.2. Fuel types in MOVES</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#d0e2604">2.8.4.3. MOVES Vehicle Types</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#d0e2692">2.8.4.4. MOVES Road Types</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#d0e2760">2.8.4.5. MOVES Process Types</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#sect_concepts_reference_counties_moves">2.8.4.6. Representative Counties</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#sect_concepts_moves_reference_fuel_month">2.8.4.7. Reference Fuel month</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#sect_concepts_moves_met_processing">2.8.4.8. Meteorological Data Processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#sect_concepts_moves_emission_processes">2.8.4.9.  MOVES Emission Processes by Emission Rate Tables</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s04.html#d0e3201">2.8.4.10. MOVES Pollutant Groups</a></span></dt>
+            </dl>
+         </div>
+         <p>SMOKE provides two ways of processing mobile sources using MOVES. (Recall that by &#8220;<span class="quote">mobile sources</span>&#8221; in SMOKE we mean on-road mobile sources.) The first approach is to compute mobile emissions values prior to running SMOKE
+            and provide them to SMOKE as input; we call this the precomputed-emissions approach. The second approach is to provide SMOKE
+            with VMT data, Vehicle population (VPOP) data, meteorology data, and MOVES outputs, and have SMOKE compute the mobile emissions
+            based on these data; this is called the MOVES approach. These approaches are not mutually exclusive, so it is possible to
+            provide both precomputed emissions and VMT and VPOP data to SMOKE and have the system compute only some of the emissions using
+            MOVES outputs. Both processing approaches can produce criteria, particulate, and toxics emissions results.
+         </p>
+         <p>The precomputed-emissions approach is quite similar to the processing method for area sources. In fact, <a href="ch02s08s02.html#fig_concepts_area_base" title="Figure&nbsp;2.8.&nbsp;Base case area-source processing steps">Figure&nbsp;2.8, &#8220;Base case area-source processing steps&#8221;</a>, <a href="ch02s08s02.html#fig_concepts_area_growth" title="Figure&nbsp;2.9.&nbsp;Future- or past-year growth and optional control area-processing steps">Figure&nbsp;2.9, &#8220;Future- or past-year growth and optional control area-processing steps&#8221;</a>, and <a href="ch02s08s02.html#fig_concepts_area_projection" title="Figure&nbsp;2.10.&nbsp;Alternative future- or past-year growth and control area-processing steps">Figure&nbsp;2.10, &#8220;Alternative future- or past-year growth and control area-processing steps&#8221;</a> from <a href="ch02s08s02.html" title="2.8.2.&nbsp;Area-source processing">Section&nbsp;2.8.2, &#8220;Area-source processing&#8221;</a> show exactly the processing steps needed for processing mobile sources using SMOKE and the precomputed-emissions approach.
+            As in base-case processing for area sources, emissions in the inventory file are subdivided to hourly emissions during temporal
+            allocation, assigned chemical speciation factors during speciation, and assigned spatial allocation factors during gridding.
+            The merge step combines the hourly emissions, speciation matrix, and gridding matrix to create model-ready emissions. For
+            future- or past-year processing, the growth and controls step is added to create the growth and control matrices, while the
+            grow inventory step converts the inventory from the base year to a future or past year. The control matrix can be optionally
+            used in the merge step to apply control factors to the future- or past-year emissions. Note that, unlike the VMT approach,
+            in the precomputed-emissions approach SMOKE will not model the variations in emissions caused by temperature, humidity, or
+            other meteorological settings.
+         </p>
+         <p>The MOVES approach is much different from the precomputed-emissions approach. <a href="ch02s08s04.html#fig_concepts_mobile_moves_onroad" title="Figure&nbsp;2.13.&nbsp;MOVES mobile RatePerDistance processing steps">Figure&nbsp;2.13, &#8220;MOVES mobile RatePerDistance processing steps&#8221;</a> and <a href="ch02s08s04.html#fig_concepts_mobile_moves_offroad" title="Figure&nbsp;2.14.&nbsp;MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps">Figure&nbsp;2.14, &#8220;MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps&#8221;</a> summarize the MOVES approach. First, county total activity inventory VMT data by road class and vehicle type or county total
+            activity inventory VPOP by vehicle type are input to SMOKE. The chemical speciation step computes the chemical speciation
+            factors for each county, road class, vehicle type, emissions process (e.g., exhaust start, exhaust running, evaporative processes,
+            extended idle, and crankcase), and pollutant and stores the necessary factors for this transformation. The gridding step allocates
+            the sources to grid cells and uses spatial surrogates to allocate county-total emissions to grid cells, storing the emission
+            rates needed for these allocations based on hourly gridded ambient temperature meteorology.
+         </p>
+         <p>The approach for running MOVES for SMOKE relies on the concept of representative counties and fuel months. The concept of
+            representative county refers to running MOVES for a single county, which is the representative county, to represent itself
+            and other counties that share the same MOVES input parameters and thus have the same emission rates for any given speed, temperature
+            and humidity.  A reference fuel month similarly refers to a reference fuel month's MOVES run that contains the temperatures
+            that occur in neighboring months as well as the representative month. The mapping of calendar months to a representative month
+            should be assigned on the basis of shared fuel parameters, because it is the interaction of fuel and temperature that is important.
+             For example, an average-hourly temperature of 70&deg;F may occur in some hour of any day in each of four months: May, June, July
+            and August.   If those four months share the same fuel properties (i.e. summer fuel) then an emission factor will be determined
+            for just the representative month, reducing by a factor of four the number of calculations that MOVES needs to perform.
+         </p>
+         <p>Unlike MOBILE6, MOVES differentiates between on-roadway emission processes and off-network emission processes. <a href="ch02s08s04.html#fig_concepts_mobile_moves_onroad" title="Figure&nbsp;2.13.&nbsp;MOVES mobile RatePerDistance processing steps">Figure&nbsp;2.13, &#8220;MOVES mobile RatePerDistance processing steps&#8221;</a> summarizes the approach used by MOVES for on-roadway mobile sources.  The on-roadway emission process includes county-total
+            VMT and average speed inventory as input.  The off-network emission processes use the county-total vehicle population by vehicle
+            type as input. <a href="ch02s08s04.html#fig_concepts_mobile_moves_offroad" title="Figure&nbsp;2.14.&nbsp;MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps">Figure&nbsp;2.14, &#8220;MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps&#8221;</a> summarizes the approach used by MOVES for off-network mobile sources. Both on-roadway and off-network emission processes
+            do require real gridded meteorology data from MCIP files to estimate temperature-dependent emission rates.
+         </p>
+         <div class="figure"><a name="fig_concepts_mobile_moves_onroad"></a><p class="title"><b>Figure&nbsp;2.13.&nbsp;MOVES mobile RatePerDistance processing steps</b></p>
+            <div class="mediaobject"><img src="images\concepts\mobile_moves_onroad_base_html.jpg" alt="MOVES mobile RatePerDistance processing steps"></div>
+         </div>
+         <div class="figure"><a name="fig_concepts_mobile_moves_offroad"></a><p class="title"><b>Figure&nbsp;2.14.&nbsp;MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps</b></p>
+            <div class="mediaobject"><img src="images\concepts\mobile_moves_offroad_base_html.jpg" alt="MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps"></div>
+         </div>
+         <p>In sections later in this chapter, we describe the SMOKE programs that are needed for each of the processing steps just described
+            for MOVES processed mobile sources, and additional details about what activities are accomplished during each step. These
+            sections are:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc" compact="">
+               <li><a href="ch02s09.html" title="2.9.&nbsp;Inventory import">Section&nbsp;2.9, &#8220;Inventory import&#8221;</a></li>
+               <li><a href="ch02s10.html" title="2.10.&nbsp;Temporal processing">Section&nbsp;2.10, &#8220;Temporal processing&#8221;</a></li>
+               <li><a href="ch02s11.html" title="2.11.&nbsp;Chemical speciation processing">Section&nbsp;2.11, &#8220;Chemical speciation processing&#8221;</a></li>
+               <li><a href="ch02s12.html" title="2.12.&nbsp;Spatial processing">Section&nbsp;2.12, &#8220;Spatial processing&#8221;</a></li>
+               <li><a href="ch02s16.html" title="2.16.&nbsp;Mobile-source processing with MOVES">Section&nbsp;2.16, &#8220;Mobile-source processing with MOVES&#8221;</a></li>
+               <li><a href="ch02s19.html" title="2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables">Section&nbsp;2.19, &#8220;Creating model-ready emissions using MOVES lookup tables&#8221;</a></li>
+            </ul>
+         </div>
+         <p>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include a special classification
+            of road types in MOVES, SMOKE and MOVES vehicle types, emissions processes, MOVES emission factors, representative counties,
+            reference fuel months, and meteorological processing using <span><strong class="command">Met4moves</strong></span>. The following subsections explain these topics in more detail.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_onroad_sccs"></a>2.8.4.1.&nbsp;Special approach for on-road mobile MOVES SCCs
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE handles SCCs differently for on-road mobile sources compared with all other source categories. SMOKE programs assume
+               that on-road mobile SCCs have the following form:
+            </p>
+            <div class="informalfigure">
+               <div class="mediaobject"><img src="images\concepts\scc_mobile_html.jpg"></div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2551"></a>2.8.4.2.&nbsp;Fuel types in MOVES
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>MOVES can model six different fuel types: Gasoline, Diesel, Compressed Natural Gas (CNG), Liquefied Petroleum Gas (LPG), Ethanol,
+               and Electricity. <a href="ch02s08s04.html#tbl_concepts_moves_fuel" title="Table&nbsp;2.2.&nbsp;MOVES Fuel Type">Table&nbsp;2.2, &#8220;MOVES Fuel Type&#8221;</a> indicates a list of original MOVES fuel types.
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_fuel"></a><p class="title"><b>Table&nbsp;2.2.&nbsp;MOVES Fuel Type</b></p>
+               <table summary="MOVES Fuel Type" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">MOVES Fuel Type</th>
+                        <th align="center">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>01</td>
+                        <td>Gasoline</td>
+                     </tr>
+                     <tr>
+                        <td>02</td>
+                        <td>Diesel</td>
+                     </tr>
+                     <tr>
+                        <td>03</td>
+                        <td>Compressed Natural Gas (CNG)</td>
+                     </tr>
+                     <tr>
+                        <td>04</td>
+                        <td>Liquefied Petroleum Gas (LPG)</td>
+                     </tr>
+                     <tr>
+                        <td>05</td>
+                        <td>Ethanol (E-85)</td>
+                     </tr>
+                     <tr>
+                        <td>09</td>
+                        <td>Electricity</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2604"></a>2.8.4.3.&nbsp;MOVES Vehicle Types
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The vehicle types used in SMOKE&#8217;s on-road mobile source processing are described in <a href="ch02s08s04.html#tbl_concepts_vehicle_types" title="Table&nbsp;2.3.&nbsp;MOVES Vehicle type codes and descriptions">Table&nbsp;2.3, &#8220;MOVES Vehicle type codes and descriptions&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_concepts_vehicle_types"></a><p class="title"><b>Table&nbsp;2.3.&nbsp;MOVES Vehicle type codes and descriptions</b></p>
+               <table summary="MOVES Vehicle type codes and descriptions" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">MOVES Vehicle Type</th>
+                        <th align="center">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>11</td>
+                        <td>Motorcycle</td>
+                     </tr>
+                     <tr>
+                        <td>21</td>
+                        <td>Passenger Car</td>
+                     </tr>
+                     <tr>
+                        <td>31</td>
+                        <td>Passenger Truck</td>
+                     </tr>
+                     <tr>
+                        <td>32</td>
+                        <td>Light Commercial Truck</td>
+                     </tr>
+                     <tr>
+                        <td>41</td>
+                        <td>Intercity Bus</td>
+                     </tr>
+                     <tr>
+                        <td>42</td>
+                        <td>Transit Bus</td>
+                     </tr>
+                     <tr>
+                        <td>43</td>
+                        <td>School Bus</td>
+                     </tr>
+                     <tr>
+                        <td>51</td>
+                        <td>Refuse Truck</td>
+                     </tr>
+                     <tr>
+                        <td>52</td>
+                        <td>Single Unit Short-haul Truck</td>
+                     </tr>
+                     <tr>
+                        <td>53</td>
+                        <td>Single Unit Long-haul Truck</td>
+                     </tr>
+                     <tr>
+                        <td>54</td>
+                        <td>Motor Home</td>
+                     </tr>
+                     <tr>
+                        <td>61</td>
+                        <td>Combination Short-haul Truck</td>
+                     </tr>
+                     <tr>
+                        <td>62</td>
+                        <td>Combination Long-haul Truck</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2692"></a>2.8.4.4.&nbsp;MOVES Road Types
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>MOVES can model nine different road types: rural restricted/unrestricted access with ramps, rural restricted/unrestricted
+               access without ramps, urban restricted/unrestricted access with ramps, urban restricted/unrestricted access without ramps,
+               and off-network (<a href="ch02s08s04.html#tbl_concepts_moves_roads" title="Table&nbsp;2.4.&nbsp;Road class and corresponding MOVES road type">Table&nbsp;2.4, &#8220;Road class and corresponding MOVES road type&#8221;</a>). 
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_roads"></a><p class="title"><b>Table&nbsp;2.4.&nbsp;Road class and corresponding MOVES road type</b></p>
+               <table summary="Road class and corresponding MOVES road type" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">MOVES Road Type</th>
+                        <th align="center">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>01</td>
+                        <td>Off-Network</td>
+                     </tr>
+                     <tr>
+                        <td>02</td>
+                        <td>Rural Restricted Access</td>
+                     </tr>
+                     <tr>
+                        <td>03</td>
+                        <td>Rural Unrestricted Access</td>
+                     </tr>
+                     <tr>
+                        <td>04</td>
+                        <td>Urban Restricted Access</td>
+                     </tr>
+                     <tr>
+                        <td>05</td>
+                        <td>Urban Unrestricted Access</td>
+                     </tr>
+                     <tr>
+                        <td>06</td>
+                        <td>Rural Restricted without Ramps</td>
+                     </tr>
+                     <tr>
+                        <td>07</td>
+                        <td>Urban Restricted without Ramps</td>
+                     </tr>
+                     <tr>
+                        <td>08</td>
+                        <td>Rural Restricted only Ramps</td>
+                     </tr>
+                     <tr>
+                        <td>09</td>
+                        <td>Urban Restricted only Ramps</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2760"></a>2.8.4.5.&nbsp;MOVES Process Types
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>MOVES can model 14 different process types: including on-roadway and off-network emissions processes, for the selected pollutants.
+               Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting in MOVES (<a href="ch02s08s04.html#tbl_concepts_moves_proc" title="Table&nbsp;2.5.&nbsp;Process types and corresponding MOVES road type">Table&nbsp;2.5, &#8220;Process types and corresponding MOVES road type&#8221;</a>). 
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_proc"></a><p class="title"><b>Table&nbsp;2.5.&nbsp;Process types and corresponding MOVES road type</b></p>
+               <table summary="Process types and corresponding MOVES road type" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">MOVES Process</th>
+                        <th align="center">Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>01</td>
+                        <td>Running Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>02</td>
+                        <td>Start Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>09</td>
+                        <td>Brakewear</td>
+                     </tr>
+                     <tr>
+                        <td>10</td>
+                        <td>Tirewear</td>
+                     </tr>
+                     <tr>
+                        <td>11</td>
+                        <td>Evaporative Permeation</td>
+                     </tr>
+                     <tr>
+                        <td>12</td>
+                        <td>Evaporative Fuel Vapor Venting</td>
+                     </tr>
+                     <tr>
+                        <td>13</td>
+                        <td>Evaporative Fuel Leaks</td>
+                     </tr>
+                     <tr>
+                        <td>15</td>
+                        <td>Crankcase Running Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>16</td>
+                        <td>Crankcase Start Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>17</td>
+                        <td>Crankcase Extended Idle Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>18</td>
+                        <td>Refueling Displacement Vapor Loss</td>
+                     </tr>
+                     <tr>
+                        <td>19</td>
+                        <td>Refueling Spillage Loss</td>
+                     </tr>
+                     <tr>
+                        <td>90</td>
+                        <td>Extended Idle Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>91</td>
+                        <td>Auxiliary Power Exhaust</td>
+                     </tr>
+                     <tr>
+                        <td>99</td>
+                        <td>Well-to-Pump</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_reference_counties_moves"></a>2.8.4.6.&nbsp;Representative Counties
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The approach for running MOVES for SMOKE relies on the concept of representative counties. These are counties that are used
+               during the creation and use of emission rates to represent a set of similar counties (i.e., inventory counties) called a county
+               group. The purpose of the representative county approach is to reduce the computational burden of running MOVES on every county
+               in your modeling domain. By using a represenative county, the user generates key emission rates for the single county in MOVES
+               and then utilizes these factors to estimate emissions for all counties in the county group through SMOKE. The representative
+               county is modeled at a range of speeds and temperatures to produce emission rate lookup tables (grams/mile or grams/vehicle/hour,
+               depending on mobile emission process). The variables that are assumed to be constant across the county group members (and
+               the representative county) are fuel parameters, fleet age distribution and inspection/maintenance (I/M) programs. The variables
+               that can vary within the county group are vehicle miles traveled (VMT), source type vehicle population, roadway speed, and
+               grid cell temperatures. Determining the representative counties and their respective county groups is a key aspect of utilizing
+               the SMOKE-MOVES tool. It is ideal for the user to create each county group based on the similarity between the county characteristics
+               (e.g., urban and rural) and the meteorological conditions (e.g., temperature and relative humidity). The user should avoid
+               grouping counties that have significantly different meteorological conditions.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_moves_reference_fuel_month"></a>2.8.4.7.&nbsp;Reference Fuel month
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Along with the concept of representative county approach, the concept of a fuel month is very important. It is used to indicate
+               when a particular set of fuel properties should be used in a MOVES simulation. Similar to the representative county, the fuel
+               month reduces the computational time of MOVES by using a single month to represent a set of months. To determine the fuel
+               month and which months it corresponds to, the user should review the State-provided fuel supply data in the MOVES database
+               for each representative county. If the fuel supply data change throughout the year, then group the months by fuel parameters.
+               For example, if the grams/mile exhaust emission rates in January are identical to February's rates for a given representative
+               county, then use a single fuel month to represent January and February. In other words, only one of the months needs to be
+               modeled through MOVES.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_moves_met_processing"></a>2.8.4.8.&nbsp;Meteorological Data Processing
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The meteorological data processor program <span><strong class="command">Met4moves</strong></span> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions
+               for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.
+            </p>
+            <p><a href="ch06s07.html" title="6.7.&nbsp;Met4moves"><span><strong class="command">Met4moves</strong></span></a> must be run after MCIP and before the MOVES Driver script <span><strong class="command">&#8220;<span class="quote">Runspec_generator.pl</span>&#8221;</strong></span> and SMOKE modeling system.
+            </p>
+            <p>The following are the major processing steps that <span><strong class="command">Met4moves</strong></span> performs:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Read the representative county cross-reference file <a href="ch08s09s02.html#sect_input_mcxref" title="8.9.2.1.3.&nbsp;MCXREF: Mobile representative county cross-reference file"><code class="envar">MCXREF</code></a> that contains a list of representative counties and the county groups that map to those representative counties.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Read the surrogate description file <a href="ch08s04.html#sect_input_srgdesc" title="8.4.1.&nbsp;SRGDESC: Surrogate Designation, Description and Surrogate profile filename."><code class="envar">SRGDESC</code></a> and a list of associated spatial surrogate(s) chosen for use in selecting grid cells.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Determine a list of grid cells for each county. Only the selected grid cells are used to estimate the min/max temperatures,
+                        24-hour temperature profiles, and RH over the user-specified modeling period.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Set the dates of the modeling episode in local time using the flags <code class="envar">STDATE</code> and <code class="envar">ENDATE</code></p>
+                  </li>
+                  <li>
+                     <p>Determine the fuel month for the representative county using the <a href="ch08s09s02.html#sect_input_mfmref" title="8.9.2.1.5.&nbsp;MFMREF: Mobile fuel month file for MOVES"><code class="envar">MFMREF</code></a> input file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Read the country/state/county <a href="ch08s10s02.html" title="8.10.2.&nbsp;COSTCY: Country, state, and county names and data"><code class="envar">COSTCY</code></a> or <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> (if USE_EXP_GEOCODES Y) file to define the time zones for county groups.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Read the meteorology data that have been processed by MCIP.</p>
+                  </li>
+                  <li>
+                     <p>Calculate the min/max temperatures hourly and over the modeling period.</p>
+                  </li>
+                  <li>
+                     <p>Calculate average RH for the specified hour range over the modeling period.</p>
+                  </li>
+                  <li>
+                     <p>Once min/max temperatures and averaged RH are estimated for all representative counties and all inventory counties in the
+                        county groups, estimate diurnal 24-hour temperature profiles for use by the MOVES Driver script. The result is a normalized
+                        24-hour shape profile over the user-specified period or fuel month.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_moves_emission_processes"></a>2.8.4.9.&nbsp; MOVES Emission Processes by Emission Rate Tables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>When the MOVES model runs for SMOKE, it runs for all emissions processes (or modes), including on-roadway and off-network
+               emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts,
+               and idling, and fuel vapor venting) in MOVES are hour-dependent due to vehicle activity assumptions built into the MOVES model;
+               the emission rate depends on both hour of the day and temperature. On-roadway emission processes (e.g., running exhaust, crankcase
+               running exhaust, brake wear, tire wear, and on-road evaporative), on the other hand, do not depend on hour. In MOVES, these
+               emission processes are categorized into three major groups:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li><span class="bold"><strong>RatePerDistance (RPD) - </strong></span>The emission rate of on-roadway vehicles (i.e., driving) from MOVES. The rate is expressed in grams/mile traveled.
+                     
+                  </li>
+                  <li><span class="bold"><strong>RatePerVehicle (RPV) - </strong></span>The emission rate of vehicles off-network (e.g., idling, starts, refueling, parked) from MOVES. The rate is given in grams/vehicle/hour.
+                     
+                  </li>
+                  <li><span class="bold"><strong>RatePerProfile (RPP) - </strong></span>The emission rate of vehicles off-network specifically, the evaporation from parked vehicles (vapor-venting emissions) from
+                     MOVES. The rate is expressed in grams/vehicle/hour.
+                     
+                  </li>
+                  <li><span class="bold"><strong>RatePerHour (RPH) - </strong></span>The emission rate of extended idle exhaust from on-roadway vehicle. The rate is expressed in grams/hour traveled.
+                     
+                  </li>
+               </ul>
+            </div>
+            <p>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH), depending on emission process and whether
+               the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed
+               in <a href="ch02s08s04.html#tbl_concepts_moves_emission_rate_tbl" title="Table&nbsp;2.6.&nbsp;MOVES Emission Processes by Emission Rate Tables">Table&nbsp;2.6, &#8220;MOVES Emission Processes by Emission Rate Tables&#8221;</a>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject
+               to MOVES emission rate table approach yet.
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_emission_rate_tbl"></a><p class="title"><b>Table&nbsp;2.6.&nbsp;MOVES Emission Processes by Emission Rate Tables</b></p>
+               <table summary="MOVES Emission Processes by Emission Rate Tables" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th rowspan="2" align="center" valign="bottom">MOVES Lookup Table</th>
+                        <th rowspan="2" align="center" valign="bottom">Units</th>
+                        <th rowspan="2" align="center" valign="bottom">Emissions Process</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>RatePerDistance (RPD)</td>
+                        <td align="center">Grams/mile</td>
+                        <td align="left">
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>Running Exhaust</td>
+                              </tr>
+                              <tr>
+                                 <td>Crankcase Running Exhaust</td>
+                              </tr>
+                              <tr>
+                                 <td>Tire Wear</td>
+                              </tr>
+                              <tr>
+                                 <td>Brake Wear</td>
+                              </tr>
+                              <tr>
+                                 <td>On-road Evaporative Permeation</td>
+                              </tr>
+                              <tr>
+                                 <td>On-road Evaporative Fuel Leaks</td>
+                              </tr>
+                              <tr>
+                                 <td>On-road Evaporative Fuel Vapor Venting</td>
+                              </tr>
+                           </table>
+                           	
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>RatePerVehicle (RPV)</td>
+                        <td align="center">Grams/vehicle/hour</td>
+                        <td align="left">
+                           
+                           <table class="simplelist" border="0" summary="Simple list">
+                              <tr>
+                                 <td>Start Exhaust</td>
+                              </tr>
+                              <tr>
+                                 <td>Crankcase Start Exhaust</td>
+                              </tr>
+                              <tr>
+                                 <td>Off-network Evaporative Permeation</td>
+                              </tr>
+                              <tr>
+                                 <td>Off-network Evaporative Fuel Leaks</td>
+                              </tr>
+                              <tr>
+                                 <td>Crankcase Extended Idle Exhaust</td>
+                              </tr>
+                              <tr>
+                                 <td>Extended Idle Exhaust</td>
+                              </tr>
+                           </table>
+                           	
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>RatePerProfile (RPP)</td>
+                        <td align="center">Grams/vehicle/hour</td>
+                        <td align="left">Off-network Evaporative Fuel Vapor Venting</td>
+                     </tr>
+                     <tr>
+                        <td>RatePerHour (RPH)</td>
+                        <td align="center">Grams/hour</td>
+                        <td align="left">On-roadway Extended Idle Exhaust</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p><span class="emphasis"><em>The RPD lookup table</em></span> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each representative
+               county. The on-road running processes that appear in this table include running exhaust, crankcase running exhaust, brake
+               wear, tire wear, on-road evaporative permeation, on-road evaporative fuel leaks, and on-road evaporative vapor venting. The
+               units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed.
+               There are 16 set speed bins defined in <a href="ch02s08s04.html#tbl_moves_speed_bins" title="Table&nbsp;2.7.&nbsp;MOVES Default Speed Bins">Table&nbsp;2.7, &#8220;MOVES Default Speed Bins&#8221;</a> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, &#8230;16=75mph). The avgBinSpeed is used for interpolation in the RPD table.
+            </p>
+            <p><span class="emphasis"><em>The RPV lookup table</em></span> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for
+               the evaporative off-network vapor venting emissions process. A separate file is provided for each representative county. The
+               off-network emission processes include start exhaust, crankcase start exhaust, off-network evaporative permeation, off-network
+               evaporative fuel leaks, extended idle exhaust, and crankcase extended idle exhaust. Fuel month, temperature, and local hour
+               are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates
+               are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should
+               not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission
+               rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.
+            </p>
+            <p><span class="emphasis"><em>The RPP table</em></span> is used only to estimate emissions for off-network fuel vapor venting when the vehicle is parked. This process type includes
+               diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions
+               types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the
+               diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are
+               reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated
+               emissions rates need to be multiplied by the county vehicle population. The representative county lookup tables contain 24-hour
+               emission rates per hour per vehicle using a representative county temperature profile with different minimum and maximum temperatures.
+               The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling
+               county generated by <span><strong class="command">Met4moves</strong></span>. <a href="ch02s08s04.html#sect_concepts_moves_met_processing" title="2.8.4.8.&nbsp;Meteorological Data Processing">Section&nbsp;2.8.4.8, &#8220;Meteorological Data Processing&#8221;</a> summarizes how <span><strong class="command">Met4moves</strong></span> processes meteorological data for both MOVES and SMOKE.
+            </p>
+            <p><span class="emphasis"><em>The RPH table</em></span> is used only to estimate emissions for on-roadway extended idle exhaust process from mobile sources, using a separate file
+               for each representative county.
+            </p>
+            <div class="table"><a name="tbl_moves_speed_bins"></a><p class="title"><b>Table&nbsp;2.7.&nbsp;MOVES Default Speed Bins</b></p>
+               <table summary="MOVES Default Speed Bins" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="center">avgSpeedBinId</th>
+                        <th align="center">avgBinSpeed</th>
+                        <th align="center">AvgSpeedBinDesc</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="center">1</td>
+                        <td align="center">2.5</td>
+                        <td align="center">speed &lt; 2.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">2</td>
+                        <td align="center">5</td>
+                        <td align="center">2.5mph &#8804; speed &lt; 7.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">3</td>
+                        <td align="center">10</td>
+                        <td align="center">7.5mph &#8804; speed &lt; 12.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">4</td>
+                        <td align="center">15</td>
+                        <td align="center">12.5mph &#8804; speed &lt; 17.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">5</td>
+                        <td align="center">20</td>
+                        <td align="center">17.5mph &#8804; speed &lt; 22.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">6</td>
+                        <td align="center">25</td>
+                        <td align="center">22.5mph &#8804; speed &lt; 27.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">7</td>
+                        <td align="center">30</td>
+                        <td align="center">27.5mph &#8804; speed &lt; 32.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">8</td>
+                        <td align="center">35</td>
+                        <td align="center">32.5mph &#8804; speed &lt; 37.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">9</td>
+                        <td align="center">40</td>
+                        <td align="center">37.5mph &#8804; speed &lt; 42.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">10</td>
+                        <td align="center">45</td>
+                        <td align="center">42.5mph &#8804; speed &lt; 47.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">11</td>
+                        <td align="center">50</td>
+                        <td align="center">47.5mph &#8804; speed &lt; 52.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">12</td>
+                        <td align="center">55</td>
+                        <td align="center">52.5mph &#8804; speed &lt; 57.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">13</td>
+                        <td align="center">60</td>
+                        <td align="center">57.5mph &#8804; speed &lt; 62.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">14</td>
+                        <td align="center">65</td>
+                        <td align="center">62.5mph &#8804; speed &lt; 67.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">15</td>
+                        <td align="center">70</td>
+                        <td align="center">67.5mph &#8804; speed &lt; 72.5mph</td>
+                     </tr>
+                     <tr>
+                        <td align="center">16</td>
+                        <td align="center">75</td>
+                        <td align="center">72.5mph &#8804; speed</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e3201"></a>2.8.4.10.&nbsp;MOVES Pollutant Groups
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The following <a href="ch02s08s04.html#tbl_concepts_moves_pollutant_groups" title="Table&nbsp;2.8.&nbsp;MOVES Pollutant Groups">Table&nbsp;2.8, &#8220;MOVES Pollutant Groups&#8221;</a> provides a list of available MOVES pollutant groups that the user can specify to model within MOVES. The choice of pollutant
+               groups(s) determines what pollutants are included in the three emission rate lookup tables (RPD, RPV, and RPP) output by MOVES.
+               The letter 'X' marks the key pollutants for inclusion, and a letter 'd' signifies that the pollutant is included as a default
+               in the MOVES run because a key pollutant depends on it.  The user modifies the <a href="ch08s09s02.html#sect_input_runctlfile" title="8.9.2.2.1.&nbsp;Run Control File for MOVES Driver Script">control.in</a> input file to specify the pollutant group.
+            </p>
+            <div class="table"><a name="tbl_concepts_moves_pollutant_groups"></a><p class="title"><b>Table&nbsp;2.8.&nbsp;MOVES Pollutant Groups</b></p>
+               <table summary="MOVES Pollutant Groups" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th rowspan="2" align="center" valign="center">pollutantID</th>
+                        <th rowspan="2" align="center" valign="center">pollutantName</th>
+                        <th colspan="4" align="center">Pollutant Group</th>
+                     </tr>
+                     <tr>
+                        <th align="center">Ozone </th>
+                        <th align="center">Toxics </th>
+                        <th align="center">PM </th>
+                        <th align="center">GHG </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="center">1</td>
+                        <td align="center">Total Gaseous Hydrocarbons</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">79</td>
+                        <td align="center">Non-Methane Hydrocarbons</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">80</td>
+                        <td align="center">Non-Methane Organic Gases</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">86</td>
+                        <td align="center">Total Organic Gases</td>
+                        <td align="center">X</td>
+                        <td align="center">X</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">87</td>
+                        <td align="center">Volatile Organic Compounds</td>
+                        <td align="center">X</td>
+                        <td align="center">X</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">2</td>
+                        <td align="center">Carbon Monoxide (CO)</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">3</td>
+                        <td align="center">Oxides of Nitrogen</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">30</td>
+                        <td align="center">Ammonia (NH3)</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">32</td>
+                        <td align="center">Nitrogen Oxide</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">33</td>
+                        <td align="center">Nitrogen Dioxide</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">31</td>
+                        <td align="center">Sulfur Dioxide (SO2)</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">100</td>
+                        <td align="center">Primary Exhaust PM10 - Total</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">101</td>
+                        <td align="center">Primary PM10 - Organic Carbon</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">102</td>
+                        <td align="center">Primary PM10 - Elemental Carbon</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">105</td>
+                        <td align="center">Primary PM10 - Sulfate Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">106</td>
+                        <td align="center">Primary PM10 - Brakewear Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">107</td>
+                        <td align="center">Primary PM10 - Tirewear Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">110</td>
+                        <td align="center">Primary Exhaust PM2.5 - Total</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">111</td>
+                        <td align="center">Primary Exhaust PM2.5 - Organic Carbon</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">112</td>
+                        <td align="center">Primary Exhaust PM2.5 - Elemental Carbon</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">115</td>
+                        <td align="center">Primary Exhaust PM2.5 - Sulfate Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">116</td>
+                        <td align="center">Primary Exhaust PM2.5 - Brakewear Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">117</td>
+                        <td align="center">Primary Exhaust PM2.5 - Tirewear Particulate</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">91</td>
+                        <td align="center">Total Energy Consumption</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">92</td>
+                        <td align="center">Petroleum Energy Consumption</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">93</td>
+                        <td align="center">Fossil Fuel Energy Consumption</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">5</td>
+                        <td align="center">Methane (CH4)</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">d</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">6</td>
+                        <td align="center">Nitrous Oxide (N2O)</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">90</td>
+                        <td align="center">Atmospheric CO2</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">98</td>
+                        <td align="center">CO2 Equivalent</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                     </tr>
+                     <tr>
+                        <td align="center">20</td>
+                        <td align="center">Benzene</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">21</td>
+                        <td align="center">Ethanol</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">22</td>
+                        <td align="center">MTBE</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">23</td>
+                        <td align="center">Naphthalene</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">24</td>
+                        <td align="center">1,3-Butadiene</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">25</td>
+                        <td align="center">Formaldehyde</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">26</td>
+                        <td align="center">Acetaldehyde</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="center">27</td>
+                        <td align="center">Acrolein</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">X</td>
+                        <td align="center">&nbsp;</td>
+                        <td align="center">&nbsp;</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s08s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s08s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.8.3.&nbsp;Biogenic-source processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.8.5.&nbsp;Point-source processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

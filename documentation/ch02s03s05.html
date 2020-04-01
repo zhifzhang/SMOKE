@@ -1,0 +1,89 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.3.5.&nbsp;Source Classification Codes</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s03.html" title="2.3.&nbsp;Emission inventories">
+      <link rel="prev" href="ch02s03s04.html" title="2.3.4.&nbsp;Country, state, and county codes">
+      <link rel="next" href="ch02s03s06.html" title="2.3.6.&nbsp;Standard Industrial Classification codes">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.3.5.&nbsp;Source Classification Codes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s03s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.3.&nbsp;Emission inventories</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_scc_codes"></a>2.3.5.&nbsp;Source Classification Codes
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>EPA uses Source Classification Codes (SCCs) and area and mobile source (AMS) codes to classify different types of anthropogenic
+            emission activities. SCCs have 8 digits for point sources, while AMS codes have 10 digits, and sometimes include a leading
+            &#8220;<span class="quote">A</span>&#8221; as an eleventh character. In SMOKE, we refer to both kinds of codes as &#8220;<span class="quote">SCCs</span>&#8221;, and we ignore the leading &#8220;<span class="quote">A</span>&#8221; in the area and mobile codes. Additionally, SMOKE permits the nonpoint and point toxics inventories to use both 8-digit
+            and 10-digit SCCs in the same inventory input file, because both 8- and 10-digit codes are contained in the nonpoint and point
+            inventories in the 1999 NEI for HAPs. The maximum field width in SMOKE and its input files for SCCs is 20 characters as of
+            SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach
+            will not be supported.
+         </p>
+         <p>For SCC's of size 10 characters or less, the codes use a hierarchical system in which the definition of the code gets increasingly
+            more specific as you move from left to right. (NOTE: if the SCC is greater than 10 characters in length the hierarchial system
+            is not used). For SCC's of 10 characters or less, it is important to understand the hierarchy of the codes, because you can
+            take advantage of the hierarchy in building cross-reference files for assigning emissions processing factors to inventory
+            emission sources. In the diagrams below, level 1 is the least specific and level 4 is the most specific.
+         </p>
+         <p>The code structure for the 8-digit point-source codes is:</p>
+         <div class="informalfigure">
+            <div class="mediaobject"><img src="images\concepts\scc_point_html.jpg"></div>
+         </div>
+         <p>An example point-source activity and corresponding SCC can be taken directly from SMOKE&#8217;s SCC description file (<code class="envar">SCCDESC</code>): &#8220;<span class="quote">External Combustion Boilers; Electric Generation; Lignite; Spreader Stoker</span>&#8221; is represented by 10100306. Below we have mapped the levels of this description with the levels of the SCC:
+         </p>
+         <div class="informalfigure">
+            <div class="mediaobject"><img src="images\concepts\scc_example_html.jpg"></div>
+         </div>
+         <p>Similarly, the code structure for the 10-digit area- and mobile-source codes is:</p>
+         <div class="informalfigure">
+            <div class="mediaobject"><img src="images\concepts\scc_nonpoint_html.jpg"></div>
+         </div>
+         <p>SMOKE treats SCCs as character strings, though in practice the values in the inventories and cross-reference files are usually
+            numeric. In <a href="ch02s04.html" title="2.4.&nbsp;Cross-referencing and profiles">Section&nbsp;2.4, &#8220;Cross-referencing and profiles&#8221;</a> on cross-references and profiles, we explain how these hierarchies are used by SMOKE and how you should use them in preparing
+            SMOKE input files.
+         </p>
+         <p>For on-road mobile sources, SCCs are treated somewhat differently than for other source categories. We explain more about
+            this in <a href="ch02s08s04.html#sect_concepts_onroad_sccs" title="2.8.4.1.&nbsp;Special approach for on-road mobile MOVES SCCs">Section&nbsp;2.8.4.1, &#8220;Special approach for on-road mobile MOVES SCCs&#8221;</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s03s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.3.4.&nbsp;Country, state, and county codes&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.3.6.&nbsp;Standard Industrial Classification codes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

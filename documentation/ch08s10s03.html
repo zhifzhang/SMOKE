@@ -1,0 +1,274 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="prev" href="ch08s10s02.html" title="8.10.2.&nbsp;COSTCY: Country, state, and county names and data">
+      <link rel="next" href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.10.3.&nbsp;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s10s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.10.&nbsp;Other Support Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s10s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_geocode"></a>8.10.3.&nbsp;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s10s03.html#sect_input_geocode1">8.10.3.1. <code class="envar">GEOCODE_LEVEL1</code></a></span></dt>
+               <dt><span class="section"><a href="ch08s10s03.html#sect_input_geocode2">8.10.3.2. <code class="envar">GEOCODE_LEVEL2</code></a></span></dt>
+               <dt><span class="section"><a href="ch08s10s03.html#sect_input_geocode3">8.10.3.3. <code class="envar">GEOCODE_LEVEL3</code></a></span></dt>
+               <dt><span class="section"><a href="ch08s10s03.html#sect_input_geocode4">8.10.3.4. <code class="envar">GEOCODE_LEVEL4</code></a></span></dt>
+            </dl>
+         </div>
+         <p>There are four GEOCODE_LEVEL files that are used to specify country level (<a href="ch08s10s03.html#sect_input_geocode1" title="8.10.3.1.&nbsp;GEOCODE_LEVEL1">Section&nbsp;8.10.3.1, &#8220;<code class="envar">GEOCODE_LEVEL1</code>&#8221;</a>), country/state-level (<a href="ch08s10s03.html#sect_input_geocode2" title="8.10.3.2.&nbsp;GEOCODE_LEVEL2">Section&nbsp;8.10.3.2, &#8220;<code class="envar">GEOCODE_LEVEL2</code>&#8221;</a>), country/state/county-level (<a href="ch08s10s03.html#sect_input_geocode3" title="8.10.3.3.&nbsp;GEOCODE_LEVEL3">Section&nbsp;8.10.3.3, &#8220;<code class="envar">GEOCODE_LEVEL3</code>&#8221;</a>) or country/state/county/tribal-level (<a href="ch08s10s03.html#sect_input_geocode4" title="8.10.3.4.&nbsp;GEOCODE_LEVEL4">Section&nbsp;8.10.3.4, &#8220;<code class="envar">GEOCODE_LEVEL4</code>&#8221;</a>) Geographical codes and descriptions. These files are used if USE_EXP_GEO_CODES is set to Y, and they replace the (<a href="ch08s10s02.html" title="8.10.2.&nbsp;COSTCY: Country, state, and county names and data">Section&nbsp;8.10.2, &#8220;<code class="envar">COSTCY</code>: Country, state, and county names and data&#8221;</a>) file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_geocode1"></a>8.10.3.1.&nbsp;<code class="envar">GEOCODE_LEVEL1</code></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The GEOCODE_LEVEL1 input file contains a 3 character code used to specify the Country-level Geographical Code. The COSTCY
+               file will not be used if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical and
+               temporal profiles that are specified for each country in the gridded inventory data then they would create a GEOCODE_LEVEL1
+               file.
+            </p>
+            <p>The <code class="envar">GEOCODE_LEVEL1</code> file is comma delimited as shown in <a href="ch08s10s03.html#tbl_input_geocode1" title="Table&nbsp;8.85.&nbsp;File Format for GEOCODE_LEVEL1">Table&nbsp;8.85, &#8220;File Format for <code class="envar">GEOCODE_LEVEL1</code>&#8221;</a> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay
+               to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <code class="envar">GEOCODE_LEVEL1</code> file is shown in <a href="ch08s10s03.html#tbl_input_geocode1" title="Table&nbsp;8.85.&nbsp;File Format for GEOCODE_LEVEL1">Table&nbsp;8.85, &#8220;File Format for <code class="envar">GEOCODE_LEVEL1</code>&#8221;</a>.
+            </p><pre class="programlisting">
+#GEOCODE_LEVEL1, Description
+"001","United States of America"
+"002","Mexico"
+"003","South Korea"
+"004","Ocean"
+	</pre><div class="table"><a name="tbl_input_geocode1"></a><p class="title"><b>Table&nbsp;8.85.&nbsp;File Format for <code class="envar">GEOCODE_LEVEL1</code></b></p>
+               <table summary="File Format for GEOCODE_LEVEL1" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Lines</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Country Code(3-character maximum string)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Country Code Description (20-character string)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_geocode2"></a>8.10.3.2.&nbsp;<code class="envar">GEOCODE_LEVEL2</code></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The GEOCODE_LEVEL2 input file contains up to 6 character code to specify the Country/State-level Geographical Codes which
+               will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical
+               and temporal profiles that are specified for each state level region for each country in the gridded inventory data then they
+               would create a GEOCODE_LEVEL2 file.
+            </p>
+            <p>The <code class="envar">GEOCODE_LEVEL2</code> file is comma delimited as shown in <a href="ch08s10s03.html#tbl_input_geocode2" title="Table&nbsp;8.86.&nbsp;File Format for GEOCODE_LEVEL2">Table&nbsp;8.86, &#8220;File Format for <code class="envar">GEOCODE_LEVEL2</code>&#8221;</a> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay
+               to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <code class="envar">GEOCODE_LEVEL2</code> file is shown in <a href="ch08s10s03.html#tbl_input_geocode2" title="Table&nbsp;8.86.&nbsp;File Format for GEOCODE_LEVEL2">Table&nbsp;8.86, &#8220;File Format for <code class="envar">GEOCODE_LEVEL2</code>&#8221;</a>.
+            </p><pre class="programlisting">
+#GEOCODE_LEVEL2, Description
+"001006","California, USA"
+"001035","New Mexico, USA"
+"001048","Texas, USA"
+"002030","Veracruz, Mexico"
+   </pre><div class="table"><a name="tbl_input_geocode2"></a><p class="title"><b>Table&nbsp;8.86.&nbsp;File Format for <code class="envar">GEOCODE_LEVEL2</code></b></p>
+               <table summary="File Format for GEOCODE_LEVEL2" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Lines</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Country Code(6-character maximum string)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Country Code Description (20-character string)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_geocode3"></a>8.10.3.3.&nbsp;<code class="envar">GEOCODE_LEVEL3</code></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The GEOCODE_LEVEL3 input file contains up to 9 character code to specify the Country/State-level/County-level Geographical
+               Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. 
+            </p>
+            <p>The <code class="envar">GEOCODE_LEVEL3</code> file is comma delimited as shown in <a href="ch08s10s03.html#tbl_input_geocode3" title="Table&nbsp;8.87.&nbsp;File Format for GEOCODE_LEVEL3">Table&nbsp;8.87, &#8220;File Format for <code class="envar">GEOCODE_LEVEL3</code>&#8221;</a> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay
+               to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <code class="envar">GEOCODE_LEVEL3</code> file is shown in <a href="ch08s10s03.html#tbl_input_geocode3" title="Table&nbsp;8.87.&nbsp;File Format for GEOCODE_LEVEL3">Table&nbsp;8.87, &#8220;File Format for <code class="envar">GEOCODE_LEVEL3</code>&#8221;</a>.
+            </p><pre class="programlisting">
+#GEOCODE_LEVEL3, Description
+"001006037","Los Angeles, California, USA"
+"001035028","Los Alamos, New Mexico, USA"
+"001048015","Austin, Texas, USA"
+</pre><div class="table"><a name="tbl_input_geocode3"></a><p class="title"><b>Table&nbsp;8.87.&nbsp;File Format for <code class="envar">GEOCODE_LEVEL3</code></b></p>
+               <table summary="File Format for GEOCODE_LEVEL3" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Lines</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Country Code(9-character maximum string)</td>
+                     </tr>
+                     <tr>
+                        <td class="auto-generated">&nbsp;</td>
+                        <td>B</td>
+                        <td>Country Code Description (20-character string)</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_input_geocode4"></a>8.10.3.4.&nbsp;<code class="envar">GEOCODE_LEVEL4</code></h4>
+                  </div>
+               </div>
+            </div>
+            <p>The GEOCODE_LEVEL4 input file contains a 12 character code to specify the Country/State/County/Tribal-level Geographical Code
+               which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. 
+            </p>
+            <p>The <code class="envar">GEOCODE_LEVEL4</code> file is comma delimited as shown in <a href="ch08s10s03.html#tbl_input_geocode4" title="Table&nbsp;8.88.&nbsp;File Format for GEOCODE_LEVEL4&#xA;">Table&nbsp;8.88, &#8220;File Format for <code class="envar">GEOCODE_LEVEL4</code>
+                  	&#8221;</a> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay
+               to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <code class="envar">GEOCODE_LEVEL4</code> file is shown in <a href="ch08s10s03.html#tbl_input_geocode4" title="Table&nbsp;8.88.&nbsp;File Format for GEOCODE_LEVEL4&#xA;">Table&nbsp;8.88, &#8220;File Format for <code class="envar">GEOCODE_LEVEL4</code>
+                  	&#8221;</a>.
+            </p><pre class="programlisting">
+#GEOCODE_LEVEL4, Description, Time Zone
+"001006037000","Los Angeles, CA, USA",PST        
+"001035028000","Los Alamos, NM, USA",CST        
+"001048015000","Austin, TX, USA",CST    
+</pre><div class="table"><a name="tbl_input_geocode4"></a><p class="title"><b>Table&nbsp;8.88.&nbsp;File Format for <code class="envar">GEOCODE_LEVEL4</code>
+                     	</b></p>
+               <table summary="File Format for GEOCODE_LEVEL4&#xA;" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Lines</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Country Code(12-character maximum)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>B</td>
+                        <td>Country Code Description (20-character)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>C</td>
+                        <td> Time Zone (3-character)</td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>D</td>
+                        <td>Standard (non-Daylight-Saving) county time zone; see <a href="ch08s10s02.html#tbl_input_costcy_geocode4_timezones" title="Table&nbsp;8.84.&nbsp;Valid COSTCY and GEOCODE_LEVEL4 time zones">Table&nbsp;8.84, &#8220;Valid <code class="envar">COSTCY and GEOCODE_LEVEL4</code> time zones&#8221;</a> for valid time zones (Character)
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s10s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s10s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.10.2.&nbsp;<code class="envar">COSTCY</code>: Country, state, and county names and data&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.10.4.&nbsp;<code class="envar">INVTABLE</code>: Inventory table
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

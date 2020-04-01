@@ -1,0 +1,233 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.2.&nbsp;Define-group section</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="next" href="ch07s03s03.html" title="7.3.3.&nbsp;Create-report Section">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.2.&nbsp;Define-group section</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_define_group"></a>7.3.2.&nbsp;Define-group section
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s03s02.html#d0e33714">7.3.2.1. /DEFINE GROUP REGION/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s02.html#d0e33735">7.3.2.2. /DEFINE SUBGRID/ packet</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s02.html#d0e33774">7.3.2.3. Group labels</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s02.html#d0e33779">7.3.2.4. INCLUDE and EXCLUDE instructions</a></span></dt>
+               <dt><span class="section"><a href="ch07s03s02.html#d0e33827">7.3.2.5. Future grouping options</a></span></dt>
+            </dl>
+         </div>
+         <p>The second section of the <code class="envar">REPCONFIG</code> file is the Define-group section. This optional section is used for defining groups of source characteristics for use later
+            in the Create-reports section. The Define-group section uses packets for defining groups. There are currently two types of
+            groupings, and therefore two packet types for this section: regions and subgrids.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33714"></a>7.3.2.1.&nbsp;/DEFINE GROUP REGION/ packet
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The /DEFINE GROUP REGION/ packet is used for defining groups by the country, state, and county codes in the inventory. The
+               packet contains the following entries.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>/DEFINE GROUP REGION/ &lt;Label&gt;</p>
+                     <p>Must appear to start the packet. A label (see below) is required for naming the group.</p>
+                  </li>
+                  <li>
+                     <p>INCLUDE and/or EXCLUDE instruction(s) (see below). These are optional.</p>
+                     <p>Country, state, and county codes in format NSSCCC, where N is the country number, SS is the state code, and CCC is the county
+                        code. Zeros can be used in place of CCC to select all counties in a state, or in place of SSCCC to select all counties and
+                        states in a country.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/END/</p>
+                     <p>Must appear to end the packet.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33735"></a>7.3.2.2.&nbsp;/DEFINE SUBGRID/ packet
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The /DEFINE SUBGRID/ packet is used for defining subdomains based on cell numbers from the full grid being applied using the
+               gridding matrices. The packet contains the following entries.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>/DEFINE SUBGRID/ &lt;Label&gt;</p>
+                     <p>Must appear to start the packet. A label (see below) is required for naming the subgrid.</p>
+                  </li>
+                  <li>
+                     <p>INCLUDE and/or EXCLUDE instruction(s) (see below) These are optional.</p>
+                     <p>(X cell, Y cell):</p>
+                     <p>Cell numbers should appear for all cells in the subgrid. The count (i.e. the x-cell count and the y-cell count) of the cells
+                        depends on the grid defined by the gridding matrix being used by <span><strong class="command">Smkreport</strong></span>. A range can be given with the following syntax:
+                     </p>
+                     <p>(X cell, Y cell) TO (X cell, Y cell)</p>
+                     <p>If only one cell is to be specified, the range must still appear, with both entries indicating the same cell.</p>
+                     <p><span><strong class="command">Smkreport</strong></span> is not very sensitive to the spacing of this instruction, and additional spaces or no spaces may be placed between the parentheses,
+                        the cell numbers, and the commas. Spaces around the &#8220;<span class="quote">TO</span>&#8221; are recommended.
+                     </p>
+                     <p>The maximum width of these lines is 100 characters. Multiple entries of this type may appear in the packet, allowing for the
+                        grouping of spatially unconnected cells/regions or non-rectangular regions.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/END/</p>
+                     <p>Must appear to end the packet.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33774"></a>7.3.2.3.&nbsp;Group labels
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Group labels, denoted above by &lt;Label&gt;, are used to name a group for identification when creating a report in the Create-report
+               section. The text appearing in the placeholder &lt;Label&gt; can be any alphanumeric combination of characters up to 200 characters,
+               including intervening blanks. The text string (less trailing blanks) that occurs after /DEFINE .../ and before a comment (indicated
+               with ##), is treated as the group label. References to the group label in the Create-report section do not have to be consistent
+               in the case of the text; SMOKE will ignore the case of the text, treating lower- and uppercase characters as if they were
+               the same.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33779"></a>7.3.2.4.&nbsp;INCLUDE and EXCLUDE instructions
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The INCLUDE and EXCLUDE instructions are used for defining the meaning of the entries in the packet. If the INCLUDE instruction
+               appears, then <span><strong class="command">Smkreport</strong></span> interprets the subsequent entries in the packet as identifying records to <span class="emphasis"><em>include</em></span> in the output report(s). On the other hand, if the EXCLUDE instruction appears, then <span><strong class="command">Smkreport</strong></span> interprets the subsequent entries in the packet as identifying records to <span class="emphasis"><em>exclude</em></span> from the output report(s). The INCLUDE and EXCLUDE instructions may appear in both the /DEFINE GROUP REGION/ and /DEFINE
+               SUBGRID/ packets. These instructions act as toggle switches, and <span><strong class="command">Smkreport</strong></span> will give a warning if a county previously included is later excluded. All packet entries after an instruction will be interpreted
+               according to the instruction, until another instruction is given, or until the packet ends. The INCLUDE instruction is the
+               default, so if neither instruction is given, SMOKE will assume that the records in the packet are those to be only in the
+               report.
+            </p>
+            <p>The ordering of INCLUDE or EXCLUDE instructions in a group definition can change the meaning of the group definition. If INCLUDE
+               is given first, <span><strong class="command">Smkreport</strong></span> will initialize the group to exclude all grid cells and then proceed with interpreting the instructions. On the other hand,
+               if EXCLUDE is given first, <span><strong class="command">Smkreport</strong></span> will initialize the group to include all grid cells. Here is an example for a small 6-cell by 6-cell grid, which shows how
+               the order of the INCLUDE and EXCLUDE statements changes the meaning of a group definition.
+            </p>
+            <p>If the instructions are</p><pre class="programlisting">/DEFINE SUBGRID/ Example subgrid
+    INCLUDE
+      (2,2) TO (6,6)
+    EXCLUDE 
+      (3,3) TO (5,5)
+    INCLUDE 
+      (4,4) TO (4,4)
+/END/</pre><p>then the following cells (shown in gray) will be selected:</p>
+            <div class="informalfigure">
+               <div class="mediaobject"><img src="images\qa\group_1_html.jpg"></div>
+            </div>
+            <p>If the instructions were rearranged to have the EXCLUDE statement first, then the initialized status for all cells would be
+               INCLUDE. The additional INCLUDE statements are therefore unneeded, and the definition of the group changes to the following:
+            </p>
+            <div class="informalfigure">
+               <div class="mediaobject"><img src="images\qa\group_2_html.jpg"></div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33827"></a>7.3.2.5.&nbsp;Future grouping options
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>As noted above, the <code class="envar">REPCONFIG</code> file currently can have only two possible groups in the Define-group section (regions and subgrids) In the future, other
+               types of groups could be permitted if a need for them is identified:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>/DEFINE GROUP SCC/: Permits user-defined SCC groups</p>
+                  </li>
+                  <li>
+                     <p>/DEFINE GROUP PLANT/ Permits user-defined groups by country/state/county code and plant ID</p>
+                  </li>
+                  <li>
+                     <p>/DEFINE GROUP STACK/ Permits user-define groups by country/state/county code, plant ID, and stack ID</p>
+                  </li>
+                  <li>
+                     <p>/DEFINE GROUP POINT/ / Permits user-define groups by country/state/county code, plant ID, stack ID, and point ID</p>
+                  </li>
+                  <li>
+                     <p>/DEFINE GROUP SOURCE/: Permits user-defined source groups by SMOKE source ID</p>
+                  </li>
+                  <li>
+                     <p>/DEFINE GROUP HOURS/: Permits user-defined hour groupings</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.3.&nbsp;Create-report Section</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

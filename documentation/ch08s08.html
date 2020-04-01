@@ -1,0 +1,360 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.8.&nbsp;Meteorology Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s07.html" title="8.7.&nbsp;Special Merging Files">
+      <link rel="next" href="ch08s09.html" title="8.9.&nbsp;Source-Specific files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.8.&nbsp;Meteorology Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s09.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_meteorology"></a>8.8.&nbsp;Meteorology Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s08.html#sect_input_metlist">8.8.1. <code class="envar">METLIST</code>: List of meteorology files</a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the meteorology files should be stored are listed in <a href="ch08.html#tbl_input_meteorology_files" title="Table&nbsp;8.7.&nbsp;Meteorology Input File Locations">Table&nbsp;8.7, &#8220;Meteorology Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <p>The five meteorology files that SMOKE needs for biogenic emissions adjustments, calculation of on-road mobile source emission,
+            and plume rise calculations are <code class="envar">GRID_CRO_2D</code>, <code class="envar">GRID_CRO_3D</code>, <code class="envar">MET_CRO_2D</code>, <code class="envar">MET_CRO_3D</code>, and <code class="envar">MET_DOT_3D</code>. The files are usually based on MM5 data but must be specially formatted by a postprocessor like MCIP or MCPL.
+         </p>
+         <p><code class="envar">GRID_CRO_2D</code> - 2-D grid parameters file
+         </p>
+         <p><code class="envar">GRID_CRO_3D</code> - 3-D grid parameters file
+         </p>
+         <p><code class="envar">MET_CRO_2D</code> - 2-D cross-point data file (surface meteorology data)
+         </p>
+         <p><code class="envar">MET_CRO_3D</code> - 3-D cross-point data file (layered meteorology data)
+         </p>
+         <p><code class="envar">MET_DOT_3D</code> - 3-D dot-point data file (layered meteorology data)
+         </p>
+         <div class="table"><a name="tbl_input_metfiles"></a><p class="title"><b>Table&nbsp;8.53.&nbsp;Meteorology variables used by program</b></p>
+            <table summary="Meteorology variables used by program" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>File name</th>
+                     <th>Program</th>
+                     <th>Variable</th>
+                     <th>Description</th>
+                     <th>Notes</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td><code class="envar">GRID_CRO_2D</code></td>
+                     <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                     <td>LAT</td>
+                     <td>grid cell latitude (degrees)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>LON</td>
+                     <td>grid cell longitude (degrees)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>LON</td>
+                     <td>grid cell longitude (degrees)</td>
+                     <td>only used if <code class="envar">BG_CLOUD_TYPE</code> = 1
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">GRID_CRO_3D</code></td>
+                     <td><span><strong class="command">Laypoint</strong></span></td>
+                     <td>X3HT0F</td>
+                     <td>height of layer face above ground (m)</td>
+                     <td>only used when layer structure is static</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>X3HT0M</td>
+                     <td>height of layer middle above ground (m)</td>
+                     <td>only used when layer structure is static</td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">MET_CRO_2D</code></td>
+                     <td><span><strong class="command">Laypoint</strong></span></td>
+                     <td>HFX</td>
+                     <td>sensible heat flux (watts/m<sup>2</sup>)
+                     </td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>PBL</td>
+                     <td>PBL height (m)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>PRSFC</td>
+                     <td>surface pressure (Pascals)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>TEMP1P5</td>
+                     <td>temperature at 1.5 m (Kelvins)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>USTAR</td>
+                     <td>average friction velocity (m/s)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Met4moves</strong></span></td>
+                     <td>TEMP2</td>
+                     <td>temperature at 2m (Kelvins)</td>
+                     <td>variable name is set by <code class="envar">TVARNAME</code>, all <span><strong class="command">Met4moves</strong></span> variables must be in same file
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                     <td>RGRND</td>
+                     <td>solar radiation reaching surface (watts/m<sup>2</sup>)
+                     </td>
+                     <td>variable name is set by <code class="envar">RAD_VAR</code>, actual file used is determined by <code class="envar">BIOMET_SAME</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>RGRND</td>
+                     <td>solar radiation reaching surface (watts/m<sup>2</sup>)
+                     </td>
+                     <td>only used if <code class="envar">BG_CLOUD_TYPE</code> = 1, variable name is set by <code class="envar">RAD_VAR</code>, actual file used is determined by <code class="envar">BIOMET_SAME</code></td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">MET_CRO_3D</code></td>
+                     <td><span><strong class="command">Laypoint</strong></span></td>
+                     <td>DENS</td>
+                     <td>total air density (kg/m<sup>3</sup>)
+                     </td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>PRES</td>
+                     <td>pressure (Pascals)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>QV</td>
+                     <td>water vapor mixing ratio (kg/kg)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>TA</td>
+                     <td>air temperature (Kelvins)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>ZF</td>
+                     <td>full-layer height above ground (m)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>ZH</td>
+                     <td>mid-layer height above ground (m)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Met4moves</strong></span></td>
+                     <td>PRES</td>
+                     <td>pressure (Pascals)</td>
+                     <td>all <span><strong class="command">Met4moves</strong></span> variables must be in same file
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Met4moves</strong></span></td>
+                     <td>QV</td>
+                     <td>water vapor mixing ratio (kg/kg)</td>
+                     <td>all <span><strong class="command">Met4moves</strong></span> variables must be in same file
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                     <td>PRES</td>
+                     <td>pressure (Pascals)</td>
+                     <td>variable name is set by <code class="envar">PRES_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>RC</td>
+                     <td>convective rainfall (cm)</td>
+                     <td>only used if <code class="envar">BEIS_VERSION</code> = 3.14, variable name is set by <code class="envar">RC_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>RN</td>
+                     <td>nonconvective rainfall (cm)</td>
+                     <td>only used if <code class="envar">BEIS_VERSION</code> = 3.14, variable name is set by <code class="envar">RN_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>SLTYP</td>
+                     <td>soil texture type by USDA category</td>
+                     <td>only used if <code class="envar">BEIS_VERSION</code> = 3.14 and <code class="envar">PX_VERSION</code> = Y, variable name is set by <code class="envar">ISLTYP_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>SOIM1</td>
+                     <td>volumetric soil moisture in top centimeter (m<sup>3</sup>/m<sup>3</sup>)
+                     </td>
+                     <td>only used if <code class="envar">BEIS_VERSION</code> = 3.14 and <code class="envar">PX_VERSION</code> = Y, variable name is set by <code class="envar">SOILM_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>SOIT1</td>
+                     <td>soil temperature in top centimeter (Kelvins)</td>
+                     <td>only used if <code class="envar">BEIS_VERSION</code> = 3.14 and <code class="envar">PX_VERSION</code> = Y, variable name is set by <code class="envar">SOILT_VAR</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>TA</td>
+                     <td>air temperature (Kelvins)</td>
+                     <td>variable name is set by <code class="envar">TMPR_VAR</code>, actual file opened depends on <code class="envar">MET_FILE1</code></td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td><span><strong class="command">Tmpbeis3</strong></span></td>
+                     <td>TA</td>
+                     <td>air temperature (Kelvins)</td>
+                     <td>variable name is set by <code class="envar">TMPR_VAR</code>, actual file opened depends on <code class="envar">MET_FILE1</code>/<code class="envar">METLIST</code></td>
+                  </tr>
+                  <tr>
+                     <td><code class="envar">MET_DOT_3D</code></td>
+                     <td><span><strong class="command">Laypoint</strong></span></td>
+                     <td>UWIND</td>
+                     <td>U-component of wind (m/s)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>VWIND</td>
+                     <td>V-component of wind (m/s)</td>
+                     <td class="auto-generated">&nbsp;</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_metlist"></a>8.8.1.&nbsp;<code class="envar">METLIST</code>: List of meteorology files
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The <code class="envar">METLIST</code> file is used to provide the file names of available meteorology files to the <span><strong class="command">Met4moves</strong></span> programs. <span><strong class="command">Met4moves</strong></span> runs once for the entire modeling episode, and therefore needs all of the files at one time. The meteorology files provided
+               to <span><strong class="command">Met4moves</strong></span> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated
+               automatically. The format of this file is shown in <a href="ch08s08.html#tbl_input_metlist" title="Table&nbsp;8.54.&nbsp;Format for METLIST">Table&nbsp;8.54, &#8220;Format for <code class="envar">METLIST</code>&#8221;</a>.
+            </p>
+            <div class="table"><a name="tbl_input_metlist"></a><p class="title"><b>Table&nbsp;8.54.&nbsp;Format for <code class="envar">METLIST</code></b></p>
+               <table summary="Format for METLIST" border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Line</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1+</td>
+                        <td>A</td>
+                        <td>Full name and path of meteorology file</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s09.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.7.&nbsp;Special Merging Files&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.9.&nbsp;Source-Specific files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

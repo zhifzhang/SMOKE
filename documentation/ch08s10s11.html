@@ -1,0 +1,102 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.10.11.&nbsp;SCCXREF: Reference SCC input file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="prev" href="ch08s10s10.html" title="8.10.10.&nbsp;SCCDESC: Source category code descriptions">
+      <link rel="next" href="ch08s10s12.html" title="8.10.12.&nbsp;SICDESC: SIC code descriptions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.10.11.&nbsp;<code class="envar">SCCXREF</code>: Reference SCC input file
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s10s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.10.&nbsp;Other Support Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s10s12.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_sccxref"></a>8.10.11.&nbsp;<code class="envar">SCCXREF</code>: Reference SCC input file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>This file provides mapping between reference SCC (i.e., SCC8) and full SCC (i.e., SCC10) for <span><strong class="command">Smkinven</strong></span> to convert reference SCC-level inventory to full SCC inventory:
+         </p>
+         <div class="table"><a name="tbl_input_sccxref"></a><p class="title"><b>Table&nbsp;8.97.&nbsp;Delimited format for <code class="envar">SCCXREF</code></b></p>
+            <table summary="Delimited format for SCCXREF" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Lines</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1+</td>
+                     <td>A</td>
+                     <td>Full SCC (20-character maximum string)</td>
+                  </tr>
+                  <tr>
+                     <td class="auto-generated">&nbsp;</td>
+                     <td>B</td>
+                     <td>Reference SCC (20-character maximum string)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="example"><a name="d0e52180"></a><p class="title"><b>Example&nbsp;8.25.&nbsp;<code class="envar">SCCXREF</code> example file</b></p><pre class="programlisting">
+Full_scc,Reference_scc
+"2201110262","2201110200"
+"2201110281","2201110200"
+"2201110362","2201110300"
+"2201110381","2201110300"
+"2201110462","2201110400"
+"2201110481","2201110400"
+"2201110562","2201110500"
+"2201110581","2201110500"
+"2201210262","2201210200"
+"2201210281","2201210200"
+....
+</pre></div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s10s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s10s12.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.10.10.&nbsp;<code class="envar">SCCDESC</code>: Source category code descriptions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.10.12.&nbsp;<code class="envar">SICDESC</code>: SIC code descriptions
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

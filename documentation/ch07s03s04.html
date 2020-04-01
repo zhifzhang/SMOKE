@@ -1,0 +1,83 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.3.4.&nbsp;The /DELIMITER/ packet</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+      <link rel="prev" href="ch07s03s03.html" title="7.3.3.&nbsp;Create-report Section">
+      <link rel="next" href="ch07s03s05.html" title="7.3.5.&nbsp;The /SET LABEL/ packet">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.3.4.&nbsp;The /DELIMITER/ packet</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s03s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_qa_repconfig_delimiter"></a>7.3.4.&nbsp;The /DELIMITER/ packet
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The /DELIMITER/ packet can be used to change the column delimiter used in the output reports from <span><strong class="command">Smkreport</strong></span>. The default delimiter is a semicolon (;). You can change the delimiter to any single-character value to suit your needs,
+            although using a space as a delimiter may result in slightly misformatted reports. Some reasons to change the delimiter from
+            the default are:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>You are reporting &#8220;<span class="quote">BY SOURCE</span>&#8221; and including the source name, and it has semicolons included in one or more of the names. This would prevent those records
+                     in the output report from being read into another program using semicolon as the delimeter.
+                  </p>
+               </li>
+               <li>
+                  <p>Software you want to use to read the <span><strong class="command">Smkreport</strong></span> output report does not support semi-colons for delimiters.
+                  </p>
+               </li>
+               <li>
+                  <p>You prefer a different appearance in the reports; you can select another delimiter that does not conflict with other fields
+                     in your report.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>The syntax of this instruction is the following:</p>
+         <p>/DELIMITER/ ,</p>
+         <p>This example results in a comma (,) being used as the delimiter for columns of any results from /CREATE REPORT/ instructions
+            that followed this instruction in the <code class="envar">REPCONFIG</code> file.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s03s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.3.3.&nbsp;Create-report Section&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.5.&nbsp;The /SET LABEL/ packet</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,202 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.17.&nbsp;Plume Rise Calculation for Fires</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s16.html" title="4.4.16.&nbsp;Change meteorology data">
+      <link rel="next" href="ch04s04s18.html" title="4.4.18.&nbsp;In-line Plume Rise Calculation in CMAQ model (as of version 4.7)">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.17.&nbsp;Plume Rise Calculation for Fires</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s16.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s18.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_ptfire_emis_cmaq"></a>4.4.17.&nbsp;Plume Rise Calculation for Fires
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Starting with version 2.2, SMOKE contains an approach for computing plume rise for wildfire/prescribed fires using the Bluesky
+            Pouliot-Godowitch plume rise algorithm (http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf).  In SMOKE version
+            2.2, SMOKE can compute hourly plume rise from precomputed hourly heat flux, fuel loading and area burned data using the Bluesky
+            CONSUME model. The SMOKE preprocessor <span><strong class="command">Bluesky2Inv</strong></span> that converts the output from the CONSUME model into SMOKE-readable annual and daily inventory files (<a href="ch05s03s03.html" title="5.3.3.&nbsp;BlueSky2Inv">Section&nbsp;5.3.3, &#8220;<span><strong class="command">BlueSky2Inv</strong></span>&#8221;</a>).
+         </p>
+         <p>Starting with SMOKE version 2.3, SMOKE can compute hourly plume rise from an intenally computed heat flux using area burned
+            and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading,
+            material burned and a constant default heat content (8000 BTU/lb) (Equation 1). The daily heat flux and emissions are temporally
+            allocated to hourly values based upon the duration of the fire (begining and ending hours). However, if there is a precomputed
+            heat flux available as a daily inventory, <span><strong class="command">Smkinven</strong></span> will not internally compute the heat flux and drop the begin and end hours of fire.
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Heat Flux (BTU/hr) = [ Area Burned (acre/day) x Fuel Loading (tons/acre) x Heat Content (BTU/lb) x (2000lb/ton) ] /  Duration
+                     of fire (hr/day) 
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>Detail information on how the fire emissions are calculated can be found on the proceeding presented by <a href="https://www3.epa.gov/ttnchie1/conference/ei14/session12/pouliot.pdf" target="_top">Pouliot et al., (2005)</a>.
+         </p>
+         <p>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<a href="ch08s02s08.html#sect_input_ptinv_fire" title="8.2.8.3.&nbsp;ORL FIRE Format">Section&nbsp;8.2.8.3, &#8220;ORL FIRE Format&#8221;</a>) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire
+            name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (&#8220;<span class="quote"><a href="ch08s02s06.html#sect_input_ptday_fireemis" title="8.2.6.2.&nbsp;ORL FIREEMIS Emission Format">Section&nbsp;8.2.6.2, &#8220;ORL FIREEMIS Emission Format&#8221;</a></span>&#8221;) includes daily pollutant emissions, area burned, fuel loading, optional heat flux, and fire begining and ending time. Starting
+            with SMOKE version 3.7, <span><strong class="command">Smkinven</strong></span> can process these master and daily fire inventories with precomputed heat flux using current point FF10 formats, #FF10_POINT
+            file (&#8220;<span class="quote"><a href="ch08s02s08.html#sect_input_ptinv_ff10" title="8.2.8.1.&nbsp;FF10 Format">Section&nbsp;8.2.8.1, &#8220;FF10 Format&#8221;</a></span>&#8221;) and #FF10_DAILY_FF10 file (&#8220;<span class="quote"><a href="ch08s02s06.html#sect_input_ptday_ff10" title="8.2.6.1.&nbsp; FF10 Format">Section&nbsp;8.2.6.1, &#8220; FF10 Format&#8221;</a></span>&#8221;)
+         </p>
+         <p>Regardless whether the heat flux for wildfires is precomputed or internally computed, the fire-specific plume rise algorithm
+            converts the heat flux to a bouyancy flux for use in the plume rise calculation. See more detail at <a href="ch06s06.html#sect_programs_laypoint_plume_rise_fires" title="6.6.1.1.&nbsp;Plume rise calculation for fires">Section&nbsp;6.6.1.1, &#8220;Plume rise calculation for fires&#8221;</a></p>
+         <p>NOTE: SMOKE requires that the fire inventory pollutant names are copied to the Chemical Abstracts Service (CAS) number column
+            in the inventory table (<code class="envar">INVTABLE</code>) file  (See <a href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table">Section&nbsp;8.10.4, &#8220;<code class="envar">INVTABLE</code>: Inventory table&#8221;</a>).
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p> To compute plume rise for fires using SMOKE, following these steps. Add the fire inventory variables to the <code class="envar">INVTABLE</code> file:
+                  </p><pre class="programlisting"><code class="envar">HFLUX           HFLUX                    Y     1 N N N N   0 tons/yr</code>
+<code class="envar">HEATCONTENT     HEATCONTENT              Y     1 N N N N   0 tons/yr</code>
+<code class="envar">FUEL_LOAD       FUEL_LOAD                Y     1 N N N N   0 tons/yr</code>
+<code class="envar">ACRESBURNED     ACRESBURNED              Y     1 N N N N   0 tons/yr</code>
+<code class="envar">BEGHOUR         BEGHOUR                  Y     1 N N N N   0 tons/yr</code>
+<code class="envar">ENDHOUR         ENDHOUR                  Y     1 N N N N   0 tons/yr</code></pre></li>
+               <li>
+                  <p>Run <span><strong class="command">Smkinven</strong></span> with these settings,
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>Set <code class="envar">RUN_SMKINVEN</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">IMPORT_AVEINV_YN</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">CHECK_STACKS_YN</code> to N
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p>Do not run <span><strong class="command">Elevpoint</strong></span>,
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>Set <code class="envar">RUN_ELEVPOINT</code> to N
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">SMK_ELEV_METHOD</code> to 0
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">SMK_PING_METHOD</code> to 0
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p>Run <span><strong class="command">Laypoint</strong></span> with these settings, 
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>Set <code class="envar">RUN_LAYPOINT</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">FIRE_PLUME_YN</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">HOURLY_FIRE_YN</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">SMK_SPECELEV_YN</code> to N
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p>Run <span><strong class="command">Smkmerge</strong></span> with theses settings,
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>Set <code class="envar">RUN_SMKMERGE</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">SMK_ASCIIELEV_YN</code> to N
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li>
+                  <p>Set these multiple program control settings.</p>
+                  <div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           <p>Set <code class="envar">DAY_SPECIFIC_YN</code> to Y
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">EXPLICIT_PLUMES_YN</code> to N
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">SMK_PING_METHOD</code> to 0
+                           </p>
+                        </li>
+                        <li>
+                           <p>Set <code class="envar">QA_TYPE</code> to part2
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s16.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s18.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.16.&nbsp;Change meteorology data&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.18.&nbsp;In-line Plume Rise Calculation in CMAQ model (as of version 4.7)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

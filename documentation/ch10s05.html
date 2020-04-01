@@ -1,0 +1,239 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>10.5.&nbsp;Smkinven</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">
+      <link rel="prev" href="ch10s04.html" title="10.4.&nbsp;Mrggrid">
+      <link rel="next" href="ch10s05s02.html" title="10.5.2.&nbsp;ASCC, MSCC, PSCC">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">10.5.&nbsp;<span><strong class="command">Smkinven</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch10s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;10.&nbsp;SMOKE Output Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch10s05s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_output_smkinven"></a>10.5.&nbsp;<span><strong class="command">Smkinven</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch10s05.html#sect_output_repinven">10.5.1. <code class="envar">REPINVEN</code></a></span></dt>
+               <dt><span class="section"><a href="ch10s05s02.html">10.5.2. <code class="envar">ASCC</code>, <code class="envar">MSCC</code>, <code class="envar">PSCC</code></a></span></dt>
+            </dl>
+         </div>
+         <p>The <span><strong class="command">Smkinven</strong></span> program is responsible for importing the raw inventory into SMOKE format. <span><strong class="command">Smkinven</strong></span> creates the following output files:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Inventory import report: <a href="ch10s05.html#sect_output_repinven" title="10.5.1.&nbsp;REPINVEN">Section&nbsp;10.5.1, &#8220;<code class="envar">REPINVEN</code>&#8221;</a></p>
+               </li>
+               <li>
+                  <p>SCC file: <a href="ch10s05s02.html" title="10.5.2.&nbsp;ASCC, MSCC, PSCC">Section&nbsp;10.5.2, &#8220;<code class="envar">ASCC</code>, <code class="envar">MSCC</code>, <code class="envar">PSCC</code>&#8221;</a></p>
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_output_repinven"></a>10.5.1.&nbsp;<code class="envar">REPINVEN</code></h3>
+                  </div>
+               </div>
+            </div>
+            <p>Type: ASCII - list-directed</p>
+            <p>Summary: This report is made up of several different sections describing different parts of the inventory import.</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>This section lists, by CAS number, the emissions in tons/year; the number of inventory records; whether all, some, or none
+                        of the pollutants associated with that CAS number were kept; and the CAS number description.
+                     </p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc" compact>
+                           <li>
+                              <p>CAS number</p>
+                           </li>
+                           <li>
+                              <p>Whether all, some, or none of the pollutants were kept</p>
+                           </li>
+                           <li>
+                              <p>Number of inventory records read for the CAS number</p>
+                           </li>
+                           <li>
+                              <p>Emissions for the CAS number</p>
+                           </li>
+                           <li>
+                              <p>CAS number description</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>This section includes emissions before and after application of disaggregation factors from the <code class="envar">INVTABLE</code>. Only the pollutants that have Keep = Y in <code class="envar">INVTABLE</code> will be included in this report. This report will be provided only if disaggregation and/or aggregation have occurred.
+                     </p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc" compact>
+                           <li>
+                              <p>&#8220;<span class="quote">Kept</span>&#8221; unique CAS number
+                              </p>
+                           </li>
+                           <li>
+                              <p>Emissions total for the CAS number</p>
+                           </li>
+                           <li>
+                              <p>Factor used to adjust the CAS number to the pollutant</p>
+                           </li>
+                           <li>
+                              <p>Pollutant name</p>
+                           </li>
+                           <li>
+                              <p>Emissions total of the inventory pollutant</p>
+                           </li>
+                           <li>
+                              <p>Pollutant description</p>
+                           </li>
+                           <li>
+                              <p>CAS number description</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <p>The following sections are only for area-to-point assignments:</p>
+            <div class="orderedlist">
+               <ol start="3" type="1">
+                  <li>
+                     <p>This section lists SCCs that have area-to-point source factor file assignments but are not in the inventory.</p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc">
+                           <li>
+                              <p>Assigned SCC codes not in the inventory</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>For emissions going to point sources, this section lists the pollutant name, emissions total before and after the factors
+                        are applied, and the total number of FIPS codes affected, by SCC.
+                     </p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc" compact>
+                           <li>
+                              <p>SCC code</p>
+                           </li>
+                           <li>
+                              <p>Pollutant name</p>
+                           </li>
+                           <li>
+                              <p>Number of FIPS codes affected</p>
+                           </li>
+                           <li>
+                              <p>Emissions before factors are applied</p>
+                           </li>
+                           <li>
+                              <p>Emissions after factors are applied</p>
+                           </li>
+                           <li>
+                              <p>SCC description</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>Same as the above section, except emissions are reported by state.</p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc" compact>
+                           <li>
+                              <p>State</p>
+                           </li>
+                           <li>
+                              <p>SCC code</p>
+                           </li>
+                           <li>
+                              <p>Pollutant name</p>
+                           </li>
+                           <li>
+                              <p>Number of FIPS codes affected</p>
+                           </li>
+                           <li>
+                              <p>Emissions before factors are applied</p>
+                           </li>
+                           <li>
+                              <p>Emissions after factors are applied</p>
+                           </li>
+                           <li>
+                              <p>SCC description</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p>This section lists, by SCC, the number of state and county FIPS codes getting assigned to point locations and the number not
+                        getting assigned.
+                     </p>
+                     <p>The columns in the report include:</p>
+                     <div class="itemizedlist">
+                        <ul type="disc" compact>
+                           <li>
+                              <p>SCC code</p>
+                           </li>
+                           <li>
+                              <p>Number of FIPS assigned to point locations</p>
+                           </li>
+                           <li>
+                              <p>Number of FIPS not assigned to point locations</p>
+                           </li>
+                           <li>
+                              <p>SCC description</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch10s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch10s05s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">10.4.&nbsp;<span><strong class="command">Mrggrid</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;10.5.2.&nbsp;<code class="envar">ASCC</code>, <code class="envar">MSCC</code>, <code class="envar">PSCC</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

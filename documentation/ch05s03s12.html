@@ -1,0 +1,196 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.12.&nbsp;Pktreduc</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s11.html" title="5.3.11.&nbsp;Metscan">
+      <link rel="next" href="ch05s03s13.html" title="5.3.13.&nbsp;Smk2emis">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.12.&nbsp;<span><strong class="command">Pktreduc</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s11.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s13.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_pktreduc"></a>5.3.12.&nbsp;<span><strong class="command">Pktreduc</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s12.html#sect_pktreduc_description">5.3.12.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s12.html#d0e20830">5.3.12.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s12.html#d0e20844">5.3.12.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_pktreduc_description"></a>5.3.12.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Pktreduc</strong></span> program reduces the size of growth packets (using the /PROJECTION/ packet in the <code class="envar">GCNTL</code> file), but keeps the same information. This is done by identifying and implementing state defaults where possible. This program
+               works solely with growth packets that have state/county and SCC entries only; it will not work if the packet contains SIC,
+               MACT, or pollutant codes.
+            </p>
+            <p>The program identifies the most common growth factor for each state across the many counties for each SCC, and this factor
+               is assigned as the default for the state/SCC combinations. The county/SCC-specific entries are left as is. In this way, the
+               contents of the file are the same as far as SMOKE is concerned, but the file processes through <span><strong class="command">Cntlmat</strong></span> much faster because the growth packet is much smaller. It is acceptable if state defaults are already in the file, and <span><strong class="command">Pktreduc</strong></span> will leave these untouched. When state defaults are found for a state (i.e., county code is set to 000), the program skips
+               reductions for that state and no changes are made (even if they could be).
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20830"></a>5.3.12.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Pktreduc</strong></span> program is an optional preprocessor for the <code class="envar">GCNTL</code> input file to <span><strong class="command">Cntlmat</strong></span> when processing growth packets.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20844"></a>5.3.12.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s12.html#d0e20847">5.3.12.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s12.html#d0e20880">5.3.12.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s12.html#d0e20885">5.3.12.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20847"></a>5.3.12.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GCNTL</code></td>
+                           <td>ASCII</td>
+                           <td>Growth and controls file that includes only the /PROJECTION/ packet. The other packets that are normally acceptable as input
+                              to <span><strong class="command">Cntlmat</strong></span> (see <a href="ch08s06.html#sect_input_gcntl" title="8.6.1.&nbsp;GCNTL: Files for controls and/or past- and future-year growth">Section&nbsp;8.6.1, &#8220;<code class="envar">GCNTL</code>: Files for controls and/or past- and future-year growth&#8221;</a>) should not be included in this file when it is an input to <span><strong class="command">Pktreduc</strong></span>. In addition, the /PROJECTION/ packet entries can include only state/county/SCC combinations; no combinations that include
+                              SIC, MACT, or pollutant codes or other fields should be included.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20880"></a>5.3.12.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>None</p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20885"></a>5.3.12.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GCNTL_OUT</code></td>
+                           <td>ASCII</td>
+                           <td>Reformatted <code class="envar">GCNTL</code> file that includes only the /PROJECTION/ packet for inventory growth. The reformatting performed is described in <a href="ch05s03s12.html#sect_pktreduc_description" title="5.3.12.1.&nbsp;Description">Section&nbsp;5.3.12.1, &#8220;Description&#8221;</a>.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Pktreduc</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s11.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s13.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.11.&nbsp;<span><strong class="command">Metscan</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.13.&nbsp;<span><strong class="command">Smk2emis</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

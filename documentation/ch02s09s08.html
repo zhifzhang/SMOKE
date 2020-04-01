@@ -1,0 +1,74 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.8.&nbsp;Assign point-source locations to area sources</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s07.html" title="2.9.7.&nbsp;Aggregate or disaggregate toxics emissions">
+      <link rel="next" href="ch02s09s09.html" title="2.9.9.&nbsp;Fill in and check point-source stack parameters">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.8.&nbsp;Assign point-source locations to area sources</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s07.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s09.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_assign_point_locations"></a>2.9.8.&nbsp;Assign point-source locations to area sources
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>Some area/nonpoint and nonroad mobile sources can be assigned point-source locations instead of being assigned spatial surrogates.
+            At this time, the only allowable cases of this are for toxics processing for nonroad mobile and stationary area/nonpoint sources
+            related to airport emissions processes. <span><strong class="command">Smkinven</strong></span> has the capability to make such assignments for any area source from both the toxics and criteria inventories; the example
+            file that comes with SMOKE for this purpose (the <code class="envar">ARTOPNT</code> file) only contains entries for the airport emissions processes. <a href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">Section&nbsp;4.2, &#8220;Test case descriptions&#8221;</a> provides more information about the example <code class="envar">ARTOPNT</code> file provided with SMOKE.
+         </p>
+         <p>Because airport location data are readily available, this feature gives users the ability to model airport-related area-source
+            emissions at airport locations, as opposed to spatially allocating them to grid cells using spatial surrogates. Although spatial
+            surrogates could be (and have been) developed to reproduce the same or similar results as the point-source assignments for
+            models such as CMAQ, other models that SMOKE may eventually support (namely ISCST3) require that point-source inputs include
+            the location coordinates. The area-to-point assignment feature in SMOKE will support such a need. Note that for large airports
+            and a small grid, one may want to have the airport emissions gridded using surrogate data since the airport can be large enough
+            to encompass multiple grid cells. Thus, the user should decide whether and when to use this area-to-point feature as opposed
+            to gridding using an airport surrogate.
+         </p>
+         <p>In SMOKE version 1.5 and higher, SMOKE can assign an area source to one or more locations in a county. For example, when multiple
+            airports are in a county, SMOKE adds sources to the inventory and splits the county-total emissions among the locations based
+            on a factor provided in the <code class="envar">ARTOPNT</code> file. All sources remain with the area-source inventory in which they started; they are not moved to a point-source inventory.
+            Any area sources that are assigned point locations are spatially allocated using those locations, as described in <a href="ch02s12.html" title="2.12.&nbsp;Spatial processing">Section&nbsp;2.12, &#8220;Spatial processing&#8221;</a>. Sources that are not assigned point-source locations are allocated in the standard way using spatial surrogates.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s07.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s09.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.7.&nbsp;Aggregate or disaggregate toxics emissions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.9.&nbsp;Fill in and check point-source stack parameters</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

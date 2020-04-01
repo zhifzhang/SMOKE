@@ -1,0 +1,630 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.5.&nbsp;Gentpro</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s04.html" title="5.3.4.&nbsp;CEMScan">
+      <link rel="next" href="ch05s03s06.html" title="5.3.6.&nbsp;Geofac">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.5.&nbsp;<span><strong class="command">Gentpro</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s06.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_gentpro"></a>5.3.5.&nbsp;<span><strong class="command">Gentpro</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s05.html#d0e19089">5.3.5.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s05.html#d0e19516">5.3.5.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s05.html#d0e19524">5.3.5.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19089"></a>5.3.5.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <span><strong class="command">Gentpro</strong></span> program estimates emissions temporal profiles for residential wood combustion (RWC), agricultural ammonia (RC_NH3), livestock
+               ammonia (BASH_NH3) or generic area sources by relating meteorology to air emission fluxes. <span><strong class="command">Gentpro</strong></span> reads in hourly gridded meteorology data from the Meteorology-Chemistry Interface Processor (MCIP) and a gridded spatial
+               surrogate (commonly used in SMOKE) to produce temporal profiles and cross-reference data in a comma separated value (CSV)
+               format and/or a temporal data binary netCDF file. Annual MCIP input data are required to calculate temporal profiles with
+               <span><strong class="command">Gentpro</strong></span>. Spatial surrogate(s) are used to identify the grid cells for computing county averaged meteorology variables.
+            </p>
+            <p><span><strong class="command">Gentpro</strong></span> provides an option to specify a profile method [<code class="envar">PROFILE_METHOD</code>], which can be set to generate RWC, BASH_NH3, RC_HNH3, or generic meteorology-based temporal profiles. the RWC, BASH_NH3
+               and RC_NH3 temporal profiles are based on algorithms described by Adelman (2009 and 2010), Mansell et al. (2000), and Bash
+               et al. (2012) respectively, while the MET profiles can ben generated from any user-selected meteorology variable. The RWC
+               profile method produces county-specific daily temporal profiles to convert annual or monthly inventories to daily emissions
+               estimates. Diurnal profiles must then be applied to estimate hourly RWC emissions from the daily estimates. <span><strong class="command">Gentpro</strong></span> provides the option to aggregate the daily RWC profiles to month-of-year profiles as well, which can be used to compute monthly
+               inventory estimates from annual inventory data. The BASH_NH3 and RC_NH3 profile methods produce county-specific hourly temporal
+               profiles to convert annual, monthly, or daily inventories to hourly emissions estimates. <span><strong class="command">Gentpro</strong></span> provides the option to aggregate the hourly profiles to day-of-year or month-of-year profiles as well. The MET profile method
+               represents time series of a selected meteorology variable as a temporal profile and can be used to convert annual, monthly,
+               or daily inventories to hourly emissions estimates. <span><strong class="command">Gentpro</strong></span> also provides the option to aggregate the hourly MET profiles to day-of-year or month-of-year profiles. All of the <span><strong class="command">Gentpro</strong></span> profile options create temporal cross-reference files that associate county FIPS codes in a modeling domain to the new profiles.
+            </p>
+            <p><span><strong class="command">[1] RWC</strong></span></p>
+            <p>A regression equation relating observed daily minimum temperatures and chemical tracers of wood combustion was developed using
+               data from sites in the Pacific Northwest of the United States (Adelman, 2009; Adelman, 2010).  The sites selected to develop
+               the algorithm were screened to be representative of RWC activities.  Equation (1) uses estimates of daily PM2.5 emissions
+               to build either annual-to-daily or annual-to-monthly emission profiles for application to RWC sources.  The algorithm uses
+               county average daily or monthly minimum temperatures to estimate the percentage of RWC emissions allocated to each day or
+               month of the year. <span><strong class="command">Gentpro</strong></span> includes a temperature threshold setting to limit RWC emissions from allocated to days too warm to have much (if any) RWC
+               emissions.  A temperature threshold (T<sub>t</sub>) variable is implemented in <span><strong class="command">Gentpro</strong></span> to allow users to set a maximum temperature cutoff by either state or county. By default, <span><strong class="command">Gentpro</strong></span> estimates RWC emissions at temperatures below 50&deg;F. If the temperature threshold variable is set in the Gentpro script, RWC
+               emissions will be activated below T<sub>t</sub>. A look-up table of state/county FIPs codes and temperatures (&deg;F) can be input to <span><strong class="command">Gentpro</strong></span> to set several different temperature thresholds across a modeling domain. The purpose of using the temperature threshold
+               override is to control when RWC emissions are activated in regions where the 50&deg;F cutoff may not be appropriate.  For example,
+               counties in southern Florida may only experience one or two days in an entire year when the minimum temperature dips below
+               50&deg;F. Without using the threshold override, all of the RWC emissions for these counties will be allocated to these one or
+               two days, producing large emissions spikes that may not be realistic. By increasing the temperature threshold, these spikes
+               can be avoided by activating the RWC algorithm on other days.  The outputs from this algorithm are temporal profiles that
+               convert annual or monthly RWC inventories to daily emissions for every county in the modeling domain.
+            </p>
+            <p>Two alternative RWC temporal profile algorithms are implemented in <span><strong class="command">Gentpro</strong></span>. Equation 1 below shows the algorithm developed from the Pacific Northwest Sites described by Adelman (2009; 2010).
+            </p>
+            <p>The second RWC temporal algorithm is an ad hoc approximation of the original equation that broadens its application by removing
+               the intercept term.  By removing the intercept term, Equation 2 below will not produce negative emissions when the temperature
+               threshold is increased above 53.3&deg;F.
+            </p>
+            <p>The alternate RWC algorithms can be selected using <code class="envar">RWC_ALT_EQ_YN</code> listed below. When <code class="envar">RWC_ALT_EQ_YN</code> = N, Equation 1 will be used to calculate RWC temporal profiles.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p><span><strong class="command">Original RWC Algorithm developed by Adelman (2009;2010)</strong></span></p>
+                     <p>When T<sub><span class="emphasis"><em>i,d</em></span></sub> is equal or less than 50&deg;F,
+                     </p>
+                     <p>PE<sub><span class="emphasis"><em>i,d</em></span></sub> = (42.12 - 0.79 x T<sub><span class="emphasis"><em>i,d</em></span></sub>) / Sum (42.12 - 0.79 x T<sub><span class="emphasis"><em>i,d</em></span></sub>)
+                     </p>
+                     <p>When T<sub><span class="emphasis"><em>i,d</em></span></sub> is greater than T<sub><span class="emphasis"><em>t</em></span></sub>,
+                     </p>
+                     <p>PE<sub><span class="emphasis"><em>i,d</em></span></sub> = 0.0
+                     </p>
+                     <p>When T<sub><span class="emphasis"><em>i,d</em></span></sub> is greater than 50&deg;F and T<sub><span class="emphasis"><em>i,d</em></span></sub> is less than T<sub><span class="emphasis"><em>t</em></span></sub>,
+                     </p>
+                     <p>PE<sub><span class="emphasis"><em>i,d</em></span></sub> = (42.12 - 0.79 x 50) / Sum (42.12 - 0.79 x 50)
+                     </p>
+                  </li>
+                  <li>
+                     <p><span><strong class="command">Alternative RWC Algorithm</strong></span></p>
+                     <p>When T<sub><span class="emphasis"><em>i,d</em></span></sub> is equal or greater than T<sub><span class="emphasis"><em>t</em></span></sub>,
+                     </p>
+                     <p>PE<sub><span class="emphasis"><em>i,d</em></span></sub> = 0.0
+                     </p>
+                     <p>When T<sub><span class="emphasis"><em>i,d</em></span></sub> is less than T<sub><span class="emphasis"><em>t</em></span></sub>,
+                     </p>
+                     <p>PE<sub><span class="emphasis"><em>i,d</em></span></sub> = [0.79 x (T<sub><span class="emphasis"><em>i,t</em></span></sub> - T<sub><span class="emphasis"><em>i,d</em></span></sub>)] / Sum [0.79 x (T<sub><span class="emphasis"><em>i,t</em></span></sub> - T<sub><span class="emphasis"><em>i,d</em></span></sub>)]
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <p>where</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     PE<sub><span class="emphasis"><em>i,d</em></span></sub> = Percentage of emissions in county <span class="emphasis"><em>i</em></span> on day <span class="emphasis"><em>d</em></span></li>
+                  <li>
+                     T<sub><span class="emphasis"><em>i,d</em></span></sub> = Daily minimum ambient temperature (&deg;F) in county <span class="emphasis"><em>i</em></span> on day <span class="emphasis"><em>d</em></span></li>
+                  <li>
+                     T<sub><span class="emphasis"><em>i,t</em></span></sub> = Daily threshold ambient temperature (&deg;F) in county <span class="emphasis"><em>i</em></span></li>
+                  <li>
+                     T<sub><span class="emphasis"><em>t</em></span></sub> = Daily threshold ambient temperature (default = 50&deg;F)
+                     
+                  </li>
+                  <li>
+                     Note: T<sub><span class="emphasis"><em>i,m</em></span></sub> can be replaced by monthly minimum ambient temperature in county <span class="emphasis"><em>i</em></span> on month <span class="emphasis"><em>m</em></span></li>
+               </ul>
+            </div>
+            <p><span><strong class="command">[2] NH3</strong></span></p>
+            <p>Two NH3 profile methods are implemented in <span><strong class="command">Gentpro</strong></span> to estimate hourly temporal allocation factors, which are output as temporal profiles to convert annual, monthly, or daily
+               livestock ammonia inventories to hourly emissions for every county in the modeling domain. <span><strong class="command">Gentpro</strong></span> can output hour-of-month and hour-of-year temporal profiles that can be input to the <span><strong class="command">Temporal</strong></span>. The recommended application of the BASH_NH3 and RC_NH3 profile methods are to convert monthly agricultural ammonia inventories
+               to hourly emissions.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>RC_NH3 profile method: Russell and Cass (1986) developed a theoretical equation based on investigations of NH3 emissions from
+                        animal waste decomposition conducted by Muck and Steenhuis (1982) to predict diurnal NH3 emission variations as a function
+                        of daily meteorology. The Russell and Cass equation (a.k.a RC_METHOD) listed below is adapted for this application to use
+                        county average meteorology and implemented in <span><strong class="command">Gentpro</strong></span> to estimate hourly emissions from county annual, monthly, or daily agricultural livestock NH<sub>3</sub> inventories.
+                     </p>
+                     <p>E<sub><span class="emphasis"><em>i,h</em></span></sub> = [2.36<sup>(T<sub><span class="emphasis"><em>i,h</em></span></sub>-273)/10</sup>] x V<sub><span class="emphasis"><em>i,h</em></span></sub></p>
+                  </li>
+                  <li>
+                     <p>BASH_NH3 profile method: Zhu, Henze, et al. (2013) developed an empirical equation based on observations from the TES instrument
+                        with the GEOS-Chem model and its adjoint to estimate diurnal NH3 emission variations from livestocks as a function of ambient
+                        temperature and aerodynamic resistance meteorological variable. The equation is listed below.
+                     </p>
+                     <p>E<sub><span class="emphasis"><em>i,h</em></span></sub> = [161500/T<sub><span class="emphasis"><em>i,h</em></span></sub> x e<sup>(-1380/T<sub><span class="emphasis"><em>i,h</em></span></sub>)</sup>] x AR<sub><span class="emphasis"><em>i,h</em></span></sub></p>
+                  </li>
+               </ol>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>PE<sub><span class="emphasis"><em>i,h</em></span></sub> = E<sub><span class="emphasis"><em>i,h</em></span></sub> / Sum(E<sub><span class="emphasis"><em>i,h</em></span></sub>)
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>where</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     PE<sub><span class="emphasis"><em>i,h</em></span></sub> = Percentage of emissions in county <span class="emphasis"><em>i</em></span> on hour <span class="emphasis"><em>h</em></span></li>
+                  <li>
+                     E<sub><span class="emphasis"><em>i,h</em></span></sub> = Emission rate in county <span class="emphasis"><em>i</em></span> on hour <span class="emphasis"><em>h</em></span></li>
+                  <li>
+                     T<sub><span class="emphasis"><em>i,h</em></span></sub> = Ambient temperature (Kelvin) in county <span class="emphasis"><em>i</em></span> on hour <span class="emphasis"><em>h</em></span></li>
+                  <li>
+                     V<sub><span class="emphasis"><em>i,h</em></span></sub> = Wind speed (meter/sec) in county <span class="emphasis"><em>i</em></span> (minimum wind speed is 0.1 meter/sec)
+                     
+                  </li>
+                  <li>
+                     AR<sub><span class="emphasis"><em>i,h</em></span></sub> = Aerodynamic resistance in county <span class="emphasis"><em>i</em></span></li>
+               </ul>
+            </div>
+            <p><span><strong class="command">[3] MET: Generic Meteorology Profile Algorithm</strong></span></p>
+            <p>This is a simple algorithm that computes the percentage of emissions to allocate to each hour based on the hourly fractional
+               contribution of a selected meteorology variable relative to the annual, monthly, and daily sum of all hourly values for that
+               variable.  While the fractional contribution of county-average wind speed for each hour of the year is somewhat meaningless,
+               it does provide a way to build a time series that can be applied to an annual/monthly inventory to estimate hourly values
+               using monthly, daily and/or hourly MET profiles.
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>
+                     <p>PE<sub><span class="emphasis"><em>i,h</em></span></sub> = m<sub><span class="emphasis"><em>i,h</em></span></sub> / Sum(m<sub><span class="emphasis"><em>i,h</em></span></sub>)
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <p>where</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     PE<sub><span class="emphasis"><em>i,h</em></span></sub> = Percentage of emissions in county <span class="emphasis"><em>i</em></span> on hour <span class="emphasis"><em>h</em></span></li>
+                  <li>
+                     m<sub><span class="emphasis"><em>i,h</em></span></sub> = Meteorology variable in county <span class="emphasis"><em>i</em></span> on hour <span class="emphasis"><em>h</em></span></li>
+               </ul>
+            </div>
+            <p><span><strong class="command">[Reference]</strong></span></p>
+            <p>Adelman, Z. (2010) 'Proposal: Estimating Temporal Profiles for Residential Wood Combustion Emissions', Prepared for U.S. EPA,
+               OAQPS, Research Triangle Park, NC under Contract No. EP-D-07-102 Assignment No. 3-07 (M. Houyoux, WAM) by UNC, Chapel Hill,
+               NC.
+            </p>
+            <p>Adelman, Z. (2009) 'Technical Memo: Emissions Modeling Improvements Task 2 &#8211; Temporal Allocation for Residential Wood Combustion',
+               Prepared for U.S. EPA, OAQPS, Research Triangle Park, NC under Contract No. EP-D-07-102 Assignment No. 2-13 (M. Houyoux, WAM)
+               by UNC, Chapel Hill, NC.
+            </p>
+            <p>Mansell, G, S. Kemball-Cook, L. Ma (2009) 'Draft Report: Temporal Allocation of Agricultural Ammonia Emissions', Prepared
+               for U.S. EPA, OAQPS, Research Triangle Park, NC under Contract No. EP-D-07-102 Assignment No. 2-13 (M. Houyoux, WAM) by ENVIRON,
+               Novato, CA.
+            </p>
+            <p>Muck, R.E., and T.S. Steenhuis (1982) 'Nitrogen Losses from Manure', Agricultural Wastes, 4: 41-54.</p>
+            <p>Russell, A.G. and G.R. Cass (1986) 'Verification of a Mathematical Model for Aerosol Nitrate and Nitric Acid Formation and
+               Its Use for Control Measure Evaluation', Atmospheric Environment, 20: 2011-2025.
+            </p>
+            <p>Zue, Henze, et al (2013) 'Constraining U.S. Ammonia Emissions using TES Remote Sensing Observations and the GEOS-Chem adjoint
+               model', Journal of Geophysical Research: Atmospheres, 118: 1-14.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19516"></a>5.3.5.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>This optional program must run prior to <span><strong class="command">Temporal</strong></span>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e19524"></a>5.3.5.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s05.html#d0e19537">5.3.5.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s05.html#d0e19633">5.3.5.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s05.html#d0e19831">5.3.5.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="figure"><a name="fig_programs_gentpro"></a><p class="title"><b>Figure&nbsp;5.1.&nbsp;<span>Gentpro</span> input and output files</b></p>
+               <div class="mediaobject"><img src="images\programs\gentpro_html.jpg" alt="Gentpro input and output files"></div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19537"></a>5.3.5.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">COSTCY</code></td>
+                           <td>ASCII</td>
+                           <td>Five digit code for country, state and county</td>
+                        </tr>
+                        <tr>
+                           <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                           <td>ASCII</td>
+                           <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                              when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files">Section&nbsp;8.10.3, &#8220;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code>&#8221;</a> files are used)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">GRIDDESC</code></td>
+                           <td>ASCII</td>
+                           <td>Grid descriptions file that defines the output grid for the output surrogates file created by the program. It must include
+                              the name of the grid set by the <code class="envar">IOAPI_GRIDNAME     _1</code> environment variable setting.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">METLIST</code></td>
+                           <td>ASCII</td>
+                           <td>A list of meteorology files containing temperature, mixing ratio, and surface pressure data created by <span><strong class="command">Metcombine</strong></span></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">RWC_COUNTY_TEMP (optional)</code></td>
+                           <td>ASCII</td>
+                           <td>County-specific minimum temperature for RWC equations (see <a href="ch08s10s09.html" title="8.10.9.&nbsp;RWC_COUNTY_TEMP: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations">Section&nbsp;8.10.9, &#8220;<code class="envar">RWC_COUNTY_TEMP</code>: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations&#8221;</a>)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">SRGDESC</code></td>
+                           <td>ASCII</td>
+                           <td>Spatial surrogate description file produced by MCIP (see <a href="ch08s04.html#sect_input_srgdesc" title="8.4.1.&nbsp;SRGDESC: Surrogate Designation, Description and Surrogate profile filename.">Section&nbsp;8.4.1, &#8220;<code class="envar">SRGDESC</code>: Surrogate Designation, Description and Surrogate profile filename.&#8221;</a>)
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>Surrogate File(s)</td>
+                           <td>ASCII</td>
+                           <td>Spatial surrogate file(s) selected by <code class="envar">SRG_LIST</code></td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">TREF_IN</code></td>
+                           <td>ASCII</td>
+                           <td>Temporal cross-reference input file (see <a href="ch08s03s02.html" title="8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file">Section&nbsp;8.3.2, &#8220;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file&#8221;</a>)
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19633"></a>5.3.5.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">AERO_RESISTANCE_VAR</code>: [default: blank]
+                        </p>
+                        <p>Define the aerodynamic resistance variable name for Bash's algorithm for livestock ammonia sources</p>
+                     </li>
+                     <li>
+                        <p><code class="envar">SLOPE</code>: [default: 0.79]
+                        </p>
+                        <p>Define the value of the slope of RWC equation</p>
+                     </li>
+                     <li>
+                        <p><code class="envar">CONSTANT</code>: [default: 42.12]
+                        </p>
+                        <p>Define the value of constant of RWC equation</p>
+                     </li>
+                     <li>
+                        <p><code class="envar">ENDDATE</code>: [default: 0]
+                        </p>
+                        <p>Defines the last day of year (December 31st) for a proper temporal profile calculation. MCIP file must cover last hour of
+                           December 31st of all counties in modeling output time zone (i.e., GMT).
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">PROFILE_METHOD</code>: [default: MET]
+                        </p>
+                        <p>Indicates which of the three temporal profile types to generate by <span><strong class="command">Gentpro</strong></span></p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 RWC: use the Adelman's regression equation to calculate temporal profiles for residential wood combustion (RWC) sources
+                                 
+                              </li>
+                              <li>
+                                 BASH_NH3: use the Bash's algorithm to calculate temporal profiles for livestock ammonia sources
+                                 
+                              </li>
+                              <li>
+                                 RC_NH3: use the Russell and Cass algorithm to calculate temporal hourly profiles for agricultural ammonia sources
+                                 
+                              </li>
+                              <li>
+                                 MET: use the time series of the selected meteorology variable to calculate temporal profiles
+                                 
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li>
+                        <p><code class="envar">RWC_COUNTY_TEMP_YN</code>: [default: N]
+                        </p>
+                        <p>Allows the user to determine county-specific minimum temperature for RWC estimate equations. It will override default minimum
+                           temperature [<code class="envar">DEFAULT_TEMP_RWC</code>] listed above.
+                        </p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 Y: use the county-specific minimum temperature from <a href="ch08s10s09.html" title="8.10.9.&nbsp;RWC_COUNTY_TEMP: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations"><code class="envar">RWC_COUNTY_TEMP</code></a> input file.
+                                 
+                              </li>
+                              <li>
+                                 N: do not use the county-specific minimum temperature for RWC equations.
+                                 
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li>
+                        <p><code class="envar">RWC_EQ_ALT_YN</code>: [default: Y]
+                        </p>
+                        <p>Allows the user to choose the alternative RWC equation listed above to avoid negative RWC emissions.</p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 Y: use the alternative RWC equation to compute RWC emissions.
+                                 
+                              </li>
+                              <li>
+                                 N: use the original RWC equations to compute RWC emissions.
+                                 
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li>
+                        <p><code class="envar">SCC_LIST</code>: [default: blank]
+                        </p>
+                        <p>Defines a comma-separated list of SCCs that will use the temporal profiles generated by <span><strong class="command">Gentpro</strong></span>, example: setenv SCC_LIST "2104008000,2104008001,2104008002"
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">SRG_LIST</code>: [default: 0]
+                        </p>
+                        <p>Defines a comma-separated list of SCCs that will use the temporal profiles generated by <span><strong class="command">Gentpro</strong></span>, example setenv SRG_LIST "340,100"
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">SRGDESC</code>: [default: none]
+                        </p>
+                        <p>Directory path and name of the spatial surrogate file for computing averaged meteorology.</p>
+                     </li>
+                     <li>
+                        <p><code class="envar">SRGPRO_PATH</code>: [default: blank]
+                        </p>
+                        <p>Defines the location of spatial surrogate files</p>
+                     </li>
+                     <li>
+                        <p><code class="envar">STDATE</code>: [default: 0]
+                        </p>
+                        <p>Defines the first day of year (January 1st) for a proper temporal profile calculation. MCIP file must cover first hour of
+                           January 1st of all counties in modeling output time zone (i.e., GMT).
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">TEMP_VAR</code>: [default: blank]
+                        </p>
+                        <p>Must define the name of variable for the all PROFILE_METHOD settings to use in the profile calculations. The program looks
+                           for the selected meteorology variables first in the METLIST file (set below) that contains a list of Metcombine program output
+                           files or MET files that contain targeted variables from the MET_CRO_3D or/and MET_CRO_2D files. If it doesn't find the variable(s)
+                           in either file, it stops with an error. 
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">TPRO_OUTPUT</code>: [default: ALL]
+                        </p>
+                        <p>Specifies the type of temporal profiles to produce</p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 MONTHLY: generate month-of-year temporal profiles
+                                 
+                              </li>
+                              <li>
+                                 DAILY: generate both month-of-year and day-of-month temporal profiles
+                                 
+                              </li>
+                              <li>
+                                 HOURLY: generate hour-of-year, hour-of-month, and hour-of-day temporal profiles
+                                 
+                                 <div class="itemizedlist">
+                                    <ul type="disc">
+                                       <li>
+                                          Not applicable when PROF_METHOD = RWC
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                              <li>
+                                 ALL: generate all possible profiles for the selected profile method
+                                 
+                                 <div class="itemizedlist">
+                                    <ul type="disc">
+                                       <li>
+                                          No hourly profiles will be generated when PROF_METHOD = RWC
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li>
+                        <p><code class="envar">TREF_IN</code>: [default: blank]
+                        </p>
+                        <p>
+                           Defines an input temporal cross-reference file for supplying monthly, daily, weekly, and hourly profile IDs.  The TREF_IN
+                           file will be scanned for the FIPS/SCC combinations of sources associated with profiles generated by <span><strong class="command">Gentpro</strong></span>. If there are no entries in TREF for the specific FIPS/SCC combinations being simulated with <span><strong class="command">Gentpro</strong></span>, the program will look for default cross-reference entries (FIPS=0, SCC=0).
+                           
+                        </p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 If TPRO_OUTPUT = DAILY, month-of-year and day-of-month temporal profiles will be generated by <span><strong class="command">Gentpro</strong></span>. Users need to provide diurnal (hourly) profiles will be needed to convert from daily to hourly emissions.
+                                 
+                              </li>
+                              <li>
+                                 If TPRO_OUTPUT = MONTHLY, month-of-year profiles will be generated by <span><strong class="command">Gentpro</strong></span>. Users need to provide weekly and diurnal profiles will be needed to estimate hourly emissions.
+                                 
+                              </li>
+                              <li>
+                                 If PROFILE_METHOD = BASH_NH3 or RC_NH3, hour-of-year profiles will be generated by <span><strong class="command">Gentpro</strong></span> to estimate hourly emissions using monthly inventory
+                                 
+                              </li>
+                              <li>
+                                 If PROFILE_METHOD = MET and TPRO_OUTPUT = HOURLY[or ALL], hour-of-year, hour-of-month and hour-of-day temporal profiles will
+                                 be output to netCDF TPRO_HOUR by <span><strong class="command">Gentpro</strong></span></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li>
+                        <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                        </p>
+                        <p>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                           country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">WSPEED_VAR</code>: [default: blank]
+                        </p>
+                        <p> Defines the name of wind speed variable from MET files. It is only used when PROFILE_METHOD is set to "RC_NH3". example:
+                           setenv WSPEED_VAR "WSPD10" 
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e19831"></a>5.3.5.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">TPRO_MON</code></td>
+                           <td>ASCII</td>
+                           <td>Month-of-year temporal profiles</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">TPRO_DAY</code></td>
+                           <td>ASCII</td>
+                           <td>Day-of-month temporal profiles</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">TPRO_HOUR</code></td>
+                           <td>I/O API netCDF</td>
+                           <td>Hourly temporal profiles</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">TREF_OUT</code></td>
+                           <td>ASCII</td>
+                           <td>Temporal cross-references input file.</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Gentpro</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s06.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.4.&nbsp;<span><strong class="command">CEMScan</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.6.&nbsp;<span><strong class="command">Geofac</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

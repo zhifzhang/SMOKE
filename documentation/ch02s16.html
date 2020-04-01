@@ -1,0 +1,138 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.16.&nbsp;Mobile-source processing with MOVES</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s15s02.html" title="2.15.2.&nbsp;Creating an elevated-source file for UAM and CAMX">
+      <link rel="next" href="ch02s16s02.html" title="2.16.2.&nbsp;MOVES Model Processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.16.&nbsp;Mobile-source processing with MOVES</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s15s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s16s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_onroad_processing_moves"></a>2.16.&nbsp;Mobile-source processing with MOVES
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s16.html#d0e7006">2.16.1. Meteorology Data Processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s16s02.html">2.16.2. MOVES Model Processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s16s03.html">2.16.3. SMOKE Model Processing</a></span></dt>
+            </dl>
+         </div>
+         <p>MOVES is the U.S. Environmental Protection Agency's (EPA) Motor Vehicle Emission Simulator.  In the modeling process, the
+            user specifies vehicle types, time periods, geographical areas, pollutants, vehicle operating characteristics, and road types
+            to be modeled. The model then performs a series of calculations, which have been carefully developed to accurately reflect
+            vehicle operating processes (such as cold start or extended idle) and provide estimates of bulk emissions or emission rates.
+            
+         </p>
+         <p>An important feature of MOVES is that it allows users to choose between (1) the Inventory calculation type, which provides
+            emission rates in terms of total quantity of emissions for a given time period; and (2) Emission Rate calculation type, which
+            gives emission rates in terms of grams/mile or grams/vehicle/hour. For large-scale emissions modeling such as that needed
+            for regional- and national-scale air quality modeling projects, it is desirable to use the Emission Rate calculation type,
+            which populates emission rate lookup tables that can then be applied to many times and places, thus reducing the total number
+            of MOVES runs required.
+         </p>
+         <p>To reduce the time and effort and to help the user obtain more accurate modeling results, users need to prepare and post-process
+            MOVES runs for a representative county (See <a href="ch02s08s04.html#sect_concepts_reference_counties_moves" title="2.8.4.6.&nbsp;Representative Counties">Section&nbsp;2.8.4.6, &#8220;Representative Counties&#8221;</a>) and reference fuel month (See <a href="ch02s08s04.html#sect_concepts_moves_reference_fuel_month" title="2.8.4.7.&nbsp;Reference Fuel month">Section&nbsp;2.8.4.7, &#8220;Reference Fuel month&#8221;</a>) This approach consists of a set of scripts that automate the proper use of the Emission Rate calculations for the purpose
+            of estimating mobile-source emissions for air quality (AQ) modeling.
+         </p>
+         <p>Integrating MOVES into SMOKE modeling system consists of three major parts:</p>
+         <p></p>
+         1) Meteorological data processing
+         
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>The meteorological data preprocessor program <a href="ch06s07.html" title="6.7.&nbsp;Met4moves"><span><strong class="command">Met4moves</strong></span></a> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions
+                     for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         2) MOVES model processing
+         
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li><a href="ch05s02s02.html" title="5.2.2.&nbsp;MOVES Driver Scripts">The MOVES Driver script </a> : <span><strong class="command">&#8220;<span class="quote">Runspec_generator.pl</span>&#8221;</strong></span> creates data importer files and the MOVES input file (runspec), which specifies the characteristics of the particular scenario
+                  to be modeled.
+               </li>
+               <li><a href="ch05s02s04.html" title="5.2.4.&nbsp;MOVES Post-processing scripts">The MOVES postprocessing scripts </a> : <span><strong class="command">&#8220;<span class="quote">Moves2smkEF.pl</span>&#8221;</strong></span> formats the MOVES emission rate lookup tables for SMOKE. <span><strong class="command">&#8220;<span class="quote">gen_8digit_scc.pl</span>&#8221;</strong></span> generates an SCC mapping file used when importing activity data.
+               </li>
+            </ul>
+         </div>
+         3) SMOKE model processing
+         
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>Spatially and temporally allocate mobile onroad activity data (i.e., Vehicle Mileage Traveled and Vehicle population).</li>
+               <li>The MOVES postprocessing program, <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Movesmrg</strong></span></a>, estimates emissions from on-road mobile sources based on MOVES-based emission rate lookup tables and meteorology data from
+                  <span><strong class="command">Met4moves</strong></span>.
+               </li>
+               <li>Creates hourly gridded speciated air quality model-ready input files.</li>
+               <li>Produces various types of reports for users.</li>
+            </ul>
+         </div>
+         <p></p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e7006"></a>2.16.1.&nbsp;Meteorology Data Processing
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>With the specified representative county and reference fuel month approach for temperature and RH calculation for MOVES and
+               SMOKE modeling systems, <span><strong class="command">Met4moves</strong></span> uses hourly min/max temperatures and averaged RH over the spatial region that includes all of the inventory counties in a
+               county group over the user-defined modeling period. <span><strong class="command">Met4moves</strong></span> supports the averaging method (monthly or daily) to create min/max temperatures and averaged RH for all inventory counties
+               in the county group(s). <span><strong class="command">Met4moves</strong></span> determines the min/max grid cell temperatures and associated RH for both SMOKE and MOVES, and computes average 24-hour temperature
+               profiles using Meteorology-Chemistry Interface Processor (MCIP) output files for use in MOVES. These <span><strong class="command">Met4moves</strong></span> program is discussed in detail in <a href="ch06s07.html" title="6.7.&nbsp;Met4moves">Section&nbsp;6.7, &#8220;<span><strong class="command">Met4moves</strong></span>&#8221;</a>. 
+            </p>
+            <p>The 24-hour temperature profiles are averaged over a user-specified time period and grid cells for all representative counties.
+               For <a href="ch05s02.html" title="5.2.&nbsp;MOVES Utility Scripts">the MOVES Driver scripts</a>, <span><strong class="command">Met4moves</strong></span> outputs monthly average RH, min/max temperatures, and 24-hour temperature profiles in local time for all representative counties
+               into one output file. For the SMOKE model, <span><strong class="command">Met4moves</strong></span> outputs county-specific min/max temperatures and averaged RH values in local time for every inventory county and averaging
+               period in the modeling inventory.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s15s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s16s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.15.2.&nbsp;Creating an elevated-source file for UAM and CAM<sub>X</sub>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.16.2.&nbsp;MOVES Model Processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

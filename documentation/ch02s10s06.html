@@ -1,0 +1,73 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+      <link rel="prev" href="ch02s10s05.html" title="2.10.5.&nbsp;Holiday processing">
+      <link rel="next" href="ch02s10s07.html" title="2.10.7.&nbsp;Processing Non-sequential Dates">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s10s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.10.&nbsp;Temporal processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_mwss_processing"></a>2.10.6.&nbsp;Monday, weekday, Saturday, Sunday processing
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The temporal variation of the days in a week is the same from week to week within a month because SMOKE uses weekly profiles.
+            Also, it is common that the weekly profiles do not vary on Monday through Friday. Consequently, it is often desirable for
+            long (e.g., annual) simulations to use a Monday-weekday-Saturday-Sunday (MWSS) approach. With this approach, SMOKE computes
+            emissions for a representative Monday, weekday, Saturday, and Sunday within each month. The representative days cannot be
+            the first day of the month (to prevent effects from the previous month from being included in the emissions data), a holiday
+            (as set in the <code class="envar">HOLIDAYS</code> file), or the day after the holiday. Monday is distinguished from other weekdays because in multi-time zone cases in the
+            Western Hemisphere with <code class="envar">OUTZONE</code> set to 0 (i.e. GMT), a few late-night Sunday hours are included in the hours at the start of the Monday file. In addition,
+            one must specifically process the holidays and the day after holidays as separate runs for all holidays set by the <code class="envar">HOLIDAYS</code> file. During merging of emissions, the Monday, weekday, Saturday, and Sunday files are reused to create model-ready emissions
+            for every day and hour needed. The holiday and day-after files are used for the holiday and day-after dates only.
+         </p>
+         <p>This approach relies heavily on scripting to select dates for each month&#8217;s representative days and to ensure that the days
+            that are run are consistent with the dates in the <code class="envar">HOLIDAYS</code> file. Scripting is also responsible for ensuring that the correct files are merged together by <span><strong class="command">Smkmerge</strong></span> to create the model-ready files for all days of the episode. These scripting issues are described in more detail in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>.
+         </p>
+         <p>There are some situations in which you cannot use the MWSS approach. In particular, on-road processing with MOVES must be
+            run for all days of the episode, although some steps can be sped up by using the meteorology averaging approach. Additionally,
+            biogenic emissions processing obtains all of its temporal variation from the meteorology data, and therefore must be run for
+            all days. Fortunately, biogenic emissions processing is very fast compared to processing for other source categories.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s10s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.10.5.&nbsp;Holiday processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.7.&nbsp;Processing Non-sequential Dates</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

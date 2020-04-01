@@ -1,0 +1,127 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.5.&nbsp;Input and output file types</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s04.html" title="2.4.&nbsp;Cross-referencing and profiles">
+      <link rel="next" href="ch02s05s02.html" title="2.5.2.&nbsp;I/O API files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.5.&nbsp;Input and output file types</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s05s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_basic_formats"></a>2.5.&nbsp;Input and output file types
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s05.html#d0e1593">2.5.1. ASCII files</a></span></dt>
+               <dt><span class="section"><a href="ch02s05s02.html">2.5.2. I/O API files</a></span></dt>
+               <dt><span class="section"><a href="ch02s05s03.html">2.5.3. Model-ready files</a></span></dt>
+            </dl>
+         </div>
+         <p>Before we describe more about the SMOKE processing, we first need to explain the types of files you will encounter in this
+            documentation. SMOKE primarily uses two types of file formats: ASCII files and I/O API files. In addition, the output file
+            format for the UAM-based air quality model is a Fortran binary file format. <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>, <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a>, and <a href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">Chapter&nbsp;10, <i>SMOKE Output Files</i></a> describe all input, intermediate, and output files, including the file format for each one. Input files are files that are
+            read by at least one core SMOKE program (listed in <a href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">Chapter&nbsp;6, <i>SMOKE Core Programs</i></a>), but are not written by a core program. Intermediate files are files that are written by a core program and read by at least
+            one other core program. Output files are files output by a SMOKE core program but not read by any of them; these files include
+            reports, log files, and the model-ready files to be input to an air quality model. (Exception: one intermediate file [used
+            by a core program] is also an output file [used by an AQM]: the <code class="envar">STACK_GROUPS</code> file, described in <a href="ch09s03s02.html" title="9.3.2.&nbsp;STACK_GROUPS">Section&nbsp;9.3.2, &#8220;<code class="envar">STACK_GROUPS</code>&#8221;</a>.) In this section, we further describe the ASCII and I/O API files, and then provide information about the two approaches
+            for formatting the model-ready output files produced by SMOKE (the CMAQ/Models-3 approach and the UAM-based approach).
+         </p>
+         <p>SMOKE&#8217;s input files are primarily ASCII files, although a few I/O API files are used. The intermediate files in SMOKE are
+            primarily I/O API files, although there are several important ACSII files as well. The output files from SMOKE are primarily
+            I/O API files and Fortran binary files for model-ready emissions files, and ASCII files for reports and logs.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e1593"></a>2.5.1.&nbsp;ASCII files
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch02s05.html#sect_concepts_column_specific">2.5.1.1. Column-specific ASCII files</a></span></dt>
+                  <dt><span class="section"><a href="ch02s05.html#sect_concepts_list_directed">2.5.1.2. List-directed ASCII files</a></span></dt>
+               </dl>
+            </div>
+            <p>ASCII files are simply the text files with which most computer users are familiar. The ASCII files input by SMOKE come in
+               two structures: <span class="emphasis"><em>column-specific</em></span> and <span class="emphasis"><em>list-directed</em></span>.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_concepts_column_specific"></a>2.5.1.1.&nbsp;Column-specific ASCII files
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>In column-specific files, the fields in the files must appear in certain columns in the file. Each character on a line represents
+                  a single column. The lines below represent a column-specific ASCII data file:
+               </p><pre class="programlisting">TEST 1 2 3
+
+Additional data</pre><p>The letters <code class="literal">TEST</code> are in columns 1 through 4 of the file and the numbers 1, 2, and 3 are in columns 6, 8, and 10 respectively:
+               </p><pre class="programlisting">123456789012345
+TEST 1 2 3
+
+Additional data</pre></div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_concepts_list_directed"></a>2.5.1.2.&nbsp;List-directed ASCII files
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>In list-directed files, the exact positioning of the fields on a line is not important, but the order of the fields on that
+                  line is crucial. The fields must be delimited (separated) by special characters called delimiters; in SMOKE, valid delimiters
+                  are <span class="bold"><strong>spaces</strong></span>, <span class="bold"><strong>commas</strong></span>, or <span class="bold"><strong>semicolons</strong></span>. If a particular field happens to contain any of these delimiters within it, then that field must be surrounded by single
+                  or double quotes in the input file.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s05s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.4.&nbsp;Cross-referencing and profiles&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.5.2.&nbsp;I/O API files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

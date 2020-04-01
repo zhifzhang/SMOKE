@@ -1,0 +1,147 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.2.&nbsp;Test case descriptions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">
+      <link rel="prev" href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">
+      <link rel="next" href="ch04s02s02.html" title="4.2.2.&nbsp;Script descriptions">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.2.&nbsp;Test case descriptions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;4.&nbsp;How to Use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s02s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_dirs_example_data_files"></a>4.2.&nbsp;Test case descriptions
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s02.html#sect_scripts_nctox_case">4.2.1. nctox case for area, nonroad, mobile, biogenic and point sources</a></span></dt>
+               <dt><span class="section"><a href="ch04s02s02.html">4.2.2. Script descriptions</a></span></dt>
+               <dt><span class="section"><a href="ch04s02s03.html">4.2.3. Example script files and their purposes</a></span></dt>
+               <dt><span class="section"><a href="ch04s02s04.html">4.2.4. Script settings</a></span></dt>
+               <dt><span class="section"><a href="ch04s02s05.html">4.2.5. SMOKE settings controlled through scripts</a></span></dt>
+            </dl>
+         </div>
+         <p>Many of the support files used in the test cases are based on the EPA&#8217;s NEI modeling platform, available online at EPA&#8217;s Emission
+            Modeling Clearinghouse (<a href="http://www.epa.gov/ttn/chief/emch/index.html" target="_top">http://www.epa.gov/ttn/chief/emch/</a>). 
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_scripts_nctox_case"></a>4.2.1.&nbsp;nctox case for area, nonroad, mobile, biogenic and point sources
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>The nctox case provides users with an example of using both criteria and toxics emissions inventories. The purposes of this
+               case include:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Providing a test case for SMOKE on users computers. It is not recommended for actual user's emissions modeling work.</p>
+                  </li>
+                  <li>
+                     <p>Provide example scripts that users may adapt to their own cases</p>
+                  </li>
+               </ul>
+            </div>
+            <p>This case has the following major features. It runs for July 10th and 11th, 2005 on a 12-km Lambert Conformal grid over North
+               Carolina. The spatial extent of this case has been limited to provide a relatively fast test case, and the domain is a subdomain
+               of EPA&#8217;s 12-km national grid. The case includes toxics processing for stationary area, nonroad mobile, and point sources.
+            </p>
+            <div class="figure"><a name="fig_scripts_nctox_domain"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;nctox domain</b></p>
+               <div class="mediaobject"><img src="images\scripts\nctox_domain_html.jpg" alt="nctox domain"></div>
+            </div>
+            <p>At this time, the case uses North Carolina records <span class="emphasis"><em>only</em></span> from the following inventory data:
+            </p>
+            <p><span class="bold"><strong>stationary area sources:</strong></span> 2005 NEI for CO, NO<sub>x</sub>, VOC, SO<sub>2</sub>, NH<sub>3</sub>, PM<sub>10</sub>, and PM<sub>2.5</sub> from nonpt, averfire and alm sectors
+            </p>
+            <p><span class="bold"><strong>nonroad mobile sources:</strong></span> 2005 NEI for CO, NO<sub>x</sub>, VOC, SO<sub>2</sub>, NH<sub>3</sub>, PM<sub>10</sub>, and PM<sub>2.5</sub> from nonroad sector
+            </p>
+            <p><span class="bold"><strong>point sources:</strong></span> 2005 NEI for CO, NO<sub>x</sub>, VOC, SO<sub>2</sub>, NH<sub>3</sub>, PM<sub>10</sub>, and PM<sub>2.5</sub> from ptipm and ptnonipm sectors
+            </p>
+            <p><span class="bold"><strong>mobile sources:</strong></span> vehicle mileage traveled (VMT) and its average speed (SPEED), and vehicle average hotteling (HOTELLING) for onroad mobile
+               sources, and vehicle population (VPOP) for offroad mobile sources
+            </p>
+            <p><span class="bold"><strong>biogenic sources:</strong></span> BELD3 data processed using BEIS3 (for entire grid, even those cells that are not in North Carolina)
+            </p>
+            <p>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current
+               CB6 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions
+               with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This
+               is the &#8220;<span class="quote">integrate</span>&#8221; approach for VOC emissions, described in <a href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">Section&nbsp;2.9.5, &#8220;Combine toxics and criteria inventories&#8221;</a>. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants
+               to current CB6 species. Choices for speciation profiles in this version of SMOKE are listed in <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a>.
+            </p>
+            <p>In addition to the inventory data listed above, the parameters of the case are the following:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span class="bold"><strong>Episode:</strong></span> July 10th and 11th of 2005
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Output time zone:</strong></span> Greenwich Mean Time (zone 0)
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Projection:</strong></span> Lambert Conformal with Alpha=33, Beta=45, Gamma=-97, and center at (-97,40)
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Domain:</strong></span> Origin at (1128, -672) kilometers with 66 columns by 52 rows and 12-km square grid cells (shown in <a href="ch04s02.html#fig_scripts_nctox_domain" title="Figure&nbsp;4.1.&nbsp;nctox domain">Figure&nbsp;4.1, &#8220;nctox domain&#8221;</a>)
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Meteorology data:</strong></span> Daily (25-hour) 2005 meteorology files generated originally by EPA using MM5 and MCIP; the files have been reduced to the
+                        modeling domain and contain only the variables needed by SMOKE.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Chemical speciation data:</strong></span> Revised <code class="envar">GSPRO</code> and <code class="envar">GSREF</code> files to include toxic pollutants mapped to current-CB6 mechanism for both on-road and nonroad mobile source classification
+                        category (SCC) codes.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s02s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">Chapter&nbsp;4.&nbsp;How to Use SMOKE&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.2.2.&nbsp;Script descriptions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

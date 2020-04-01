@@ -1,0 +1,145 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Chapter&nbsp;6.&nbsp;SMOKE Core Programs</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="ch05s03s15.html" title="5.3.15.&nbsp;Uam2ncf">
+      <link rel="next" href="ch06s02.html" title="6.2.&nbsp;Cntlmat">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s15.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="ch_programs"></a>Chapter&nbsp;6.&nbsp;SMOKE Core Programs
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06.html#d0e21574">6.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch06s02.html">6.2. <span><strong class="command">Cntlmat</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s03.html">6.3. <span><strong class="command">Elevpoint</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s04.html">6.4. <span><strong class="command">Grdmat</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s05.html">6.5. <span><strong class="command">Grwinven</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s06.html">6.6. <span><strong class="command">Laypoint</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s07.html">6.7. <span><strong class="command">Met4moves</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s08.html">6.8. <span><strong class="command">Movesmrg</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s09.html">6.9. <span><strong class="command">Mrgelev</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s10.html">6.10. <span><strong class="command">Mrggrid</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s11.html">6.11. <span><strong class="command">Mrgpt</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s12.html">6.12. <span><strong class="command">Normbeis3</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s13.html">6.13. <span><strong class="command">Smkinven</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s14.html">6.14. <span><strong class="command">Smkmerge</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s15.html">6.15. <span><strong class="command">Spcmat</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s16.html">6.16. <span><strong class="command">Temporal</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch06s17.html">6.17. <span><strong class="command">Tmpbeis3</strong></span></a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both"><a name="d0e21574"></a>6.1.&nbsp;Overview
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <p><a href="ch06.html#fig_programs_core_programs" title="Figure&nbsp;6.1.&nbsp;SMOKE core programs">Figure&nbsp;6.1, &#8220;SMOKE core programs&#8221;</a> shows the SMOKE core programs and how they relate to each other. We define the core programs as those needed for the actual
+               emissions processing; we exclude QA and utility programs such as <span><strong class="command">Smkreport</strong></span> (these programs are discussed in <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a> and <a href="ch05.html" title="Chapter&nbsp;5.&nbsp;SMOKE Utility Tools">Chapter&nbsp;5, <i>SMOKE Utility Tools</i></a>). The lines between the boxes represent one or more files passing between the programs, and show the dependencies among the
+               programs. Note that we have omitted some redundant file dependencies to make the diagram easier to understand. Unless otherwise
+               noted, the SMOKE core programs are applied for the anthropogenic source categories: area-, mobile-, and point-source processing
+               (biogenic processing follows a separate path from the other source categories). When a program that applies to multiple source
+               categories is used, it can be run for only one source category at a time, with the exception of <span><strong class="command">Smkmerge</strong></span> and <span><strong class="command">Mrggrid</strong></span>.
+            </p>
+            <div class="figure"><a name="fig_programs_core_programs"></a><p class="title"><b>Figure&nbsp;6.1.&nbsp;SMOKE core programs</b></p>
+               <div class="mediaobject"><img src="images\programs\core_programs_html.jpg" alt="SMOKE core programs"></div>
+            </div>
+            <p>The <a href="ch06s13.html" title="6.13.&nbsp;Smkinven"><span><strong class="command">Smkinven</strong></span></a> program, at left in <a href="ch06.html#fig_programs_core_programs" title="Figure&nbsp;6.1.&nbsp;SMOKE core programs">Figure&nbsp;6.1, &#8220;SMOKE core programs&#8221;</a>, is responsible for importing the stationary area/non-point, nonroad, on-road mobile, and point source inventory emissions
+               data. For mobile sources, <span><strong class="command">Smkinven</strong></span> can also import activity data in the form of VMT and vehicle speed for use in generating emission factors. For point sources,
+               <span><strong class="command">Smkinven</strong></span> can also import day- and hour-specific data. The output from <span><strong class="command">Smkinven</strong></span> is used as input to nearly every other core SMOKE program.
+            </p>
+            <p>Also at left, the <a href="ch06s12.html" title="6.12.&nbsp;Normbeis3"><span><strong class="command">Normbeis3</strong></span></a> program imports the gridded land use data and biogenic emissions factors ,and creates gridded, normalized (time-independent)
+               biogenic emissions.
+            </p>
+            <p><a href="ch06s04.html" title="6.4.&nbsp;Grdmat"><span><strong class="command">Grdmat</strong></span></a> creates the gridding matrix for the anthropogenic source categories.
+            </p>
+            <p>The <a href="ch06s16.html" title="6.16.&nbsp;Temporal"><span><strong class="command">Temporal</strong></span></a> program is used to create an hourly emissions file for the anthropogenic source categories. It can read in day-specific and
+               hour-specific data, and merge this with estimated daily and hourly data created from the annual emissions data using temporal
+               profiles.
+            </p>
+            <p><a href="ch06s03.html" title="6.3.&nbsp;Elevpoint"><span><strong class="command">Elevpoint</strong></span></a> preprocesses the selected PinG and major point sources. <span><strong class="command">Elevpoint</strong></span> is not used when no PinG or major point sources need to be defined. In this case, SMOKE can create elevated emissions for
+               all point sources, so there is no need to specifically indicate the major point sources.
+            </p>
+            <p><a href="ch06s06.html" title="6.6.&nbsp;Laypoint"><span><strong class="command">Laypoint</strong></span></a> computes the plume rise for all point sources based on the meteorology data.
+            </p>
+            <p><a href="ch06s15.html" title="6.15.&nbsp;Spcmat"><span><strong class="command">Spcmat</strong></span></a> creates the speciation matrices (both mass and molar) for the anthropogenic source categories. It uses the user-selected
+               chemical mechanism.
+            </p>
+            <p><a href="ch06s02.html" title="6.2.&nbsp;Cntlmat"><span><strong class="command">Cntlmat</strong></span></a> creates the growth matrices, multiplicative control matrices, and reactivity control matrices for the anthropogenic source
+               categories. This program is not used for base-year emissions without controls.
+            </p>
+            <p><a href="ch06s05.html" title="6.5.&nbsp;Grwinven"><span><strong class="command">Grwinven</strong></span></a> is used to grow the emissions to past or future years using the growth matrix created by <span><strong class="command">Cntlmat</strong></span> and the imported inventory data from <span><strong class="command">Smkinven</strong></span>. It writes both SMOKE inventory format (I/O API NetCDF) and ORL format. The output from <span><strong class="command">Grwinven</strong></span> is used in place of the original output from <span><strong class="command">Smkinven</strong></span> when processing past or future years.
+            </p>
+            <p><a href="ch06s17.html" title="6.17.&nbsp;Tmpbeis3"><span><strong class="command">Tmpbeis3</strong></span></a> applies meteorology adjustments to the normalized emissions created by <span><strong class="command">Normbeis3</strong></span>.  <span><strong class="command">Tmpbeis3</strong></span> also applies the speciation profiles needed for the user-selected chemical mechanism to create gridded, hourly, model-species
+               biogenic emissions data for use in <span><strong class="command">Smkmerge</strong></span> and <span><strong class="command">Mrggrid</strong></span>. The <span><strong class="command">Normbeis3</strong></span> and <span><strong class="command">Tmpbeis3</strong></span> programs taken together are the equivalent of SMOKE-BEIS3.
+            </p>
+            <p><a href="ch06s14.html" title="6.14.&nbsp;Smkmerge"><span><strong class="command">Smkmerge</strong></span></a> is used to combine all emissions and matrices to create the gridded, hourly, model-species emissions needed for an AQM. It
+               can merge for one source category at a time or all source categories at once, and it can read in the model-ready biogenic
+               emissions to merge with the anthropogenic source categories. It can merge the matrices with the inventory data output from
+               <span><strong class="command">Smkinven</strong></span> or the hourly emissions from <span><strong class="command">Temporal</strong></span>, and it can optionally merge the speciation, gridding, or control matrices, or any combination. It also writes state and
+               county emissions totals.
+            </p>
+            <p><a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Movesmrg</strong></span></a> is only used for mobile sources to compute hourly emissions using the hourly VMT from <span><strong class="command">Temporal</strong></span>, the MOVES emission rates lookup tables (i.e., RPD, RPH, RPV and RPP), the gridded/averaged temperatures meteorology data
+               and more. If VMT are not used, then the emissions from <span><strong class="command">Smkinven</strong></span> are combined with the temporal factors, and the emission factors are not used at all.
+            </p>
+            <p>In the remaining sections of this chapter, we provide detailed program descriptions, in alphabetic order.</p>
+            <p><a href="ch06s09.html" title="6.9.&nbsp;Mrgelev"><span><strong class="command">Mrgelev</strong></span></a> is used to combine ASCII elevated files created by <span><strong class="command">Smkmerge</strong></span>. These files contain point-source data needed by AQMs including CAMx and UAM models.
+            </p>
+            <p><a href="ch06s10.html" title="6.10.&nbsp;Mrggrid"><span><strong class="command">Mrggrid</strong></span></a> is used to combine gridded emission data files, which can be speciated or non-speciated, and hourly or time-independent.
+               It can combine a 3-D point source file with any number of 2-D files from other source categories. This program is optional
+               and provides a convenient way to merge model-ready output files outside of <span><strong class="command">Smkmerge</strong></span>.
+            </p>
+            <p><a href="ch06s11.html" title="6.11.&nbsp;Mrgpt"><span><strong class="command">Mrgpt</strong></span></a> is used to combine multiple point sources inline-mode hourly speciated emission data and ASCII elevated files created by
+               <span><strong class="command">Smkmerge</strong></span>. This program is optional and allows the users to process multiple point sources separately in inline mode through <span><strong class="command">Smkmerge</strong></span> prior to merging them for CMAQ model.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s15.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.15.&nbsp;<span><strong class="command">Uam2ncf</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.2.&nbsp;<span><strong class="command">Cntlmat</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,266 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.16.&nbsp;Temporal</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s15s03.html" title="6.15.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s16s02.html" title="6.16.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.16.&nbsp;<span><strong class="command">Temporal</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s15s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s16s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_temporal"></a>6.16.&nbsp;<span><strong class="command">Temporal</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s16.html#d0e31325">6.16.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s16s02.html">6.16.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s16s03.html">6.16.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e31325"></a>6.16.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> area, mobile, point
+            </p>
+            <p>The <span><strong class="command">Temporal</strong></span> program produces a file with hourly inventory pollutant emissions. Unlike the SMOKE matrices produced by <span><strong class="command">Cntlmat</strong></span>, <span><strong class="command">Grdmat</strong></span>, and <span><strong class="command">Spcmat</strong></span>, the output file from <span><strong class="command">Temporal</strong></span> contains the actual emissions data. For all source categories, it uses temporal profiles, temporal cross-references, and
+               the time zone of each source to create the hourly emissions output file. It can also read in day-specific and hour-specific
+               inventory data in SMOKE format, and it uses the most detailed data it can when multiple types of data are available for the
+               same source. For example, if a source had annual, day-specific, and hour-specific data, <span><strong class="command">Temporal</strong></span> would use the hour-specific emissions. The program can also apply source-specific hourly profiles from the hour-specific
+               data file, and it can override all temporal profiles and use temporally uniform profiles for all sources.
+            </p>
+            <p><span><strong class="command">Temporal</strong></span> treats the temporal profiles as <span class="emphasis"><em>local</em></span> profiles. In other words, the profile applied to the source is adjusted based on the difference between the time zone of
+               the source (determined by the <code class="envar">COSTCY</code> file) and the output time zone (determined by the <code class="envar">OUTZONE</code> environment variable). SMOKE automatically considers Daylight Saving time when converting from a region&#8217;s standard time zone
+               to the output time zone, and SMOKE can exclude regions that never use Daylight Saving time based on the <code class="envar">COSTCY</code> file. Note that <span><strong class="command">Temporal</strong></span> has been tested for time zones in the Western Hemisphere, but we have not tested it for time zones in the Eastern Hemisphere.
+            </p>
+            <p>Within the <span><strong class="command">Temporal</strong></span> program, the processing occurs as follows:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Temporal profiles are assigned for all sources.</p>
+                  </li>
+                  <li>
+                     <p>Monthly (year-to-month) temporal profiles can be applied.</p>
+                  </li>
+                  <li>
+                     <p>Daily (month-to-day) temporal profiles can be applied.</p>
+                  </li>
+                  <li>
+                     <p>Weekly (month-to-weekly) temporal profiles can be applied.</p>
+                  </li>
+                  <li>
+                     <p>Day-of-week specific hourly diurnal temporal profiles (Monday,,,Sunday, Weekday, Weekend, or All days) are applied.</p>
+                  </li>
+                  <li>
+                     <p>Date-specific hourly diurnal temporal profiles (year-to-hour, month-to-hour or day-to-hour) can be applied.</p>
+                  </li>
+                  <li>
+                     <p>Day-specific emissions or activities are read in and used to overwrite daily emissions for the appropriate sources</p>
+                  </li>
+                  <li>
+                     <p>Hour-specific emissions or activities are read in and used to overwrite hourly emissions for the appropriate sources.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Hourly temporal profiles can be applied for weekdays and weekend days by default in the system. By breaking up the processing
+               into different periods, you can apply different temporal profiles for different days of the week. A future version of SMOKE
+               will permit different hourly profiles for every day of the week in a single run of the <span><strong class="command">Temporal</strong></span> program.
+            </p>
+            <p>A special holidays file should be provided so that holidays can receive special treatment. This file specifies which daily
+               profiles should be applied to holidays.
+            </p>
+            <p>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the
+               most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <span><strong class="command">Temporal</strong></span> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to
+               the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<sub>x</sub>, <span><strong class="command">Temporal</strong></span> uses the source-specific CO temporal cross reference entry for allocating NO<sub>x</sub> from that source in preference to using a default NO<sub>x</sub> temporal profile.
+            </p>
+            <p>For area sources, the available combinations are the following, starting with the most specific. &#8220;<span class="quote">7-digit SCC</span>&#8221; means a 10-digit SCC with the last three digits set to zero. The maximum field width in SMOKE and its input files for SCC
+               is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the
+               SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger
+               than 4 characters then the hierarchial approach will not be used. (NOTE: only for SCC less than or equal to 10 characters
+               and SIC less than or equal to 4 characters)
+            </p>
+            <div class="orderedlist">
+               <ol type="1" compact>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 7-digit SCC, and pollutant </p>
+                  </li>
+                  <li>
+                     <p>Country/state code, 10-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state code, 7-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC and pollutant</p>
+                  </li>
+                  <li>
+                     <p>7-digit SCC and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code and 7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>7-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code</p>
+                  </li>
+                  <li>
+                     <p>Country/state code</p>
+                  </li>
+                  <li>
+                     <p>Ultimate default (no pollutant, country/state/county code = 0, SCC = 0)</p>
+                  </li>
+               </ol>
+            </div>
+            <p>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the
+               source definition. For inventories, a source is defined as the unique combination of country/state/county code, plant ID,
+               point ID, stack ID, segment, and SCC. &#8220;<span class="quote">5-digit SCC</span>&#8221; means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE
+               will assume leading zeros. In this case, the &#8220;<span class="quote">5-digit SCC</span>&#8221; becomes a &#8220;<span class="quote">3-digit SCC</span>&#8221;. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are
+               still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may
+               also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be
+               used.
+            </p>
+            <p>The hierarchy of cross-referencing is the following. (NOTE: only for SCC less than or equal to 10 characters, SIC less than
+               or equal to 4 characters)
+            </p>
+            <div class="orderedlist">
+               <ol type="1" compact>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, segment, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, point ID, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and segment</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, point ID, and stack ID</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, plant ID, and point ID</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, and plant ID</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, and plant ID</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 10-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code, 5-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state code, 10-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state code, 5-digit SCC, and pollutant</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC and pollutant</p>
+                  </li>
+                  <li>
+                     <p>5-digit SCC and pollutant</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code and 5-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state code and 5-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>10-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>5-digit SCC</p>
+                  </li>
+                  <li>
+                     <p>Country/state/county code</p>
+                  </li>
+                  <li>
+                     <p>Country/state code</p>
+                  </li>
+                  <li>
+                     <p>Ultimate default (all values = 0)</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s15s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s16s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.15.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.16.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

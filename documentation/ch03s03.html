@@ -1,0 +1,78 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.3.&nbsp;How to change the default directory structure</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">
+      <link rel="prev" href="ch03s02s06.html" title="3.2.6.&nbsp;Locations of reports">
+      <link rel="next" href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.3.&nbsp;How to change the default directory structure</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;3.&nbsp;SMOKE Directory Structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_dirs_change_directory"></a>3.3.&nbsp;How to change the default directory structure
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>The default Assigns files and scripts contain settings that allow users to modify the directories that will be used when running
+            SMOKE. The basic structure has been developed to suit the needs of a variety of applications, from short, single-grid, base
+            case modeling needs to annual, multigrid needs for many control strategies. The details of working within the default structure
+            by changing Assigns file and script settings are provided in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>. The default structures that we have described represent our recommended way of running SMOKE. Although this structure has
+            been quite useful for many people, it could be a burden to others. In this section, we describe ways in which users can change
+            the default structure to meet their specific needs.
+         </p>
+         <p>The SMOKE programs themselves do not require any specific directory structure because all input and output files depend only
+            on environment variables, which can be set in any pattern. We have created a default directory structure so that other users
+            can benefit from our experience in emissions modeling and using SMOKE, and to provide an initial structure that is useful.
+            With a few exceptions for intermediate files, the SMOKE programs also do not require specific file names, only specific environment
+            variables; but again, we have configured SMOKE to have a default structure for these names.
+         </p>
+         <p>In principle, you can change the location of every single input file that SMOKE uses. The Assigns files and scripts have been
+            implemented using one structure, but changing that structure is only a matter of finding some other method of providing the
+            file names to the programs. This can include changing the Assigns files and scripts, or removing the Assigns files altogether
+            and creating a script that sets all of the input and output file names and directories and calls the programs. These modifications
+            can be as extensive or minimal as needed to handle a specific limitation or problem with the default structure.
+         </p>
+         <p>If slight modifications to the structures are all that is needed, then the best approach is to modify a copy of the default
+            the Assigns file. For example, if you wish to have the nonroad mobile sources&#8217; intermediate and output files written to a
+            different directory than the stationary area sources&#8217; files, you would add an <code class="envar">NSCEN</code> environment variable to parallel the area-source variable <code class="envar">ASCEN</code>, and change the input, intermediate, and output file locations and names to use this setting.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.6.&nbsp;Locations of reports&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;4.&nbsp;How to Use SMOKE</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,402 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.16.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s16.html" title="6.16.&nbsp;Temporal">
+      <link rel="prev" href="ch06s16s02.html" title="6.16.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s17.html" title="6.17.&nbsp;Tmpbeis3">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.16.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s16s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.16.&nbsp;<span><strong class="command">Temporal</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s17.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e31649"></a>6.16.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s16s03.html#d0e31856">6.16.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s16s03.html#sect_programs_temporal_envar">6.16.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s16s03.html#d0e32207">6.16.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_temporal_area"></a><p class="title"><b>Figure&nbsp;6.23.&nbsp;<span>Temporal</span> input and output files for area sources</b></p>
+            <div class="mediaobject"><img src="images\programs\temporal_area_html.jpg" alt="Temporal input and output files for area sources"></div>
+         </div>
+         <p><a href="ch06s16s03.html#fig_programs_temporal_area" title="Figure&nbsp;6.23.&nbsp;Temporal input and output files for area sources">Figure&nbsp;6.23, &#8220;<span>Temporal</span> input and output files for area sources&#8221;</a> shows the input and output files for the <span><strong class="command">Temporal</strong></span> program for area sources. The input files include the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">AREA</code>), the temporal profiles file (<code class="envar">ATPRO</code>), the temporal cross-reference file (<code class="envar">ATREF</code>), the country, state, and county codes file (<code class="envar">COSTCY</code>), the holidays file <code class="envar">HOLIDAYS</code>), and optional process date file (<code class="envar">PROCDATES</code>).
+         </p>
+         <p><span><strong class="command">Temporal</strong></span> outputs an hourly emissions file (<code class="envar">ATMP</code>), a temporal allocation supplemental file (<code class="envar">ATSUP</code>), and a log file (<code class="envar">LOGFILE</code>).
+         </p>
+         <div class="figure"><a name="fig_programs_temporal_mobile"></a><p class="title"><b>Figure&nbsp;6.24.&nbsp;<span>Temporal</span> input and output files for mobile sources</b></p>
+            <div class="mediaobject"><img src="images\programs\temporal_mobile_html.jpg" alt="Temporal input and output files for mobile sources"></div>
+         </div>
+         <p><a href="ch06s16s03.html#fig_programs_temporal_mobile" title="Figure&nbsp;6.24.&nbsp;Temporal input and output files for mobile sources">Figure&nbsp;6.24, &#8220;<span>Temporal</span> input and output files for mobile sources&#8221;</a> shows the input and output files for the <span><strong class="command">Temporal</strong></span> program for mobile sources. The input files include the country, state, and county codes file (<code class="envar">COSTCY</code>), the holidays file (<code class="envar">HOLIDAYS</code>), the optional process date file (<code class="envar">PROCDATES</code>) and, if activity data are used, the inventory data table (<code class="envar">INVTABLE</code>). <span><strong class="command">Temporal</strong></span> also uses the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">MOBL</code>), the temporal profiles file (<code class="envar">MTPRO</code>), and the temporal cross-reference file (<code class="envar">MTREF</code>).
+         </p>
+         <p><span><strong class="command">Temporal</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), an hourly emissions file (<code class="envar">MTMP</code>), and a temporal allocation supplemental file (<code class="envar">MTSUP</code>).
+         </p>
+         <div class="figure"><a name="fig_programs_temporal_point"></a><p class="title"><b>Figure&nbsp;6.25.&nbsp;<span>Temporal</span> input and output files for point sources</b></p>
+            <div class="mediaobject"><img src="images\programs\temporal_point_html.jpg" alt="Temporal input and output files for point sources"></div>
+         </div>
+         <p><a href="ch06s16s03.html#fig_programs_temporal_point" title="Figure&nbsp;6.25.&nbsp;Temporal input and output files for point sources">Figure&nbsp;6.25, &#8220;<span>Temporal</span> input and output files for point sources&#8221;</a> shows the input and output files for the <span><strong class="command">Temporal</strong></span> program for point sources. The input files include the country, state, and county codes file (<code class="envar">COSTCY</code>), the holidays file (<code class="envar">HOLIDAYS</code>) and the optional process date file (<code class="envar">PROCDATES</code>). If using day-specific data, the <code class="envar">PDAY</code> file is read, and the <code class="envar">PHOUR</code> file is read when using hour-specific data. <span><strong class="command">Temporal</strong></span> also uses the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">PNTS</code>), the temporal profiles file (<code class="envar">PTPRO</code>), and the temporal cross-reference file (<code class="envar">PTREF</code>).
+         </p>
+         <p><span><strong class="command">Temporal</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), an hourly emissions file (<code class="envar">PTMP</code>), and a temporal allocation supplemental file (<code class="envar">PTSUP</code>).
+         </p>
+         <p>Optionally, <span><strong class="command">Temporal</strong></span> may be run using <code class="envar">PROCDATES</code>.  This enables the processing of sequential or non-sequential user specified days. If <code class="envar">PROCDATES</code> is not assigned, the defaults apply. When running <span><strong class="command">Temporal</strong></span> interactively, the following inputs will be requested. The default values for these are set by the <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, and <code class="envar">G_RUNLEN</code> environment variables.
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</p>
+               </li>
+               <li>
+                  <p>Start Time: Starting time of simulation in HHMMSS</p>
+               </li>
+               <li>
+                  <p>Duration: Simulation duration in hours</p>
+               </li>
+            </ul>
+         </div>
+         <p><code class="envar">PROCDATES</code>: See description in <a href="ch08s03s04.html" title="8.3.4.&nbsp;PROCDATES: Procdates date list">Section&nbsp;8.3.4, &#8220;<code class="envar">PROCDATES</code>: Procdates date list&#8221;</a>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e31856"></a>6.16.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[AREA|MOBL|PNTS]</code></td>
+                        <td>SMOKE map</td>
+                        <td>Intermediate inventory file produced by <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TPRO_MONTHLY</code></td>
+                        <td>ASCII</td>
+                        <td>Monthly Temporal profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TPRO_DAILY</code></td>
+                        <td>ASCII</td>
+                        <td>Month-to-day Temporal profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TPRO_WEEKLY</code></td>
+                        <td>ASCII</td>
+                        <td>Weekly Temporal profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TPRO_HOURLY</code></td>
+                        <td>ASCII</td>
+                        <td>Day-to-hour Temporal profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TPRO_HOURLY_NCF</code></td>
+                        <td>ASCII</td>
+                        <td>Meteorological-based hourly Temporal profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TREF</code></td>
+                        <td>ASCII</td>
+                        <td>Temporal cross-reference file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">COSTCY</code></td>
+                        <td>ASCII</td>
+                        <td>Country/state/county codes file, used to determine counties that do not use Daylight Saving time.</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                        <td>ASCII</td>
+                        <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                           when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> files are used)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">HOLIDAYS</code></td>
+                        <td>ASCII</td>
+                        <td>Holidays file by Gregorian date, for applying holiday temporal profiles. </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PROCDATES</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Processes user specified Gregorian dates</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVTABLE</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Inventory data table listing pollutant and activity names; required only if activity data are used</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PDAY</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>Day-specific intermediate inventory file created by <span><strong class="command">Smkinven</strong></span> (required if <code class="envar">DAY_SPECIFIC_YN</code> is set to Y)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PHOUR</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>Hour-specific intermediate inventory file created by <span><strong class="command">Smkinven</strong></span> (required if <code class="envar">HOUR_SPECIFIC_YN</code> is set to Y)
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_programs_temporal_envar"></a>6.16.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">DAY_SPECIFIC_YN</code>: See description in <a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">FULLSCC_ONLY</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a>. In this context, this option affects cross-referencing for the temporal cross-reference files by preventing left-7 SCC assignments.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                        country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">HOUR_SPECIFIC_YN</code>: See description in <a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">HOURLY_TPROF_BASE</code>: [default: blank]
+                     </p>
+                     <p>Defines the base of hourly temporal profiles. This flag is only applicable when hourly temporal profiles generated by <span><strong class="command">Gentpro</strong></span> is available for <span><strong class="command">Temporal</strong></span> to use. For a proper processing of hourly temporal profiles from <span><strong class="command">Gentpro</strong></span>, user must let <span><strong class="command">Temporal</strong></span> know the basis of hourly temporal profiles (i.e., hour of day, hour of month or hour of year). <span><strong class="command">Gentpro</strong></span> outputs hourly temporal profiles IDs into temporal cross-reference input file (<code class="envar">[A|M|P]TREF</code>). See detail information at <a href="ch08s03s02.html" title="8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file">Section&nbsp;8.3.2, &#8220;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file&#8221;</a>. If <code class="envar">HOUR_PROFID</code> column is filled by <span><strong class="command">Gentpro</strong></span>, user must define the base of hourly profiles to correctly convert annual/monthly/daily inventories. If processing monthly
+                        inventory, user must set it to 'MONTH'.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>YEAR: Convert raw annual inventory to hourly inventory values.</p>
+                           </li>
+                           <li>
+                              <p>MONTH: Convert calculated monthly inventory to hourly inventory values.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">OUTPUT_LOCAL_TIME</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program processes daily/hourly inventories in local time or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process daily/hourly inventories in local time. No time zone shift.</p>
+                           </li>
+                           <li>
+                              <p>N: Apply time zone shift.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">OUTZONE</code>: : [default: 0]
+                     </p>
+                     <p>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <code class="envar">OUTZONE</code> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes
+                        that are during periods and in regions where Daylight Saving time applies.
+                     </p>
+                     <p><a href="ch02s10s04.html#tbl_concepts_outzone" title="Table&nbsp;2.9.&nbsp;Example OUTZONE settings and their associated time zones">Table&nbsp;2.9, &#8220;Example <code class="envar">OUTZONE</code> settings and their associated time zones&#8221;</a> provides allowed values for <code class="envar">OUTZONE</code>. The CMAQ model expects <code class="envar">OUTZONE</code> to be 0, while other models such as UAM-IV, UAM-V and CAM<sub>X</sub> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent
+                        time zone. SMOKE expects that the meteorology data will be in GMT.
+                     </p>
+                     <p>Note that SMOKE expects <code class="envar">OUTZONE</code> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative
+                        values. For example, Eastern Standard Time is -5:00 hours from GMT, but <code class="envar">OUTZONE</code> for EST in SMOKE is 5.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">RENORM_TPROF</code>: [default: Y]
+                     </p>
+                     <p>Defines whether <span><strong class="command">Temporal</strong></span> normalizes the temporal profiles or uses them as they exist in the data file. If the profiles are specified as decimal values
+                        and sum to 1, then specify N. Otherwise, specify Y and the program will sum the values associated with each profile and then
+                        divide each value by the sum, thereby creating a normalized profile.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Normalize the temporal profiles</p>
+                           </li>
+                           <li>
+                              <p>N: Use the temporal profile values as they exist in the data file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">REPORT_DEFAULTS</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_AVEDAY_YN</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_EF_MODEL</code>: [default:blank]
+                     </p>
+                     <p>Name of the emission factor model to use. NOTE: User must set it to MOVES when processing activity inventory data (i.e., VMT,
+                        VPOP and SPEED).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_MAXERROR</code>: See description in <a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_MAXWARNING</code>: See description in <a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">UNIFORM_TPROF_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether to use uniform temporal profiles for all sources.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use uniform temporal profiles</p>
+                           </li>
+                           <li>
+                              <p>N: Use temporal profiles file and temporal cross-reference file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">ZONE4WM</code>: [default: Y]
+                     </p>
+                     <p>Defines whether <span><strong class="command">Temporal</strong></span> applies weekly and monthly temporal profiles using time zones. If SMOKE does not apply the profiles using the sources&#8217; time
+                        zones, then all sources change from one day to the next or one month to the next at the same hour. This is what other emission
+                        processing systems have typically done, and it is a minor distinction in most cases.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use time zones</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use time zones</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e32207"></a>6.16.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>As of SMOKE version 2.3, two new environmental variables <code class="envar">[A|M|P]TMPNAME</code> and <code class="envar">[A|M|P]TSUPNAME</code> are required to set the directory and file prefix used to dynamically name the output files <code class="envar">[A|M|P]TMP</code> and <code class="envar">[A|M|P]TSUP</code>.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TMP</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Hourly emissions by source; if using elevated point sources as part of point-source processing, this file contains only the
+                           layer-1 emissions
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TSUP</code></td>
+                        <td>ASCII</td>
+                        <td>Temporal allocation supplemental file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Temporal</strong></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s16s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s16.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s17.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.16.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.17.&nbsp;<span><strong class="command">Tmpbeis3</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

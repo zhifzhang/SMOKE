@@ -1,0 +1,67 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.7.&nbsp;Using Smkmerge to apply the multiplicative and/or reactivity control matrices</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="prev" href="ch02s14s06.html" title="2.14.6.&nbsp;Creating a controlled intermediate inventory file">
+      <link rel="next" href="ch02s15.html" title="2.15.&nbsp;Elevated-source processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.7.&nbsp;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.14.&nbsp;Control processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s15.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_apply_controls_with_smkmerge"></a>2.14.7.&nbsp;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Smkmerge</strong></span> program is a second option for applying control matrices. <span><strong class="command">Smkmerge</strong></span> can apply both multiplicative control matrices and reactivity control matrices; it is the only program that can do the latter.
+            Because the overall purpose of <span><strong class="command">Smkmerge</strong></span> is to create the model-ready input files for an AQM (as discussed in <a href="ch02s18.html" title="2.18.&nbsp;Creating model-ready emissions">Section&nbsp;2.18, &#8220;Creating model-ready emissions&#8221;</a>, the result of using <span><strong class="command">Smkmerge</strong></span> to apply control matrices is a controlled, model-ready file, as opposed to the controlled intermediate inventory file output
+            by <span><strong class="command">Grwinven</strong></span>.
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> is limited to applying one control matrix and one reactivity matrix for each SMOKE source category (area, mobile, or point).
+            Therefore, if multiple reactivity control matrices need to be applied to create a single set of model-ready emission inputs,
+            then the processing must be done as multiple SMOKE runs. This includes separating the sources that need different controls
+            into separate inventory files and performing all SMOKE processing steps separately on the runs, using different reactivity
+            controls for each. The resulting two or more sets of model-ready emissions should not have duplicate sources if the inventories
+            were separated correctly at the start, and the model-ready files are combined using the <span><strong class="command">Mrggrid</strong></span> program, as discussed in <a href="ch02s18.html" title="2.18.&nbsp;Creating model-ready emissions">Section&nbsp;2.18, &#8220;Creating model-ready emissions&#8221;</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s15.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.6.&nbsp;Creating a controlled intermediate inventory file&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.15.&nbsp;Elevated-source processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

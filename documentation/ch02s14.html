@@ -1,0 +1,164 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.&nbsp;Control processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s13s05.html" title="2.13.5.&nbsp;Creating a grown inventory file">
+      <link rel="next" href="ch02s14s02.html" title="2.14.2.&nbsp;Creating the multiplicative control matrix">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.&nbsp;Control processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s13s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s14s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_control_processing"></a>2.14.&nbsp;Control processing
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s14.html#d0e6364">2.14.1. Assigning control factors from six control packets to the sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s02.html">2.14.2. Creating the multiplicative control matrix</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s03.html">2.14.3. Creating the reactivity control matrix</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s04.html">2.14.4. Reporting on factors assigned to each source in the inventory</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s05.html">2.14.5. Using <span><strong class="command">Grwinven</strong></span> to apply the multiplicative control matrices</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s06.html">2.14.6. Creating a controlled intermediate inventory file</a></span></dt>
+               <dt><span class="section"><a href="ch02s14s07.html">2.14.7. Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices</a></span></dt>
+            </dl>
+         </div>
+         <p>The control processing operation applies control factors from a control input file (<code class="envar">GCNTL</code>) based on source characteristics in the inventory. A control scenario involves changing the values of emissions based on
+            regulations affecting industrial activities or personal behaviors. The resulting control matrix, created by the <span><strong class="command">Cntlmat</strong></span> program, takes the form of the matrix shown in <a href="ch02s13.html#fig_concepts_growth_processing" title="Figure&nbsp;2.25.&nbsp;Relationship between inventory sources and growth matrix">Figure&nbsp;2.25, &#8220;Relationship between inventory sources and growth matrix&#8221;</a>. The control matrix depends only upon the source characteristics in the SMOKE inventory and the set of controls chosen, so
+            control processing can therefore be decoupled from the rest of the processing steps. The <span><strong class="command">Cntlmat</strong></span> program performs control processing for SMOKE area, mobile, and point sources; however, much more complex controls for on-road
+            mobile sources can also be implemented when using MOVES through SMOKE to calculate emission factors and apply them to VMT.
+         </p>
+         <p>The emissions control factors can be applied in addition to the emissions growth factors (described in <a href="ch02s13.html" title="2.13.&nbsp;Growth processing">Section&nbsp;2.13, &#8220;Growth processing&#8221;</a>), and the net effect of this growth and control is called &#8220;<span class="quote">projection</span>&#8221;. SMOKE control processing can create two types of control matrices during a given run: a multiplicative control matrix and
+            a reactivity control matrix.
+         </p>
+         <p>The <span><strong class="command">Cntlmat</strong></span> program performs the following emissions processing steps in creating the control matrices:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Assigning control factors from six control packets to the sources</p>
+               </li>
+               <li>
+                  <p>Creating the multiplicative control matrix</p>
+               </li>
+               <li>
+                  <p>Creating the reactivity control matrix</p>
+               </li>
+               <li>
+                  <p>Reporting on factors assigned to each source in the inventory</p>
+               </li>
+            </ol>
+         </div>
+         <p>The <span><strong class="command">Grwinven</strong></span> program addresses the following control processing steps:
+         </p>
+         <div class="orderedlist">
+            <ol start="5" type="1">
+               <li>
+                  <p>Applying the multiplicative control matrices to the inventory</p>
+               </li>
+               <li>
+                  <p>Creating a controlled intermediate inventory file</p>
+               </li>
+            </ol>
+         </div>
+         <p>Finally, the <span><strong class="command">Smkmerge</strong></span> program can be used to perform the following control processing step:
+         </p>
+         <div class="orderedlist">
+            <ol start="7" type="1">
+               <li>
+                  <p>Applying the multiplicative and/or reactivity control matrices to the inventory to create model-ready inputs</p>
+               </li>
+            </ol>
+         </div>
+         <p>The next seven subsections explain the concepts involved with these processing steps in more detail.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6364"></a>2.14.1.&nbsp;Assigning control factors from six control packets to the sources
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>SMOKE provides six control packets with which users can control emissions:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>/MACT/ contains MACT-based assignments for toxics inventories and can be used to apply general MACT controls to sources affected
+                        by MACT regulations. This packet contributes to the multiplicative control matrix.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration that can be applied by nearly
+                        any combination of source characteristics, even targeting a specific source. This packet contributes to the multiplicative
+                        control matrix. This packet cannot appear in the same input file with an /EMS_CONTROL/ packet.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/EMS_CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration for both the base year <span class="emphasis"><em>and</em></span> a future year. It also contains a point-source conversion factor and an aggregated control factor that can override everything
+                        else in the packet. This packet contributes to the multiplicative control matrix. This packet cannot appear in the same input
+                        file with a /CONTROL/ packet, and it can be used for point sources only.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/CTG/ contains settings for control technology guideline (CTG) controls, MACT controls, and reasonably available control technology
+                        (RACT) controls. It contributes to the multiplicative control matrix.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/ALLOWABLE/ contains county-specific, SIC-specific, SCC-specific controls, caps, and replacement emissions. It contributes
+                        to the multiplicative control matrix.
+                     </p>
+                  </li>
+                  <li>
+                     <p>/REACTIVITY/ contains settings needed for reactivity-based controls and its use results in the reactivity control matrix.</p>
+                  </li>
+               </ul>
+            </div>
+            <p><a href="ch06s02.html" title="6.2.&nbsp;Cntlmat">Section&nbsp;6.2, &#8220;<span><strong class="command">Cntlmat</strong></span>&#8221;</a> describes the <span><strong class="command">Cntlmat</strong></span> program in more detail, including the cross-reference hierarchy of these packets and how they relate to one another. All
+               packets can be included in a single <span><strong class="command">Cntlmat</strong></span> run, with the exception of the /CONTROL/ and /EMS_CONTROL/ packets (either one or the other of these can be included, but
+               not both). In general, these packets can assign control factors by state/county FIPS code, SCC, SIC, MACT, pollutant, other
+               plant-specific source characteristics, and various combinations of these.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s13s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s14s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.13.5.&nbsp;Creating a grown inventory file&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.14.2.&nbsp;Creating the multiplicative control matrix</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

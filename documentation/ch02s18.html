@@ -1,0 +1,111 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.18.&nbsp;Creating model-ready emissions</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s17.html" title="2.17.&nbsp;Biogenic processing">
+      <link rel="next" href="ch02s19.html" title="2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.18.&nbsp;Creating model-ready emissions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s17.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s19.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_merge_processing"></a>2.18.&nbsp;Creating model-ready emissions
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>Creating emissions with SMOKE that are ready for input to an AQM must always include merging the hourly emissions created
+            during temporal processing with the gridding matrices and the speciation matrices. In addition, for point sources for CMAQ,
+            creating the model-ready emissions must also include merging with the layer fractions (see <a href="ch02s15.html#sect_concepts_compute_layer_cmaq" title="2.15.1.&nbsp;Computing layer fractions for CMAQ">Section&nbsp;2.15.1, &#8220;Computing layer fractions for CMAQ&#8221;</a>), and for UAM-based models it must include creating the ASCII elevated file (see <a href="ch02s15s02.html" title="2.15.2.&nbsp;Creating an elevated-source file for UAM and CAMX">Section&nbsp;2.15.2, &#8220;Creating an elevated-source file for UAM and CAM<sub>X</sub>&#8221;</a>). The <span><strong class="command">Smkmerge</strong></span> program performs these processing steps using vector-matrix multiplication to combine the matrices and layer fractions with
+            the hourly emissions vectors from the <span><strong class="command">Temporal</strong></span> program.
+         </p>
+         <p>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate
+            runs (see <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, then <span><strong class="command">Smkmerge</strong></span> cannot be used to combine all source categories into a single output file. Instead, the <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Mrggrid</strong></span></a> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including
+            <span><strong class="command">Smkmerge</strong></span>) runs for stationary area/nonpoint, nonroad mobile, windblown dust, wildfire, on-road mobile, and point sources. There is
+            no limit to the number of model-ready files that <span><strong class="command">Mrggrid</strong></span> can combine into a single model-ready file, and the input files can be 2-D or 3-D.
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> can be run for any or all SMOKE source categories, but it can use only one of each SMOKE inventory type (area, biogenic,
+            mobile, and point source) per run. You can run it to create model-ready files for only one SMOKE source category (area, biogenic,
+            mobile, or point), or you can run it to create both the individual and combined model-ready files. The following list indicates
+            the modes in which <span><strong class="command">Smkmerge</strong></span> can be run:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Run for SMOKE area sources to create gridded, hourly, speciated emissions in moles/hour or moles/second. Can be used for all
+                     area sources and/or nonroad mobile sources.
+                  </p>
+               </li>
+               <li>
+                  <p>Run for SMOKE mobile sources to create gridded, hourly, speciated emissions in moles/hour or moles/ second.</p>
+               </li>
+               <li>
+                  <p>Run for SMOKE point sources to create 3-D gridded, hourly, speciated emissions in moles/ second for CMAQ, <span class="emphasis"><em>or</em></span> run to create 2-D gridded, hourly, speciated emissions in moles/hour for UAM, or CAM<sub>X</sub> and an ASCII elevated-point-source file.
+                  </p>
+               </li>
+               <li>
+                  <p>Run to convert the units and calculate state and county totals of biogenic emissions output by the <span><strong class="command">Tmpbio</strong></span> or <span><strong class="command">Tmpbeis3</strong></span> programs.
+                  </p>
+               </li>
+               <li>
+                  <p>Run to perform any combination of the previously listed steps simultaneously and create a combined model-ready file that includes
+                     multiple source categories. In this mode, only one each of SMOKE area, mobile, point, and biogenic sources can be included.
+                     The same output units must be used for all source categories in a single run.
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>When creating model-ready emissions for any of the anthropogenic source categories, you may choose to apply one or more control
+            matrices to the emissions to create controlled model-ready emissions. For each source category (area, mobile, or point), you
+            can apply one multiplicative control matrix and one reactivity control matrix per run per source category. <span><strong class="command">Smkmerge</strong></span> is the only way you can apply the reactivity control matrix to the inventory, while the multiplicative control matrix can
+            be applied by either <span><strong class="command">Smkmerge</strong></span> or the <span><strong class="command">Grwinven</strong></span> program.
+         </p>
+         <p>Many processing steps in SMOKE are independent of one another; for example, chemical speciation and temporal allocation can
+            change without affecting one another. This independence means that when one step changes, another step does not need to be
+            rerun in many cases. However, because <span><strong class="command">Smkmerge</strong></span> combines the data from all of these processing steps to create the model-ready emissions, if one of the earlier steps changes,
+            then the merging step must also be rerun. This includes rerunning <span><strong class="command">Smkmerge</strong></span> to generate model-ready files, and if the <span><strong class="command">Mrggrid</strong></span> program was used, also rerunning that to merge data from multiple source categories together.
+         </p>
+         <p><span><strong class="command">Smkmerge</strong></span> also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input
+            separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready
+            emissions for every day in an entire month. This is accomplished using the <code class="envar">MRG_BYDAY</code> SMOKE option, described further in <a href="ch06s14.html" title="6.14.&nbsp;Smkmerge">Section&nbsp;6.14, &#8220;<span><strong class="command">Smkmerge</strong></span>&#8221;</a>. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than
+            other days. 
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s17.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s19.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.17.&nbsp;Biogenic processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

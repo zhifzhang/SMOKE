@@ -1,0 +1,249 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.12.&nbsp;Normbeis3</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s11s03.html" title="6.11.3.&nbsp;Files and Environment Variables">
+      <link rel="next" href="ch06s12s02.html" title="6.12.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.12.&nbsp;<span><strong class="command">Normbeis3</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s11s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s12s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_normbeis3"></a>6.12.&nbsp;<span><strong class="command">Normbeis3</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s12.html#d0e27319">6.12.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s12s02.html">6.12.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s12s03.html">6.12.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27319"></a>6.12.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> biogenic
+            </p>
+            <p>
+               <span><strong class="command">Normbeis3</strong></span> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <span><strong class="command">Normbeis3</strong></span> is the first program in the SMOKE-BEIS3 model. The gridded land use includes various number of land use types. Emissions
+               factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data.
+               Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active
+               radiation (PAR) of 1000 &micro;mol/m<sup>2</sup>s. <span><strong class="command">Normbeis3</strong></span> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
+               
+            </p>
+            <p>For BEIS version 3.14 and 3.60, <span><strong class="command">Normbeis3</strong></span> outputs winter and summer normalized emissions for the 35 species/compounds (including 14 monoterpenes and 1 sesquiterpene)
+               listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour;
+               the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon
+               per hour.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>Variable Name</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>ISOP</td>
+                        <td>Isoprene</td>
+                     </tr>
+                     <tr>
+                        <td>MBO</td>
+                        <td>2-methyl-3-buten-2-ol</td>
+                     </tr>
+                     <tr>
+                        <td>METH</td>
+                        <td>Methanol</td>
+                     </tr>
+                     <tr>
+                        <td>ETHE</td>
+                        <td>Ethene</td>
+                     </tr>
+                     <tr>
+                        <td>PROPE</td>
+                        <td>Propene</td>
+                     </tr>
+                     <tr>
+                        <td>ETHO</td>
+                        <td>Ethanol</td>
+                     </tr>
+                     <tr>
+                        <td>ACET</td>
+                        <td>Acetone</td>
+                     </tr>
+                     <tr>
+                        <td>HEXA</td>
+                        <td>Hexanal</td>
+                     </tr>
+                     <tr>
+                        <td>HEXE</td>
+                        <td>Hexenol</td>
+                     </tr>
+                     <tr>
+                        <td>HEXY</td>
+                        <td>Hexenylacetate</td>
+                     </tr>
+                     <tr>
+                        <td>FORM</td>
+                        <td>Formaldehyde</td>
+                     </tr>
+                     <tr>
+                        <td>ACTAL</td>
+                        <td>Acetaldehyde</td>
+                     </tr>
+                     <tr>
+                        <td>BUTE</td>
+                        <td>Butene</td>
+                     </tr>
+                     <tr>
+                        <td>ETHA</td>
+                        <td>Ethane</td>
+                     </tr>
+                     <tr>
+                        <td>FORAC</td>
+                        <td>Formic acid</td>
+                     </tr>
+                     <tr>
+                        <td>ACTAC</td>
+                        <td>Acetic acid</td>
+                     </tr>
+                     <tr>
+                        <td>BUTO</td>
+                        <td>Butenone (aka methyl vinyl ketone)</td>
+                     </tr>
+                     <tr>
+                        <td>CO</td>
+                        <td>Carbon monoxide</td>
+                     </tr>
+                     <tr>
+                        <td>ORVOC</td>
+                        <td>Other reactive VOCs</td>
+                     </tr>
+                     <tr>
+                        <td>NO</td>
+                        <td>Nitric oxide</td>
+                     </tr>
+                     <tr>
+                        <td>LAI</td>
+                        <td>Leaf area indices</td>
+                     </tr>
+                     <tr>
+                        <td>SESQT</td>
+                        <td>Sesquiterpene</td>
+                     </tr>
+                     <tr>
+                        <td>MONO</td>
+                        <td><span class="emphasis"><em>Monoterpenes</em></span></td>
+                     </tr>
+                     <tr>
+                        <td>APIN</td>
+                        <td>Alpha-pinene</td>
+                     </tr>
+                     <tr>
+                        <td>BPIN</td>
+                        <td>Beta-pinene</td>
+                     </tr>
+                     <tr>
+                        <td>D3CAR</td>
+                        <td>Delta-3-carene</td>
+                     </tr>
+                     <tr>
+                        <td>DLIM</td>
+                        <td>D-limonene</td>
+                     </tr>
+                     <tr>
+                        <td>CAMPH</td>
+                        <td>Camphene</td>
+                     </tr>
+                     <tr>
+                        <td>MYRC</td>
+                        <td>Myrcene</td>
+                     </tr>
+                     <tr>
+                        <td>ATERP</td>
+                        <td>Alpha-terpinene</td>
+                     </tr>
+                     <tr>
+                        <td>BPHE</td>
+                        <td>Beta-phellandrene</td>
+                     </tr>
+                     <tr>
+                        <td>SABI</td>
+                        <td>Sabinene</td>
+                     </tr>
+                     <tr>
+                        <td>PCYM</td>
+                        <td>P-cymene</td>
+                     </tr>
+                     <tr>
+                        <td>OCIM</td>
+                        <td>Ocimene</td>
+                     </tr>
+                     <tr>
+                        <td>ATHU</td>
+                        <td>Alpha-thujene</td>
+                     </tr>
+                     <tr>
+                        <td>TRPO</td>
+                        <td>Terpinolene</td>
+                     </tr>
+                     <tr>
+                        <td>GTERP</td>
+                        <td>Gamma-terpinene</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s11s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s12s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.11.3.&nbsp;Files and Environment Variables&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.12.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

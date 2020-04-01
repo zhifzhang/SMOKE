@@ -1,0 +1,185 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.8.2.&nbsp;Area-source processing</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">
+      <link rel="prev" href="ch02s08.html" title="2.8.&nbsp;Area, biogenic, mobile, and point processing summaries">
+      <link rel="next" href="ch02s08s03.html" title="2.8.3.&nbsp;Biogenic-source processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.8.2.&nbsp;Area-source processing</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.8.&nbsp;Area, biogenic, mobile, and point processing summaries</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s08s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_area_source_processing"></a>2.8.2.&nbsp;Area-source processing
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s08s02.html#d0e2298">2.8.2.1. Typical route</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s02.html#sect_concepts_pregridded_data">2.8.2.2. Pre-gridded Emissions</a></span></dt>
+               <dt><span class="section"><a href="ch02s08s02.html#d0e2402">2.8.2.3. Day-specific and Hour-specific Emissions</a></span></dt>
+            </dl>
+         </div>
+         <p>In SMOKE, there are two major processing routes that you can take for area sources: the typical route and the pregridded data
+            route. (Recall that by &#8220;<span class="quote">area sources</span>&#8221; in SMOKE we mean stationary area/nonpoint sources and nonroad mobile sources.)
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2298"></a>2.8.2.1.&nbsp;Typical route
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The typical route involves processing data identified by country/state/county codes and SCCs. The processing steps vary depending
+               on whether you are doing base-case processing or future- or past-year processing. The steps for base-year processing are shown
+               in <a href="ch02s08s02.html#fig_concepts_area_base" title="Figure&nbsp;2.8.&nbsp;Base case area-source processing steps">Figure&nbsp;2.8, &#8220;Base case area-source processing steps&#8221;</a>. In <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a>, we also included the major intermediate vectors and matrices; please refer to that diagram for those details. The inventory
+               import step reads the raw emissions data, screens them, processes them, and converts the raw data to the SMOKE intermediate
+               inventory file (inventory vectors in <a href="ch02s07.html#fig_concepts_parallel_approach" title="Figure&nbsp;2.4.&nbsp;Parallel approach to emissions processing">Figure&nbsp;2.4, &#8220;Parallel approach to emissions processing&#8221;</a>). The emissions in the inventory file are subdivided to hourly emissions during temporal allocation; assigned chemical speciation
+               factors during speciation, and assigned spatial allocation factors during gridding. The merge step combines the hourly emissions,
+               speciation matrix, and gridding matrix to create model-ready emissions.
+            </p>
+            <div class="figure"><a name="fig_concepts_area_base"></a><p class="title"><b>Figure&nbsp;2.8.&nbsp;Base case area-source processing steps</b></p>
+               <div class="mediaobject"><img src="images\concepts\area_base_html.jpg" alt="Base case area-source processing steps"></div>
+            </div>
+            <p>In <a href="ch02s08s02.html#fig_concepts_area_growth" title="Figure&nbsp;2.9.&nbsp;Future- or past-year growth and optional control area-processing steps">Figure&nbsp;2.9, &#8220;Future- or past-year growth and optional control area-processing steps&#8221;</a>, we show the area-source processing steps for future- or past-year processing. This processing is similar to the base-year
+               processing flow, except the growth and controls step is added to create the growth matrix and optionally one or more control
+               matrices. The grow inventory step applies the growth matrix to convert the base-year inventory to a future or past year. Also,
+               the control matrix can optionally be used in the merge step to apply control factors to the future- or past-year emissions.
+               The steps shown with dotted lines represent steps that can be reused from the base-year processing because they do not depend
+               on any of the new steps.
+            </p>
+            <div class="figure"><a name="fig_concepts_area_growth"></a><p class="title"><b>Figure&nbsp;2.9.&nbsp;Future- or past-year growth and optional control area-processing steps</b></p>
+               <div class="mediaobject"><img src="images\concepts\area_growth_html.jpg" alt="Future- or past-year growth and optional control area-processing steps"></div>
+            </div>
+            <p>Finally, inventory controls as well as growth can be applied at the front end of processing if such a scheme is needed (<a href="ch02s08s02.html#fig_concepts_area_projection" title="Figure&nbsp;2.10.&nbsp;Alternative future- or past-year growth and control area-processing steps">Figure&nbsp;2.10, &#8220;Alternative future- or past-year growth and control area-processing steps&#8221;</a>). This method permits up to 80 growth and/or control matrices to be applied to an inventory, whereas the method shown in
+               <a href="ch02s08s02.html#fig_concepts_area_growth" title="Figure&nbsp;2.9.&nbsp;Future- or past-year growth and optional control area-processing steps">Figure&nbsp;2.9, &#8220;Future- or past-year growth and optional control area-processing steps&#8221;</a> allows only one control matrix in the merge step, although any number of growth matrices on the front end. The processing
+               scheme shown in <a href="ch02s08s02.html#fig_concepts_area_projection" title="Figure&nbsp;2.10.&nbsp;Alternative future- or past-year growth and control area-processing steps">Figure&nbsp;2.10, &#8220;Alternative future- or past-year growth and control area-processing steps&#8221;</a> can therefore be useful when mixing and matching many control strategies for simulations.
+            </p>
+            <div class="figure"><a name="fig_concepts_area_projection"></a><p class="title"><b>Figure&nbsp;2.10.&nbsp;Alternative future- or past-year growth and control area-processing steps</b></p>
+               <div class="mediaobject"><img src="images\concepts\area_projection_html.jpg" alt="Alternative future- or past-year growth and control area-processing steps"></div>
+            </div>
+            <p>In sections later in this chapter, we describe the SMOKE programs that are needed for each of these processing steps and additional
+               details about what activities are accomplished during each step. These sections are:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc" compact="">
+                  <li><a href="ch02s09.html" title="2.9.&nbsp;Inventory import">Section&nbsp;2.9, &#8220;Inventory import&#8221;</a></li>
+                  <li><a href="ch02s10.html" title="2.10.&nbsp;Temporal processing">Section&nbsp;2.10, &#8220;Temporal processing&#8221;</a></li>
+                  <li><a href="ch02s11.html" title="2.11.&nbsp;Chemical speciation processing">Section&nbsp;2.11, &#8220;Chemical speciation processing&#8221;</a></li>
+                  <li><a href="ch02s12.html" title="2.12.&nbsp;Spatial processing">Section&nbsp;2.12, &#8220;Spatial processing&#8221;</a></li>
+                  <li><a href="ch02s13.html" title="2.13.&nbsp;Growth processing">Section&nbsp;2.13, &#8220;Growth processing&#8221;</a></li>
+                  <li><a href="ch02s14.html" title="2.14.&nbsp;Control processing">Section&nbsp;2.14, &#8220;Control processing&#8221;</a></li>
+                  <li><a href="ch02s18.html" title="2.18.&nbsp;Creating model-ready emissions">Section&nbsp;2.18, &#8220;Creating model-ready emissions&#8221;</a></li>
+                  <li><a href="ch02s20.html" title="2.20.&nbsp;Quality assurance">Section&nbsp;2.20, &#8220;Quality assurance&#8221;</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_concepts_pregridded_data"></a>2.8.2.2.&nbsp;Pre-gridded Emissions
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch02s08s02.html#d0e2367">2.8.2.2.1. Pregridded data route for same modeling domain</a></span></dt>
+                  <dt><span class="section"><a href="ch02s08s02.html#d0e2390">2.8.2.2.2. Pregridded data route for a different modeling domain</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e2367"></a>2.8.2.2.1.&nbsp;Pregridded data route for same modeling domain
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The second processing approach for area sources involves using pregridded data. As indicated in <a href="ch02s08.html#sect_concepts_summary_source_processing" title="2.8.1.&nbsp;Summary of SMOKE processing categories">Section&nbsp;2.8.1, &#8220;Summary of SMOKE processing categories&#8221;</a>, area sources can be specified by grid cell instead of by country/state/county code and SCC. This optional approach to modeling
+                  area sources requires the inventory emissions data to be gridded prior to inventory import. The gridded area sources do <span class="emphasis"><em>not</em></span> have country/state/county codes or SCCs, and can be provided via an I/O API time-independent gridded data file.  The flow
+                  diagrams that describe this type of processing are identical to those in <a href="ch02s08s02.html#fig_concepts_area_base" title="Figure&nbsp;2.8.&nbsp;Base case area-source processing steps">Figure&nbsp;2.8, &#8220;Base case area-source processing steps&#8221;</a>, <a href="ch02s08s02.html#fig_concepts_area_growth" title="Figure&nbsp;2.9.&nbsp;Future- or past-year growth and optional control area-processing steps">Figure&nbsp;2.9, &#8220;Future- or past-year growth and optional control area-processing steps&#8221;</a>, and <a href="ch02s08s02.html#fig_concepts_area_projection" title="Figure&nbsp;2.10.&nbsp;Alternative future- or past-year growth and control area-processing steps">Figure&nbsp;2.10, &#8220;Alternative future- or past-year growth and control area-processing steps&#8221;</a>. Although the gridding step is quite trivial when the grid cell numbers are already specified, the gridding step must still
+                  be run to create a gridding matrix required for the merge step.
+               </p>
+               <p>The disadvantage of using pregridded emissions for area-source processing is that there are no country/state/county codes
+                  and SCCs to use in the cross-referencing of any processing step. Therefore, temporal profiles, speciation profiles, growth
+                  factors, and control factors must be applied uniformly across the model grid by pollutant.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e2390"></a>2.8.2.2.2.&nbsp;Pregridded data route for a different modeling domain
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The sequence for processing global emissions data (e.g., EDGAR, RCP and HTAP) for hemispheric CMAQ involves projecting the
+                  data from latitude-longitude projection to polar stereographic projection, converting the inventory species to the terms required
+                  by the CMAQ chemical mechanism, and extrapolating the annual emissions to hourly estimates.
+               </p>
+               <p><a href="https://docs.google.com/document/d/1veqEjaTPbDpkqHAIcyReokvv6MaENz0TrwOcFl1ewac/edit#heading=h.xo1iz1nkhapd" target="_top">Detail information</a> on how to process pregridded global emissions data for CMAQ Hemispheric Modeling in SMOKE is available at <a href="https://docs.google.com/document/d/1veqEjaTPbDpkqHAIcyReokvv6MaENz0TrwOcFl1ewac/edit#heading=h.xo1iz1nkhapd" target="_top">this link</a>.
+                  
+               </p>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e2402"></a>2.8.2.3.&nbsp;Day-specific and Hour-specific Emissions
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Emissions from area sources are sometimes available as day- or hour-specific values. <span><strong class="command">Smkinven</strong></span> can import the day- and hour-specific data, and it can also convert the hour-specific data to hour-specific temporal profiles.
+               When these data are available, the <span><strong class="command">Temporal</strong></span> program overrides the annual or daily emissions with the most specific data available. If day-specific data are available,
+               <span><strong class="command">Temporal</strong></span> uses them to overwrite the annual or average-day emissions during the time periods that these data are available. If hour-specific
+               data are available, <span><strong class="command">Temporal</strong></span> uses them to overwrite the annual, average-day emissions, or day-specific emissions data.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s08s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.8.&nbsp;Area, biogenic, mobile, and point processing summaries&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.8.3.&nbsp;Biogenic-source processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

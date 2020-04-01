@@ -1,0 +1,187 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.&nbsp;Inventory import</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s08s05.html" title="2.8.5.&nbsp;Point-source processing">
+      <link rel="next" href="ch02s09s02.html" title="2.9.2.&nbsp;Assign pollutant names to data input by code numbers">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.&nbsp;Inventory import</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s08s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_inventory_import"></a>2.9.&nbsp;Inventory import
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch02s09.html#sect_concepts_check_inventory">2.9.1. Check the correctness and consistency of input file formats</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s02.html">2.9.2. Assign pollutant names to data input by code numbers</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s03.html">2.9.3. Select pollutants from the input files for further SMOKE processing</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s04.html">2.9.4. Check for duplicate records</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s05.html">2.9.5. Combine toxics and criteria inventories</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s06.html">2.9.6. Sort the inventory</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s07.html">2.9.7. Aggregate or disaggregate toxics emissions</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s08.html">2.9.8. Assign point-source locations to area sources</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s09.html">2.9.9. Fill in and check point-source stack parameters</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s10.html">2.9.10. Convert coordinates from UTM to lat-lon</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s11.html">2.9.11. Optionally ensure that lat-lon coordinates are in the Western Hemisphere</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s12.html">2.9.12. Convert units of emissions and activities</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s13.html">2.9.13. Set the weekday averaging approach</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s14.html">2.9.14. Assign country codes, years, and time zones</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s15.html">2.9.15. Handle inventories that have data for multiple years</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s16.html">2.9.16. Set the base year</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s17.html">2.9.17. Report results of import step</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s18.html">2.9.18. Import day-specific and hour-specific data</a></span></dt>
+               <dt><span class="section"><a href="ch02s09s19.html">2.9.19. Processing hour-specific CEM data</a></span></dt>
+            </dl>
+         </div>
+         <p>The importing of emission inventory and related data is the first processing step needed for any emissions processing effort.
+            The <span><strong class="command">Smkinven</strong></span> program imports data for anthropogenic sources, and the <span><strong class="command">Normbeis3</strong></span> program imports BEIS3 land use data for biogenic sources. In this section, we focus on the import of the anthropogenic inventories
+            using <span><strong class="command">Smkinven</strong></span>. The biogenic import is further described in <a href="ch02s17.html" title="2.17.&nbsp;Biogenic processing">Section&nbsp;2.17, &#8220;Biogenic processing&#8221;</a>.
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span> performs many types of activities during import of the anthropogenic inventories. Though the primary purpose is reading the
+            data from ASCII formats and outputting and I/O API SMOKE intermediate inventory, there are many other actions that need to
+            be performed duringthe inventory import stage of processing. These actions are the following:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Check that the formats of the input files are correct and consistent, and ensure that all data can be read properly.</p>
+               </li>
+               <li>
+                  <p>Assign pollutant names to data input by code numbers.</p>
+               </li>
+               <li>
+                  <p>Select pollutants from the input files to keep for further SMOKE processing.</p>
+               </li>
+               <li>
+                  <p>When multiple files are provided, combine all annual and/or average-day data into aconsistent inventory. This includes checking
+                     for duplicates and possibly aborting, depending on program options set by the user.
+                  </p>
+               </li>
+               <li>
+                  <p>Combine toxics and criteria inventories, and eliminate duplicate mass using either an integrate or no-integrate approach.</p>
+               </li>
+               <li>
+                  <p>Sort the inventory records into the order expected by other SMOKE programs.</p>
+               </li>
+               <li>
+                  <p>Aggregate or disaggregate toxics emissions data as specified by user inputs.</p>
+               </li>
+               <li>
+                  <p>Assign point-source locations to area sources, when available.</p>
+               </li>
+               <li>
+                  <p>Fill in and check point-source stack parameters.</p>
+               </li>
+               <li>
+                  <p>Convert stack locations from UTM to lat-lon.</p>
+               </li>
+               <li>
+                  <p>Optionally ensure that lat-lon coordinates are in the Western Hemisphere.</p>
+               </li>
+               <li>
+                  <p>Convert units of emissions and activities to the units used in the SMOKE intermediate inventory.</p>
+               </li>
+               <li>
+                  <p>Set the weekday averaging approach.</p>
+               </li>
+               <li>
+                  <p>Assign country codes and/or geographic codes (GEOCODE_LEVEL[1-4]), years, and time zones.</p>
+               </li>
+               <li>
+                  <p>Handle inventories that have data for multiple years.</p>
+               </li>
+               <li>
+                  <p>Set the base year.</p>
+               </li>
+               <li>
+                  <p>Report results of import including pollutant totals for toxics data and other information needed for quality assurance.</p>
+               </li>
+               <li>
+                  <p>Import day-specific and hour-specific data, if available, and ensure that records in these files match inventory records provided
+                     in the annual or average-day inputs.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>In the following subsections, we describe what SMOKE does for each of these activities.</p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_concepts_check_inventory"></a>2.9.1.&nbsp;Check the correctness and consistency of input file formats
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Smkinven</strong></span> can read the following ASCII formats for annual and average-day inventory data:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span class="bold"><strong>ORL format:</strong></span> This set of input formats is used for inputting point, nonpoint, on-road, and nonroad HAP emissions inventories, also called
+                        toxics emission inventories. There is a different ORL format for nonpoint, point, nonroad mobile, and on-road mobile sources.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>List format:</strong></span> This is the input format used to provide multiple files to <span><strong class="command">Smkinven</strong></span> in a single run. This format is simply an ASCII file that contains a list of other files.
+                     </p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>List GRID format:</strong></span> This is the input format used to provide multiple global gridded emission inventory files to <span><strong class="command">Smkinven</strong></span> in a single run. This format is simply an ASCII file that contains a list of other files. To support input of multiple pre-gridded
+                        NetCDF files, the keyword #LIST GRID in the header of this file will switch SMOKE into gridded inventory processing mode.
+                        This approach is described more in <a href="ch02s08s02.html#sect_concepts_pregridded_data" title="2.8.2.2.&nbsp;Pre-gridded Emissions">Section&nbsp;2.8.2.2, &#8220;Pre-gridded Emissions&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><span class="bold"><strong>Gridded I/O API format:</strong></span> This format is a gridded I/O API file for allowing the import of pregridded data from the same modeling domain. This approach
+                        is described more in <a href="ch02s08s02.html#sect_concepts_pregridded_data" title="2.8.2.2.&nbsp;Pre-gridded Emissions">Section&nbsp;2.8.2.2, &#8220;Pre-gridded Emissions&#8221;</a>.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p><span><strong class="command">Smkinven</strong></span> ensures that all file formats provided to SMOKE are correct and include the required data fields. The formats and their required
+               fields are provided in <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s08s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.8.5.&nbsp;Point-source processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.2.&nbsp;Assign pollutant names to data input by code numbers</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

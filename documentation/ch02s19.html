@@ -1,0 +1,105 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;SMOKE Concepts">
+      <link rel="prev" href="ch02s18.html" title="2.18.&nbsp;Creating model-ready emissions">
+      <link rel="next" href="ch02s20.html" title="2.20.&nbsp;Quality assurance">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s18.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;2.&nbsp;SMOKE Concepts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s20.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_concepts_merge_processing_moves"></a>2.19.&nbsp;Creating model-ready emissions using MOVES lookup tables
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <p>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance [RPD], RatePerHour [RPH], RatePerVehicle [RPV]
+            and RatePerProfile [RPP] ) must always include merging the gridding matrices from <span><strong class="command">Grdmat</strong></span> and the chemical speciation matrices from <span><strong class="command">Spcmat</strong></span>. In addition, for RPD emissions based on VMT data by source for CMAQ, creating the model-ready emissions must also include
+            merging with the hourly VMT from <span><strong class="command">Temporal</strong></span>. The <span><strong class="command">Movesmrg</strong></span> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions
+            vectors to create CMAQ-ready gridded and speciated hourly emissions input data.
+         </p>
+         <p>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate
+            runs (see <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, then <span><strong class="command">Movesmrg</strong></span> cannot be used to combine all source categories into a single output file. Instead, the <a href="ch06s10.html" title="6.10.&nbsp;Mrggrid"><span><strong class="command">Mrggrid</strong></span></a> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including
+            <span><strong class="command">Movesmrg</strong></span>) runs for RPD, RPV and RPP mobile sources. There is no limit to the number of model-ready files that <span><strong class="command">Mrggrid</strong></span> can combine into a single model-ready file, and the input files can be 2-D or 3-D.
+         </p>
+         <p><span><strong class="command">Movesmrg</strong></span> can be used only for MOVES-based mobile SMOKE source categories. It can use only one of each MOVES lookup table (RPD, RPH,
+            RPV and RPV) per run. You can run it to create model-ready files for only one SMOKE source category (RPD, RPH, RPV, and RPP).
+            The following list indicates the modes in which <span><strong class="command">Movesmrg</strong></span> can be run:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p>Run for MOVES RPD mobile sources based on VMT data by vehicle and road types to create gridded, hourly, speciated emissions
+                     in moles/hour or moles/second.
+                  </p>
+               </li>
+               <li>
+                  <p>Run for MOVES RPH mobile sources based on vehicle hotelling (HOTELLING) hours activity data by vehicle and road types to create
+                     gridded, hourly, speciated emissions in moles/hour or moles/second.
+                  </p>
+               </li>
+               <li>
+                  <p>Run for MOVES RPV mobile sources based on Vehicle population (VPOP) data by vehicle to create gridded, hourly, speciated emissions
+                     in moles/hour or moles/second.
+                  </p>
+               </li>
+               <li>
+                  <p>Run for MOVES RPP mobile sources based on Vehicle population (VPOP) data by vehicle to create gridded, hourly, speciated emissions
+                     in moles/hour or moles/second.
+                  </p>
+               </li>
+               <li>
+                  <p>Run to create daily total emissions report by county, by state, and by SCC in the unit of tons/day or tons/hour.</p>
+               </li>
+            </ul>
+         </div>
+         <p>Many processing steps in SMOKE are independent of one another; for example, chemical speciation and temporal allocation can
+            change without affecting one another. This independence means that when one step changes, another step does not need to be
+            rerun in many cases. However, because <span><strong class="command">Movesmrg</strong></span> combines the data from all of these processing steps to create the model-ready emissions, if one of the earlier steps changes,
+            then the merging step must also be rerun. This includes rerunning <span><strong class="command">Movesmrg</strong></span> to generate model-ready files, and if the <span><strong class="command">Mrggrid</strong></span> program was used, also rerunning that to merge data from multiple source categories together.
+         </p>
+         <p><span><strong class="command">Movesmrg</strong></span> also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input
+            separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready
+            emissions for every day in an entire month. This is accomplished using the <code class="envar">MRG_BYDAY</code> SMOKE option, described further in <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg">Section&nbsp;6.8, &#8220;<span><strong class="command">Movesmrg</strong></span>&#8221;</a>. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than
+            other days. 
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s18.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s20.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.18.&nbsp;Creating model-ready emissions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.20.&nbsp;Quality assurance</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

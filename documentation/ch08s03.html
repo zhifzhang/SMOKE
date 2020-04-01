@@ -1,0 +1,466 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.3.&nbsp;Temporal Allocation Files</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">
+      <link rel="prev" href="ch08s02s08.html" title="8.2.8.&nbsp;PTINV: Point source annual or average day emissions">
+      <link rel="next" href="ch08s03s02.html" title="8.3.2.&nbsp;[A|M|P]TREF: Temporal cross-reference file">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.3.&nbsp;Temporal Allocation Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s02s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;8.&nbsp;SMOKE Input Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s03s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_input_temporal"></a>8.3.&nbsp;Temporal Allocation Files
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch08s03.html#sect_input_amptpro">8.3.1. <code class="envar">[A|M|P]TPRO</code>: Temporal profiles files</a></span></dt>
+               <dt><span class="section"><a href="ch08s03s02.html">8.3.2. <code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file</a></span></dt>
+               <dt><span class="section"><a href="ch08s03s03.html">8.3.3. <code class="envar">HOLIDAYS</code>: Holidays date list</a></span></dt>
+               <dt><span class="section"><a href="ch08s03s04.html">8.3.4. <code class="envar">PROCDATES</code>: Procdates date list</a></span></dt>
+            </dl>
+         </div>
+         <p>The directories where the temporal allocation files should be stored are listed in <a href="ch08.html#tbl_input_temporal_files" title="Table&nbsp;8.2.&nbsp;Temporal Allocation Input File Locations">Table&nbsp;8.2, &#8220;Temporal Allocation Input File Locations&#8221;</a>. The table also lists the programs that use each input file.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_input_amptpro"></a>8.3.1.&nbsp;<code class="envar">[A|M|P]TPRO</code>: Temporal profiles files
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch08s03.html#sect_input_tpro_monthly">8.3.1.1. [A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles</a></span></dt>
+                  <dt><span class="section"><a href="ch08s03.html#sect_input_tpro_daily">8.3.1.2. [A|M|P]TPRO_DAILY: Month-to-day Temporal Profiles</a></span></dt>
+                  <dt><span class="section"><a href="ch08s03.html#sect_input_tpro_weekly">8.3.1.3. [A|M|P]TPRO_WEEKLY: Month-to-Week Temporal Profiles</a></span></dt>
+                  <dt><span class="section"><a href="ch08s03.html#sect_input_tpro_hourly">8.3.1.4. [A|M|P]TPRO_HOURLY: Day-to-Hour Temporal Profiles</a></span></dt>
+                  <dt><span class="section"><a href="ch08s03.html#sect_input_tpro_hourly_ncf">8.3.1.5. [A|M|P]TPRO_HOURLY_NCF: Hourly Temporal Profiles</a></span></dt>
+               </dl>
+            </div>
+            <p>The Temporal profiles files contain the monthly, weekly, diurnal and/or hourly temporal profiles used to convert the annual
+               emissions stored in the inventory to hourly emissions. The files can contain the following types of records:
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><span><strong class="command"><code class="envar">[A|M|P]TPRO_MONTHLY</code></strong></span> : Year to month temporal weighting factors
+                     </p>
+                  </li>
+                  <li>
+                     <p><span><strong class="command"><code class="envar">[A|M|P]TPRO_DAILY</code></strong></span> : Year to day temporal weighting factors
+                     </p>
+                  </li>
+                  <li>
+                     <p><span><strong class="command"><code class="envar">[A|M|P]TPRO_WEEKLY</code></strong></span> : Month to Week temporal weighting factors
+                     </p>
+                  </li>
+                  <li>
+                     <p><span><strong class="command"><code class="envar">[A|M|P]TPRO_HOURLY</code></strong></span> : Day to hour temporal weighting factors
+                     </p>
+                  </li>
+                  <li>
+                     <p><span><strong class="command"><code class="envar">[A|M|P]TPRO_HOURLY_NCF</code></strong></span> : Hourly temporal weighting factors
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <p>This optional date-specific hourly temporal profiles will take precedence over the default monthly, weekly and hourly profiles.
+               Also users must to use FIPS and SCC cross-reference hiearchy to use these temporal profiles.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_tpro_monthly"></a>8.3.1.1.&nbsp;[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table"><a name="tbl_input_tpro_monthly"></a><p class="title"><b>Table&nbsp;8.29.&nbsp;Format for <code class="envar">ATPRO_MONTHLY</code>, <code class="envar">MTPRO_MONTHLY</code>, and <code class="envar">PTPRO_MONTHLY</code></b></p>
+                  <table summary="Format for ATPRO_MONTHLY, MTPRO_MONTHLY, and PTPRO_MONTHLY" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>0</td>
+                           <td>Chars(15)</td>
+                           <td>Monthly Temporal Profile ID (15 characters)</td>
+                        </tr>
+                        <tr>
+                           <td>1</td>
+                           <td>Real</td>
+                           <td>Temporal factor for January</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>Real</td>
+                           <td>Temporal factor for February</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>Real</td>
+                           <td>Temporal factor for March</td>
+                        </tr>
+                        <tr>
+                           <td>...</td>
+                           <td>Real</td>
+                           <td>.....</td>
+                        </tr>
+                        <tr>
+                           <td>10</td>
+                           <td>Real</td>
+                           <td>Temporal factor for October</td>
+                        </tr>
+                        <tr>
+                           <td>11</td>
+                           <td>Real</td>
+                           <td>Temporal factor for November</td>
+                        </tr>
+                        <tr>
+                           <td>12</td>
+                           <td>Real</td>
+                           <td>Temporal factor for December</td>
+                        </tr>
+                        <tr>
+                           <td>13</td>
+                           <td>Chars</td>
+                           <td>Comments (optional: must be double (quoted)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_tpro_daily"></a>8.3.1.2.&nbsp;[A|M|P]TPRO_DAILY: Month-to-day Temporal Profiles
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table"><a name="tbl_input_tpro_daily"></a><p class="title"><b>Table&nbsp;8.30.&nbsp;Format for <code class="envar">ATPRO_DAILY</code>, <code class="envar">MTPRO_DAILY</code>, and <code class="envar">PTPRO_DAILY</code></b></p>
+                  <table summary="Format for ATPRO_DAILY, MTPRO_DAILY, and PTPRO_DAILY" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>0</td>
+                           <td>Chars(15)</td>
+                           <td>Month-to-day Temporal Profile ID (15 characters)</td>
+                        </tr>
+                        <tr>
+                           <td>1</td>
+                           <td>Integer</td>
+                           <td>Calendar Month [ex: 1, 2,,,,12]</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Day 1</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Day 2</td>
+                        </tr>
+                        <tr>
+                           <td>...</td>
+                           <td>Real</td>
+                           <td>.....</td>
+                        </tr>
+                        <tr>
+                           <td>30</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Day 29</td>
+                        </tr>
+                        <tr>
+                           <td>31</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Day 30</td>
+                        </tr>
+                        <tr>
+                           <td>32</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Day 31</td>
+                        </tr>
+                        <tr>
+                           <td>33</td>
+                           <td>Chars</td>
+                           <td>Comments (optional: must be double (quoted)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_tpro_weekly"></a>8.3.1.3.&nbsp;[A|M|P]TPRO_WEEKLY: Month-to-Week Temporal Profiles
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table"><a name="tbl_input_tpro_weekly"></a><p class="title"><b>Table&nbsp;8.31.&nbsp;Format for <code class="envar">ATPRO_WEEKLY</code>, <code class="envar">MTPRO_WEEKLY</code>, and <code class="envar">PTPRO_WEEKLY</code></b></p>
+                  <table summary="Format for ATPRO_WEEKLY, MTPRO_WEEKLY, and PTPRO_WEEKLY" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>0</td>
+                           <td>Chars(15)</td>
+                           <td>Weekly Temporal Profile ID (15 characters)</td>
+                        </tr>
+                        <tr>
+                           <td>1</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Monday</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Tuesday</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Wednesday</td>
+                        </tr>
+                        <tr>
+                           <td>4</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Thursday</td>
+                        </tr>
+                        <tr>
+                           <td>5</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Friday</td>
+                        </tr>
+                        <tr>
+                           <td>6</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Saturday</td>
+                        </tr>
+                        <tr>
+                           <td>7</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Sunday</td>
+                        </tr>
+                        <tr>
+                           <td>8</td>
+                           <td>Chars</td>
+                           <td>Comments (optional: must be double (quoted)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_tpro_hourly"></a>8.3.1.4.&nbsp;[A|M|P]TPRO_HOURLY: Day-to-Hour Temporal Profiles
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table"><a name="tbl_input_tpro_hourly"></a><p class="title"><b>Table&nbsp;8.32.&nbsp;Format for <code class="envar">ATPRO_HOURLY</code>, <code class="envar">MTPRO_HOURLY</code>, and <code class="envar">PTPRO_HOURLY</code></b></p>
+                  <table summary="Format for ATPRO_HOURLY, MTPRO_HOURLY, and PTPRO_HOURLY" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Position</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>0</td>
+                           <td>Chars(15)</td>
+                           <td>Hourly Temporal Profile ID (15 characters)</td>
+                        </tr>
+                        <tr>
+                           <td>1</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Hour beginning 0000</td>
+                        </tr>
+                        <tr>
+                           <td>2</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Hour beginning 0100</td>
+                        </tr>
+                        <tr>
+                           <td>3</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Hour beginning 0200</td>
+                        </tr>
+                        <tr>
+                           <td>...</td>
+                           <td>Real</td>
+                           <td>.....</td>
+                        </tr>
+                        <tr>
+                           <td>22</td>
+                           <td>Real</td>
+                           <td>Temporal factor for] Hour beginning 2100</td>
+                        </tr>
+                        <tr>
+                           <td>23</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Hour beginning 2200</td>
+                        </tr>
+                        <tr>
+                           <td>24</td>
+                           <td>Real</td>
+                           <td>Temporal factor for Hour beginning 2300</td>
+                        </tr>
+                        <tr>
+                           <td>25</td>
+                           <td>Chars</td>
+                           <td>Comments (optional: must be double (quoted)</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title"><a name="sect_input_tpro_hourly_ncf"></a>8.3.1.5.&nbsp;[A|M|P]TPRO_HOURLY_NCF: Hourly Temporal Profiles
+                        </h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This NetCDF hourly temporal profiles input file contains annual total (<code class="envar">ANNTOT</code>), monthly total (<code class="envar">MONTOT</code>), daily total (<code class="envar">DAYTOT</code>) and hourly total (<code class="envar">HRLTOT</code>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data
+                  (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total
+                  to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from
+                  monthly total inventory.
+               </p>
+               <div class="table"><a name="tbl_input_tpro_hourly_ncf"></a><p class="title"><b>Table&nbsp;8.33.&nbsp;Format for <code class="envar">ATPRO_HOURLY_NCF</code>, <code class="envar">MTPRO_HOURLY_NCF</code>, and <code class="envar">PTPRO_HOURLY_NCF</code></b></p>
+                  <table summary="Format for ATPRO_HOURLY_NCF, MTPRO_HOURLY_NCF, and PTPRO_HOURLY_NCF" border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>Variable Name</th>
+                           <th>Type</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Profile ID</td>
+                           <td>Integer</td>
+                           <td>Hourly Temporal Profile ID (a.k.a. FIPS code)</td>
+                        </tr>
+                        <tr>
+                           <td>ANNTOT</td>
+                           <td>Real</td>
+                           <td>Annual Total by profile ID</td>
+                        </tr>
+                        <tr>
+                           <td>MONTOT</td>
+                           <td>Real</td>
+                           <td>Monthl Total by profile ID</td>
+                        </tr>
+                        <tr>
+                           <td>DAYTOT</td>
+                           <td>Real</td>
+                           <td>Daily Total by profile ID</td>
+                        </tr>
+                        <tr>
+                           <td>HRLTOT</td>
+                           <td>Real</td>
+                           <td>Hourly Total by profile ID</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s02s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s03s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.2.8.&nbsp;<code class="envar">PTINV</code>: Point source annual or average day emissions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.3.2.&nbsp;<code class="envar">[A|M|P]TREF</code>: Temporal cross-reference file
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

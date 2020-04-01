@@ -1,0 +1,98 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.8.&nbsp;Movesmrg</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06.html" title="Chapter&nbsp;6.&nbsp;SMOKE Core Programs">
+      <link rel="prev" href="ch06s07s03.html" title="6.7.3.&nbsp;Files, Environment Variables and Run Syntax">
+      <link rel="next" href="ch06s08s02.html" title="6.8.2.&nbsp;Processing Order">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.8.&nbsp;<span><strong class="command">Movesmrg</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s07s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;6.&nbsp;SMOKE Core Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s08s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_programs_movesmrg"></a>6.8.&nbsp;<span><strong class="command">Movesmrg</strong></span></h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s08.html#d0e25546">6.8.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch06s08s02.html">6.8.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch06s08s03.html">6.8.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e25546"></a>6.8.1.&nbsp;Description
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p><span class="emphasis"><em>Processing categories:</em></span> mobile
+            </p>
+            <p><span><strong class="command">Movesmrg</strong></span> is a mobile-sources-only program, loosely based on the SMOKE program <span><strong class="command">Smkmerge</strong></span>, that combines the intermediate files produced by the other SMOKE programs (i.e., <span><strong class="command">SmkInven</strong></span>, <span><strong class="command">Grdmat</strong></span>, <span><strong class="command">Spcmat</strong></span>, <span><strong class="command">Temporal</strong></span>). The <span><strong class="command">movesmrg</strong></span> program is discussed in detail in <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg">Section&nbsp;6.8, &#8220;<span><strong class="command">Movesmrg</strong></span>&#8221;</a>. Similar to <a href="ch06s14.html" title="6.14.&nbsp;Smkmerge"><span><strong class="command">Smkmerge</strong></span></a>, the main goal of <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Movesmrg</strong></span></a> is to create (1) gridded, speciated, hourly air quality model-ready input files and (2) county-level SCC summaries. The primary
+               difference between <span><strong class="command">Movesmrg</strong></span> and <span><strong class="command">Smkmerge</strong></span> is that <span><strong class="command">Movesmrg</strong></span> uses the SMOKE Formatted MOVES emission rate lookup tables to compute emissions on the fly, by multiplying the emissions
+               factors by hourly VMT (for RatePerDistance [RPD]), annual or monthly hotelling hours (for RatePerHour [RPH]) or by monthly
+               or annual vehicle populations (for RatePerVehicle [RPV] or RatePerProfile [RPP]).
+            </p>
+            <p><span><strong class="command">Movesmrg</strong></span> must be run four times to compute on-roadway and off-network (including vapor venting) emissions processes individually,
+               since the emission rate calculation methods in SMOKE for these categories are quite different. Once all three emissions processes
+               have been computed, the emission output files can be merged (optionally along with other 2D sectors separate from onroad)
+               using <span><strong class="command">Mrggrid</strong></span>, which combines any number of 2D or 3D hourly, gridded, and speciated emission data files. See the section <a href="ch06s10.html" title="6.10.&nbsp;Mrggrid">Section&nbsp;6.10, &#8220;<span><strong class="command">Mrggrid</strong></span>&#8221;</a> for more details on the above programs.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li><span class="bold"><strong>RPD, RPH and RPV Emission Calculations</strong></span><p>For its RPD, RPH and RPV lookup table calculations, <span><strong class="command">Movesmrg</strong></span> uses the gridded hourly temperatures in GMT, and then adjusts the hour of the RPD, RPH and RPV lookup tables from local time
+                        to GMT to get the emission rates for the representative county for the appropriate month.  The key lookup fields for the factors
+                        are hourly temperature and avarage speed for the RPD lookup table calculation, hourly temperature for the RPH lookup table
+                        calculation, and hourly temperature and hour of the day in local time for the RPV table calculation.
+                     </p>
+                  </li>
+                  <li><span class="bold"><strong>RPP Emission Calculations</strong></span><p>For the RPP lookup table calculations, <span><strong class="command">Movesmrg</strong></span> uses the RPP lookup table as an input file for the emission rates that depend not on the gridded hourly temperatures, but
+                        on the temperature profiles output by the <span><strong class="command">Met4moves</strong></span> program.  The emissions estimates based on the RPP table are computed for the temporal averaging period specified for the
+                        temperature profiles, rather than using hourly gridded meteorology.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s07s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s08s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.7.3.&nbsp;Files, Environment Variables and Run Syntax&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.8.2.&nbsp;Processing Order</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,370 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.2.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s02.html" title="6.2.&nbsp;Cntlmat">
+      <link rel="prev" href="ch06s02s02.html" title="6.2.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s03.html" title="6.3.&nbsp;Elevpoint">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.2.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.2.&nbsp;<span><strong class="command">Cntlmat</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e22603"></a>6.2.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s02s03.html#d0e22763">6.2.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s02s03.html#sect_programs_cntlmat_envar">6.2.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s02s03.html#d0e22972">6.2.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_cntlmat"></a><p class="title"><b>Figure&nbsp;6.2.&nbsp;<span>Cntlmat</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\cntlmat_html.jpg" alt="Cntlmat input and output files"></div>
+         </div>
+         <p><a href="ch06s02s03.html#fig_programs_cntlmat" title="Figure&nbsp;6.2.&nbsp;Cntlmat input and output files">Figure&nbsp;6.2, &#8220;<span>Cntlmat</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Cntlmat</strong></span> program. The input files are the inventory file output from <span><strong class="command">Smkinven</strong></span> (either <code class="envar">AREA</code>, <code class="envar">MOBL</code>, or <code class="envar">PNTS</code>), the control packets file (<code class="envar">GCNTL</code>), and the speciation profiles file (<code class="envar">GSPRO</code>) if there are reactivity controls (using the /REACTIVITY/ packet).
+         </p>
+         <p>If the <code class="envar">GCNTL</code> file contains /MACT/, /CONTROL/ or /EMS_CONTROL/, /CTG/, and/or /ALLOWABLE/ packets, <span><strong class="command">Cntlmat</strong></span> outputs a multiplicative control matrix file (<code class="envar">ACMAT</code>, <code class="envar">MCMAT</code>, or <code class="envar">PCMAT</code>), a report of multiplicative controls (<code class="envar">ACREP</code>, <code class="envar">MCREP</code>, or <code class="envar">PCREP</code>), and a report of all multiplicative controls applied to the inventory (<code class="envar">ACSUMREP</code>, <code class="envar">MCSUMREP</code>, or <code class="envar">PCSUMREP</code>). <span><strong class="command">Cntlmat</strong></span> also outputs a warning file (<code class="envar">ACTLWARN</code>, <code class="envar">MCTLWARN</code>, or <code class="envar">PCTLWARN</code>) regardless of which packets are used.
+         </p>
+         <p>If the <code class="envar">GCNTL</code> file contains a /PROJECTION/ packet, <span><strong class="command">Cntlmat</strong></span> outputs a growth matrix file (<code class="envar">APMAT</code>, <code class="envar">MPMAT</code>, or <code class="envar">PPMAT</code>) and a growth report (<code class="envar">APROJREP</code>, <code class="envar">MPROJREP</code>, or <code class="envar">PPROJREP</code>).
+         </p>
+         <p>If the <code class="envar">GCNTL</code> file contains a /REACTIVITY/ packet, <span><strong class="command">Cntlmat</strong></span> outputs mole and mass-based reactivity matrix files (either <code class="envar">ARMAT_L</code> and <code class="envar">ARMAT_S</code>, <code class="envar">MRMAT_L</code> and <code class="envar">MRMAT_S</code>, or <code class="envar">PRMAT_L</code> and <code class="envar">PRMAT_S</code>), a reactivity matrix supplement file (<code class="envar">ARSUP</code>, <code class="envar">MRSUP</code>, or <code class="envar">PRSUP</code>), and a report of reactivity controls (<code class="envar">AREACREP</code>, <code class="envar">MREACREP</code>, or <code class="envar">PREACREP</code>). Finally, <span><strong class="command">Cntlmat</strong></span> writes the <code class="envar">LOGFILE</code> detailing the program&#8217;s execution.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e22763"></a>6.2.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name*</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[AREA|MOBL|PNTS]</code></td>
+                        <td>SMOKE map</td>
+                        <td>Intermediate inventory file produced by <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GCNTL</code></td>
+                        <td>ASCII</td>
+                        <td>Control packets file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GSPRO</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Speciation profiles file; only needed for reactivity controls</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p>* As in <a href="ch06s02s03.html#fig_programs_cntlmat" title="Figure&nbsp;6.2.&nbsp;Cntlmat input and output files">Figure&nbsp;6.2, &#8220;<span>Cntlmat</span> input and output files&#8221;</a>, the notation <code class="envar">[AREA|MOBL|PNTS]</code> is used to indicate that only one of the three files is used for a given run.
+            </p>
+            <p>The physical file name of the input file <code class="envar">GCNTL</code> file is typically overridden by the environment that is running <span><strong class="command">Cntlmat</strong></span>. For example, when running SMOKE from scripts using the Assigns file, the projection factor inputs are available as the <code class="envar">[A|M|P]PROJ</code> files. So, for instance, the script must set <code class="envar">GCNTL</code> as <code class="envar">APROJ</code> (or area-source processing) after the Assigns file has been invoked by the script, but before the <span><strong class="command">Cntlmat</strong></span> program is actually run.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_programs_cntlmat_envar"></a>6.2.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">COMPARE_REPLACE_CONTROL:</code> [default: Y]
+                     </p>
+                     <p>Controls the way a replacement control is applied.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: When set to Y, Cntlmat compares the overall percent reductions (CEFF * RPEN * REFF) from a replacement control in the CONTROL
+                                 packet against existing percent reductions (either from the base inventory or from a just-applied /MACT/ packet).  If the
+                                 packet's reduction is more control (greater reduction) than the existing controls, then it is applied. Otherwise, it is not
+                                 applied.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: When set to N, Cntlmat applies replacement controls even if the control is less control than an existing control, which
+                                 may result in an increase in emissions
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">FULLSCC_ONLY:</code> [default: N]
+                     </p>
+                     <p>Disables any sub-SCC cross-reference assignments that would otherwise be included in the cross-reference hierarchy. For example,
+                        the left-7, left-4, and left-2 levels of nonpoint and mobile SCCs would never be used. This is useful when zeros are a natural
+                        part of the SCC that the user does not want to assume are present for cross-reference hierarchy purposes. This option affects
+                        all Cntlmat input packets that use SCC assignments as part of their hierarchy.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PROJECTION_YR_SPEC:</code> [default: Y]
+                     </p>
+                     <p>Sets whether or not entries in the /PROJECTION/ packet are in year-specific format.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Year-specific format in use</p>
+                           </li>
+                           <li>
+                              <p>N: Year-specific format not in use</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">REACTIVITY_POL</code>: [default: VOC]
+                     </p>
+                     <p>Sets the pollutant name to use in computing the reactivity matrix.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">REPORT_DEFAULTS</code>: [default: Y]
+                     </p>
+                     <p>Defines whether or not the program reports when a source uses the default cross-reference.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: List sources in the log file when they use default cross-reference</p>
+                           </li>
+                           <li>
+                              <p>N: Do not list sources that use the default cross-reference</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_AVEDAY_YN</code>: [default: N]
+                     </p>
+                     <p>Indicates whether or not to read average day emissions instead of annual emissions from the inventory file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Read average day emissions</p>
+                           </li>
+                           <li>
+                              <p>N: Do not read average day emissions, use annual emissions instead</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: [default: blank]
+                     </p>
+                     <p>Defines the type of sources to be processed. Valid values are</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>A: Area processing</p>
+                           </li>
+                           <li>
+                              <p>B: Biogenic processing</p>
+                           </li>
+                           <li>
+                              <p>M: Mobile processing</p>
+                           </li>
+                           <li>
+                              <p>P: Point processing</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_TMPDIR</code>: [default: &#8220;<span class="quote">.</span>&#8221;]
+                     </p>
+                     <p>Sets the path for writing the temporary files needed when processing the /ALLOWABLE/, /CONTROL/, /CTG/, /EMS_CONTROL/, /MACT/,
+                        and/or /PROJECTION/ packets (from the <code class="envar">GCNTL</code> file).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SPEC_OUTPUT</code>: [default: ALL]
+                     </p>
+                     <p>Defines the types of speciation outputs to create.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>MASS: Output speciation matrix based on mass</p>
+                           </li>
+                           <li>
+                              <p>MOLE: Output speciation matrix based on moles</p>
+                           </li>
+                           <li>
+                              <p>ALL: Output both mass and mole speciation matrices</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">XREF_SICOVERSCC</code>: [default: Y]
+                     </p>
+                     <p>Determines how to deal with packet entries that have both an SCC and SIC</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Match sources by SIC before SCC</p>
+                           </li>
+                           <li>
+                              <p>N: Match sources by SCC before SIC</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e22972"></a>6.2.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name*</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Multiplicative control matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CREP</code></td>
+                        <td>ASCII</td>
+                        <td>Report of multiplicative controls applied to the inventory</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CREP2</code></td>
+                        <td>ASCII</td>
+                        <td>Detailed before-and-after report of application of the /CONTROL/ packet only, which includes any comments appended to the
+                           end of the /CONTROL/ packet entries. These comments can describe the controls being applied with each packet row.  This report
+                           then includes the base and future overall percent reductions on a source-by-source basis, and includes the CONTROL packet
+                           line-specific comments.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CSUMREP</code></td>
+                        <td>ASCII</td>
+                        <td>Report of all controls applied to the inventory, with all controls listed under each source</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CTLWARN</code></td>
+                        <td>ASCII</td>
+                        <td>List of warnings</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]PMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Growth matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]PROJREP</code></td>
+                        <td>ASCII</td>
+                        <td>Report of growth factors applied to the inventory</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]REACREP</code></td>
+                        <td>ASCII</td>
+                        <td>Report of reactivity controls applied to the inventory</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]RMAT_L</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Mole-based reactivity matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]RMAT_S</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Mass-based reactivity matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]RSUP</code></td>
+                        <td>ASCII</td>
+                        <td>Reactivity matrix supplemental file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Cntlmat</strong></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p>* As in <a href="ch06s02s03.html#fig_programs_cntlmat" title="Figure&nbsp;6.2.&nbsp;Cntlmat input and output files">Figure&nbsp;6.2, &#8220;<span>Cntlmat</span> input and output files&#8221;</a>, the notation <code class="envar">[A|M|P]</code> is used to indicate that only one of the three files is output for a given run.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.2.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.3.&nbsp;<span><strong class="command">Elevpoint</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

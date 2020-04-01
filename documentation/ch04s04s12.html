@@ -1,0 +1,165 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.12.&nbsp;Use MOVES for on-road mobile sources</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s11.html" title="4.4.11.&nbsp;Setup projection and control scenarios">
+      <link rel="next" href="ch04s04s13.html" title="4.4.13.&nbsp;Change temporal processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.12.&nbsp;Use MOVES for on-road mobile sources</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s11.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s13.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_use_moves"></a>4.4.12.&nbsp;Use MOVES for on-road mobile sources
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch04s04s12.html#d0e15304">4.4.12.1. Coordinating with other input files</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s12.html#d0e15397">4.4.12.2. Changing representative counties</a></span></dt>
+               <dt><span class="section"><a href="ch04s04s12.html#d0e15407">4.4.12.3. Changing fuel month for representative counties</a></span></dt>
+            </dl>
+         </div>
+         <p>Extra files are needed for input to SMOKE when running with MOVES. These files are:</p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><code class="envar">MEPROC</code>: Mobile emission processes
+                  </p>
+               </li>
+               <li>
+                  <p><code class="envar">MCXREF</code>: Mobile representative county cross-reference file
+                  </p>
+               </li>
+               <li>
+                  <p><code class="envar">MFMREF</code>: Mobile fuel month file
+                  </p>
+               </li>
+               <li>
+                  <p><code class="envar">MRCLIST</code>: List of MOVES Lookup Tables for <span><strong class="command">Movesmrg</strong></span></p>
+               </li>
+               <li>
+                  <p><code class="envar">RUNCTL</code>: Runcontrol file
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>The <code class="envar">MEPROC</code>, <code class="envar">MCXREF</code>, and <code class="envar">MFMREF</code> files are installed in the <code class="filename"><code class="envar">$MBDAT</code></code> directory for the default SMOKE configuration.
+         </p>
+         <p>The subsections below describe how adjusting these files will allow you to perform a variety of changes to the on-road mobile
+            processing.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e15304"></a>4.4.12.1.&nbsp;Coordinating with other input files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The <code class="envar">MEPROC</code> file must be coordinated with the <code class="envar">INVTABLE</code>, <code class="envar">GSPRO</code>, and <code class="envar">GSREF</code>. The <code class="envar">MCXREF</code> and <code class="envar">MFMREF</code> must be coordinated with the inventory. The following list indicates all of the things that you must check for when creating
+               any of these files.
+            </p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>The <code class="envar">MEPROC</code> file must have all of the pollutants (e.g., CO, NOX, and so on) as an input file to <span><strong class="command">Movesmrg</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>If a pollutant that you want to model is not in the <code class="envar">MEPROC</code> file, it will not be modeled by SMOKE correctly. All pollutants that you wish to include in the outputs must be in the <code class="envar">MEPROC</code> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>All pollutants in the <code class="envar">MEPROC</code> file must also be in the <code class="envar">INVTABLE</code> file with Keep = Y, including the <code class="envar">INVTABLE</code> limitation that the file pollutant names are limited to 11 characters for on-road mobile pollutants.
+                     </p>
+                  </li>
+                  <li>
+                     <p>All pollutants in the <code class="envar">MEPROC</code> file must be available in SMOKE-ready MOVES lookup tables.
+                     </p>
+                  </li>
+                  <li>
+                     <p>All process-pollutant combinations in the <code class="envar">MEPROC</code> file must also be included in the <code class="envar">GSREF</code> file. The format for the &#8220;<span class="quote">pollutant</span>&#8221; entry in the <code class="envar">GSREF</code> is &lt;emission process&gt;__&lt;pollutant&gt;. Note that the joiner between &lt;emission process&gt; and &lt;pollutant&gt; is a double underscore.
+                        <span class="bold"><strong>A single underscore will prevent the processing from working properly.</strong></span> For example, running exhaust carbon monoxide must be included as EXR__CO.
+                     </p>
+                  </li>
+                  <li>
+                     <p>When integrating toxics HAPs and criteria TOG and using MOVES, the NONHAPTOG definition in the <code class="envar">INVTABLE</code> file and <code class="envar">GSPRO</code> files must be consistent.
+                     </p>
+                  </li>
+                  <li>
+                     <p>The <code class="envar">MCXREF</code> file should assign representative counties for all counties for which you provide VMT data in the inventory.
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e15397"></a>4.4.12.2.&nbsp;Changing representative counties
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Representative counties have previously been explained in <a href="ch02s08s04.html#sect_concepts_reference_counties_moves" title="2.8.4.6.&nbsp;Representative Counties">Section&nbsp;2.8.4.6, &#8220;Representative Counties&#8221;</a>. The <code class="envar">MCXREF</code> file assigns representative counties for each county in your domain. To change the representative counties, this file should
+               be edited to assign different representative counties to each county in the inventory. After editing this file, you must make
+               sure that no counties in the inventory have been left out of the file.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e15407"></a>4.4.12.3.&nbsp;Changing fuel month for representative counties
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Reference fuel month have previously been explained in <a href="ch02s08s04.html#sect_concepts_moves_reference_fuel_month" title="2.8.4.7.&nbsp;Reference Fuel month">Section&nbsp;2.8.4.7, &#8220;Reference Fuel month&#8221;</a>. The <code class="envar">MFMREF</code> file assigns fuel month for each representative county in your domain. To change the fuel month, this file should be edited
+               to assign a different fuel month to each representative county in the inventory. User must meet the criteria to share the
+               same fuel month between representative counties.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s11.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s13.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.11.&nbsp;Setup projection and control scenarios&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.13.&nbsp;Change temporal processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

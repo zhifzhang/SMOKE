@@ -1,0 +1,509 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>Appendix A. Glossary</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="prev" href="ch12s04.html" title="12.4.&nbsp;Compiling SMOKE for UNIX">
+      <link rel="next" href="apa.html" title="Appendix B. Abbreviations">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">Appendix A. Glossary</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch12s04.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">&nbsp;</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="apa.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="glossary">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="app_glossary"></a>Appendix A. Glossary
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">A</h3>
+            <dl>
+               <dt>Air quality model</dt>
+               <dd>
+                  <p>A model that predicts ambient air quality that accounts for impacts of meteorology, manmade emissions sources, and biogenic
+                     emissions sources. It simulates physical components such as advection, dispersion, clouds, dry and wet precipitation, air
+                     chemistry, particulate formation, to provide ambient air quality estimates of a variety of pollutants (such as ozone) and
+                     other chemical constituents.
+                  </p>
+               </dd>
+               <dt>Anthropogenic sources</dt>
+               <dd>
+                  <p>Manmade sources of emissions. All inventory source categories besides biogenic sources are considered to be anthropogenic
+                     sources.
+                  </p>
+               </dd>
+               <dt><a name="glossary_area_source"></a>Area source
+               </dt>
+               <dd>
+                  <p>An anthropogenic source category that is represented as a 2-d source, typically a county. In SMOKE, the term area source more
+                     specifically refers to a collection of source categories types that are not point sources and are not on-road mobile sources.
+                     SMOKE area sources are defined by country, state, and county codes and by source category codes (SCCs). Area sources are also
+                     referred to as stationary area sources and, in SMOKE, include nonroad mobile sources.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">B</h3>
+            <dl>
+               <dt>Base year</dt>
+               <dd>
+                  <p>Year for which an air quality modeling episode will be evaluated for model performance. Air quality modeling typically involves
+                     modeling a base year and comparing the model run to observational data. Once the meteorology and emissions data in the base
+                     year have been improved enough for adequate model performance, the emissions are grown to a future year and the model is run
+                     in the future with and without a control strategy.
+                  </p>
+               </dd>
+               <dt><a name="glossary_biogenic_source"></a>Biogenic source
+               </dt>
+               <dd>
+                  <p>A natural source, or one that is not manmade. In SMOKE, biogenic sources include VOC emissions from vegetation and nitrous
+                     oxide emissions from soil. Volcanoes and other geothermal emissions, water emissions, and other biogenic sources are not included
+                     in SMOKE biogenic emissions components.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">C</h3>
+            <dl>
+               <dt>Chemical mechanism</dt>
+               <dd>
+                  <p>A set of chemical species and their interactions used to represent air chemistry (e.g., carbon bond 6 [CB6], Statewide Air
+                     Pollution Research Center [SAPRC]).
+                  </p>
+               </dd>
+               <dt><a name="glossary_chemical_speciation"></a>Chemical speciation
+               </dt>
+               <dd>
+                  <p>Convert the inventory pollutant data to the chemical species needed by the air quality model (e.g., VOC gets split to PAR,
+                     OLE, XYL, TOL, ISOP, and more).
+                  </p>
+               </dd>
+               <dt>Cross-reference file</dt>
+               <dd>
+                  <p>A dataset used for matching sources in the emissions inventory with profile data based on the source characteristics. Typically
+                     there can be thousands of records in a cross-reference file and tens or hundreds of thousands of records in an emissions inventory.
+                     The cross-reference file facilitates assigning conversion factors for emissions processing to records in the emissions inventory.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">E</h3>
+            <dl>
+               <dt>Elevated source</dt>
+               <dd>
+                  <p>A point source in which emissions are higher than the first model layer because of plume rise.</p>
+               </dd>
+               <dt>Emission inventory</dt>
+               <dd>
+                  <p>An emission inventory is an accounting of the amount of air pollutants discharged into the atmosphere. It is generally characterized
+                     by the following factors:
+                  </p>
+                  <div class="itemizedlist">
+                     <ul type="disc" compact>
+                        <li>the chemical or physical identity of the pollutants included,</li>
+                        <li>the geographic area covered,</li>
+                        <li>the institutional entities covered,</li>
+                        <li>the time period over which emissions are estimated, and</li>
+                        <li>the types of activities that cause emissions.</li>
+                     </ul>
+                  </div>
+                  <p>Emission inventories are developed for a variety of purposes. Inventories of natural and anthropogenic emissions are used
+                     by scientists as inputs to air quality models, by policy makers to develop strategies and policies or track progress of standards,
+                     and by facilities and regulatory agencies to establish compliance records with allowable emission rates. A well constructed
+                     inventory should include enough documentation and other data to allow readers to understand the underlying assumptions and
+                     to reconstruct the calculations for each of the estimates included.
+                  </p>
+               </dd>
+               <dt>Emissions processing</dt>
+               <dd>
+                  <p>Converting the resolution of emissions inventories (e.g. area, biogenic, mobile, and point sources) to the resolution needed
+                     by an air quality model (e.g., hourly, grid-cell, data of model species). It may also include growing data from one year to
+                     another year and applying emissions controls on the inventory. This process requires a large number of supplementary data
+                     files include gridding surrogates, cross-reference files, and factor profiles for chemical speciation and temporal allocation.
+                     It includes combining all source categories and ensuring that the emissions are in the format needed by a specific air quality
+                     model. Emissions processing typically includes quality assurance to increase user confidence that the data were converted
+                     as intended.
+                  </p>
+               </dd>
+               <dt><a name="glossary_environment_variable"></a>Environment variable
+               </dt>
+               <dd>
+                  <p>Environment variables are how SMOKE communicates with its operating environment. There are several different uses for environment
+                     variables including assigning file names, setting options, and setting operating parameters.
+                  </p>
+                  <p>An environment variable in the UNIX environment C-shell is defined using the <span><strong class="command">setenv</strong></span> command. For example, to define the <code class="envar">FILENAME</code> environment variable to the file <code class="filename">testfile.txt</code> in the <code class="filename">/home/user/</code> directory, the following command is used:
+                  </p>
+                  <p><strong class="userinput"><code><span><strong class="command">setenv</strong></span> <code class="envar">FILENAME</code> <code class="filename">/home/user/testfile.txt</code></code></strong></p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">F</h3>
+            <dl>
+               <dt>Fuel month</dt>
+               <dd>
+                  <p>The concept of a fuel month is used to indicate when a particular set of fuel properties should be used in a MOVES simulation.
+                      The fuel month reduces the computational time of MOVES by using a single month to represent a set of months.  To determine
+                     the fuel month and which months it is similar to, the user should review the State-provided fuel supply data in the MOVES
+                     database for each representative county.  If the fuel supply data change thoughout the year, then roup the months by fuel
+                     parameters.  For example, if the grams/mile exhaust emission rates in January are identical to February's rates for a given
+                     representative county, then use a single fuel month to represent January and Febuary. (Only one of the months needs to be
+                     modeled throuh MOVES)
+                  </p>
+               </dd>
+               <dt>Future year</dt>
+               <dd>
+                  <p>A year after the base year.</p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">G</h3>
+            <dl>
+               <dt>Grid</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_model_grid">Model grid</a>.
+                  </p>
+               </dd>
+               <dt>Grid projection</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_map_projection">Map projection</a>.
+                  </p>
+               </dd>
+               <dt>Gridding</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_spatial_allocation">Spatial allocation</a>.
+                  </p>
+               </dd>
+               <dt><a name="glossary_gridding_surrogate"></a>Gridding surrogate
+               </dt>
+               <dd>
+                  <p>A dataset developed from data at a finer resolution than the emissions, used to spatially allocate the emissions to the grid
+                     cells (e.g., population, housing, agricultural regions).
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">I</h3>
+            <dl>
+               <dt>Inventory pollutant</dt>
+               <dd>
+                  <p>A compound or group of compounds emitted into the atmosphere by anthropogenic and biogenic sources defined for record-keeping
+                     and regulatory purposes (e.g. carbon monoxide [CO], nitrogen oxides [NO<sub>x</sub>], volatile organic compounds [VOC], particulate matter 10 microns or less [PM<sub>10</sub>]).
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">L</h3>
+            <dl>
+               <dt>Lambert conformal</dt>
+               <dd>
+                  <p>A type of map projection.</p>
+               </dd>
+               <dt>Latitude/longitude (lat/lon)</dt>
+               <dd>
+                  <p>A spherical reference system used to measure locations on the Earth&#8217;s surface. Latitude and longitude are angles measured
+                     from the Earth&#8217;s center to locations on the Earth&#8217;s surface. Latitude measures angles in a north-south direction. Longitude
+                     measures angles in the east-west direction. In SMOKE, lat/lon refers to a map projection.
+                  </p>
+               </dd>
+               <dt>Layer</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_model_layers">Model layers</a>.
+                  </p>
+               </dd>
+               <dt>Logical file names</dt>
+               <dd>
+                  <p>Environment variables that programs use to access files are called logical file names. In the <a href="go01.html#glossary_environment_variable">Environment variable</a>, <code class="envar">FILENAME</code> is the logical file name for the physical file <code class="filename">/home/user/testfile.txt</code>. The I/O API is based on logical file names, and since SMOKE uses the I/O API for accessing all of its files, it too uses
+                     logical file names. The benefit of logical file names is that the programs do not require that the physical files always have
+                     the same name. Instead, the logical file names can be defined each time a program is run to use whatever physical file names
+                     the user would like. In <a href="ch08.html" title="Chapter&nbsp;8.&nbsp;SMOKE Input Files">Chapter&nbsp;8, <i>SMOKE Input Files</i></a>, <a href="ch09.html" title="Chapter&nbsp;9.&nbsp;SMOKE Intermediate Files">Chapter&nbsp;9, <i>SMOKE Intermediate Files</i></a>, and <a href="ch10.html" title="Chapter&nbsp;10.&nbsp;SMOKE Output Files">Chapter&nbsp;10, <i>SMOKE Output Files</i></a>, the logical file names are used to reference the files, their associations with programs, and their formats.
+                  </p>
+               </dd>
+               <dt>Low-level point source</dt>
+               <dd>
+                  <p>A point source in the first model layer. A source that is not elevated.</p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">M</h3>
+            <dl>
+               <dt><a name="glossary_map_projection"></a>Map projection
+               </dt>
+               <dd>
+                  <p>A mathematical model that transforms the locations of features on the Earth&#8217;s surface to locations on a two-dimensional surface.
+                     Because the Earth is three-dimensional, some method must be used to depict a map in two dimensions. Some projections preserve
+                     shape; others preserve accuracy of area, distance, or direction. Map projections project the Earth&#8217;s surface onto a flat plane.
+                     However, any such representation distorts some parameter of the Earth&#8217;s surface be it distance, area, shape, or direction.
+                  </p>
+               </dd>
+               <dt>Merging</dt>
+               <dd>
+                  <p>In SMOKE, merging can refer to two steps. One, it can refer to combining the SMOKE processes for a single source category,
+                     such as combining the gridding information, the inventory, the temporal allocation, and the chemical speciation information
+                     to create model-ready emissions. Two, it can refer to combining all source categories together into a single model-ready file.
+                  </p>
+               </dd>
+               <dt>Meteorology data</dt>
+               <dd>
+                  <p>Simulated weather data required by SMOKE for biogenic sources, some mobile source processing, and some point source processing.</p>
+               </dd>
+               <dt><a name="glossary_mobile_source"></a>Mobile source
+               </dt>
+               <dd>
+                  <p>In the most general sense, a mobile source is simply a non-stationary source such as an on road vehicle, a construction vehicle,
+                     or a lawn mower. In SMOKE, the term mobile source more specifically refers to on-road vehicles. SMOKE mobile sources are defined
+                     by country, state, and county codes, by source category codes (SCCs) that include a road class code and a vehicle type code,
+                     and optionally by a link identification code. For SMOKE, mobile sources include only on-road mobile sources and NOT nonroad
+                     sources (which are treated as area sources).
+                  </p>
+               </dd>
+               <dt><a name="glossary_model_domain"></a>Model domain
+               </dt>
+               <dd>
+                  <p>The grid on which a model will be run.</p>
+               </dd>
+               <dt><a name="glossary_model_grid"></a>Model grid
+               </dt>
+               <dd>
+                  <p>A 2-d grid based on a map projection, defined by starting coordinates, number of grid cells in each direction, and the physical
+                     size of the grid cells. 
+                  </p>
+               </dd>
+               <dt><a name="glossary_model_layers"></a>Model layers
+               </dt>
+               <dd>
+                  <p>Vertical spatial divisions defined by an air quality model because the atmosphere has varied characteristics in the vertical
+                     direction.
+                  </p>
+               </dd>
+               <dt><a name="glossary_model_species"></a>Model species
+               </dt>
+               <dd>
+                  <p>A compound or group of compounds defined as part of the estimation of air chemistry in an air quality model (e.g., CO, nitrogen
+                     oxide [NO], nitrogen dioxide [NO<sub>2</sub>], paraffins [PAR], elemental carbon, coarse [ECC]). Model species can be an actual chemical compound, ion, or group of compounds.
+                     Air quality models typically input emissions data for a subset of model species from a larger number of species in a full
+                     chemical mechanism.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">N</h3>
+            <dl>
+               <dt>Nonroad mobile sources</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_area_source">Area source</a>.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">O</h3>
+            <dl>
+               <dt>On-road mobile source</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_mobile_source">Mobile source</a>.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">P</h3>
+            <dl>
+               <dt>Past year</dt>
+               <dd>
+                  <p>A year prior to a base year.</p>
+               </dd>
+               <dt>Plume rise</dt>
+               <dd>
+                  <p>The rising of the exhaust from point sources due to the velocity and temperature of the exhaust gases.</p>
+               </dd>
+               <dt>Plume-in-grid (PinG)</dt>
+               <dd>
+                  <p>A special treatment of elevated sources by which the plume rise is modeled with extra detail by the air quality model. The
+                     acronym for plume-in-grid is PinG or sometimes PIG.
+                  </p>
+               </dd>
+               <dt><a name="glossary_point_source"></a>Point source
+               </dt>
+               <dd>
+                  <p>A point source is an emissions source that can be represented by a point in space, relative to the modeling domain. In SMOKE,
+                     a point source is defined by a country, state, and county code, a plant identification code, 1 to 5 additional user-defined
+                     attributed (such as stack code, process codes, and a source category code [SCC]). Point sources have other required attributes
+                     such as stack parameters.
+                  </p>
+               </dd>
+               <dt>Polar stereographic</dt>
+               <dd>
+                  <p>A type of map projection.</p>
+               </dd>
+               <dt>Profile data</dt>
+               <dd>
+                  <p>Factors used for disaggregating emissions data as is done during chemical speciation or temporal allocation.</p>
+               </dd>
+               <dt>Projection (grid)</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_map_projection">Map projection</a>.
+                  </p>
+               </dd>
+               <dt>Projection (temporal)</dt>
+               <dd>
+                  <p>Estimating past-year or future-year emissions from a base-year value and other factors.</p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">R</h3>
+            <dl>
+               <dt>Representative County</dt>
+               <dd>
+                  <p>Representative county is used to represent a set of counties that have the a constant set of fuel parameters (distribution
+                     of fuels over the year), fleet age distritution, inspection/maintenance (I/M) programs, similar community characteristics
+                     (e.g. urban vs rural) and similar meteorological conditions (e.g. temperature and relative humidity). Variables that can vary
+                     within the counties represented by a representative county include vehicle miles traveled (VMT), source type vehicle population,
+                     roadway speed and grid cell temperatures. By specifying a representative county the user is able to reduce the computational
+                     time of MOVES by using a single county to represent a set of counties.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">S</h3>
+            <dl>
+               <dt>Source category</dt>
+               <dd>
+                  <p>A general classification of emission sources for both emission inventory development and emissions modeling. The major source
+                     categories in SMOKE are area, biogenic, mobile, and point. Other source categories that are sometimes treated separately are
+                     offshore point sources, nonroad area sources, and Continuous Emissions Monitoring (CEM) sources.
+                  </p>
+                  <p>See Also <a href="go01.html#glossary_area_source">Area source</a>, <a href="go01.html#glossary_biogenic_source">Biogenic source</a>, <a href="go01.html#glossary_mobile_source">Mobile source</a>, <a href="go01.html#glossary_point_source">Point source</a>.
+                  </p>
+               </dd>
+               <dt>Source classification code (SCC)</dt>
+               <dd>
+                  <p>A code used in emission inventories to label emission sources as being part of a specific industrial, chemical, or natural
+                     processes of generating emissions.
+                  </p>
+               </dd>
+               <dt>Sparse Matrix Operator Kernel Emissions (SMOKE)</dt>
+               <dd>
+                  <p>A emissions data modeling system that prepares emissions data for use in air quality models. It converts the resolution of
+                     area, biogenic, mobile, and point source inventories into the hourly, gridded, model-species resolution needed by air quality
+                     models.
+                  </p>
+               </dd>
+               <dt><a name="glossary_spatial_allocation"></a>Spatial allocation
+               </dt>
+               <dd>
+                  <p>Convert the source spatial extent to the grid cell resolution needed by the air quality model. For area sources, this process
+                     requires gridding surrogate data. For mobile link sources (line sources), this requires determining the cells intersected
+                     by the link and the fractions of the link in each cell. For point sources, this requires determining in which cell the point
+                     source falls.
+                  </p>
+               </dd>
+               <dt>Spatial surrogate</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_gridding_surrogate">Gridding surrogate</a>.
+                  </p>
+               </dd>
+               <dt>Speciation</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_chemical_speciation">Chemical speciation</a>.
+                  </p>
+               </dd>
+               <dt>Species</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_model_species">Model species</a>.
+                  </p>
+               </dd>
+               <dt>Stack parameters</dt>
+               <dd>
+                  <p>Attributes of point sources including stack height, stack diameter at the top (the point where exit gases flow from the stack),
+                     exit gas temperature at the top, exit gas velocity at the top, and exit gas flow at the top.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">T</h3>
+            <dl>
+               <dt><a name="glossary_temporal_allocation"></a>Temporal allocation
+               </dt>
+               <dd>
+                  <p>Convert the inventory temporal resolution to the hourly temporal resolution needed by the air quality model.</p>
+               </dd>
+               <dt><a name="glossary_time_zone"></a>Time zone
+               </dt>
+               <dd>
+                  <p>A region on the Earth assigned a specific zone relative to Greenwich Mean Time, defined as time zone 0.</p>
+               </dd>
+            </dl>
+         </div>
+         <div class="glossdiv">
+            <h3 class="title">U</h3>
+            <dl>
+               <dt><a name="glossary_universal_transverse_mercator"></a>Universal Transverse Mercator
+               </dt>
+               <dd>
+                  <p>Military grid projection based on the transverse Mercator projection, applied to maps of the Earth&#8217;s surface extending from
+                     the Equator to 84 degrees north and 80 degress south latitudes.
+                  </p>
+               </dd>
+               <dt>UNIX</dt>
+               <dd>
+                  <p>A group of operating systems that conform to POSIX standards. Commonly used systems include Linux, SGI IRIX, Solaris (SunOS),
+                     and Mac OS X.
+                  </p>
+               </dd>
+               <dt>UTM zone</dt>
+               <dd>
+                  <p>See <a href="go01.html#glossary_universal_transverse_mercator">Universal Transverse Mercator</a>.
+                  </p>
+               </dd>
+            </dl>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch12s04.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center">&nbsp;</td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="apa.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">12.4.&nbsp;Compiling SMOKE for UNIX&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;Appendix B. Abbreviations</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

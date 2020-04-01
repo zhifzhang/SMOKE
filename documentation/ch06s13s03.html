@@ -1,0 +1,820 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.13.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s13.html" title="6.13.&nbsp;Smkinven">
+      <link rel="prev" href="ch06s13s02.html" title="6.13.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s14.html" title="6.14.&nbsp;Smkmerge">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.13.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s13s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.13.&nbsp;<span><strong class="command">Smkinven</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s14.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e27866"></a>6.13.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s13s03.html#d0e28053">6.13.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s13s03.html#sect_programs_smkinven_envar">6.13.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s13s03.html#d0e28876">6.13.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_smkinven_area"></a><p class="title"><b>Figure&nbsp;6.14.&nbsp;<span>Smkinven</span> input and output files for area sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkinven_area_html.jpg" alt="Smkinven input and output files for area sources"></div>
+         </div>
+         <p><a href="ch06s13s03.html#fig_programs_smkinven_area" title="Figure&nbsp;6.14.&nbsp;Smkinven input and output files for area sources">Figure&nbsp;6.14, &#8220;<span>Smkinven</span> input and output files for area sources&#8221;</a> shows the input and output files for <span><strong class="command">Smkinven</strong></span> for area sources. If importing gridded data, <span><strong class="command">Smkinven</strong></span> reads the <code class="envar">AG</code> file; for the annual inventory, <span><strong class="command">Smkinven</strong></span> reads the <code class="envar">ARINV</code> file. The <code class="envar">ARTOPNT</code> file is used to assign point-source locations to area sources, and either the <code class="envar">COSTCY</code> or <code class="envar">GEOCODE_LEVEL4</code> file is used to assign time zones to the annual inventory data. <span><strong class="command">Smkinven</strong></span> also uses the inventory data table (<code class="envar">INVTABLE</code>), the optional NONHAP exclusions file (<code class="envar">NHAPEXCLUDE</code>), and the SCC description file (<code class="envar">SCCDESC</code>) if processing area-to-point sources.
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span> outputs an annual and average-day inventory emissions file (<code class="envar">AREA</code>), a file listing the inventory SCCs (<code class="envar">ASCC</code>), a log file (<code class="envar">LOGFILE</code>), and a report containing various information about the processed inventory (<code class="envar">REPINVEN</code>).
+         </p>
+         <div class="figure"><a name="fig_programs_smkinven_mobile"></a><p class="title"><b>Figure&nbsp;6.15.&nbsp;<span>Smkinven</span> input and output files for mobile sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkinven_mobile_html.jpg" alt="Smkinven input and output files for mobile sources"></div>
+         </div>
+         <p><a href="ch06s13s03.html#fig_programs_smkinven_mobile" title="Figure&nbsp;6.15.&nbsp;Smkinven input and output files for mobile sources">Figure&nbsp;6.15, &#8220;<span>Smkinven</span> input and output files for mobile sources&#8221;</a> shows the input and output files for <span><strong class="command">Smkinven</strong></span> for mobile sources. The input files include the country, state and county codes file (<code class="envar">COSTCY</code>), the inventory data table (<code class="envar">INVTABLE</code>), the raw inventory file (<code class="envar">MBINV</code>), and the SCC reference input file (<code class="envar">SCCXREF</code>) created by <a href="ch05s02s04.html#sect_moves_gen_sccxref" title="5.2.4.3.&nbsp;gen_8digit_scc.pl"><code class="envar">Gen_8digit_scc.pl</code></a>.
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), an annual and average-day inventory emissions file (<code class="envar">MOBL</code>), a file listing the inventory SCCs (<code class="envar">MSCC</code>), and a report containing various information about the processed inventory (<code class="envar">REPINVEN</code>).
+         </p>
+         <div class="figure"><a name="fig_programs_smkinven_point"></a><p class="title"><b>Figure&nbsp;6.16.&nbsp;<span>Smkinven</span> input and output files for point sources</b></p>
+            <div class="mediaobject"><img src="images\programs\smkinven_point_html.jpg" alt="Smkinven input and output files for point sources"></div>
+         </div>
+         <p><a href="ch06s13s03.html#fig_programs_smkinven_point" title="Figure&nbsp;6.16.&nbsp;Smkinven input and output files for point sources">Figure&nbsp;6.16, &#8220;<span>Smkinven</span> input and output files for point sources&#8221;</a> shows the input and output files for <span><strong class="command">Smkinven</strong></span> for point sources. The input files include the optional CEM summary file (<code class="envar">CEMSUM</code>) created by <span><strong class="command">CEMScan</strong></span>, the country, state and county codes file (<code class="envar">COSTCY</code>), the inventory data table (<code class="envar">INVTABLE</code>), and the optional NONHAP exclusions file (<code class="envar">NHAPEXCLUDE</code>). If importing hour-specific data, the ORIS facility description file <code class="envar">ORISDESC</code> is used. The <code class="envar">PSTK</code> file provides replacement stack parameters. Day-specific data is read from the <code class="envar">PTDAY</code> file, while hour-specific data comes from the <code class="envar">PTHOUR</code> file; the <code class="envar">PTINV</code> file provides the raw inventory data. For hour-specific data, the SCC description file (<code class="envar">SCCDESC</code>) is also needed.
+         </p>
+         <p><span><strong class="command">Smkinven</strong></span> outputs a log file (<code class="envar">LOGFILE</code>), and optional day-specific inventory (<code class="envar">PDAY</code>), and an optional hour-spceific inventory (<code class="envar">PHOUR</code>). The annual and average-day inventory emissions are stored in the <code class="envar">PNTS</code> file and the <code class="envar">PSCC</code> file lists the inventory SCCs. Finally, the <code class="envar">REPINVEN</code> report contains various information about the processed inventory.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e28053"></a>6.13.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Source Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">AG</code> (optional)
+                        </td>
+                        <td>I/O API NetCDF</td>
+                        <td>A</td>
+                        <td>Gridded annual or average-day data; this file can be created by <span><strong class="command">Smkmerge</strong></span> and must be time-independent
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[AR|MB|PT]INV</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Annual and average-day emissions and source characteristics raw inventory data</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ARTOPNT</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>A</td>
+                        <td>Area-to-point cross-reference file for assigning X and Y locations to area sources</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">CEMSUM</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>CEM summary data produced by <span><strong class="command">CEMScan</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">COSTCY</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Country, state, and county codes file, with time zones</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                           when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> files are used)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRIDMASK</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, B, M, P</td>
+                        <td>Defines an integer geocode to specify the predominant country and state code covered by each grid cell (<code class="envar">GEOCODE_LEVEL</code>) and an integer <code class="envar">TZONES</code> to specify the predominant Time Zone for each grid cell.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVTABLE</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Inventory data table listing pollutant and activity names</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">NHAPEXCLUDE</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>List of counties and SCCs to exclude from toxics integration</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ORISDESC</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>ORIS facility descriptions, needed for getting ORIS facility names for reporting purposes when CEM hour-specific data are
+                           read
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PSTK</code></td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Replacement stack parameters file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PTDAY</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Day-specific raw inventory data</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PTHOUR</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Hour-specific raw inventory data</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SCCDESC</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>SCC descriptions, needed for reading CEM hour-specific data only, to select electric generator facilities in the inventory</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SCCXREF</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>M</td>
+                        <td>SCC cross reference input file created by <a href="ch05s02s04.html#sect_moves_gen_sccxref" title="5.2.4.3.&nbsp;gen_8digit_scc.pl"><code class="envar">Gen_8digit_scc.pl</code></a>. It maps aggregated mobile activity SCC8 to full SCC10.
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_programs_smkinven_envar"></a>6.13.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                        country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">ALLOW_NEGATIVE</code>: [default: N]
+                     </p>
+                     <p>Indicates if <span><strong class="command">Smkinven</strong></span> should permit negative emissions values to be input from inventory files and output to <code class="envar">SMOKE</code> intermediate files.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Accept negative emissions values and will allow compute variables (from the <code class="envar">SMKINVEN_FORMULA</code> variable) to be negative. <span><strong class="command">Smkinven</strong></span> gives warnings for each negative value in the inventory input and each computed value, until triggering the <code class="envar">SMK_MAXWARNING</code> setting's values.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not permit negative emissions values. Accept negative emissions values in the input inventory files, and will give errors
+                                 for these.  <span><strong class="command">Smkinven</strong></span> will reset all negative computed values (from the <code class="envar">SMKINVEN_FORMULA</code> variable) to zero.  <span><strong class="command">Smkinven</strong></span> gives warnings for each negative computed value and indicates that the value was reset to zero.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">CHECK_STACKS_YN</code>: [default: Y]
+                     </p>
+                     <p>Indicates if stack parameter values should be checked for missing or out-of-range values; only checked if <code class="envar">SMK_SOURCE</code> is set to P.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Check input stack parameters for missing or out-of-range values</p>
+                           </li>
+                           <li>
+                              <p>N: Do not check input stack parameter values</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">DAY_SPECIFIC_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether to import day-specific inventory data.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Import day-specific data</p>
+                           </li>
+                           <li>
+                              <p>N: Do not import day-specific data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">EXCLUDE_REF_SCC_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether to exclude a list of SCCs that are not listed in <a href="ch08s10s11.html" title="8.10.11.&nbsp;SCCXREF: Reference SCC input file">Section&nbsp;8.10.11, &#8220;<code class="envar">SCCXREF</code>: Reference SCC input file&#8221;</a>. This option is only applicable when <code class="envar">USE_REF_SCC_YN</code> is set to Y.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Import day-specific data</p>
+                           </li>
+                           <li>
+                              <p>N: Do not import day-specific data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">FF10_AVEDAY_ANNINV_YN</code>: [default N]
+                     </p>
+                     <p>Uses area daily or hourly FF10-formatted invenotry as annual data. This will allow users to process ARDAY or ARHOUR invenotry
+                        data independently without artifical annual inventory data.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use daily or hourly FF10-formatted inventory as annual data.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use daily or hourly FF10-formatted inventory as annual data. Just it as daily or hourly FF10-formatted inventory
+                                 data.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">FILL_ANNUAL</code>: [default N]
+                     </p>
+                     <p>Allows annual data to be filled in with average-day data.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use &#8220;<span class="quote">Y</span>&#8221; when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will
+                                 be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory
+                                 year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data.
+                                 Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE
+                                 as a whole.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not fill in annual data based on average-day emissions values.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">FLOW_RATE_FACTOR</code>: [default: 0.0 ft<sup>3</sup>/MMBTU]
+                     </p>
+                     <p>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <code class="envar">FLOW_RATE_FACTOR</code> is set to zero or unset, then <span><strong class="command">Smkinven</strong></span> will not calculate hourly flow rates. Detail information is described in <a href="ch02s09s19.html" title="2.9.19.&nbsp;Processing hour-specific CEM data">Section&nbsp;2.9.19, &#8220;Processing hour-specific CEM data&#8221;</a></p>
+                     <p>hourly flow rate (m<sup>3</sup>/s) = [<code class="envar">FLOW_RATE_FACTOR</code> (ft<sup>3</sup>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<sup>3</sup>/ft<sup>3</sup>] / 3600 s/hr
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">FULLSCC_ONLY</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a>. In this context, this option affects cross-referencing for the <code class="envar">ARTOPNT</code>, and <code class="envar">NHAPEXCLUDE</code> files by preventing left-7 SCC assignments. It also prevents left-2 and left-4 SCC assignments for NHAPEXCLUDE.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">HOUR_SPECIFIC_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether to import hour-specific inventory data.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Import hour-specific data</p>
+                           </li>
+                           <li>
+                              <p>N: Do not import hour-specific data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">HOURLY_TO_DAILY</code>: [default: N]
+                     </p>
+                     <p>Defines whether to treat the hour-specific inputs as day-specific data.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use daily-total column only from hour-specific input file, and process as day-specific data. <span class="emphasis"><em>This setting does not work for input of hour-specific data using CEM format.</em></span></p>
+                           </li>
+                           <li>
+                              <p>N: Treat hourly file as hourly data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">HOURLY_TO_PROFILE</code>: [default: N]
+                     </p>
+                     <p>Defines whether to treat the hour-specific inputs as hour-specific temporal profiles.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Treat hourly data as temporal profile, and divide each hourly value by value in the daily total column of the file. The
+                                 values are not renormalized. The resulting hour-specific output file will be recognized by the <span><strong class="command">Temporal</strong></span> program as containing hourly profiles. <span class="emphasis"><em>This setting does not work for input of hour-specific data using CEM format.</em></span></p>
+                           </li>
+                           <li>
+                              <p>N: Treat hourly file as hourly data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">IMPORT_AVEINV_YN</code>: [default: Y]
+                     </p>
+                     <p>Defines whether to import the annual and average-day inventory data. This is set to N to import day-specific or hour-specific
+                        data after <span><strong class="command">Smkinven</strong></span> has previously been run for the annual and average-day data.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Import annual and average-day inventory data from <code class="envar">PTINV</code> file
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Use SMOKE inventory files from a previous run of <span><strong class="command">Smkinven</strong></span> to get the SMOKE source characteristics to match with the day-specific and hour-specific sources
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">IMPORT_GRDIOAPI_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program will import a gridded I/O API NetCDF inventory file. This setting can be used only with area-source
+                        processing, and it overrides all other program settings for importing data (e.g., day- and hour-specific data import will
+                        be shut off).
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Import gridded I/O API data</p>
+                           </li>
+                           <li>
+                              <p>N: Do not import gridded I/O API data</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">INVNAME1</code>: [default: none]
+                     </p>
+                     <p>Sets root for naming output map inventory file</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">INVNAME2</code>: [default: none]
+                     </p>
+                     <p>Sets root for naming output ASCII inventory file</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MIN_STK_HEIGHT</code>: [default: 0.5]
+                     </p>
+                     <p>Define minimum stack height in unit of meter</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MAX_STK_HEIGHT</code>: [default: 5100.0]
+                     </p>
+                     <p>Define maximum stack height in unit of meter</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MIN_STK_DIAMETER</code>: [default: 0.01]
+                     </p>
+                     <p>Define minimum stack diameter in unit of meter</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MAX_STK_DIAMETER</code>: [default: 100.0]
+                     </p>
+                     <p>Define maximum stack diameter in unit of meter</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MIN_STK_TEMPERATURE</code>: [default: 260.0]
+                     </p>
+                     <p>Define minimum stack exit temperature in unit of Kelvin</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MAX_STK_TEMPERATURE</code>: [default: 2000.0]
+                     </p>
+                     <p>Define maximum stack exit temperature in unit of Kelvin</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MIN_STK_VELOCITY</code>: [default: 0.0001]
+                     </p>
+                     <p>Define minimum stack exit velocity in unit of m/sec</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MAX_STK_VELOCITY</code>: [default: 0.0001]
+                     </p>
+                     <p>Define maximum stack exit velocity in unit of m/sec</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">NONHAP_TYPE</code>: [default: VOC]
+                     </p>
+                     <p>Define the name of organic compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous
+                        air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <a href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">Section&nbsp;2.9.5, &#8220;Combine toxics and criteria inventories&#8221;</a> for a more detail description of criteria/HAP VOC integration. This option will be used only when <code class="envar">SMK_PROCESS_HAPS</code> is set. 
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">NO_STACK_REPLACE_FUGITIVE</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program skips correcting any missing and/or out-of-range stack parameters.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Skip correcting any missing and/or out-of-range stack parameters</p>
+                           </li>
+                           <li>
+                              <p>N: Do not skip correcting any missing and/or out-of-range stack parameters</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">OUTPUT_LOCAL_TIME</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program processes daily/hourly inventories in local time or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Process daily/hourly inventories in local time. No time zone shift.</p>
+                           </li>
+                           <li>
+                              <p>N: Apply time zone shift.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">RAW_DUP_CHECK</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program checks for duplicate records in the input file.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Check for duplicates, and produce a fatal error if found</p>
+                           </li>
+                           <li>
+                              <p>N: Do not check for duplicates, and add emissions from duplicate records</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_ARTOPNT_YN</code>: [default: N]
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Assign X and Y coordinates to specified sources based on the <code class="envar">ARTOPNT</code> cross-reference file
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not perform area-to-point processing</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_BASEYR_OVERRIDE</code>: [default: 0]
+                     </p>
+                     <p>Used to override the base year determined by the inventory.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_DEFAULT_TZONE</code>: [default: 5]
+                     </p>
+                     <p>Defines the default time zone to use for sources that do not match entries in the <code class="envar">COSTCY</code> or the <code class="envar">GEOCODE_LEVEL4</code> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_MAXERROR</code>: [default: 100]
+                     </p>
+                     <p>Defines the maximum number of ERROR statements to be displayed by SMOKE.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_MAXWARNING</code>: [default: 100]
+                     </p>
+                     <p>Defines the maximum number of WARNING statements to be displayed by SMOKE.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_PROCESS_HAPS</code>: [default: blank]
+                     </p>
+                     <p>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <a href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">Section&nbsp;2.9.5, &#8220;Combine toxics and criteria inventories&#8221;</a> for more detail. 
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>ALL: Treat all sources as integrated if a toxics inventory has been provided. Does not require an <code class="envar">NHAPEXCLUDE</code> file
+                              </p>
+                           </li>
+                           <li>
+                              <p>NONE: Treat all sources as non-integrate if a toxics inventory has been provided. Does not require an <code class="envar">NHAPEXCLUDE</code> file
+                              </p>
+                           </li>
+                           <li>
+                              <p>PARTIAL: Read the <code class="envar">NHAPEXCLUDE</code> cross-reference file and either include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on
+                                 the header of the <code class="envar">NHAPEXCLUDE</code> file. See <a href="ch08s10s07.html" title="8.10.7.&nbsp;NHAPEXCLUDE: NonHAP VOC calculation inclusions/exclusions file">Section&nbsp;8.10.7, &#8220;<code class="envar">NHAPEXCLUDE</code>: NonHAP VOC calculation inclusions/exclusions file&#8221;</a>.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_TMPDIR</code>: [default: <code class="filename">.</code>]
+                     </p>
+                     <p>Sets the path for writing temporary files needed when importing the inventory.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMKINVEN_FORMULA</code>: [default: blank]
+                     </p>
+                     <p>Allows the user to specify a formula for computing one or more pollutant values from the values of other pollutants. To use,
+                        users should set the value of <code class="envar">SMKINVEN_FORMULA</code> to a double-quote-enclosed string of 512 characters or less, using a comma-delimited list of formulas.  No spaces are necessary
+                        in the formula list. Only formulas of a specific structure are accepted. Specifically, one of the following:
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              OUTPUT = INPUT1 + INPUT2
+                              
+                           </li>
+                           <li>
+                              OUTPUT = INPUT1 - INPUT2
+                              
+                           </li>
+                        </ul>
+                     </div>
+                     <p>For example, if the formula is set to &#8220;<span class="quote">PMC=PM10-PM2_5,EXH__PMC=EXH__PM10-EXH__PM2_5</span>&#8221;, then <span><strong class="command">Smkinven</strong></span> will compute two new variables: (1) PMC, as the difference between PM<sub>10</sub> and PM<sub>2.5</sub> and (2) EXH__PMC as the difference between exhaust PM<sub>10</sub> and exhaust PM<sub>2.5</sub>. The pollutant units are taken from the first variable in each formula. The variables used as input in the formula will still
+                        be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory
+                        file. An output from one formula may not be used as an input to another formula. In the OUTPUT pollutant name is the same
+                        as an INPUT pollutant name from the inventory file, Smkinven will give an error indicating that the second pollutant could
+                        not be written (e.g. if computing PMC when PMC is already in the raw inventory data). If INPUT2 is ommitted, an error will
+                        also occur.  Formulas using multiplication and division are not yet implemented.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMKINVEN_MONTH</code>: [default: 0 ]
+                     </p>
+                     <p>Defines the number of month to process. The integer month number will allow users to pick monthly total inventory data in
+                        area FF10-formatted invenotry data listed at <a href="ch08s02s04.html#tbl_input_arinv_ff10" title="Table&nbsp;8.15.&nbsp;FF10 Format for ARINV">Table&nbsp;8.15, &#8220;FF10 Format for <code class="envar">ARINV</code>&#8221;</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_REF_SCC_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether use reference SCC (i.e., SCC8) to full SCC (i.e., SCC10) mapping input file to convert reference SCC-level
+                        inventory to full SCC inventory. See detail from <a href="ch08s10s11.html" title="8.10.11.&nbsp;SCCXREF: Reference SCC input file">Section&nbsp;8.10.11, &#8220;<code class="envar">SCCXREF</code>: Reference SCC input file&#8221;</a></p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use reference SCC mapping input file to convert reference SCCs to full SCCs.</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use SCCXREF input file.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">VELOC_RECALC</code>: [default: N]
+                     </p>
+                     <p>Defines whether stack velocity is recalculated in order to make the velocity consistent with the reported flow and diameter.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Recalculate stack velocity</p>
+                           </li>
+                           <li>
+                              <p>N: Output the input stack velocity </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">WEST_HSPHERE</code>: [default: Y]
+                     </p>
+                     <p>Defines how spatial coordinates are interpreted.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Convert longitudinal coordinates for the Western Hemisphere (positive values are converted to negative values)</p>
+                           </li>
+                           <li>
+                              <p>N: Do not convert longitude values (positive values are not changed)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">WKDAY_NORMALIZE</code>: [default: N]
+                     </p>
+                     <p>Clarifies the nature of the &#8220;<span class="quote">average-day</span>&#8221; data read in by <span><strong class="command">Smkinven</strong></span> and will impact the <span><strong class="command">Temporal</strong></span> program processing of average-day data for all formats.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Average-day emissions input to <span><strong class="command">Smkinven</strong></span> are based on weekday emissions only. In <span><strong class="command">Temporal</strong></span>, these emissions will be adjusted with weekly profiles normalized with weekdays only (Monday through Friday)
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Average-day emissions input to <span><strong class="command">Smkinven</strong></span> are based on <span class="emphasis"><em>all days of the week</em></span>. In <span><strong class="command">Temporal</strong></span>, these emissions will be adjusted with weekly profiles normalized with all days of the week.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">WRITE_ANN_ZERO</code>: [default: N]
+                     </p>
+                     <p>Indicates if annual emission values equal to zero should be written to the intermediate inventory file</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Write zero emission values; this option makes the intermediate inventory file larger but is sometimes necessary when only
+                                 daily or hourly data is provided and the entries in the annual inventory are dummy values
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Do not write zero values</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e28876"></a>6.13.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[AREA|MOBL|PNTS]</code></td>
+                        <td>SMOKE map</td>
+                        <td>Annual and average-day inventory emissions and source characteristics</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[ASCC|MSCC|PSCC]</code></td>
+                        <td>ASCII</td>
+                        <td>List of SCCs appearing in the raw inventory file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ADAY | PDAY</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Day-specific inventory emissions assigned to sources in annual/average-day files (optional)</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">AHOUR | PHOUR</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Hour-specific inventory emissions assigned to sources in annual/average day files (optional)</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPINVEN</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>
+                           <p>Inventory report file; contents depend on the inventory being processed, but can include:</p>
+                           
+                           
+                           <p>CEM section:</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact="">
+                                 <li>ORIS IDs from the CEM matched to the inventory</li>
+                                 <li>ORIS IDs from the CEM not matched to the inventory</li>
+                                 <li>Power-generating inventory sources not matched to the CEM</li>
+                              </ul>
+                           </div>
+                           
+                           
+                           <p>Toxics section:</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact="">
+                                 <li>Total emissions and number of inventory records by CAS number</li>
+                                 <li>Total emissions before and after aggregation by CAS number</li>
+                              </ul>
+                           </div>
+                           
+                           
+                           <p>Area-to-point section:</p>
+                           
+                           
+                           <div class="itemizedlist">
+                              <ul type="disc" compact="">
+                                 <li>SCCs in the <code class="envar">ARTOPNT</code> file but not in the inventory
+                                 </li>
+                                 <li>Total emissions before and after area-to-point processing by pollutant, state, and SCC</li>
+                              </ul>
+                           </div>
+                           
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s13s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s13.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s14.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.13.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.14.&nbsp;<span><strong class="command">Smkmerge</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

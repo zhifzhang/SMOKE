@@ -1,0 +1,90 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.19.&nbsp;Processing hour-specific CEM data</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s18.html" title="2.9.18.&nbsp;Import day-specific and hour-specific data">
+      <link rel="next" href="ch02s10.html" title="2.10.&nbsp;Temporal processing">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.19.&nbsp;Processing hour-specific CEM data</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s18.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s10.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_hour_specific_cem"></a>2.9.19.&nbsp;Processing hour-specific CEM data
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p><span><strong class="command">Smkinven</strong></span> can allocate annual emissions to hourly data using the hourly heat input from the standard local time CEM data. <span><strong class="command">Smkinven</strong></span> must match the ORIS/boiler combinations that appear in the standard local time CEM data to sources in the annual emissions
+            inventory. <span><strong class="command">Smkinven</strong></span> will first skip any ORIS/boiler combinations in the input CEM data that do not appear in the summary list (<code class="envar">CEMSUM</code>) created by CEMScan; it is important that users ensure that their input CEM data and CEM summary file remain consistent.
+            <span><strong class="command">Smkinven</strong></span> will also skip any CEM ORIS IDs that are not in the inventory and also any ORIS and boiler combinations that are not in the
+            inventory. Note that the inventory may contain sources with valid ORIS IDs but blank boiler codes; none of these sources will
+            be matched to the CEM data. The format of the CEM hour-specific data is shown in <a href="ch08s02s07.html#tbl_input_pthour_cem" title="Table&nbsp;8.22.&nbsp;CEM Format for individual hour-specific data files">Table&nbsp;8.22, &#8220;CEM Format for individual hour-specific data files&#8221;</a>.
+         </p>
+         <p><span class="bold"><strong>Data Check :</strong></span> Before calculating the hourly emissions, <span><strong class="command">Smkinven</strong></span> first checks if the hourly NOx emissions from the CEM data are zero or null. If so, <span><strong class="command">Smkinven</strong></span> checks if the hourly heat input, gross load, and steam load values are zero or null before all output values will be set
+            to zero. In this case a warning will be written to the <span><strong class="command">Smkinven</strong></span> log file.
+         </p>
+         <p>Special handling is needed when processing SO<sub>2</sub> and NO<sub>x</sub> emissions. If the summed annual CEM SO<sub>2</sub> and NO<sub>x</sub> emissions for a particular ORIS/boiler combination are zero or null, <span><strong class="command">Smkinven</strong></span> will calculate hourly emissions based on the SO<sub>2</sub> and NO<sub>x</sub> emissions in the annual inventory rather than using the hourly CEM data. If the summed annual SO<sub>2</sub> and NO<sub>x</sub>emissions are valid but a particular hour is missing the hourly SO<sub>2</sub> and NO<sub>x</sub> emissions, <span><strong class="command">Smkinven</strong></span> will set the hourly SO<sub>2</sub> and NO<sub>x</sub> emissions to zero and write a warning to the log file.
+         </p>
+         <p><span class="bold"><strong>Calculation:</strong></span> When calculating hourly emissions, <span><strong class="command">Smkinven</strong></span> must use data from the annual inventory. If any of the matching inventory sources are missing the annual emissions value,
+            the program will exit with an error. <span><strong class="command">Smkinven</strong></span> will start with the hourly emissns from the CEM data and then disaggregate the emissions to the matching inventory sources
+            like so:
+         </p>
+         <p><span class="emphasis"><em>Hourly NOx emissions for source <span class="emphasis"><em>i</em></span> = (annual NOx emissions for source <span class="emphasis"><em>i</em></span> / summed annual NOx emissions for all matching sources ) * hourly CEM NOx emissions * pounds to tons conversion</em></span></p>
+         <p>If the summed annual emissions for all matching sources is zero, the hourly CEM emissions will be distributed evenly to the
+            matching inventory sources. For all other pollutants, the hourly emissions are calculated as; 
+         </p>
+         <p><span class="emphasis"><em>Hourly emissions for source <span class="emphasis"><em>i</em></span> = annual factor * annual emissions for source <span class="emphasis"><em>i</em></span></em></span></p>
+         <p>The annual factor in the above calculation will preferentially be:</p>
+         <p><span class="emphasis"><em>Annual factor = hourly heat input for ORIS/boiler / annual summed heat input for ORIS/boiler</em></span></p>
+         <p>If heat input data are not available, <span><strong class="command">Smkinven</strong></span> will fallback to steam load followed by gross load. The heat input values do not need to be disaggregated to the matching
+            inventory sources because the same disaggregation factor would be used for both the hourly heat input and summed heat input.
+         </p>
+         <p>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <code class="envar">FLOW_RATE_FACTOR</code> is set to zero or unset, then <span><strong class="command">Smkinven</strong></span> will not calculate hourly flow rates.
+         </p>
+         <p><span class="emphasis"><em>Hourly flow rate (m<sup>3</sup>/s) = [<code class="envar">FLOW_RATE_FACTOR</code> (ft<sup>3</sup>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<sup>3</sup>/ft<sup>3</sup>] / 3600 s/hr</em></span></p>
+         <p><span><strong class="command">Smkinven</strong></span> then needs to assign the ORIS/boiler-level hourly flow rate to the matching inventory sources. To do this, it sums the flow
+            rate for sources with the same stack. <span><strong class="command">Smkinven</strong></span> uses the plant ID and stack ID to determine which sources feed into the same stack. Script setting information is available
+            at <a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a>.
+         </p>
+         <p><span><strong class="command">NOTE</strong></span>: It is not recommended to run <span><strong class="command">Smkinven</strong></span> for an entire year's worth of CEM data since the memory requirements are large. Instead, users should process only the CEM
+            data for their episode of interest. This may require multiple runs of <span><strong class="command">Smkinven</strong></span> to break up large episodes.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s18.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s10.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.18.&nbsp;Import day-specific and hour-specific data&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.10.&nbsp;Temporal processing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

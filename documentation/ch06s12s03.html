@@ -1,0 +1,186 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.12.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s12.html" title="6.12.&nbsp;Normbeis3">
+      <link rel="prev" href="ch06s12s02.html" title="6.12.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s13.html" title="6.13.&nbsp;Smkinven">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.12.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s12s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.12.&nbsp;<span><strong class="command">Normbeis3</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s13.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e27555"></a>6.12.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s12s03.html#d0e27618">6.12.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s12s03.html#d0e27697">6.12.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s12s03.html#d0e27702">6.12.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_normbeis3"></a><p class="title"><b>Figure&nbsp;6.12.&nbsp;<span>Normbeis3</span> input and output files for BEIS v3.14</b></p>
+            <div class="mediaobject"><img src="images\programs\normbeis3_html.jpg" alt="Normbeis3 input and output files for BEIS v3.14"></div>
+         </div>
+         <p><a href="ch06s12s03.html#fig_programs_normbeis360" title="Figure&nbsp;6.13.&nbsp;Normbeis3 input and output files for BEIS v3.60">Figure&nbsp;6.13, &#8220;<span>Normbeis3</span> input and output files for BEIS v3.60&#8221;</a> shows the input and output files for the <span><strong class="command">Normbeis3</strong></span> program for BEIS v3.14. The input files are the emission factors file (<code class="envar">B3FAC</code>), the gridded land use file for the first 120 land use types (<code class="envar">BELD3_A</code>), the gridded land use types for the next 110 types (<code class="envar">BELD3_B</code>), and the land use totals data file (<code class="envar">BELD3_TOT</code>).
+         </p>
+         <div class="figure"><a name="fig_programs_normbeis360"></a><p class="title"><b>Figure&nbsp;6.13.&nbsp;<span>Normbeis3</span> input and output files for BEIS v3.60</b></p>
+            <div class="mediaobject"><img src="images\programs\normbeis360_html.jpg" alt="Normbeis3 input and output files for BEIS v3.60"></div>
+         </div>
+         <p><a href="ch06s12s03.html#fig_programs_normbeis3" title="Figure&nbsp;6.12.&nbsp;Normbeis3 input and output files for BEIS v3.14">Figure&nbsp;6.12, &#8220;<span>Normbeis3</span> input and output files for BEIS v3.14&#8221;</a> shows the input and output files for the <span><strong class="command">Normbeis3</strong></span> program for BEIS v3.60. The input files are the emission factors file (<code class="envar">B360FAC</code>), the gridded land use file for the first 286 land use types (<code class="envar">BELD4</code>).
+         </p>
+         <p><span><strong class="command">Normbeis3</strong></span> outputs a gridded, normalized biogenic emissions file (<code class="envar">B3GRD</code>) and a log file (<code class="envar">LOGFILE</code>).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27618"></a>6.12.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>Gridded land use data can be created using GIS software, such as ArcInfo. Another tool that can be used to generate gridded
+               land use data is the SMOKE Tool in Models-3 (see Models-3 documentation). The typical database used to generate the <code class="envar">BELD3_A</code>, <code class="envar">BELD3_B</code>, and <code class="envar">BELD3_TOT</code> files is the BELD3. Future versions of SMOKE may include a method for creating land use files for use with <span><strong class="command">Normbeis3</strong></span>.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">B3FAC</code></td>
+                        <td>ASCII</td>
+                        <td>Emission factors file for BEIS v3.14</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BELD3_A</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded land use (first 120 land use types) for BEIS v3.14</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BELD3_B</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded land use (last 110 land use types) for BEIS v3.14</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BELD3_TOT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Land use totals data for BEIS v3.14</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">B360FAC</code></td>
+                        <td>ASCII</td>
+                        <td>Emission factors file for BEIS v3.60</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">BELD4</code></td>
+                        <td>ASCII</td>
+                        <td>Gridded 286 land use for BEIS v3.60</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27697"></a>6.12.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>None</p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e27702"></a>6.12.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">B3GRD</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Gridded, normalized biogenic emissions (in grams of carbon or nitrogen per hour, depending on the species) and LAI: contains
+                           both summer and winter normalized emissions
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Normbeis3</strong></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s12s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s12.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s13.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.12.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.13.&nbsp;<span><strong class="command">Smkinven</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,189 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.9.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s09.html" title="6.9.&nbsp;Mrgelev">
+      <link rel="prev" href="ch06s09s02.html" title="6.9.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s10.html" title="6.10.&nbsp;Mrggrid">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.9.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s09s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.9.&nbsp;<span><strong class="command">Mrgelev</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s10.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e26539"></a>6.9.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s09s03.html#d0e26585">6.9.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s09s03.html#d0e26621">6.9.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s09s03.html#d0e26680">6.9.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_mrgelev"></a><p class="title"><b>Figure&nbsp;6.9.&nbsp;<span>Mrgelev</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\mrgelev_html.jpg" alt="Mrgelev input and output files"></div>
+         </div>
+         <p><a href="ch06s09s03.html#fig_programs_mrgelev" title="Figure&nbsp;6.9.&nbsp;Mrgelev input and output files">Figure&nbsp;6.9, &#8220;<span>Mrgelev</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Mrgelev</strong></span> program. The input files are a list of the ASCII elevated files (<code class="envar">FILELIST</code>) and optionally a list of <code class="envar">PELV</code> files created by <span><strong class="command">Elevpoint</strong></span> (<code class="envar">PELVLIST</code>). In both files, the complete file name including path must be provided. When using the <code class="envar">PELVLIST</code> file, each file must match the corresponding ASCII elevated file. The program outputs a log file (<code class="envar">LOGFILE</code>), a merged ASCII elevated file (<code class="envar">OUTFILE</code>), a merged binary elevated file (<code class="envar">PTSOURCE</code>), and a report file (<code class="envar">REPMRGELEV</code>).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e26585"></a>6.9.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">FILELIST</code></td>
+                        <td>ASCII</td>
+                        <td>List of input ASCII elevated files including path and file name</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PELVLIST</code></td>
+                        <td>ASCII</td>
+                        <td>List of input <code class="envar">PELV</code> files including path and file name; leave environment variable unset if not processing PinG sources
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e26621"></a>6.9.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">MRG_DIFF_DAYS</code>: [default: N]
+                     </p>
+                     <p>This environment variable allows <span><strong class="command">Mrgelev</strong></span> to merge files with data from different days.
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Allow data from different dates to be merged together</p>
+                              <p><span><strong class="command">Mrgelev</strong></span> will use the environment variables <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, <code class="envar">G_RUNLEN</code>, and <code class="envar">G_TSTEP</code> to set the start date, start time, length, and time step of the output file. All input files must have the same starting
+                                 time as <code class="envar">G_STTIME</code>, the same time step as <code class="envar">G_TSTEP</code>, and must contain more than <code class="envar">G_RUNLEN</code> steps of data. For each input file, if it contains data to cover the actual episode requested by <code class="envar">G_STDATE</code>, <code class="envar">G_STTIME</code>, and <code class="envar">G_RUNLEN</code>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.
+                              </p>
+                           </li>
+                           <li>
+                              <p>N: Require all merged data to be from the same date</p>
+                              <p><span><strong class="command">Mrgelev</strong></span> will determine the output file time period based on the latest starting input file and the earliest ending input file.
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e26680"></a>6.9.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Mrgelev</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">OUTFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Merged ASCII elevated file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PTSOURCE</code></td>
+                        <td>Binary</td>
+                        <td>Merged binary elevated file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPMRGELEV</code></td>
+                        <td>ASCII</td>
+                        <td>Report file summarizing input and output emissions for QA purposes</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s09s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s10.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.9.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.10.&nbsp;<span><strong class="command">Mrggrid</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

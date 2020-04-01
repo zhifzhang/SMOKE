@@ -1,0 +1,202 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.2.&nbsp;Aggwndw</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="next" href="ch05s03s03.html" title="5.3.3.&nbsp;BlueSky2Inv">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.2.&nbsp;<span><strong class="command">Aggwndw</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_aggwndw"></a>5.3.2.&nbsp;<span><strong class="command">Aggwndw</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s02.html#d0e18761">5.3.2.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s02.html#d0e18771">5.3.2.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s02.html#d0e18784">5.3.2.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18761"></a>5.3.2.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Aggwndw</strong></span> aggregates and/or windows emissions from an I/O API file to a new grid. The program does not change grid projections or interpolate
+               data; the grid boundaries of the input and output grids must be aligned and the output grid must be entirely contained within
+               the input grid. <span><strong class="command">Aggwndw</strong></span> automatically checks that the input and output emissions do not differ by more than 0.01% and also produces a report file
+               containing summed input and output data.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18771"></a>5.3.2.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Aggwndw</strong></span> can be run on any gridded I/O API file. Usually it would be used to create coarse-grid or windowed emissions from fine-grid
+               model-ready output files created by <span><strong class="command">Smkmerge</strong></span> or <span><strong class="command">Mrggrid</strong></span>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18784"></a>5.3.2.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s02.html#d0e18787">5.3.2.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s02.html#d0e18820">5.3.2.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s02.html#d0e18834">5.3.2.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18787"></a>5.3.2.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">GRIDDESC</code></td>
+                           <td>ASCII</td>
+                           <td>Grid description file containing information about the output grid</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">INFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Input gridded emissions file</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18820"></a>5.3.2.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">IOAPI_GRIDNAME_1</code>: [default: none]
+                        </p>
+                        <p>Sets the name of the output grid whose parameters will be read from the <code class="envar">GRIDDESC</code> file.
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18834"></a>5.3.2.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">OUTFILE</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>Gridded emissions file</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">REPFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Report file; provides summed input and output emissions for QA purposes</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.&nbsp; SMOKE Utility Programs&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.3.&nbsp;<span><strong class="command">BlueSky2Inv</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

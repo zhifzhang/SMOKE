@@ -1,0 +1,116 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>9.8.2.&nbsp;MOVES_RH_OUTFILE</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch09s08.html" title="9.8.&nbsp;Met4moves">
+      <link rel="prev" href="ch09s08.html" title="9.8.&nbsp;Met4moves">
+      <link rel="next" href="ch09s08s03.html" title="9.8.3.&nbsp;SMOKE_OUTFILE(=METMOVES)">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">9.8.2.&nbsp;<code class="envar">MOVES_RH_OUTFILE</code></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch09s08.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">9.8.&nbsp;<span><strong class="command">Met4moves</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch09s08s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_intmed_moves_rh_output"></a>9.8.2.&nbsp;<code class="envar">MOVES_RH_OUTFILE</code></h3>
+               </div>
+            </div>
+         </div>
+         <p>Type: ASCII - column-specific</p>
+         <p>Used by: <a href="ch05s02s02.html" title="5.2.2.&nbsp;MOVES Driver Scripts"> MOVES Driver Script</a></p>
+         <p>The output file created by <span><strong class="command">Met4moves</strong></span> program for RPD, RPV and RPH modes in both MOVES and SMOKE models contains fuel month-specific min and max temperatures,
+            and averaged RH values in local time for all representative counties by temperature bin.
+         </p>
+         <div class="table"><a name="d0e54489"></a><p class="title"><b>Table&nbsp;9.21.&nbsp;File columns in <code class="envar">MOVES_RH_OUTFILE</code></b></p>
+            <table summary="File columns in MOVES_RH_OUTFILE" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Column</th>
+                     <th>Type</th>
+                     <th>Units</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>A</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Representative County</td>
+                  </tr>
+                  <tr>
+                     <td>B</td>
+                     <td>Integer</td>
+                     <td>Unitless</td>
+                     <td>Fuel Month</td>
+                  </tr>
+                  <tr>
+                     <td>C</td>
+                     <td>Real</td>
+                     <td>%</td>
+                     <td>Average Relative Humidity</td>
+                  </tr>
+                  <tr>
+                     <td>D</td>
+                     <td>Real</td>
+                     <td>Fahrenheit</td>
+                     <td>Lowest Minimum Temperature across all inventory counties</td>
+                  </tr>
+                  <tr>
+                     <td>E</td>
+                     <td>Real</td>
+                     <td>Fahrenheit</td>
+                     <td>Highest Maximum Temperature across all inventory counties</td>
+                  </tr>
+                  <tr>
+                     <td>F</td>
+                     <td>Real</td>
+                     <td>Fahrenheit</td>
+                     <td>Temperature bin</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch09s08.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch09s08.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch09s08s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">9.8.&nbsp;<span><strong class="command">Met4moves</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;9.8.3.&nbsp;<code class="envar">SMOKE_OUTFILE(=METMOVES)</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

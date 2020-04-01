@@ -1,0 +1,242 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.4.22.&nbsp;Change reports</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s04.html" title="4.4.&nbsp;How to use SMOKE">
+      <link rel="prev" href="ch04s04s21.html" title="4.4.21.&nbsp;Determine if a run worked correctly and troubleshoot">
+      <link rel="next" href="ch04s04s23.html" title="4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.4.22.&nbsp;Change reports</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s04s21.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.4.&nbsp;How to use SMOKE</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s04s23.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_change_reports"></a>4.4.22.&nbsp;Change reports
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE provides the <span><strong class="command">Smkreport</strong></span> tool as a very flexible tool to generate reports on your inventory and emissions modeling case. This program is documented
+            in detail in <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a>. Here, we provide the information that you need to reconfigure your scripts to use different reporting. The <code class="envar">QA_TYPE</code> and <code class="envar">QA_LABEL</code> environment variables introduced in <a href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">Section&nbsp;4.2.4, &#8220;Script settings&#8221;</a> are clarified here.
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>Customize the names of the output report files and <span><strong class="command">Smkreport</strong></span> log files.
+                  </p>
+                  <p>The example SMOKE run scripts will name the log files and report output files with preset names. If you set the <code class="envar">QA_LABEL</code> setting, the reports and log file names will then include the value of that setting. For example, if the default report name
+                     were <code class="filename">a.state.nei99.rpt</code> and <code class="envar">QA_LABEL</code> were set to &#8220;<span class="quote">run1</span>&#8221;, the new report name would be <code class="filename">a.state.nei99.run1.rpt</code>. The &#8220;<span class="quote">run1</span>&#8221; in <code class="envar">QA_LABEL</code> is inserted before the final &#8220;<span class="quote">rpt</span>&#8221; extension.
+                  </p>
+               </li>
+               <li>
+                  <p>Select from one of the default settings for <code class="envar">QA_TYPE</code></p>
+                  <p>The default <code class="envar">QA_TYPE</code> settings allow users to run <span><strong class="command">Smkreport</strong></span> with the default <code class="envar">REPCONFIG</code> files. These files are located in the <code class="filename"><code class="envar">$OTHER</code></code> directory, documented in <a href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">Chapter&nbsp;3, <i>SMOKE Directory Structure</i></a>. Each source category has its own valid <code class="envar">QA_TYPE</code> settings, and each of these settings causes certain reports to be created. <a href="ch04s04s22.html#tbl_scripts_qa_type" title="Table&nbsp;4.4.&nbsp;QA_TYPE settings with associated source categories and default REPCONFIG files">Table&nbsp;4.4, &#8220;<code class="envar">QA_TYPE</code> settings with associated source categories and default <code class="envar">REPCONFIG</code> files&#8221;</a> indicates which <code class="envar">QA_TYPE</code> setting can be used in which case, and the <code class="envar">REPCONFIG</code> files that will be used.
+                  </p>
+                  <div class="table"><a name="tbl_scripts_qa_type"></a><p class="title"><b>Table&nbsp;4.4.&nbsp;<code class="envar">QA_TYPE</code> settings with associated source categories and default <code class="envar">REPCONFIG</code> files</b></p>
+                     <table summary="QA_TYPE settings with associated source categories and default REPCONFIG files" border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th align="center"><code class="envar">QA_TYPE</code></th>
+                              <th align="center">Source Categories</th>
+                              <th align="center"><code class="envar">REPCONFIG</code> file from <code class="filename"><code class="envar">$SMKDAT</code>/inventory/nctox/other</code></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>part1 (<code class="envar">RUN_PART1</code> must be set to Y)
+                              </td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td>area</td>
+                                    </tr>
+                                    <tr>
+                                       <td>nonroad</td>
+                                    </tr>
+                                    <tr>
+                                       <td>mobile</td>
+                                    </tr>
+                                    <tr>
+                                       <td>point</td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td><code class="filename">repconfig.ar.inv.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.nr.inv.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.mb.inv.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.pt.inv.txt</code></td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>part2 (<code class="envar">RUN_PART2</code> must be set to Y)
+                              </td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td>area</td>
+                                    </tr>
+                                    <tr>
+                                       <td>nonroad</td>
+                                    </tr>
+                                    <tr>
+                                       <td>mobile</td>
+                                    </tr>
+                                    <tr>
+                                       <td>point</td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td><code class="filename">repconfig.ar.temporal.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.nr.temporal.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.mb.temporal.txt</code></td>
+                                    </tr>
+                                    <tr>
+                                       <td><code class="filename">repconfig.pt.temporal.txt</code></td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>part3 (<code class="envar">RUN_PART3</code> must be set to Y)
+                              </td>
+                              <td>point</td>
+                              <td><code class="filename">repconfig.pt.elev.txt</code></td>
+                           </tr>
+                           <tr>
+                              <td>part4 (<code class="envar">RUN_PART4</code> must be set to Y)
+                              </td>
+                              <td>point</td>
+                              <td><code class="filename">repconfig.pt.lfrac.txt</code></td>
+                           </tr>
+                           <tr>
+                              <td>all</td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td>area</td>
+                                    </tr>
+                                    <tr>
+                                       <td>nonroad</td>
+                                    </tr>
+                                    <tr>
+                                       <td>mobile</td>
+                                    </tr>
+                                    <tr>
+                                       <td>point</td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                              <td>All of the above reports will be generated, provided that the <code class="envar">RUN_PART(1-4)</code> settings are set as listed in column 1 of this table.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>custom</td>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td>area</td>
+                                    </tr>
+                                    <tr>
+                                       <td>nonroad</td>
+                                    </tr>
+                                    <tr>
+                                       <td>mobile</td>
+                                    </tr>
+                                    <tr>
+                                       <td>point</td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                              <td>See step (3) below.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <p>The helper script <code class="filename">qa_run.csh</code> is responsible for selecting the correct <code class="envar">REPCONFIG</code> file based on the <code class="envar">QA_TYPE</code> setting, and these settings need not be changed. If users wish to implement a different configuration, the &#8220;<span class="quote">custom</span>&#8221; value of <code class="envar">QA_TYPE</code> should be able to meet those needs without any changes to <code class="filename">qa_run.csh</code>. Copying the <code class="envar">REPCONFIG</code> files from the example files to your case and changing them changes the default reports that are generated by SMOKE for your
+                     case.
+                  </p>
+                  <p>Users can examine these <code class="envar">REPCONFIG</code> files along with the documentation in <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a> to determine the reports that will be generated by each. These reports are also generated during the SMOKE installation and
+                     test case run, and can provide examples for understanding which reports will be written.
+                  </p>
+               </li>
+               <li>
+                  <p>Using the &#8220;<span class="quote">custom</span>&#8221; setting
+                  </p>
+                  <p>If <code class="envar">QA_TYPE</code> is set to &#8220;<span class="quote">custom</span>&#8221;, then the <code class="filename">qa_run.csh</code> script expects that users will set the correct <code class="envar">REPORT*</code> environment variables in the main body of their run script. The <code class="envar">REPORT*</code> environment variables are typically used as the logical file names for <span><strong class="command">Smkreport</strong></span>, those environment variables used are themselves configurable in the <code class="envar">REPCONFIG</code> file. The physical file names can also be set in the <code class="envar">REPCONFIG</code> file directly, instead of relying on the scripts to contain environment variable settings. These options are explained in
+                     greater detail in <a href="ch07.html" title="Chapter&nbsp;7.&nbsp;SMOKE Quality Assurance">Chapter&nbsp;7, <i>SMOKE Quality Assurance</i></a>.
+                  </p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s04s21.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s04.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s04s23.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.4.21.&nbsp;Determine if a run worked correctly and troubleshoot&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.4.23.&nbsp;Generating CMAQ-ready Source Apportionment Input Data Files</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

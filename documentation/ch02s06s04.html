@@ -1,0 +1,72 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.6.4.&nbsp;Chemical mechanisms</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s06.html" title="2.6.&nbsp;Modeling parameters">
+      <link rel="prev" href="ch02s06s03.html" title="2.6.3.&nbsp;Modeling episodes">
+      <link rel="next" href="ch02s06s05.html" title="2.6.5.&nbsp;Layer structures">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.6.4.&nbsp;Chemical mechanisms</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s06s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.6.&nbsp;Modeling parameters</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s06s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e2002"></a>2.6.4.&nbsp;Chemical mechanisms
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>SMOKE can accommodate a variety of chemical mechanisms for the models it supports. From the emissions processing perspective,
+            the chemical mechanism is the mapping of the pollutants provided in the emissions inventory to the species needed by the AQM
+            of interest. For example, the input files for five chemical mechanisms for the CMAQ model are available for download from
+            the EPA; these mechanisms are Carbon Bond 6 (CB6), CB6 with particulates, Regional Acid Deposition Model, 2 (RADM2), RADM2
+            with particulates, and a research version of CB6 with toxics.
+         </p>
+         <p>In <a href="ch04s04s10.html" title="4.4.10.&nbsp;Use a different speciation mechanism or change speciation inputs">Section&nbsp;4.4.10, &#8220;Use a different speciation mechanism or change speciation inputs&#8221;</a>, we provide the settings needed in the Assigns file to use a different chemical mechanisms with SMOKE. SMOKE is not constrained
+            to the files available for download. If you need to process other data (e.g., a tracer species) with SMOKE, they can be added
+            to several input files, including the chemical mechanism file, to be output to the AQM. Some additions to chemical mechanisms
+            are easier than others, and we explain how to determine whether you can create the files you need for your situation. We also
+            give instructions on how to add species to the chemical mechanism files and how to make sure that the inventory pollutants
+            are mapped to the correct chemical species.
+         </p>
+         <p>SMOKE users must know what chemical mechanism will be used in the AQM for which the SMOKE output emissions are intended. Once
+            that has been determined, the following files must be configured to be consistent with the inventory being used and the chemical
+            mechanism: the inventory table (<code class="envar">INVTABLE</code>), speciation profiles (<code class="envar">GSPRO</code>), speciation cross-reference (<code class="envar">GSREF</code>), and the mobile processes file (<code class="envar">MEPROC</code>) when creating on-road mobile emissions with MOVES through SMOKE.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s06s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s06.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s06s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.6.3.&nbsp;Modeling episodes&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.6.5.&nbsp;Layer structures</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

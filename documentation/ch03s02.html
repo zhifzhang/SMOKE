@@ -1,0 +1,168 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.&nbsp;Directory structure</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">
+      <link rel="prev" href="ch03.html" title="Chapter&nbsp;3.&nbsp;SMOKE Directory Structure">
+      <link rel="next" href="ch03s02s02.html" title="3.2.2.&nbsp;The basic SMOKE directories">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.&nbsp;Directory structure</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">Chapter&nbsp;3.&nbsp;SMOKE Directory Structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s02s02.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both"><a name="sect_dirs_directory_structure"></a>3.2.&nbsp;Directory structure
+                  </h2>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch03s02.html#sect_dirs_example_assigns">3.2.1. Example Assigns file</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s02.html">3.2.2. The basic SMOKE directories</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s03.html">3.2.3. Locations of input files</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s04.html">3.2.4. Locations of intermediate files for base and growth/control cases</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s05.html">3.2.5. Locations of model-ready output files for base and growth/control cases</a></span></dt>
+               <dt><span class="section"><a href="ch03s02s06.html">3.2.6. Locations of reports</a></span></dt>
+            </dl>
+         </div>
+         <p>The SMOKE directory structure is the organization of UNIX directories and subdirectories (essentially the same as &#8220;<span class="quote">folders</span>&#8221; on Windows computers). These directories are defined and created using the SMOKE Assigns file. By &#8220;<span class="quote">defined</span>&#8221;, we mean that environment variables are set to the actual path name for each of the directories, and their relationships
+            to one another are implicit in these definitions. As will be described in more detail in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, you should create an Assigns file for each modeling case to organize your modeling runs. If created properly, the different
+            Assigns files will cause the intermediate and output directories to be different for each case; this prevents overwriting
+            files from one case with files from another. Some parts of the directory structure are shared by all modeling cases because
+            they are usually the same (e.g., SMOKE support files), but the intermediate and output files are not assumed to be the same
+            because they often differ between cases.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="sect_dirs_example_assigns"></a>3.2.1.&nbsp;Example Assigns file
+                     </h3>
+                  </div>
+               </div>
+            </div>
+            <p>Before we can proceed with describing the scripts, we need to introduce the Assigns file. Detailed documentation on this file
+               is provided in <a href="ch04s02s02.html#sect_scripts_assigns_files" title="4.2.2.2.&nbsp;Assigns files">Section&nbsp;4.2.2.2, &#8220;Assigns files&#8221;</a>. For the purposes of the discussion here, we provide an example Assigns file to help clarify what it is. Because this file
+               is quite lengthy, we have only included excerpts. In this subsection, the Assigns file is simply a set of <span><strong class="command">setenv</strong></span> UNIX commands and calls to helper scripts.
+            </p>
+            <p>The arrangement within the default Assigns file provided with SMOKE is:</p>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p>Shell command (e.g., <span><strong class="command">#!/bin/csh -fx</strong></span> for C shell)
+                     </p>
+                  </li>
+                  <li>
+                     <p>Descriptive global comments</p>
+                  </li>
+                  <li>
+                     <p>Settings for the naming roots</p>
+                  </li>
+                  <li>
+                     <p>Settings for the episode dates and times</p>
+                  </li>
+                  <li>
+                     <p>Settings for the directory structure and use of the <code class="filename">set_dirs.scr</code> helper script
+                     </p>
+                  </li>
+                  <li>
+                     <p>Settings for SMOKE input and output files and calls to other helper scripts</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The first settings section is used for naming roots. These settings allow users to set the inventory input and output identifiers,
+               the base-case scenario names, and the grid and chemical mechanism names (see <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a> for more details). The following lines provide the naming roots used in the default Assigns file provided with SMOKE, <code class="filename">ASSIGNS.nctox.cmaq.cb4pm25_wtox.us12-nc</code>. This file and the helper scripts can be found in the <code class="envar">$ASSIGNS</code> directory, which we will define in <a href="ch03s02s02.html" title="3.2.2.&nbsp;The basic SMOKE directories">Section&nbsp;3.2.2, &#8220;The basic SMOKE directories&#8221;</a>.
+            </p><pre class="programlisting">#
+## I/O Naming roots
+#
+   setenv INVID     nctox        # Inventory input identifier
+   setenv INVOP     nctox        # Base year inventory output name
+   setenv INVEN     nctox        # Base year inventory name with version
+
+   setenv ABASE     nctox        # Area base case output name
+   setenv BBASE     nctox        # Biogenics base case output name
+   setenv MBASE     nctox        # Mobile base case output name
+   setenv PBASE     nctox        # Point base case output name
+
+   setenv EBASE     nctox        # Output merged base case name
+
+   setenv METSCEN      12km             # Met scenario name
+   setenv GRID         us12-nc          # Gridding root for naming
+   setenv IOAPI_GRIDNAME_1 US12NC_66X52 # Grid selected from GRIDDESC file
+   setenv IOAPI_ISPH   19               # Specifies spheroid type associated with grid
+   setenv SPC          cmaq.cb4p25_wtox # Speciation type
+</pre><p>The next section of the file includes the settings for the episode:</p><pre class="programlisting">## Mobile episode variables
+   setenv EPI_STDATE 2001191     # Julian start date
+   setenv EPI_STTIME  000000     # start time (HHMMSS)
+   setenv EPI_RUNLEN 0480000     # run length (HHHMMSS)
+   setenv EPI_NDAY   2           # number of full run days
+
+## Per-period environment variables
+   setenv G_STDATE  2001191      # Julian start date
+   setenv G_STTIME   000000      # start time (HHMMSS)
+   setenv G_TSTEP     10000      # time step  (HHMMSS)
+   setenv G_RUNLEN   250000      # run length (HHMMSS)
+   setenv ESDATE   20010710      # Start date of emis time-based files/dirs
+   setenv MSDATE   20010710      # Start date of met time-based files
+   setenv NDAYS           1      # Duration in days of each emissions file
+   setenv MDAYS           1      # Duration in days of met time-based files
+   setenv YEAR         2001      # Base year for year-specific files
+</pre><p>As described in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>, these settings control both the way SMOKE runs (e.g., SMOKE uses <code class="envar">EPI_STDATE</code>, the start date of the episode, to decide what day to start the simulation) and the way SMOKE names files (e.g., <code class="envar">ESDATE</code> is used to help name time-dependent files).
+            </p>
+            <p>The next section of the Assigns file is used to set the user-defined input and output directory paths. It uses a helper script
+               called <code class="filename">set_dirs.scr</code> that applies the initial settings made by the Assigns file to set environment variables for the directories, as described
+               in <a href="ch03s02s02.html" title="3.2.2.&nbsp;The basic SMOKE directories">Section&nbsp;3.2.2, &#8220;The basic SMOKE directories&#8221;</a>. The <code class="filename">set_dirs.scr</code> script also verifies that all of the directories are there and that the permissions of the directories are group readable
+               and writable.
+            </p><pre class="programlisting">## User-defined I/O directory settings
+   setenv SMK_SUBSYS  $SMK_HOME/subsys              # SMOKE subsystem dir
+   setenv SMKROOT     $SMK_SUBSYS/smoke             # System root dir
+   setenv SMKDAT      $SMK_HOME/data                # Data root dir
+   setenv ASSIGNS     $SMKROOT/assigns              # SMOKE assigns files
+
+&lt;omitted section&gt;
+
+## Set dependent directory names
+#
+source $ASSIGNS/set_dirs.scr
+</pre><p>Now that we have provided a little background on Assigns files, we will spend the rest of this chapter describing the SMOKE
+               directory structure. We will return to discussion of the Assigns file and scripts in <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>. It is important to understand the directory structure information in the rest of this chapter before moving on to <a href="ch04.html" title="Chapter&nbsp;4.&nbsp;How to Use SMOKE">Chapter&nbsp;4, <i>How to Use SMOKE</i></a>.
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s02s02.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">Chapter&nbsp;3.&nbsp;SMOKE Directory Structure&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.2.2.&nbsp;The basic SMOKE directories</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

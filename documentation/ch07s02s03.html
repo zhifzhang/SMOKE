@@ -1,0 +1,332 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>7.2.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch07s02.html" title="7.2.&nbsp;Smkreport Program">
+      <link rel="prev" href="ch07s02s02.html" title="7.2.2.&nbsp;Processing Order">
+      <link rel="next" href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">7.2.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch07s02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">7.2.&nbsp;<span><strong class="command">Smkreport</strong></span> Program
+               </th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e33036"></a>7.2.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch07s02s03.html#d0e33039">7.2.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch07s02s03.html#sect_qa_smkreport_envar">7.2.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch07s02s03.html#d0e33484">7.2.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33039"></a>7.2.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The input files depend upon the <code class="envar">SMK_SOURCE</code> input instruction in the <code class="envar">REPCONFIG</code> input file setting when the program is started. With the exception of the SMOKE intermediate inventory file (<code class="envar">AREA</code>, <code class="envar">MOBL</code>, <code class="envar">PNTS</code>), whether a file is optional or not depends on the settings in <code class="envar">REPCONFIG</code>. If <span><strong class="command">Smkreport</strong></span> is being executed to produce speciated, gridded, temporally allocated area sources, for instance, then the area-source inventory,
+               speciation matrix, gridding matrix, and hourly emissions are required. Also, the source category of the input file depends
+               on the <code class="envar">REPCONFIG</code> file setting for <code class="envar">SMK_SOURCE</code>. For example, if only area sources are being merged (<code class="envar">SMK_SOURCE</code> is set to A), then only area-source-related inputs are required.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Source Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|M|P]CMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Multiplicative control matrix from <span><strong class="command">Cntlmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]GMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Gridding matrix from <span><strong class="command">Grdmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M]GSUP</code></td>
+                        <td>ASCII</td>
+                        <td>A, M</td>
+                        <td>Supplementary file from <span><strong class="command">Grdmat</strong></span> that contains all gridding surrogate codes assigned to each source
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]PMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Growth matrix from <span><strong class="command">Cntlmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]RMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Mass-based or mole-based reactivity matrix from <span><strong class="command">Cntlmat</strong></span> (optional, <span class="emphasis"><em>not yet supported by SMOKE</em></span>)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SMAT</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Mass-based or mole-based speciation matrix from <span><strong class="command">Spcmat</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SSUP</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Supplementary file from <span><strong class="command">Spcmat</strong></span> that contains all speciation profile codes assigned to each source
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TMP</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>A, M, P</td>
+                        <td>Temporally allocated emissions from <span><strong class="command">Temporal</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]TSUP</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Supplementary file from <span><strong class="command">Temporal</strong></span> that contains all monthly, weekly, and diurnal profile codes assigned to each source. <span class="bold"><strong>This file will only work when profiles have not been applied by pollutant.</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">AREA</code></td>
+                        <td>SMOKE map</td>
+                        <td>A</td>
+                        <td>Intermediate area-source emissions inventory from <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">COSTCY</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Country, state and county file with time zones and, optionally, population</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ELEVTS_[L|S]</code></td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Elevated point-source file written by <span><strong class="command">Smkmerge</strong></span> for UAM and CAM<sub>X</sub> modeling. See <code class="envar">MRG_GRDOUT_UNIT</code> environment variable setting in <a href="ch07s02s03.html#sect_qa_smkreport_envar" title="7.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;7.2.3.2, &#8220;Input Environment Variables&#8221;</a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GEOCODE_LEVEL[1-4]</code></td>
+                        <td>ASCII</td>
+                        <td>A, B, M, P</td>
+                        <td>Geographic level codes and descriptions (also contains Time Zone for GEOCODE_LEVEL4) note: used if USE_EXP_GEO_CODES set to
+                           Y and COSTCY file is ignored. See more detail about GEOCODE_LEVELS in <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files">Section&nbsp;8.10.3, &#8220;<code class="envar">GEOCODE_LEVEL[1-4]: Geographical Input Files</code>&#8221;</a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GRIDDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Contains description of the modeling grid</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MACTDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, P</td>
+                        <td>MACT code descriptions</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MOBL</code></td>
+                        <td>SMOKE map</td>
+                        <td>M</td>
+                        <td>Intermediate mobile-source emissions and/or activity inventory from <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">NAICSDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, P</td>
+                        <td>NAICS code descriptions</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">ORISDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, P</td>
+                        <td>ORIS ID code descriptions</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PELV</code></td>
+                        <td>ASCII</td>
+                        <td>P</td>
+                        <td>Elevated point-sources identification file; if reporting based on elevated point sources</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PLAY</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>P</td>
+                        <td>Layer fractions file output by the <span><strong class="command">Laypoint</strong></span> program
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">PNTS</code></td>
+                        <td>SMOKE map</td>
+                        <td>P</td>
+                        <td>Intermediate point-source emissions inventory from <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPCONFIG</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>Report configuration file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SCCDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>SCC descriptions</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">SICDESC</code></td>
+                        <td>ASCII</td>
+                        <td>A, M, P</td>
+                        <td>SIC descriptions</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_qa_smkreport_envar"></a>7.2.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y, this variable is used to specify the use of expanded 12-character geograpic codes contained in the <span><strong class="command">GEOCODE_LEVEL[1-4]</strong></span> input files. For <span><strong class="command">Smkreport</strong></span>, it controls which ASCII GEOCODE file to use. The user can select the data extraction summary format in the <code class="envar">REPCONFIG</code> file. If the REPCONFIG file contains <code class="envar">CARB_QADEF</code> setting, then <span><strong class="command">Smkreport</strong></span> creates reports in the CARB QA Data Extraction Format. If the REPCONFIG file contains the <code class="envar">BY GEOCODE_LEVEL1[NAME]</code> or <code class="envar">BY GEOCODE_LEVEL2[NAME]</code> or <code class="envar">BY GEOCODE_LEVEL3[NAME]</code> or <code class="envar">BY GEOCODE_LEVEL4[NAME]</code> then <span><strong class="command">Smkreport</strong></span> creates reports at each geographic level with its description and local time zone.
+                        
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MRG_GRDOUT_UNIT</code>: [default: blank]
+                     </p>
+                     <p>This variable is the same one used to control the <span><strong class="command">Smkmerge</strong></span> output units. For <span><strong class="command">Smkreport</strong></span>, it controls which ASCII elevated file to use, when the ASCIIELEV instruction is included in the <code class="envar">REPCONFIG</code> file. If the first letter of this setting is an &#8220;<span class="quote">m</span>&#8221; (for mole), then <span><strong class="command">Smkreport</strong></span> opens the <code class="envar">ELEVTS_L</code> file to use in the report; otherwise, <span><strong class="command">Smkreport</strong></span> opens and uses the <code class="envar">ELEVTS_S</code> file. This setting does not do anything to the behavior of <span><strong class="command">Smkreport</strong></span> unless the ASCIIELEV setting is included in the <code class="envar">REPCONFIG</code> file. The default setting of <code class="envar">MRG_GRDOUT_UNIT</code> results in the <code class="envar">ELEVTS_S</code> file being used by <span><strong class="command">Smkreport</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">REPORT_ZERO_VALUES</code>: [default: N]
+                     </p>
+                     <p>Determines if <span><strong class="command">Smkreport</strong></span> should keep report entries whose data values are all zero
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Print entries whose values are zero</p>
+                           </li>
+                           <li>
+                              <p>N: Do not print entries whose values are zero</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e33484"></a>7.2.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Smkreport</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">REPORT[#]</code></td>
+                        <td>ASCII</td>
+                        <td>Multiple ASCII reports. <span><strong class="command">Smkreport</strong></span> will output file names of <code class="envar">REPORT1</code>, <code class="envar">REPORT2</code>, <code class="envar">REPORT3</code>, etc., if no other file names are given with the /NEWFILE/ instruction (see the <code class="envar">REPCONFIG</code> file documentation in <a href="ch07s03.html" title="7.3.&nbsp;REPCONFIG Input File">Section&nbsp;7.3, &#8220;<code class="envar">REPCONFIG</code> Input File&#8221;</a>). If the /NEWFILE/ instructions include physical file names, <span><strong class="command">Smkreport</strong></span> will open those files. If the /NEWFILE/ instructions include logical file names (<code class="envar">REPORT1</code>, etc.), <span><strong class="command">Smkreport</strong></span> will attempt to find the value of the logical file name in the run-time UNIX shell environment. It the logical file name
+                           is defined, <span><strong class="command">Smkreport</strong></span> will open the physical file associated with the logical file name; otherwise <span><strong class="command">Smkreport</strong></span> opens a physical file with the same name as the logical file name.
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch07s02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch07s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">7.2.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;7.3.&nbsp;<code class="envar">REPCONFIG</code> Input File
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

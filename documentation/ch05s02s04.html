@@ -1,0 +1,577 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.2.4.&nbsp;MOVES Post-processing scripts</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s02.html" title="5.2.&nbsp;MOVES Utility Scripts">
+      <link rel="prev" href="ch05s02s03.html" title="5.2.3.&nbsp;Run MOVES Model">
+      <link rel="next" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.2.4.&nbsp;MOVES Post-processing scripts</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s02s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.2.&nbsp;MOVES Utility Scripts</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="section_moves_postprocessing_scripts"></a>5.2.4.&nbsp;MOVES Post-processing scripts
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s02s04.html#d0e18221">5.2.4.1. Overview</a></span></dt>
+               <dt><span class="section"><a href="ch05s02s04.html#d0e18237">5.2.4.2. <span><strong class="command">Moves2smkEF.pl</strong></span></a></span></dt>
+               <dt><span class="section"><a href="ch05s02s04.html#sect_moves_gen_sccxref">5.2.4.3. <span><strong class="command">gen_8digit_scc.pl</strong></span></a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18221"></a>5.2.4.1.&nbsp;Overview
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p>The MOVES Post-processing scripts consist of two Perl scripts. One is called <span><strong class="command">&#8220;<span class="quote">Moves2smkEF.pl</span>&#8221;</strong></span> which extracts the emissions factor tables from the MOVES databases and converts them into a format that can be used as SMOKE
+               inputs. The second script, called <span><strong class="command">&#8220;<span class="quote">gen_8digit_scc.pl</span>&#8221;</strong></span>, produces a file mapping 8-digit SCCs to 10-digit SCCs used when importing activity data in <span><strong class="command">Smkinven</strong></span>.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e18237"></a>5.2.4.2.&nbsp;<span><strong class="command">Moves2smkEF.pl</strong></span></h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18241">5.2.4.2.1. Description</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18293">5.2.4.2.2. Processing Order</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18310">5.2.4.2.3. Files, Environment Variables and Run Syntax</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18241"></a>5.2.4.2.1.&nbsp;Description
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The MOVES post-processor script <span><strong class="command">&#8220;<span class="quote">Moves2smkEF.pl</span>&#8221;</strong></span> extracts the emission factor tables from the MOVES databases (RPD, RPV, RPP, and RPH MOVES formatted Lookup tables) and converts
+                  them into a format that can be processed using <span><strong class="command">Movesmrg</strong></span>.
+               </p>
+               <div class="orderedlist">
+                  <ol type="1">
+                     <li>
+                        <p>Create a new field for 'countyID'</p>
+                        <p>None of the MOVES lookup tables contain a countyID field solely dedicated to a state-county FIPS code, but SMOKE needs this
+                           information.  For this reason, <span><strong class="command">Moves2smkEF.pl</strong></span> creates a county field by extracting it from other fields that include county codes as part of their value.  The RPD table
+                           has a linkID field that contains countyID in the leading five digits followed by more numbers to allow for future implementation
+                           of link modeling.  The RPV table has a zoneID field that is countyID with a trailing zero.  The RPP table has a TemperatureProfileID
+                           field, which also leads with countyID and is trailed by other numbers to indicate month and other identification.  The RPH
+                           table has a linkID field the same as the RPD table. The postprocessing script parses countyID from linkID, zoneID and TemperatureProfileID
+                           and stores it as a separate field.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Map MOVES pollutantID to output pollutant/species name</p>
+                        <p>The pollutant mapping file has columns for MOVES2014 Pollutant ID, MOVES2014 Pollutant Name, and SMOKE Pollutant/Model Species
+                           Name. <span><strong class="command">Moves2smkEF.pl</strong></span> reads this list to determine which MOVES pollutants to output in the emission factor files and what name to use for each
+                           pollutant. Because MOVES2014 contains emission factors for both inventory pollutants and model species, the sample pollutant
+                           mapping file included with SMOKE uses the _INV suffix to distinguish inventory pollutants from model species.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Cross-tab pollutantID to reduce output table size</p>
+                        <p>Each of the four MOVES lookup tables contains a pollutantID field, and associated emission rates for each are listed in the
+                           ratePerDistance, ratePerVehicle, or ratePerHour field (depending on lookup table).  This table structure repeats the leftmost
+                           fields (e.g., MOVESRunID, yearID, monthID) for each pollutantID, which greatly increases the total number of rows.  The cross-tabbing
+                           postprocessing step replaces the column for 'ratePerDistance' (or 'ratePerVehicle' or 'ratePerHour') with additional pollutant-specific
+                           columns containing values of emission rates. For example, new field headings would include 'CO_INV', 'NOX', 'BENZENE_INV',
+                           etc. Performing this cross-tab on the pollutant emission rates significantly reduces the size of the tables for use by SMOKE.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Aggregate emission factors by fuel type, source type, road type, and/or process type</p>
+                        <p>To reduce the total number of sources to be processed in SMOKE, <span><strong class="command">Moves2smkEF.pl</strong></span> supports user-specified aggregations of MOVES fuel types, source types, road types, and process types to SCCs.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Apply formulas to calculate additional inventory pollutants or model species</p>
+                        <p>Formulas can be applied to augment the existing MOVES output pollutants. For example, speciated versions of criteria pollutants
+                           are not provided in the MOVES2014 output nor are speciated emission factors for brake and tire wear.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Create final emission rate lookup tables in SMOKE format</p>
+                        <p>The four postprocessed tables named rateperdistance_smoke, ratepervehicle_smoke, rateperprofile_smoke, and rateperhour_smoke
+                           are exported from MySQL into ASCII files for their use in SMOKE.
+                        </p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18293"></a>5.2.4.2.2.&nbsp;Processing Order
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p><span><strong class="command">Moves2smkEF.pl</strong></span> is run after <span><strong class="command">Runspec_generator.pl</strong></span>, and before any SMOKE processing. The <span><strong class="command">Moves2smkEF.pl</strong></span> is written in Perl, generates SMOKE-ready MOVES lookup tables (i.e., RPD, RPV, RPP, and RPH) by each representative county
+                  and fuel month for inputs to <a href="ch06s08.html" title="6.8.&nbsp;Movesmrg"><span><strong class="command">Movesmrg</strong></span></a>.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18310"></a>5.2.4.2.3.&nbsp;Files, Environment Variables and Run Syntax
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="toc">
+                  <dl>
+                     <dt><span class="section"><a href="ch05s02s04.html#d0e18313">5.2.4.2.3.1. Input Files</a></span></dt>
+                     <dt><span class="section"><a href="ch05s02s04.html#d0e18415">5.2.4.2.3.2. Run Command syntax</a></span></dt>
+                     <dt><span class="section"><a href="ch05s02s04.html#d0e18439">5.2.4.2.3.3. Output Files</a></span></dt>
+                  </dl>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e18313"></a>5.2.4.2.3.1.&nbsp;Input Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="informaltable"><a name="tbl_moves_lookup_tables"></a><table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 
+                                 <table class="simplelist" border="0" summary="Simple list">
+                                    <tr>
+                                       <td>rateperdistance</td>
+                                    </tr>
+                                    <tr>
+                                       <td>ratepervehicle</td>
+                                    </tr>
+                                    <tr>
+                                       <td>rateperprofile</td>
+                                    </tr>
+                                    <tr>
+                                       <td>rateperhour</td>
+                                    </tr>
+                                 </table>
+                                 
+                              </td>
+                              <td>MOVES format</td>
+                              <td>Columns in the MOVES Emission Rate Lookup Table are described in <a href="ch02s16s02.html#tbl_concepts_moves_lookup_tbl_mv_format" title="Table&nbsp;2.10.&nbsp;MOVES Emission Rate Lookup Table (MOVES Format)">Table&nbsp;2.10, &#8220;MOVES Emission Rate Lookup Table (MOVES Format)&#8221;</a>.
+                              </td>
+                           </tr>
+                           <tr></tr>
+                           <tr>
+                              <td><code class="envar">InputDBList</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MySQL database names to process generated by <span><strong class="command">Runspec_generator.pl</strong></span></td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">PollutantFormulasFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of formulas used to calculate additional emission factors</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">FuelTypeMappingFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MOVES fuel type IDs and corresponding aggregated fuel type ID</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">SourceTypeMappingFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MOVES source type IDs and corresponding aggregated source type ID</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">RoadTypeMappingFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MOVES road type IDs and corresponding aggregated road type ID</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">ProcessTypeMappingFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MOVES process type IDs and corresponding aggregated process type ID</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">PollutantMappingFile</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>List of MOVES pollutant IDs and corresponding pollutant name; only listed pollutants will be included in output emission factor
+                                 tables
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e18415"></a>5.2.4.2.3.2.&nbsp;Run Command syntax
+                           </h6>
+                        </div>
+                     </div>
+                  </div><pre class="programlisting">
+moves2smkEF.pl [-r RPD|RPV|RPP|RPH] [--formulas PollutantFormulasFile] [--fuel_agg FuelTypeMappingFile] [--src_agg SourceTypeMappingFile] [--road_agg RoadTypeMappingFile] [--proc_agg ProcessTypeMappingFile] InputDBList PollutantMappingFile [OutputPath]
+</pre><div class="itemizedlist">
+                     <ul type="disc">
+                        <li>
+                           RPD|RPP|RPV|RPH - optional type of emission factors to process (rate-per-distance, rate-per-vehicle, rate-per-profile, or
+                           rate-per-hour); if not specified, script will process all four types
+                           
+                        </li>
+                        <li>
+                           PollutantFormulasFile - list of formulas used to calculate additional emission factors
+                           
+                        </li>
+                        <li>
+                           FuelTypeMappingFile - list of MOVES fuel type IDs and corresponding aggregated fuel type ID
+                           
+                        </li>
+                        <li>
+                           SourceTypeMappingFile - list of MOVES source type IDs and corresponding aggregated source type ID
+                           
+                        </li>
+                        <li>
+                           RoadTypeMappingFile - list of MOVES road type IDs and corresponding aggregated road type ID
+                           
+                        </li>
+                        <li>
+                           ProcessTypeMappingFile - list of MOVES process type IDs and corresponding aggregated process type ID
+                           
+                        </li>
+                        <li>
+                           InputDBList - list of MySQL database names to process (generated by runspec_generator.pl MOVES preprocessor)
+                           
+                        </li>
+                        <li>
+                           PollutantMappingFile - list of MOVES pollutant IDs and corresponding pollutant name
+                           
+                        </li>
+                        <li>
+                           OutputPath - optional; overrides the output path specified in InputDBList
+                           
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section" lang="en">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h6 class="title"><a name="d0e18439"></a>5.2.4.2.3.3.&nbsp;Output Files
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="informaltable"><a name="tbl_smoke_lookup_tables"></a><table border="1">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Format</th>
+                              <th>Description</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td><code class="envar">rateperdistance_smoke*.csv</code></td>
+                              <td>ASCII</td>
+                              <td>RPD SMOKE formatted lookup table (fuel month specific). The format of MOVES lookup tables are described in <a href="ch02s16s02.html#tbl_concepts_moves_lookup_tbl_sm_format" title="Table&nbsp;2.11.&nbsp;MOVES Emission Rate Lookup Table (SMOKE Format)">Table&nbsp;2.11, &#8220;MOVES Emission Rate Lookup Table (SMOKE Format)&#8221;</a>.
+                              </td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">ratepervehicle_smoke*.csv</code></td>
+                              <td>ASCII</td>
+                              <td>RPV SMOKE formatted lookup table (fuel month specific)</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">rateperprofile_smoke*.csv</code></td>
+                              <td>ASCII</td>
+                              <td>RPP SMOKE formatted lookup table (fuel month specific)</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">rateperhour_smoke*.csv</code></td>
+                              <td>ASCII</td>
+                              <td>RPH SMOKE formatted lookup table (fuel month specific)</td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">mcrlist.rateperdistance*.lst</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>list of MOVES-based rateperdistance lookup tables  </td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">mcrlist.ratepervehicle*.lst</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>list of MOVES-based ratepervehicle lookup tables </td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">mcrlist.rateperprofile*.lst</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>list of MOVES-based rateperprofile lookup tables </td>
+                           </tr>
+                           <tr>
+                              <td><code class="envar">mcrlist.rateperhour*.lst</code>:
+                              </td>
+                              <td>ASCII</td>
+                              <td>list of MOVES-based rateperhour lookup tables </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="sect_moves_gen_sccxref"></a>5.2.4.3.&nbsp;<span><strong class="command">gen_8digit_scc.pl</strong></span></h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18530">5.2.4.3.1. Description</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18541">5.2.4.3.2. Processing Order</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18559">5.2.4.3.3. Files, Environment Variables and Run Syntax</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18626">5.2.4.3.4. Run Command syntax</a></span></dt>
+                  <dt><span class="section"><a href="ch05s02s04.html#d0e18644">5.2.4.3.5. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18530"></a>5.2.4.3.1.&nbsp;Description
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The <span><strong class="command">gen_8digit_scc.pl</strong></span> script generates a file mapping 8-digits SCCs to aggregated SCCs produced by <span><strong class="command">Moves2smkEF.pl</strong></span>.
+               </p>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18541"></a>5.2.4.3.2.&nbsp;Processing Order
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p>The Perl script performs the following steps:</p>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p>Connect to the first database listed in the InputDBList file</p>
+                     </li>
+                     <li>
+                        <p>Query the specified database table (rateperdistance, ratepervehicle, rateperprofile, or rateperhour) and generate a list of
+                           all SCCs in the MOVES2014 output
+                        </p>
+                     </li>
+                     <li>
+                        <p>Apply the fuel type, source type, road type, and process type mappings to generate a list of 10-digit aggregated SCCs</p>
+                     </li>
+                     <li>
+                        <p>Output the list of 10-digit aggregated SCCs with corresponding 8-digit SCC (first 8 digits of 10-digit SCC)</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18559"></a>5.2.4.3.3.&nbsp;Files, Environment Variables and Run Syntax
+                        </h5>
+                     </div>
+                     <div>
+                        <h5 class="title"><a name="d0e18559"></a>5.2.4.3.3.&nbsp;Files, Environment Variables and Run Syntax
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">FuelTypeMappingFile</code>:
+                           </td>
+                           <td>ASCII</td>
+                           <td>List of MOVES fuel type IDs and corresponding aggregated fuel type ID</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">SourceTypeMappingFile</code>:
+                           </td>
+                           <td>ASCII</td>
+                           <td>List of MOVES source type IDs and corresponding aggregated source type ID</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">RoadTypeMappingFile</code>:
+                           </td>
+                           <td>ASCII</td>
+                           <td>List of MOVES road type IDs and corresponding aggregated road type ID</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">ProcessTypeMappingFile</code>:
+                           </td>
+                           <td>ASCII</td>
+                           <td>List of MOVES process type IDs and corresponding aggregated process type ID</td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">InputDBList</code>:
+                           </td>
+                           <td>ASCII</td>
+                           <td>List of MySQL database names to process generated by <span><strong class="command">Runspec_generator.pl</strong></span>; only the first database listed will be used
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18626"></a>5.2.4.3.4.&nbsp;Run Command syntax
+                        </h5>
+                     </div>
+                  </div>
+               </div><pre class="programlisting">
+gen_8digit_scc.pl -r RPD|RPV|RPP|RPH [--fuel_agg FuelTypeMappingFile] [--src_agg SourceTypeMappingFile] [--road_agg RoadTypeMappingFile] [--proc_agg ProcessTypeMappingFile] InputDBList
+</pre><div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        RPD|RPP|RPV|RPH - emission factor table to query (rateperdistance, ratepervehicle, rateperprofile, or rateperhour)
+                        
+                     </li>
+                     <li>
+                        FuelTypeMappingFile - list of MOVES fuel type IDs and corresponding aggregated fuel type ID
+                        
+                     </li>
+                     <li>
+                        SourceTypeMappingFile - list of MOVES source type IDs and corresponding aggregated source type ID
+                        
+                     </li>
+                     <li>
+                        RoadTypeMappingFile - list of MOVES road type IDs and corresponding aggregated road type ID
+                        
+                     </li>
+                     <li>
+                        ProcessTypeMappingFile - list of MOVES process type IDs and corresponding aggregated process type ID
+                        
+                     </li>
+                     <li>
+                        InputDBList - list of MySQL database names to process (generated by runspec_generator.pl MOVES preprocessor); only first database
+                        listed will be used
+                        
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e18644"></a>5.2.4.3.5.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <p><span><strong class="command">gen_8digit_scc.pl</strong></span> outputs a list of 10-digit SCCs and corresponding 8-digit SCCs. Users should direct this output to the file of their choosing.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s02s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.2.3.&nbsp;Run MOVES Model&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.&nbsp; SMOKE Utility Programs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

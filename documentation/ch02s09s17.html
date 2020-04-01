@@ -1,0 +1,104 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.17.&nbsp;Report results of import step</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s16.html" title="2.9.16.&nbsp;Set the base year">
+      <link rel="next" href="ch02s09s18.html" title="2.9.18.&nbsp;Import day-specific and hour-specific data">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.17.&nbsp;Report results of import step</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s16.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s18.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e4578"></a>2.9.17.&nbsp;Report results of import step
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <span><strong class="command">Smkinven</strong></span> program writes several reports to help you determine what it has done.
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>A summary by CAS number of the emissions in tons/year. This includes the number of inventory records; whether all, some, or
+                     none of the pollutants associated with that CAS code are kept; and the CAS description. This report is written to a special
+                     report file (<code class="envar">REPINVEN</code>).
+                  </p>
+               </li>
+               <li>
+                  <p>A summary of emissions by CAS number and pollutant before and after the application of disaggregation factors based on the
+                     inventory table. This report shows, for instance, how chromium emissions get split out into different pollutants. The report
+                     is written to the <code class="envar">REPINVEN</code> file.
+                  </p>
+               </li>
+               <li>
+                  <p>A listing of the first 10 nonheader records in each inventory file. This information is written to the program log file.</p>
+               </li>
+               <li>
+                  <p>For area-to-point conversions (from <a href="ch02s09s08.html" title="2.9.8.&nbsp;Assign point-source locations to area sources">Section&nbsp;2.9.8, &#8220;Assign point-source locations to area sources&#8221;</a>), a list of the SCCs that were converted, and the section number of the <code class="envar">ARTOPNT</code> input file used to assign the point locations. This information is written to the program log file.
+                  </p>
+               </li>
+               <li>
+                  <p>For area-to-point conversions, a list of any SCCs included in the <code class="envar">ARTOPNT</code> input file that do not also appear in the inventory. This report is written to the <code class="envar">REPINVEN</code> file.
+                  </p>
+               </li>
+               <li>
+                  <p>For area-to-point conversions, a summary of emissions totals by SCC and pollutant before and after the factors are applied,
+                     and the total number of country/state/county codes affected. A separate summary is provided that reports emissions by state,
+                     SCC, and pollutant, but otherwise has the same information. These reports are written to the <code class="envar">REPINVEN</code> file.
+                  </p>
+               </li>
+               <li>
+                  <p>For area-to-point conversions, a summary by SCC of the number of country/state/county codes being assigned area-to-point factors,
+                     and the number not being assigned those factors. This report is written to the <code class="envar">REPINVEN</code> file.
+                  </p>
+               </li>
+               <li>
+                  <p>For import of CEM data, a summary of ORIS IDs and boiler IDs from the CEM data that have been matched to the inventory. SMOKE
+                     allows for multiple plant descriptions and country/state/county codes for a single ORIS ID that may be identical in their
+                     characteristics but different boiler IDS. They are treated as separate sources by matching boiler IDs. This report is written
+                     to the <code class="envar">REPINVEN</code> file.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>More information about these reports can be found in <a href="ch10s05.html#sect_output_repinven" title="10.5.1.&nbsp;REPINVEN">Section&nbsp;10.5.1, &#8220;<code class="envar">REPINVEN</code>&#8221;</a>.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s16.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s18.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.16.&nbsp;Set the base year&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.18.&nbsp;Import day-specific and hour-specific data</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

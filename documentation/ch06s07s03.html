@@ -1,0 +1,291 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.7.3.&nbsp;Files, Environment Variables and Run Syntax</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s07.html" title="6.7.&nbsp;Met4moves">
+      <link rel="prev" href="ch06s07s02.html" title="6.7.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s08.html" title="6.8.&nbsp;Movesmrg">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.7.3.&nbsp;Files, Environment Variables and Run Syntax</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s07s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.7.&nbsp;<span><strong class="command">Met4moves</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e25224"></a>6.7.3.&nbsp;Files, Environment Variables and Run Syntax
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s07s03.html#d0e25268">6.7.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s07s03.html#d0e25370">6.7.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s07s03.html#d0e25488">6.7.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_met4moves"></a><p class="title"><b>Figure&nbsp;6.7.&nbsp;<span>Met4moves</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\met4moves_html.jpg" alt="Met4moves input and output files"></div>
+         </div>
+         <p><a href="ch06s07s03.html#fig_programs_met4moves" title="Figure&nbsp;6.7.&nbsp;Met4moves input and output files">Figure&nbsp;6.7, &#8220;<span>Met4moves</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Met4moves</strong></span> program. The input files are the Grid Description File from MCIP(<code class="envar">GRIDDESC</code>), the Surrogate Description file (<code class="envar">SRGDESC</code>), the MCIP List of Meteorology File <a href="ch08s08.html#sect_input_metlist" title="8.8.1.&nbsp;METLIST: List of meteorology files">(<code class="envar">METLIST</code>)</a>, and the representative county cross-reference file <a href="ch08s09s02.html#sect_input_mcxref" title="8.9.2.1.3.&nbsp;MCXREF: Mobile representative county cross-reference file">(<code class="envar">MCXREF</code>)</a>.
+         </p>
+         <p><span><strong class="command">Met4moves</strong></span> outputs datasets for SMOKE that contain the daily gridded min/max temperatures and averaged RH. <span><strong class="command">Met4moves</strong></span> outputs for MOVES datasets that provide all (min/max) temperature combinations for a representative county, reflecting all
+            min/max combinations for all inventory counties in that county group.  The associated RH values are also included in these
+            datasets.  In addition, the datasets include the 24-h diurnal profiles needed for the RPP emission process, and contain user-specified
+            temperature increments for use by MOVES.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e25268"></a>6.7.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><a href="ch08s10s02.html" title="8.10.2.&nbsp;COSTCY: Country, state, and county names and data"><code class="envar">COSTCY</code></a></td>
+                        <td>ASCII</td>
+                        <td>Country, state, county codes file, with time zones</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a></td>
+                        <td>ASCII</td>
+                        <td>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored
+                           when <a href="ch08s10s03.html" title="8.10.3.&nbsp;GEOCODE_LEVEL[1-4]: Geographical Input Files"><code class="envar">GEOCODE_LEVEL[1-4]</code></a> files are used)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s04s06.html" title="8.4.6.&nbsp;GRIDDESC: Grids and projection information"><code class="envar">GRIDDESC</code></a></td>
+                        <td>ASCII</td>
+                        <td>Modeling Domain Grid Description File</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s09s02.html#sect_input_mcxref" title="8.9.2.1.3.&nbsp;MCXREF: Mobile representative county cross-reference file"><code class="envar">MCXREF</code></a></td>
+                        <td>ASCII</td>
+                        <td>Representative county cross-reference file; NOTE: The list of counties in the MCXREF file used by <span><strong class="command">Met4moves</strong></span> must match the list of inventory counties used by SMOKE
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s08.html#sect_input_metlist" title="8.8.1.&nbsp;METLIST: List of meteorology files"><code class="envar">METLIST</code></a></td>
+                        <td>ASCII</td>
+                        <td>A list of meteorology files containing temperature, mixing ratio, and surface pressure data created by <span><strong class="command">Metcombine</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s09s02.html#sect_input_mfmref" title="8.9.2.1.5.&nbsp;MFMREF: Mobile fuel month file for MOVES"><code class="envar">MFMREF</code></a></td>
+                        <td>ASCII</td>
+                        <td>Representative county fuel monthcross-reference file; NOTE: The list of counties in the MFMREF file used by <span><strong class="command">Met4moves</strong></span> must match the list of inventory counties used by SMOKE
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch08s04.html#sect_input_srgdesc" title="8.4.1.&nbsp;SRGDESC: Surrogate Designation, Description and Surrogate profile filename."><code class="envar">SRGDESC</code></a></td>
+                        <td>ASCII</td>
+                        <td>Surrogate Description File</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">Surrogate File(s)</code></td>
+                        <td>ASCII</td>
+                        <td>Surrogate file(s) selected by <code class="envar">SRG_LIST</code></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e25370"></a>6.7.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">STDATE</code>: [default: 0]
+                     </p>
+                     <p>This environment variable sets the overall episode start date: Julian format (YYYYDDD) for <span><strong class="command">Movesmrg</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">ENDDATE</code>: [default: 0]
+                     </p>
+                     <p>Sets the overall episode end date; Julian format (YYYYDDD).</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">ENDTIME</code>: [default: 230000]
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">USE_EXP_GEO_CODES</code>: [default: N]
+                     </p>
+                     <p>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1),
+                        country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PD_TEMP_INCREMENT</code>: [default: 5]
+                     </p>
+                     <p>Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PH_TEMP_INCREMENT</code>: [default: 5]
+                     </p>
+                     <p>Defines the temperature increment (in deg. F) for RPH lookup table to create combinations of min/max temperature bins</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PV_TEMP_INCREMENT</code>: [default: 5]
+                     </p>
+                     <p>Defines the temperature increment (in deg. F) for RPV lookup table to create combinations of min/max temperature bins</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">PP_TEMP_INCREMENT</code>: [default: 10]
+                     </p>
+                     <p>Defines the temperature increment (in deg. F) for RPP lookup table to create combinations of min/max temperature bins</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">MIN_NO_RH_BY_TEMPBIN</code>: [default: 1]
+                     </p>
+                     <p>Defines the minimum number of data point for computing averaged RH by tempearature bin</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SPECIFIC_HUMIDITY_YN</code>: [default: N]
+                     </p>
+                     <p>Defines whether compute specific humidity instead of relative humidity</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SRG_LIST</code>: [default: N]
+                     </p>
+                     <p>Specifies the code(s) of the spatial surrogate(s) to be used in selecting the grid cells for the county (example: setenv SRG_LIST
+                        '100,230').
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SRGPRO_PATH</code>: [default: N]
+                     </p>
+                     <p>Defines the location of spatial surrogate files.</p>
+                  </li>
+                  <li>
+                     <p><code class="envar">TEMP_BUFFER_BIN</code>: [default: 0.0]
+                     </p>
+                     <p>Defines the temperature buffer value (&deg;F). This value will allow <span><strong class="command">Met4moves</strong></span> to expand the min/max temperature range for MOVES RPP processing. If <code class="envar">TEMP_BUFFER_BIN</code> is set to 10.0, the original max temperature which is 90.0&deg;F will be treated as 100.0&deg;F, and minimum temperaure (=30&deg;F) will
+                        be treated as 20.0&deg;F internally in <span><strong class="command">Met4moves</strong></span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">TVARNAME</code>: [default: TEMP2]
+                     </p>
+                     <p>Specifies the variable name for the temperature to extract from the <span><strong class="command">Met4moves</strong></span> output file (<code class="envar">MOVES_OUTFILE</code>).
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e25488"></a>6.7.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><a href="ch09s08.html#sect_intmed_moves_output" title="9.8.1.&nbsp;MOVES_OUTFILE">MOVES_OUTFILE</a></td>
+                        <td>ASCII </td>
+                        <td>Contains the absolute minimum and maximum temperatures and average RH values and the 24 hour temperature profiles associated
+                           with each representative county (example filename: MOVES_12km_2009091-2009120.txt)
+                        </td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch09s08s02.html" title="9.8.2.&nbsp;MOVES_RH_OUTFILE">MOVES_RH_OUTFILE</a></td>
+                        <td>ASCII </td>
+                        <td>Contains the representative county-specific average RH, minimum and maximum temperature by temperature bin and fuel month.</td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td><a href="ch09s08s03.html" title="9.8.3.&nbsp;SMOKE_OUTFILE(=METMOVES)">SMOKE_OUTFILE</a></td>
+                        <td>ASCII</td>
+                        <td>Contains gridded daily min/max temperatures in local timei for RPP mode run in <span><strong class="command">Movesmrg</strong></span></td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Met4moves</strong></span></td>
+                        <td class="auto-generated">&nbsp;</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s07s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s07.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.7.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.8.&nbsp;<span><strong class="command">Movesmrg</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

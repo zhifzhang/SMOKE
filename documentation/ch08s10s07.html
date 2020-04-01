@@ -1,0 +1,256 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>8.10.7.&nbsp;NHAPEXCLUDE: NonHAP VOC calculation inclusions/exclusions file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch08s10.html" title="8.10.&nbsp;Other Support Files">
+      <link rel="prev" href="ch08s10s06.html" title="8.10.6.&nbsp;NAICSDESC: NAICS code descriptions">
+      <link rel="next" href="ch08s10s08.html" title="8.10.8.&nbsp;ORISDESC: ORIS description">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">8.10.7.&nbsp;<code class="envar">NHAPEXCLUDE</code>: NonHAP VOC calculation inclusions/exclusions file
+               </th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch08s10s06.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">8.10.&nbsp;Other Support Files</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s10s08.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_input_nhapexclude"></a>8.10.7.&nbsp;<code class="envar">NHAPEXCLUDE</code>: NonHAP VOC calculation inclusions/exclusions file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The <code class="envar">NHAPEXCLUDE</code> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. For SMOKE versions 2.6 and higher, a
+            new special header in the <code class="envar">NHAPEXCLUDE</code>  file to allow <span><strong class="command">Smkinven</strong></span> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <span><strong class="command">Smkinven</strong></span> will treat selected sources as integrated sources; <span><strong class="command">Smkinven</strong></span> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained
+            or dropped by <span><strong class="command">Smkinven</strong></span>, depending on the status of the pollutants in the <code class="envar">INVTABLE</code> file (see <a href="ch08s10s04.html" title="8.10.4.&nbsp;INVTABLE: Inventory table">Section&nbsp;8.10.4, &#8220;<code class="envar">INVTABLE</code>: Inventory table&#8221;</a>). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant
+            is only a model species but not an explicit species, it will be renamed by appending &#8220;<span class="quote">_NOI</span>&#8221; to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent
+            double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <span><strong class="command">Smkinven</strong></span> willl exclude the selected sources from the HAP-CAP integratoin approach. All other inventory sources will be used to compute
+            NONHAPVOC or NONHAPTOG.
+         </p>
+         <p>The <code class="envar">NHAPEXCLUDE</code> file is only used when <code class="envar">SMK_PROCESS_HAPS</code> is set to <code class="envar">PARTIAL</code>. If <code class="envar">SMK_PROCESS_HAPS</code> is set to <code class="envar">ALL</code> or <code class="envar">NONE</code>, the <code class="envar">NHAPEXCLUDE</code> file is not required (<a href="ch06s13s03.html#sect_programs_smkinven_envar" title="6.13.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.13.3.2, &#8220;Input Environment Variables&#8221;</a>). Once integration/non-integration processing is done, <span><strong class="command">Smkreport</strong></span> can create a report that separates integrated and non-integrated sources using the <code class="envar">BY INTEGRATE</code> instruction (<a href="ch07s03s03.html" title="7.3.3.&nbsp;Create-report Section">Section&nbsp;7.3.3, &#8220;Create-report Section&#8221;</a>).
+         </p>
+         <p>NOTE: Whenever <code class="envar">SMK_PROCESS_HAPS</code> is set to process HAPs, a new inventory pollutant, &#8220;<span class="quote">VOC_INV</span>&#8221; or &#8220;<span class="quote">TOG_INV</span>&#8221;, will be created to retain the original VOC or TOG values for the purpose of creating quality assurance reports with <span><strong class="command">Smkreport</strong></span>.
+         </p>
+         <p>The <code class="envar">NHAPEXCLUDE</code> file contains the country/state/county and SCC codes of those sources that SMOKE will include or exclude from the NONHAP
+            calculation. The file format is shown in <a href="ch08s10s07.html#tbl_input_nhapexclude" title="Table&nbsp;8.92.&nbsp;Format for NHAPEXCLUDE">Table&nbsp;8.92, &#8220;Format for <code class="envar">NHAPEXCLUDE</code>&#8221;</a>.
+         </p>
+         <div class="table"><a name="tbl_input_nhapexclude"></a><p class="title"><b>Table&nbsp;8.92.&nbsp;Format for <code class="envar">NHAPEXCLUDE</code></b></p>
+            <table summary="Format for NHAPEXCLUDE" border="1">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th>Line</th>
+                     <th>Position</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1</td>
+                     <td>A</td>
+                     <td>/INCLUDE/ or /EXCLUDE/</td>
+                  </tr>
+                  <tr>
+                     <td>2+</td>
+                     <td>A</td>
+                     <td>
+                        <p>Country/state/county code (6-digit integer in format YSSCCC where Y=country, SS=state, and CCC=county</p>
+                        
+                        <div class="itemizedlist">
+                           <ul type="disc" compact>
+                              <li>leave blank if not country/state-dependent</li>
+                              <li>set to YSS000 for country/state-dependent</li>
+                              <li>set to YSSCCC for county-dependent</li>
+                           </ul>
+                        </div>
+                        
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>B</td>
+                     <td>Source Classification Category (SCC) code (20-character maximum)</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>C</td>
+                     <td>Facility ID for FF10 Point Sources (Plant ID for ORL), (Character(15), (optional ; leave blank if entry is not plant-specific)</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>D</td>
+                     <td>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>E</td>
+                     <td>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>F</td>
+                     <td>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>G</td>
+                     <td>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (Character) (optional)</td>
+                  </tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <td>H</td>
+                     <td>Characteristic 5 (blank for  and ORL) (optional)</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p>For area/nonpoint, on-road mobile, and nonroad mobile sources, zeros can be used within the country/state/county code and
+            the SCC code to make an entry more generic. For example, a SCC-only entry would have a zero for the country/state/county code.
+            For a left-2 SCC entry, the final eight characters of the SCC would be zero. The following list illustrates entries for each
+            of the 14 possible cross-reference levels. See <a href="ch02s03s05.html" title="2.3.5.&nbsp;Source Classification Codes">Section&nbsp;2.3.5, &#8220;Source Classification Codes&#8221;</a> for more information about the different levels within an SCC.
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>
+                  <p>001001 2501080050 (select a specific county and SCC)</p>
+               </li>
+               <li>
+                  <p>001001 2501080000 (select a specific county and all SCCs that match levels 1, 2, and 3)</p>
+               </li>
+               <li>
+                  <p>001001 2501000000 (select a specific county and all SCCs that match levels 1 and 2)</p>
+               </li>
+               <li>
+                  <p>001001 2500000000 (select a specific county and all SCCs that match level 1)</p>
+               </li>
+               <li>
+                  <p>001000 2501080050 (select a whole state and SCC)</p>
+               </li>
+               <li>
+                  <p>001000 2501080000 (select a whole state and all SCCs that match levels 1, 2, and 3)</p>
+               </li>
+               <li>
+                  <p>001000 2501000000 (select a whole state and all SCCs that match levels 1 and 2)</p>
+               </li>
+               <li>
+                  <p>001000 2500000000 (select a whole state and all SCCs that match level 1)</p>
+               </li>
+               <li>
+                  <p>001001 0000000000 (select all SCCs in a specific county)</p>
+               </li>
+               <li>
+                  <p>001000 0000000000 (select all SCCs in a specific state)</p>
+               </li>
+               <li>
+                  <p>000000 2501080050 (select a specific SCC)</p>
+               </li>
+               <li>
+                  <p>000000 2501080000 (select all SCCs that match levels 1, 2, and 3)</p>
+               </li>
+               <li>
+                  <p>000000 2501000000 (select all SCCs that match levels 1 and 2)</p>
+               </li>
+               <li>
+                  <p>000000 2500000000 (select all SCCs that match level 1)</p>
+               </li>
+            </ol>
+         </div>
+         <p>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the
+            source definition.
+         </p>
+         <p>The hierarchy of cross-referencing is the following.</p>
+         <div class="orderedlist">
+            <ol type="1" compact>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, segment, and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, point ID, and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and segment</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, point ID, and stack ID</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, plant ID, and point ID</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, and plant ID</p>
+               </li>
+               <li>
+                  <p>Country/state/county code, 10-digit SCC, and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state code, 10-digit SCC, and pollutant</p>
+               </li>
+               <li>
+                  <p>10-digit SCC and pollutant</p>
+               </li>
+               <li>
+                  <p>Country/state/county code and 10-digit SCC</p>
+               </li>
+               <li>
+                  <p>Country/state code and 10-digit SCC</p>
+               </li>
+               <li>
+                  <p>10-digit SCC</p>
+               </li>
+               <li>
+                  <p>Country/state/county code</p>
+               </li>
+               <li>
+                  <p>Country/state code</p>
+               </li>
+               <li>
+                  <p>Ultimate default (all values = 0)</p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch08s10s06.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch08s10.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s10s08.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">8.10.6.&nbsp;<code class="envar">NAICSDESC</code>: NAICS code descriptions&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;8.10.8.&nbsp;<code class="envar">ORISDESC</code>: ORIS description
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

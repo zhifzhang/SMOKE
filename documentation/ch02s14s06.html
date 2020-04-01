@@ -1,0 +1,64 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.14.6.&nbsp;Creating a controlled intermediate inventory file</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s14.html" title="2.14.&nbsp;Control processing">
+      <link rel="prev" href="ch02s14s05.html" title="2.14.5.&nbsp;Using Grwinven to apply the multiplicative control matrices">
+      <link rel="next" href="ch02s14s07.html" title="2.14.7.&nbsp;Using Smkmerge to apply the multiplicative and/or reactivity control matrices">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.14.6.&nbsp;Creating a controlled intermediate inventory file</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s14s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.14.&nbsp;Control processing</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s14s07.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e6538"></a>2.14.6.&nbsp;Creating a controlled intermediate inventory file
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>After applying the control factors to the SMOKE intermediate inventory file, the <span><strong class="command">Grwinven</strong></span> program writes a new SMOKE intermediate inventory file that contains the new, controlled emissions. <span><strong class="command">Grwinven</strong></span> writes only the I/O API part of the inventory and not the ASCII part, because the ASCII part that contains the state/county
+            codes, SCCs, and other character strings does not change between the base and future or past year. All of the sources in the
+            base and controlled inventory files are the same; the difference is in their emissions values.
+         </p>
+         <p><span><strong class="command">Grwinven</strong></span> can also output the ORL inventory format (in addition to I/O API format), which is also a SMOKE input format. 
+            
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s14s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s14.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s14s07.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.14.5.&nbsp;Using <span><strong class="command">Grwinven</strong></span> to apply the multiplicative control matrices&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.14.7.&nbsp;Using <span><strong class="command">Smkmerge</strong></span> to apply the multiplicative and/or reactivity control matrices
+               </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

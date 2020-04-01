@@ -1,0 +1,72 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>3.2.6.&nbsp;Locations of reports</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch03s02.html" title="3.2.&nbsp;Directory structure">
+      <link rel="prev" href="ch03s02s05.html" title="3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases">
+      <link rel="next" href="ch03s03.html" title="3.3.&nbsp;How to change the default directory structure">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">3.2.6.&nbsp;Locations of reports</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch03s02s05.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">3.2.&nbsp;Directory structure</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s03.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_dirs_location_report_files"></a>3.2.6.&nbsp;Locations of reports
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The report output directory names follow the same paradigm as the intermediate and model-ready output directory names. &#8220;<span class="quote">Reports</span>&#8221; as defined for this directory structure are the report files output from the <span><strong class="command">Cntlmat</strong></span>, <span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Smkmerge</strong></span>, and <span><strong class="command">Smkreport</strong></span> programs. More information on these programs can be found in <a href="ch06s02.html" title="6.2.&nbsp;Cntlmat">Section&nbsp;6.2, &#8220;<span><strong class="command">Cntlmat</strong></span>&#8221;</a>, <a href="ch06s13.html" title="6.13.&nbsp;Smkinven">Section&nbsp;6.13, &#8220;<span><strong class="command">Smkinven</strong></span>&#8221;</a>, <a href="ch06s14.html" title="6.14.&nbsp;Smkmerge">Section&nbsp;6.14, &#8220;<span><strong class="command">Smkmerge</strong></span>&#8221;</a>, and <a href="ch07s02.html" title="7.2.&nbsp;Smkreport Program">Section&nbsp;7.2, &#8220;<span><strong class="command">Smkreport</strong></span> Program&#8221;</a>.
+         </p>
+         <p>As shown in <a href="ch03s02s04.html#fig_dirs_files_base" title="Figure&nbsp;3.4.&nbsp;Locations of intermediate and output files for SMOKE base case, basic configuration">Figure&nbsp;3.4, &#8220;Locations of intermediate and output files for SMOKE base case, basic configuration&#8221;</a>, the two main report directories for the basic configuration are the <code class="filename">data/reports/<code class="envar">$ESCEN</code>/scenario</code> and <code class="filename">data/reports/<code class="envar">$ESCEN</code>/static</code> directories. The former directory is for time-dependent reports, and the latter is for time-independent reports. Because
+            the <code class="envar">BSCEN</code> variable is often different from the <code class="envar">ESCEN</code> variable, a different report directory is available for the biogenic emissions: <code class="filename">data/reports/<code class="envar">$BSCEN</code>/scenario</code>, which contains the only biogenic reports available (created by the <span><strong class="command">Smkmerge</strong></span> program).
+         </p>
+         <p><a href="ch03s02s04.html#fig_dirs_files_advanced" title="Figure&nbsp;3.5.&nbsp;Locations of intermediate and output files for SMOKE base case, advanced configuration">Figure&nbsp;3.5, &#8220;Locations of intermediate and output files for SMOKE base case, advanced configuration&#8221;</a> shows the report directories for the advanced configuration. The source-category-specific variables <code class="envar">ASCEN</code>, <code class="envar">BSCEN</code>, <code class="envar">MSCEN</code>, and <code class="envar">PSCEN</code> appear here, in addition to the <code class="envar">ESCEN</code> variable. In the default setup of SMOKE, <span><strong class="command">Smkmerge</strong></span> uses separate source-category-specific directories for the reports, as defined in the <code class="filename"><code class="envar">$ASSIGNS</code>/setmerge_files.scr</code> script. For <span><strong class="command">Smkreport</strong></span>, the <code class="filename"><code class="envar">$SCRIPTS</code>/run/qa_run.csh</code> script sends the default reports to the <code class="envar">$REPSTAT</code> and <code class="envar">$REPSCEN</code> directories (which use the <code class="envar">ESCEN</code> variable in their path names). Both of these scripts are straightforward to change to accommodate user preferences.
+         </p>
+         <p><a href="ch03s02s04.html#fig_dirs_files_growth" title="Figure&nbsp;3.6.&nbsp;Locations of intermediate and output files for SMOKE future-/past-year case">Figure&nbsp;3.6, &#8220;Locations of intermediate and output files for SMOKE future-/past-year case&#8221;</a> shows the report directories for the basic configuration of future/past-year and/or control case reports. The <code class="envar">$REPSTAT</code> and <code class="envar">$REPSCEN</code> directories use the year and/or control case name (from <code class="envar">$fyr2</code> and <code class="envar">$CNTLCASE</code>) to reset the report directory names, in the same way as for the intermediate and model-ready output files.
+         </p>
+         <p>The <span><strong class="command">Smkmerge</strong></span> program has numerous logical file names that can be used as output files (too many to list here). The reports include state
+            and/or county totals for each day run by <span><strong class="command">Smkmerge</strong></span>. The form of the output logical file names is <code class="envar">REP[A|B|M|P|E]G[T][S][C][_S|_L]</code>. The A, B, M, P, or E in the file represents area, biogenic, mobile, point, or &#8220;<span class="quote">every</span>&#8221; emissions, respectively. <span><strong class="command">Smkmerge</strong></span> can optionally report temporalized emissions (T), speciated emissions (S), and/or controlled emissions (C). The _S or _L
+            suffix represents mass-based or mole-based reports, respectively (e.g., tons/day or moles/day).
+         </p>
+         <p>The <span><strong class="command">Smkreport</strong></span> program uses logical file names in the <code class="envar">REPCONFIG</code> file to determine report names. The /NEWFILE/ packet controls the logical file names, and the SMOKE script <code class="filename">qa_run.csh</code> (for default reporting) or the main run scripts control the values of these logical file names and hence the file paths.
+            There are too many types of reports that <span><strong class="command">Smkreport</strong></span> can create for us to list them all here with their appropriate files. In general, the time-independent reports go to the
+            <code class="envar">$REPSTAT</code> directory and the time-dependent reports go to the <code class="envar">$REPSCEN</code> directory.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch03s02s05.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03s03.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">3.2.5.&nbsp;Locations of model-ready output files for base and growth/control cases&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;3.3.&nbsp;How to change the default directory structure</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

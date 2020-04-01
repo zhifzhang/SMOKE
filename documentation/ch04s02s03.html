@@ -1,0 +1,94 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>4.2.3.&nbsp;Example script files and their purposes</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch04s02.html" title="4.2.&nbsp;Test case descriptions">
+      <link rel="prev" href="ch04s02s02.html" title="4.2.2.&nbsp;Script descriptions">
+      <link rel="next" href="ch04s02s04.html" title="4.2.4.&nbsp;Script settings">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">4.2.3.&nbsp;Example script files and their purposes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch04s02s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">4.2.&nbsp;Test case descriptions</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch04s02s04.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_scripts_example_scripts"></a>4.2.3.&nbsp;Example script files and their purposes
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>The following files are currently provided with the SMOKE release. There are a number of helper scripts. The only one that
+            users may want to change is the <code class="filename">qa_run.scr</code> script to add configurations for reporting. The helper scripts are:
+         </p>
+         <div class="itemizedlist">
+            <ul type="disc">
+               <li>
+                  <p><code class="filename">cntl_run.csh</code>: Runs the <span><strong class="command">Cntlmat</strong></span> and <span><strong class="command">Grwinven</strong></span> program. Sets the required <code class="envar">GCNTL</code> file name depending on script settings, as explained in <a href="ch04s04s11.html" title="4.4.11.&nbsp;Setup projection and control scenarios">Section&nbsp;4.4.11, &#8220;Setup projection and control scenarios&#8221;</a>.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">make_invdir.csh</code>: Sets the <code class="envar">INVNAME1</code> and <code class="envar">INVNAME2</code> settings that <span><strong class="command">Smkinven</strong></span> uses for creating the map-formatted inventory intermediate files.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">metcombine.csh</code>: Runs the utility program <span><strong class="command">Metcombine</strong></span> to combine the <code class="filename">METCRO2D*</code> and <code class="filename">METCRO3D*</code> files in the <code class="filename"><code class="envar">$METDAT</code></code> directory. This script creates files named <code class="filename">METCOMBO*</code> in the <code class="filename"><code class="envar">$METDAT</code></code> directory.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">movelog.csh</code>: Deletes or renames the log files, depending on the <code class="envar">AUTO_DELETE_LOG</code> setting.
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">qa_run.csh</code>: Runs the <span><strong class="command">Smkreport</strong></span> program
+                  </p>
+               </li>
+               <li>
+                  <p><code class="filename">smk_run.csh</code>: Runs the following SMOKE programs: <span><strong class="command">Smkinven</strong></span>, <span><strong class="command">Rawbio</strong></span> (for both winter and summer runs), <span><strong class="command">Normbeis3</strong></span>, <span><strong class="command">Spcmat</strong></span>, <span><strong class="command">Grdmat</strong></span>, <span><strong class="command">Metscan</strong></span>, <span><strong class="command">Temporal</strong></span>, <span><strong class="command">Tmpbio</strong></span>, <span><strong class="command">Tmpbeis3</strong></span>, <span><strong class="command">Smkmerge</strong></span>, <span><strong class="command">Mrggrid</strong></span>, and <span><strong class="command">Smk2emis</strong></span>.
+                  </p>
+                  <p>Creates <code class="envar">PTMPLIST</code> file for <span><strong class="command">Elevpoint</strong></span> by assuming all files with the name pattern <code class="filename">ptmp*<code class="envar">$PSCEN</code>*ncf</code> in the <code class="filename"><code class="envar">$SMKDAT</code>/run_<code class="envar">$PSCEN</code>/*</code> directories should be included in the file.
+                  </p>
+                  <p>Creates the <code class="envar">METLIST</code> and <code class="envar">RADLIST</code> files for <span><strong class="command">Tmpbio</strong></span> by listing <code class="envar">$MET_FILE1</code> to <code class="envar">METLIST</code> and <code class="envar">$MET_FILE2</code> to <code class="envar">RADLIST</code>. <code class="envar">MET_FILE1</code> and <code class="envar">MET_FILE2</code> are set in the Assigns file.
+                  </p>
+                  <p>Determines which speciation matrix is needed for <span><strong class="command">Smkmerge</strong></span>, based on the requested units. If the <code class="envar">MRG_GRDOUT_UNIT</code> setting contains the string &#8220;<span class="quote">mole</span>&#8221; then the molar speciation matrix and molar gridded, hourly biogenic emissions are set to be used by <span><strong class="command">Smkmerge</strong></span>.
+                  </p>
+                  <p>Creates the <code class="envar">FILELIST</code> file for <span><strong class="command">Mrggrid</strong></span> from the <code class="envar">MRGFILES</code> setting in the calling merge run script.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch04s02s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch04s02.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch04s02s04.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">4.2.2.&nbsp;Script descriptions&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;4.2.4.&nbsp;Script settings</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

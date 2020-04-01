@@ -1,0 +1,244 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>5.3.11.&nbsp;Metscan</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch05s03.html" title="5.3.&nbsp; SMOKE Utility Programs">
+      <link rel="prev" href="ch05s03s10.html" title="5.3.10.&nbsp;Metcombine">
+      <link rel="next" href="ch05s03s12.html" title="5.3.12.&nbsp;Pktreduc">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">5.3.11.&nbsp;<span><strong class="command">Metscan</strong></span></th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch05s03s10.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">5.3.&nbsp; SMOKE Utility Programs</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s03s12.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_utilities_metscan"></a>5.3.11.&nbsp;<span><strong class="command">Metscan</strong></span></h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch05s03s11.html#d0e20634">5.3.11.1. Description</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s11.html#d0e20660">5.3.11.2. Processing Order</a></span></dt>
+               <dt><span class="section"><a href="ch05s03s11.html#d0e20679">5.3.11.3. Files and Environment Variables</a></span></dt>
+            </dl>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20634"></a>5.3.11.1.&nbsp;Description
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Metscan</strong></span> reads in a single (often annual) temperature I/O API meteorology data file (created from either the <code class="envar">MET_CRO_2D</code> or <code class="envar">MET_CRO_3D</code> files) and determines the first freeze date and last freeze date of a year, by grid cell. It outputs a gridded file with
+               a daily (24-hour) time step that contains a single variable. For each grid cell, that variable has a value of 0 (zero) when
+               the date being modeled indicates that the cell is experiencing winter conditions; otherwise it has a value of 1, indicating
+               summer conditions. The program can be set to run in the Northern Hemisphere or in the Southern Hemisphere (it will not work
+               on global meteorology datasets). In the Northern Hemisphere, the first freeze date in the fall marks the start of winter,
+               and the last freeze date in the spring marks the end of winter; all other days are considered summer days. The seasons are
+               reversed in the Southern Hemisphere, and the program accommodates this accordingly.
+            </p>
+            <p>The BEIS3 model operates using the assumption of either winter or summer emission factors. There are no spring or fall factors
+               available, which is why this program is limited to the choice of summer or winter. The use of the freeze date to determine
+               summer or winter emission factors is based on EPA&#8217;s recommendation.
+            </p>
+            <p>The program reads in the name of the temperature variable as an option, so that the ground temperature, 1.5-meter temperature,
+               or 10-meter temperature can be used from the <code class="envar">MET_CRO_2D</code> file, or the layer-1 temperature can be used from the <code class="envar">MET_CRO_3D</code> file. See the <code class="envar">TMPR_VAR</code> option below for more information on the names of the temperature variables that are acceptable.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20660"></a>5.3.11.2.&nbsp;Processing Order
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <p><span><strong class="command">Metscan</strong></span> can optionally be used before <span><strong class="command">Tmpbeis3</strong></span>, which does not require the output from <span><strong class="command">Metscan</strong></span> to run. <span><strong class="command">Metscan</strong></span> is needed only when users wish to have <span><strong class="command">Tmpbeis3</strong></span> automatically switch between winter and summer emission factors by grid cell. This approach is recommended when processing
+               time periods and modeling domains include temperatures below 32 &deg;F either for a substantial number of days relative to the
+               number of episode days or at critical dates in the episode.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e20679"></a>5.3.11.3.&nbsp;Files and Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="toc">
+               <dl>
+                  <dt><span class="section"><a href="ch05s03s11.html#d0e20682">5.3.11.3.1. Input Files</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s11.html#d0e20738">5.3.11.3.2. Input Environment Variables</a></span></dt>
+                  <dt><span class="section"><a href="ch05s03s11.html#d0e20772">5.3.11.3.3. Output Files</a></span></dt>
+               </dl>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20682"></a>5.3.11.3.1.&nbsp;Input Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">MET_CRO_3D</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>
+                              <p>Meteorology file that can be a 2-D or 3-D file (though the logical file name is the same in both cases) and needs to include
+                                 all dates in the modeling period. For example, for an annual SMOKE run this file would need to have all hours of the year.
+                                 The file can be created by extracting one or more temperature variables (at a minimum, the one you intend to use) out of the
+                                 <code class="envar">MET_CRO_2D</code> or <code class="envar">MET_CRO_3D</code> files output by the MCIP or MCPL programs using the <span><strong class="command">m3xtract</strong></span> I/O API utility and appending all days of data into the same file.
+                              </p>
+                              
+                              
+                              <p>The <span><strong class="command">m3xtract</strong></span> utility documentation is provided with the I/O API, but we provide some information here. The utility expects input logical
+                                 file name <code class="envar">INFILE</code> and creates output logical file name <code class="envar">OUTFILE</code>. It prompts for the start date, start time, duration, and variables that you want to extract from the <code class="envar">INFILE</code>. If <code class="envar">OUTFILE</code> already exists, <span><strong class="command">m3xtract</strong></span> appends additional data to the file (assuming that the grid is the same and the time period is sequential).
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20738"></a>5.3.11.3.2.&nbsp;Input Environment Variables
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="itemizedlist">
+                  <ul type="disc">
+                     <li>
+                        <p><code class="envar">TMPR_VAR</code>: [default: TA]
+                        </p>
+                        <p>Sets the name of the temperature variable that will be read from the <code class="envar">MET_CRO_3D</code> input file. Acceptable values for MCIP and MPCL outputs available at the time of this writing are TA (ambient layer-1 temperature
+                           from the <code class="envar">MET_CRO_3D</code> file), TEMP10 (10-meter temperature from the <code class="envar">MET_CRO_2D</code> file), TGD (ground temperature), TGRND (ground temperature), and TEMP1P5 (1.5-meter temperature). Current guidance from EPA
+                           suggests that a 10- to 20-meter temperature is the best choice for the temperature input to BEIS3, to account for the fact
+                           that these models do not include a canopy model.
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="envar">N_S_HEMI</code>: [default: NORTH]
+                        </p>
+                        <p>Sets the program to run for the Northern or Southern Hemisphere. Acceptable values for this setting are:</p>
+                        <div class="itemizedlist">
+                           <ul type="circle">
+                              <li>
+                                 <p>NORTH: Northern Hemisphere. Program starts July 1 and scans data in reverse chronological order to find the last freeze date
+                                    and in chronological order to find the first freeze date.
+                                 </p>
+                              </li>
+                              <li>
+                                 <p>SOUTH: Southern Hemisphere. Program starts January 1 and scans data in chronological order to find the first freeze date.
+                                    It also starts December 31 and scans the data in reverse chronological order to find the last freeze date.
+                                 </p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h5 class="title"><a name="d0e20772"></a>5.3.11.3.3.&nbsp;Output Files
+                        </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="informaltable">
+                  <table border="1">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Format</th>
+                           <th>Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><code class="envar">BIOSEASON</code></td>
+                           <td>I/O API NetCDF</td>
+                           <td>For each grid cell, contains 0 for winter dates and 1 for summer (nonwinter) dates. The file&#8217;s duration will be as long as
+                              that of the input meteorology file you provide.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td><code class="envar">LOGFILE</code></td>
+                           <td>ASCII</td>
+                           <td>Log generated from executing <span><strong class="command">Metscan</strong></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch05s03s10.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch05s03.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s03s12.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">5.3.10.&nbsp;<span><strong class="command">Metcombine</strong></span>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;5.3.12.&nbsp;<span><strong class="command">Pktreduc</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

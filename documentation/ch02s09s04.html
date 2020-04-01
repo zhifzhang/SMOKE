@@ -1,0 +1,59 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>2.9.4.&nbsp;Check for duplicate records</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch02s09.html" title="2.9.&nbsp;Inventory import">
+      <link rel="prev" href="ch02s09s03.html" title="2.9.3.&nbsp;Select pollutants from the input files for further SMOKE processing">
+      <link rel="next" href="ch02s09s05.html" title="2.9.5.&nbsp;Combine toxics and criteria inventories">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">2.9.4.&nbsp;Check for duplicate records</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch02s09s03.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">2.9.&nbsp;Inventory import</th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s09s05.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="sect_concepts_check_duplicates"></a>2.9.4.&nbsp;Check for duplicate records
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <p>In <a href="ch02s09.html#sect_concepts_check_inventory" title="2.9.1.&nbsp;Check the correctness and consistency of input file formats">Section&nbsp;2.9.1, &#8220;Check the correctness and consistency of input file formats&#8221;</a>, we explained that <span><strong class="command">Smkinven</strong></span> ensures that the input files are correct and that the same format is used. In addition, <span><strong class="command">Smkinven</strong></span> checks for duplicate records across the entire set of inventory input files. A duplicate record is one that has the same
+            source characteristics (defined in <a href="ch02s08.html#sect_concepts_summary_source_processing" title="2.8.1.&nbsp;Summary of SMOKE processing categories">Section&nbsp;2.8.1, &#8220;Summary of SMOKE processing categories&#8221;</a>) and pollutants as another record in the inventory. <span><strong class="command">Smkinven</strong></span> provides an option that allows you to instruct <span><strong class="command">Smkinven</strong></span> whether duplicates should cause a warning message or an error. In some cases, you may not expect duplicates in your inventory,
+            in which case you can have <span><strong class="command">Smkinven</strong></span> abort after reporting all duplicates. In other cases, you can instruct <span><strong class="command">Smkinven</strong></span> to sum the emissions across all duplicate records. See <a href="ch06s13.html" title="6.13.&nbsp;Smkinven">Section&nbsp;6.13, &#8220;<span><strong class="command">Smkinven</strong></span>&#8221;</a> for more information on the different approaches.
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch02s09s03.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch02s09.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s09s05.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">2.9.3.&nbsp;Select pollutants from the input files for further SMOKE processing&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;2.9.5.&nbsp;Combine toxics and criteria inventories</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

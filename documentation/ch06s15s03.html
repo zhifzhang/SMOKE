@@ -1,0 +1,289 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      <title>6.15.3.&nbsp;Files and Environment Variables</title>
+      <link rel="stylesheet" href="manual.css" type="text/css">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.67.2">
+      <link rel="start" href="index.html" title="SMOKE v4.7 User&#8217;s Manual">
+      <link rel="up" href="ch06s15.html" title="6.15.&nbsp;Spcmat">
+      <link rel="prev" href="ch06s15s02.html" title="6.15.2.&nbsp;Processing Order">
+      <link rel="next" href="ch06s16.html" title="6.16.&nbsp;Temporal">
+   </head>
+   <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center">6.15.3.&nbsp;Files and Environment Variables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left"><a accesskey="p" href="ch06s15s02.html">Prev</a>&nbsp;
+               </td>
+               <th width="60%" align="center">6.15.&nbsp;<span><strong class="command">Spcmat</strong></span></th>
+               <td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06s16.html">Next</a></td>
+            </tr>
+         </table>
+         <hr>
+      </div>
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h3 class="title"><a name="d0e30998"></a>6.15.3.&nbsp;Files and Environment Variables
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="toc">
+            <dl>
+               <dt><span class="section"><a href="ch06s15s03.html#d0e31089">6.15.3.1. Input Files</a></span></dt>
+               <dt><span class="section"><a href="ch06s15s03.html#d0e31161">6.15.3.2. Input Environment Variables</a></span></dt>
+               <dt><span class="section"><a href="ch06s15s03.html#d0e31269">6.15.3.3. Output Files</a></span></dt>
+            </dl>
+         </div>
+         <div class="figure"><a name="fig_programs_spcmat"></a><p class="title"><b>Figure&nbsp;6.22.&nbsp;<span>Spcmat</span> input and output files</b></p>
+            <div class="mediaobject"><img src="images\programs\spcmat_html.jpg" alt="Spcmat input and output files"></div>
+         </div>
+         <p><a href="ch06s15s03.html#fig_programs_spcmat" title="Figure&nbsp;6.22.&nbsp;Spcmat input and output files">Figure&nbsp;6.22, &#8220;<span>Spcmat</span> input and output files&#8221;</a> shows the input and output files for the <span><strong class="command">Spcmat</strong></span> program. The input files include the inventory file output from <span><strong class="command">Smkinven</strong></span> (<code class="envar">AREA</code>, <code class="envar">MOBL</code>, or <code class="envar">PNTS</code>), the optional pollutant conversion file (<code class="envar">GSCNV</code>), the speciation profiles file (<code class="envar">GSPRO</code>), the speciation cross-reference file (<code class="envar">GSREF</code>), the combination speciation profiles file (<code class="envar">GSPRO_COMBO</code>), and the inventory data table (<code class="envar">INVTABLE</code>). For mobile sources only, <span><strong class="command">Spcmat</strong></span> uses the mobile emission processes file (<code class="envar">MEPROC</code>). More informaton of <code class="envar">GSPRO_COMBO</code> file is available at <a href="ch08s05s03.html" title="8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file ">Section&nbsp;8.5.3, &#8220;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file &#8221;</a>.
+         </p>
+         <p><span><strong class="command">Spcmat</strong></span> outputs a mole-based speciation matrix file (<code class="envar">ASMAT_L</code>, <code class="envar">MSMAT_L</code>, or <code class="envar">PSMAT_L</code>) and a mass-based speciation matrix file (<code class="envar">ASMAT_S</code>, <code class="envar">MSMAT_S</code>, or <code class="envar">PSMAT_S</code>). The program also outputs a speciation supplemental file (<code class="envar">ASSUP</code>, <code class="envar">MSSUP</code>, or <code class="envar">PSSUP</code>) and a log file (<code class="envar">LOGFILE</code>).
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e31089"></a>6.15.3.1.&nbsp;Input Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[AREA|MOBL|PNTS]</code></td>
+                        <td>SMOKE map</td>
+                        <td>Intermediate inventory file produced by <span><strong class="command">Smkinven</strong></span></td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GSCNV</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Pollutant conversion file, used only if <code class="envar">POLLUTANT_CONVERSION</code> = Y.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GSPRO</code></td>
+                        <td>ASCII</td>
+                        <td>Speciation profiles</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">GSREF</code></td>
+                        <td>ASCII</td>
+                        <td>Speciation cross-reference file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">INVTABLE</code></td>
+                        <td>ASCII</td>
+                        <td>Inventory data table listing activity and pollutant names</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">MEPROC</code> (optional)
+                        </td>
+                        <td>ASCII</td>
+                        <td>Mobile emission processes file</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e31161"></a>6.15.3.2.&nbsp;Input Environment Variables
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="itemizedlist">
+               <ul type="disc">
+                  <li>
+                     <p><code class="envar">CMB_CHKFRACS</code>: [default: Y]
+                     </p>
+                     <p>Check whether the sum of multiple speciation profile split factors is equal to 1.0 or not.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Gives an error if the sume of split factors is not 1.0</p>
+                           </li>
+                           <li>
+                              <p>N: Do not check the sume of split factors</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">FULLSCC_ONLY</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a>. In this context, this option affects cross-referencing for the speciation cross-reference files by preventing left-7 SCC
+                        assignments. The application GSCNV files are not affected by this option when using FIPS/SCC assignments, and will continue
+                        to use left-7 SCC assignments even when FULLSCC_ONLY is set to "Y".
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">NO_SPC_ZERO_EMIS</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program applies the speciation profiles to zero emission sources.</p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Skip applying speciation profile to zero emission source</p>
+                           </li>
+                           <li>
+                              <p>N: Do not skip</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">POLLUTANT_CONVERSION</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program uses the pollutant-to-pollutant conversion file (<a href="ch08s05.html#sect_input_gscnv" title="8.5.1.&nbsp;GSCNV: Pollutant-to-pollutant conversion file">Section&nbsp;8.5.1, &#8220;<code class="envar">GSCNV</code>: Pollutant-to-pollutant conversion file&#8221;</a>).
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use conversion file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use conversion file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">REPORT_DEFAULTS</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SMK_SOURCE</code>: See description in <a href="ch06s02s03.html#sect_programs_cntlmat_envar" title="6.2.3.2.&nbsp;Input Environment Variables">Section&nbsp;6.2.3.2, &#8220;Input Environment Variables&#8221;</a></p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SPCMAT_PERIOD</code>: [default:1]
+                     </p>
+                     <p>Defines period number which could be month. It must match to the period number in (<a href="ch08s05s03.html" title="8.5.3.&nbsp;GSPRO_COMBO: Combination speciation profiles file ">Section&nbsp;8.5.3, &#8220;<code class="envar">GSPRO_COMBO</code>: Combination speciation profiles file &#8221;</a>).
+                     </p>
+                  </li>
+                  <li>
+                     <p><code class="envar">SRC_TAGGING</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program uses the speciation tagging cross-reference file or not (<a href="ch08s05s05.html" title="8.5.5.&nbsp;GSTAG: Speciation tagging cross-reference file ">Section&nbsp;8.5.5, &#8220;<code class="envar">GSTAG</code>: Speciation tagging cross-reference file &#8221;</a>).
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use speciation tagging cross-reference file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use speciation tagging cross-reference file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>
+                     <p><code class="envar">DEFAULT_CONV_FAC_ERROR</code>: [default: N]
+                     </p>
+                     <p>Defines whether the program treats as an error when there is no matched VOC to TOG conversion factor available in the pollutant-to-pollutant
+                        conversion file (<a href="ch08s05.html#sect_input_gscnv" title="8.5.1.&nbsp;GSCNV: Pollutant-to-pollutant conversion file">Section&nbsp;8.5.1, &#8220;<code class="envar">GSCNV</code>: Pollutant-to-pollutant conversion file&#8221;</a>).
+                     </p>
+                     <div class="itemizedlist">
+                        <ul type="circle">
+                           <li>
+                              <p>Y: Use speciation tagging cross-reference file</p>
+                           </li>
+                           <li>
+                              <p>N: Do not use speciation tagging cross-reference file</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h4 class="title"><a name="d0e31269"></a>6.15.3.3.&nbsp;Output Files
+                     </h4>
+                  </div>
+               </div>
+            </div>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SMAT_L</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Mole-based speciation matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SMAT_S</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Mass-based speciation matrix</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">[A|M|P]SSUP</code></td>
+                        <td>I/O API NetCDF</td>
+                        <td>Speciation supplemental file</td>
+                     </tr>
+                     <tr>
+                        <td><code class="envar">LOGFILE</code></td>
+                        <td>ASCII</td>
+                        <td>Log generated from executing <span><strong class="command">Spcmat</strong></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr>
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left"><a accesskey="p" href="ch06s15s02.html">Prev</a>&nbsp;
+               </td>
+               <td width="20%" align="center"><a accesskey="u" href="ch06s15.html">Up</a></td>
+               <td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06s16.html">Next</a></td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top">6.15.2.&nbsp;Processing Order&nbsp;</td>
+               <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+               <td width="40%" align="right" valign="top">&nbsp;6.16.&nbsp;<span><strong class="command">Temporal</strong></span></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>
